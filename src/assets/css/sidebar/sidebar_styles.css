@@ -1,0 +1,17 @@
+.menu-logo {
+  margin-top: 20%;
+  margin-bottom: 15%;
+  margin-left: 12%;
+}
+.menu-item {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.btn {
+  background-color: transparent;
+  border: 0px solid;
+  color: #fff !important;
+}
+.btn:hover {
+  color: #ced925 !important;
+}

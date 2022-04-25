@@ -1,0 +1,188 @@
+import React from "react";
+// import passport from "../../assets/img/passport.svg";
+// import aadhaar from "../../assets/img/aadhaar.svg";
+// import drivinglicence from "../../assets/img/license.svg";
+import sorticon from "../../assets/img/table-arrow.svg";
+import dustbinicon from "../../assets/img/dustbin.svg";
+import { useAlert } from "react-alert";
+const UploadDocument = () => {
+    const alert = useAlert();  
+    return (
+        <>
+            <div className="row">
+                <div className="col-xl-12 col-lg-12 col-12">
+                    <h1 className="font-16 font-bold mob-mt-3">
+                        Upload Documents for KYC
+                    </h1>
+                </div>
+            </div>
+            <div className="row mt-4">
+                <div className="col-xl-4 col-lg-4 col-12 mob-mt-3">
+                    <input
+                        type="text"
+                        className="form-control mb-3"
+                        placeholder="Passport" />
+                    {/* <img
+                        src={passport}
+                        alt=""
+                        className="img-fluid upload-img" style={{width: '100%'}} /> */}
+                    <div className="input-group">
+                        <input
+                            id="file-selector"
+                            type="file"
+                            className="form-control"
+                            aria-label="Upload"
+                        />
+                    </div>
+                </div>
+                <div className="col-xl-4 col-lg-4 col-12 mob-mt-3">
+                    <input
+                        type="text"
+                        className="form-control mb-3"
+                        placeholder="Aadhaar Card / National ID" />
+                    {/* <img
+                        src={aadhaar}
+                        alt=""
+                        className="img-fluid upload-img" style={{width: '100%'}} /> */}
+                    <div className="input-group">
+                        <input
+                        id="file-selector"
+                        type="file"
+                        className="form-control"
+                        aria-label="Upload"
+                        />
+                    </div>
+                </div>
+                <div className="col-xl-4 col-lg-4 col-12 mob-mt-3">
+                    <input
+                        type="text"
+                        className="form-control mb-3"
+                        placeholder="Driving License" />
+                    <div className="input-group">
+                        <input
+                        id="file-selector"
+                        type="file"
+                        className="form-control"
+                        aria-label="Upload"
+                        />
+                    </div>
+                    {/* <img
+                        src={drivinglicence}
+                        alt=""
+                        className="img-fluid upload-img" style={{width: '100%'}} /> */}
+                </div>
+            </div>
+            <div className="row mt-4">
+                <div className="col-xl-12 col-lg-12 col-12">
+                    <button
+                    type="submit"
+                    className="btn btn-primary mob-mt-3 h45"
+                    onClick={() => {
+                        alert.error(
+                          `Upload Succesfull`
+                        );
+                
+                      }}>
+                    
+                    Upload Document
+                    </button>
+                </div>
+            </div>
+            <hr className="mt-5" />
+            <div className="row mt-5">
+                <div className="col-xl-12 col-lg-12 col-12">
+                    <h1 className="font-16 mb-4 font-bold">
+                    Documents Uploaded
+                    </h1>
+                    <div className="table-responsive">
+                    <table className="table table-striped">
+                        <thead className="bg-white">
+                        <tr>
+                            <th scope="col">
+                            Document Name
+                            <img
+                                src={sorticon}
+                                alt=""
+                                className="img-fluid"
+                            />
+                            </th>
+                            <th scope="col" className="text-center">
+                            Upload Date
+                            <img
+                                src={sorticon}
+                                alt=""
+                                className="img-fluid"
+                            />
+                            </th>
+                            <th scope="col" className="text-center">
+                            Upload Time
+                            <img
+                                src={sorticon}
+                                alt=""
+                                className="img-fluid"
+                            />
+                            </th>
+                            <th scope="col" className="text-center">
+                            Verification Status
+                            <img
+                                src={sorticon}
+                                alt=""
+                                className="img-fluid"
+                            />
+                            </th>
+                            <th scope="col" className="text-center">
+                            Action
+                            <img
+                                src={sorticon}
+                                alt=""
+                                className="img-fluid"
+                            />
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Passport</td>
+                            <td className="text-center">31-10-2021</td>
+                            <td className="text-center">10:26 pm</td>
+                            <td className="text-center">Submitted</td>
+                            <td className="text-center">
+                            <img
+                                src={dustbinicon}
+                                alt=""
+                                className="img-fluid"
+                            />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Passport</td>
+                            <td className="text-center">31-10-2021</td>
+                            <td className="text-center">10:26 pm</td>
+                            <td className="text-center text-green">
+                            Verified
+                            </td>
+                            <td className="text-center"></td>
+                        </tr>
+                        <tr>
+                            <td>Passport</td>
+                            <td className="text-center">31-10-2021</td>
+                            <td className="text-center">10:26 pm</td>
+                            <td className="text-center">Submitted</td>
+                            <td className="text-center">
+                            <img
+                                src={dustbinicon}
+                                alt=""
+                                className="img-fluid"
+                            />
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </>
+                  
+    );
+}
+export default UploadDocument;
