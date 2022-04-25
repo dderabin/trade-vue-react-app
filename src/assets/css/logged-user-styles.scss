@@ -1830,7 +1830,7 @@ img.ui.avatar.image {
 }
 
 .trade-subtitle {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   color: #2b5468;
 }
@@ -2334,6 +2334,11 @@ img.ui.avatar.image {
       display: none;
     }
   }
+}
+
+.portfolio-empty .discuss_chart img.chat_laptop {
+  // width: 497px !important;
+  height: 278px !important;
 }
 
 @media screen and (min-width: 640px) and (max-width: 1024px) {
@@ -3480,11 +3485,11 @@ textarea {
       }
       .symbol {
         font-weight: 600;
-        font-size: 34px;
+        font-size: 32px;
         margin-right: 20px;
       }
       .symbol-value {
-        font-size: 34px;
+        font-size: 32px;
         font-weight: 200 !important;
       }
       .symbol-unit,
@@ -3566,7 +3571,7 @@ textarea {
     }
     .tt-history {
       .trade-title {
-        font-size: 24px;
+        font-size: 22px;
         font-weight: 600;
         color: #2b5468;
       }
@@ -3615,7 +3620,7 @@ textarea {
       border-radius: 8px;
       position: relative;
       z-index: 3;
-      font-size: 20px;
+      font-size: 18px;
       &:active {
         color: #d6df22 !important;
       }
@@ -4423,7 +4428,7 @@ td{
   button {
     height: 50px !important;
     letter-spacing: 1px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 300;
   }
 }
@@ -4891,10 +4896,11 @@ div.modal-content {
   .live {
     .live-content {
       margin-top: 20px !important;
+      img { padding: 0 !important; margin: 9px 0 !important;}
       .brand {
         display:flex!important;
         align-items: center;
-        padding: 10px;
+        // padding: 10px;
         img {
           width: 31px;
         }
@@ -4908,13 +4914,13 @@ div.modal-content {
         margin: 0;
       }
       .crypto {
-        padding: 10px;
+        padding: 0 10px;
         align-items: center;
         img {
           width: 40px;
         }
         #ethereum{
-          height: 60px;
+          height: 50px;
         }
         div:nth-child(1) {
           display: flex;
@@ -4925,7 +4931,8 @@ div.modal-content {
             flex-direction: column;
             padding-left: 10px;
             span:nth-child(1){
-              font-size: 22px;
+              font-size: 20px;
+              margin-top: 4px;
             }
             span:nth-child(2) {
               color: #9B9B9B;
@@ -5132,13 +5139,17 @@ div.modal-content {
       justify-content: space-between;
       align-items: center;
       margin-left: 5px;
-      margin-top: 13px;
+      // margin-top: 13px;
+      img {
+        margin: 6px;
+        padding: 0;
+      }
 
       div:nth-child(1) {
         display: flex;
         flex-direction: row;
         align-items: center;
-        img { width: 40px; height: 64px; border-radius: 50%; }
+        img { width: 40px; height: 44px; border-radius: 50%; }
         span { color: #353535; font-size: 15px; padding-left: 10px;}
       }
       div:nth-child(2) {
@@ -5148,7 +5159,7 @@ div.modal-content {
     }
     .top-user-btn-section {
       align-items: center;
-      margin: 15px auto 5px auto;
+      margin: 10px auto 1px auto;
       .top-user-btn {
         background-color: #6EAE0F;
         border: none;

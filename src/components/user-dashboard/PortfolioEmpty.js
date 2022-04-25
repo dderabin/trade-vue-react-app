@@ -248,7 +248,7 @@ const PortfolioEmpty = () => {
             </div>
           </div>
           <div className="col-12 col-md-6 discuss discuss_chart">
-            <span className="discuss-title">Chat & Discuss Share Your Trading Strategies</span>
+            <span className="discuss-title">Discuss & Share Your Trading Strategies</span>
             <img src={chat_mobile} className="chat_mobile" alt="chat" />
             <img src={chat_laptop} className="chat_laptop" alt="chat" />
           </div>
