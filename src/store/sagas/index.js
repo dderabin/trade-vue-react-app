@@ -1,24 +1,23 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import Api from '..'
+import * as Api from '../api'
+import { AppActions } from '../actions'
 
-// worker Saga: will be fired on USER_FETCH_REQUESTED actions
-function* fetchUser(action) {
+function* performExchangeCU(action) {
     try {
-        const user = yield call(Api.fetchUser, action.payload.userId);
-        yield put({type: "USER_FETCH_REQUESTED", user: user});
+        console.log('saga calling')
+        const result = yield call(Api.ADD_UPDATE_EXCHANGE, action.payload)
+        yield put(AppActions.exchangeCUSuccessAction, result)
     } catch (e) {
-        yield put({type: "USER_FETCH_FAILED", message: e.message})
+        yield put(AppActions.exchangeCUFailAction, {message: e.message})
     }
 }
 
-function* performFetchUser() {
-    yield takeLatest("USER_FETCH_REQUESTED", fetchUser);
+function* exchangeCU() {
+    yield takeLatest(AppActions.exchangeCUAction.toString(), performExchangeCU)
 }
 
-function* rootSaga() {
+export default function* rootSaga() {
     yield all([
-        performFetchUser
+        exchangeCU()
     ])
 }
-
-export default rootSaga;

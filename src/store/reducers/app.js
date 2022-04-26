@@ -5,8 +5,14 @@ const defaultState = {
 }
 
 const appReducer = createReducer(defaultState, {
-    [AppActions.setLoadingAction]: (state, action) => {
+    [AppActions.apiFecthingAction]: (state, action) => {
         state.loading = true;
+    },
+    [AppActions.exchangeCUSuccessAction]: (state, action) => {
+        console.log(action)
+    },
+    [AppActions.exchangeCUFailAction]: (state, action) => {
+        console.log(action)
     }
 });
 

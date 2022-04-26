@@ -4,15 +4,18 @@ import iconShowEye from "../../assets/img/uploads/eye-show.svg";
 import infoIcon from "./../../assets/img/info.svg";
 import { Helmet } from "react-helmet";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppActions } from "../../store/actions";
 
 export const ExchangeAccountPage = () => {
   const [apiState, setApiState] = useState(true)
   const [secretState, setSecretState] = useState(true)
   const [apikey, setApiKey] = useState()
   const [secretkey, setSecretKey] = useState()
+  const dispatch = useDispatch()
 
   const updateSettings = () => {
-    
+    dispatch(AppActions.exchangeCUAction({hello: 'hello'}))
   }
 
   return (
@@ -77,10 +80,10 @@ export const ExchangeAccountPage = () => {
                       className="form-select"
                       aria-label="Default select example"
                     >
-                      <option selected="" value="binance">
+                      <option value="binance">
                         Binance
                       </option>
-                      <option selected="" value="ftx">
+                      <option value="ftx">
                         FTX
                       </option>
                     </select>
@@ -138,7 +141,7 @@ export const ExchangeAccountPage = () => {
                 <div className="row mt-4 mb-2">
                   <div className="col-xl-12 col-lg-12 col-12 account-update">
                     <button
-                      onclick={updateSettings}
+                      onClick={updateSettings}
                       className="btn btn-primary btn-50"
                     >
                       Update Account Details

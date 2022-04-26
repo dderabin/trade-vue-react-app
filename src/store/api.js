@@ -23,7 +23,7 @@ export const ADD_NEW_SIGNAL = () => {
             }
         ]
     }
-    return apiClient.put(`/api/v1/user/trade/signal`, body)
+    return apiClient.put(`/user/trade/signal`, body)
 }
 
 export const UPDATE_SIGNAL = () => {
@@ -43,7 +43,7 @@ export const UPDATE_SIGNAL = () => {
             }
         ]
     }
-    return apiClient.post(`/api/v1/user/trade/signal`, body)
+    return apiClient.post(`/user/trade/signal`, body)
 }
 
 export const SIGNUP_USER = () => {
@@ -52,7 +52,7 @@ export const SIGNUP_USER = () => {
         "email": "asdasd@dasd.con",
         "password": "asdasdasd"
     }
-    return apiClient.post(`/api/v1/user/new`, body)
+    return apiClient.post(`/user/new`, body)
 }
 
 export const LOGIN_USER = () => {
@@ -61,11 +61,11 @@ export const LOGIN_USER = () => {
         "email": "asdasd@dasd.con",
         "password": "asdasdasd"
     }
-    return apiClient.post(`/api/v1/user/login`, body);
+    return apiClient.post(`/user/login`, body);
 }
 
 export const GET_PROFILE = () => {
-    return apiClient.get(`/api/v1/user/profile`);
+    return apiClient.get(`/user/profile`);
 }
 
 export const ADD_UPDATE_EXCHANGE = () => {
@@ -75,7 +75,7 @@ export const ADD_UPDATE_EXCHANGE = () => {
         "apiKey": "asdsa",
         "apiSecret": "sad"
     }
-    return apiClient.put(`/api/v1/user/exchanges`, body)
+    return apiClient.put(`/user/exchanges`, body)
 }
 
 export const REMOVE_EXCHANGE = () => {
@@ -83,7 +83,7 @@ export const REMOVE_EXCHANGE = () => {
     const body = {
         "exchangePlatform": "testnet-binanceusdm"
     }
-    return apiClient.delete(`/api/v1/user/exchanges`, body)
+    return apiClient.delete(`/user/exchanges`, body)
 }
 
 export const ADD_USER_INFO = () => {
@@ -101,14 +101,14 @@ export const ADD_USER_INFO = () => {
         "zipCode":123465,
         "address":"adssss"
     }
-    return apiClient.put(`/api/v1/user/user-info`, body)
+    return apiClient.put(`/user/user-info`, body)
 }
 
 export const ENABLE_COPYTRADER = () => {
     // no body
     const body = {        
     }
-    return apiClient.post(`/api/v1/user/enable-copy-trader`, body)
+    return apiClient.post(`/user/enable-copy-trader`, body)
 }
 
 export const SUBSCRIBE_TO_COPYTRADER_OR_SIGNALPROVIDER = () => {
@@ -119,14 +119,14 @@ export const SUBSCRIBE_TO_COPYTRADER_OR_SIGNALPROVIDER = () => {
         "exchange": "testnet-binanceusdm",
         "capitalPercent": 10
     }
-    return apiClient.post(`/api/v1/user/subscribe`, body)
+    return apiClient.post(`/user/subscribe`, body)
 }
 
 export const ENABLE_SIGNALPROVIDER = () => {
     // no body
     const body = {        
     }
-    return apiClient.post(`/api/v1/user/enable-signal-provider`, body)
+    return apiClient.post(`/user/enable-signal-provider`, body)
 }
 
 export const UPLOAD_DOCUMENTS = () => {
@@ -137,7 +137,7 @@ export const UPLOAD_DOCUMENTS = () => {
         "nationalId": file1,
         "drivingLicense": file2,
     }
-    return apiClient.put(`/api/v1/user/upload-documents`, body)
+    return apiClient.put(`/user/upload-documents`, body)
 }
 
 export const DELETE_DOCUMENT = () => {
@@ -145,7 +145,7 @@ export const DELETE_DOCUMENT = () => {
     const body = {
         "documentType": "drivingLisence"
     }
-    return apiClient.delete(`/api/v1/user/upload-documents`, body)
+    return apiClient.delete(`/user/upload-documents`, body)
 }
 
 export const CONFIGURE_SUBSCRIPTION_STATUS = () => {
@@ -156,7 +156,7 @@ export const CONFIGURE_SUBSCRIPTION_STATUS = () => {
         "exchange": "testnet-binanceusdm",
         "capitalPercent": 10
     }
-    return apiClient.post(`/api/v1/user/configure-subscription`, body)
+    return apiClient.post(`/user/configure-subscription`, body)
 }
 
 export const NEW_FAQ = () => {
@@ -166,7 +166,7 @@ export const NEW_FAQ = () => {
         "title": "Question 1",
         "answer": "answer to Question 1"
     }
-    return apiClient.put(`/api/v1/user/faq`, body)
+    return apiClient.put(`/user/faq`, body)
 }
 
 export const UPDATE_FAQ = () => {
@@ -177,7 +177,7 @@ export const UPDATE_FAQ = () => {
         "answer": "answer to Question 4",
         "faqId": "6228ce89d4ae0e26f138bbcc"
     }
-    return apiClient.post(`/api/v1/user/faq`, body)
+    return apiClient.post(`/user/faq`, body)
 }
 
 export const DELETE_FAQ = () => {
@@ -186,7 +186,7 @@ export const DELETE_FAQ = () => {
         "type": "copyTrader",
         "faqId": "6228ce89d4ae0e26f138bbcc"
     }
-    return apiClient.delete(`/api/v1/user/faq`, body)
+    return apiClient.delete(`/user/faq`, body)
 }
 
 export const REFRESH_TOKEN = () => {
@@ -194,11 +194,11 @@ export const REFRESH_TOKEN = () => {
     const body = {
         "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjVkMjY0ZGUzNmQ2ZmEyY2M5MDRlNWMiLCJpYXQiOjE2NTAyNzE4MjF9.7oa1IXb2WEZCgmyADF2DKCweYFvgTkSwEezR0rAtm2A"
     }
-    return apiClient.post(`/api/v1/user/refresh-token`, body)
+    return apiClient.post(`/user/refresh-token`, body)
 }
 
 export const GET_EXCHANGE_LIST = () => {
-    return apiClient.get(`/api/v1/exchanges/list`)
+    return apiClient.get(`/exchanges/list`)
 }
 
 export const GET_COPYTRADERS = () => {
@@ -206,7 +206,7 @@ export const GET_COPYTRADERS = () => {
     const pagination = 5
     const orderBy = "lname"
     const type = "highToLow"
-    return apiClient.get(`/api/v1/users/copy-traders?page=${page}&pagination=${pagination}&orderBy=${orderBy}&type=${type}`)
+    return apiClient.get(`/users/copy-traders?page=${page}&pagination=${pagination}&orderBy=${orderBy}&type=${type}`)
 }
 
 export const GET_SIGNALPROVIDERS = () => {
@@ -214,7 +214,7 @@ export const GET_SIGNALPROVIDERS = () => {
     const pagination = 5
     const orderBy = "lname"
     const type = "highToLow"
-    return apiClient.get(`/api/v1/users/signal-providers?page=${page}&pagination=${pagination}&orderBy=${orderBy}&type=${type}`)
+    return apiClient.get(`/users/signal-providers?page=${page}&pagination=${pagination}&orderBy=${orderBy}&type=${type}`)
 }
 
 export const TEST_SERVER = () => {
