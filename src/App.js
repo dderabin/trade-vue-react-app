@@ -1,4 +1,6 @@
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import Login from "../src/pages/login";
 import {PagesLayout} from "./components/layouts/PagesLayout";
@@ -46,8 +48,6 @@ import ViewSubscribersPage from "./pages/copy-trading/view-suscribers";
 import { Provider } from "react-redux";
 import store from './store';
 // require('react-date-picker/dist/DatePicker.css');
-import "./index.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 const options = {
   timeout: 5000,

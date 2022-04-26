@@ -38,7 +38,7 @@ const SelectCountry = ({list, onSelected}) => {
               &nbsp;{selected.name}
             </span>
           ):(
-            <span style={{color: 'lightgrey', fontWeight: '100'}}>Select Country of Residence</span>
+            <span style={{color: 'lightgrey', fontWeight: '300'}}>Select Country of Residence</span>
           )
         }
       </div>

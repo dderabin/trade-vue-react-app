@@ -36,7 +36,7 @@ export const ViewCopyTraderListPage = () => {
         <title>View Copy Traders · Traderpro</title>
       </Helmet>
       <div className="container-fluid p-0">
-        <div className="card mb-0 d-xl-block d-none cHeader">
+        <div className="card mb-0 d-xl-block cHeader">
           <div className="card-header">
             <span>View Top Traders</span>
           </div>
@@ -147,14 +147,14 @@ export const ViewCopyTraderListPage = () => {
                           className="img-fluid ps-1"
                         /> */}
                       </th>
-                       <th scope="col" className="text-center">
-                        Configure
-                        {/* <img
-                          src={arrowicon}
-                          alt=""
-                          className="img-fluid ps-1"
-                        /> */}
-                      </th> 
+                      <th scope="col" className="text-center">
+                      Configure
+                      {/* <img
+                        src={arrowicon}
+                        alt=""
+                        className="img-fluid ps-1"
+                      /> */}
+                    </th> 
                     </tr>
                   </thead>
                   <tbody id="myTabledata">
