@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppActions } from "../../store/actions";
+import { useExchanges } from "../../hooks";
 
 export const ExchangeAccountPage = () => {
   const [apiState, setApiState] = useState(true)
@@ -13,6 +14,7 @@ export const ExchangeAccountPage = () => {
   const [apikey, setApiKey] = useState()
   const [secretkey, setSecretKey] = useState()
   const dispatch = useDispatch()
+  const { exchanges } = useExchanges()
 
   const updateSettings = () => {
     dispatch(AppActions.exchangeCUAction({hello: 'hello'}))

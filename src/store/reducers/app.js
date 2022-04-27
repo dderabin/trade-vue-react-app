@@ -1,7 +1,8 @@
 import { createReducer } from "@reduxjs/toolkit"
 import { AppActions } from "../actions";
 const defaultState = {
-    loading: false
+    loading: false,
+    exchanges: []
 }
 
 const appReducer = createReducer(defaultState, {
@@ -12,6 +13,12 @@ const appReducer = createReducer(defaultState, {
         console.log(action)
     },
     [AppActions.exchangeCUFailAction]: (state, action) => {
+        console.log(action)
+    },
+    [AppActions.exchangeFetchSuccessAction]: (state, action) => {
+        console.log(action)
+    },
+    [AppActions.exchangeFetchFailAction]: (state, action) => {
         console.log(action)
     }
 });
