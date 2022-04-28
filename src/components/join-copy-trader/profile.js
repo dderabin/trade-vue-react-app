@@ -9,8 +9,22 @@ import SelectCountry from '../SelectCountry'
 const TraderProfile = () => {
   const [dateValue, onDateChange] = useState(new Date());
   const [userInfo, setUserInfo] = useState({
-    firstname: '', middlename: '', lastname: '', gender: '',
-    countryid: '', countryname: '', state: '', city: ''
+    username: '',
+    email: '',
+    firstname: '',
+    middlename: '',
+    lastname: '',
+    gender: '',
+    state: '',
+    city: '',
+    zipcode: '',
+    address: '',
+    subscriptionprice: '',
+    telegramname: '',
+    telegramid: '',
+    telegramlink: '',
+    details: '',
+    strategy: '',
   })
   const [countryList, setCountryList] = useState([])
   const [stateList, setStateList] = useState([])
@@ -24,12 +38,11 @@ const TraderProfile = () => {
     console.log("useInfo: ", userInfo);
   }, [userInfo])
 
-  const handleChangeInfo = (e) => {
-    let value = e.target.value
-    let name = e.target.name
-    var letterNumber = /^[a-zA-Z]+$/;
-
-    console.log("evetn dataa: ", e)
+  const handleChangeInfo = (event) => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    const letterNumber = /^[a-zA-Z]+$/;
 
     if (name === 'firstname' || name === 'middlename' || name === 'lastname') {
       if(!value.match(letterNumber) && value !== '') {
@@ -46,6 +59,17 @@ const TraderProfile = () => {
     setUserInfo({...userInfo, countryid: value, countryname: name})
   }
 
+  const copyTraderClk = (event) => {
+    console.log(userInfo);
+    
+    if (false) {
+      alert.error(
+        `Welcome Name. You are now proud Copy Trader of Traderpro Comunity`
+      );
+    }
+    event.preventDefault()
+  }
+
   useEffect(() => {
     setStateList(State.getStatesOfCountry(userInfo.countryid))
   }, [userInfo.countryid])
@@ -56,7 +80,7 @@ const TraderProfile = () => {
       <div className="col-xl-12">
         <form
           encType="multipart/form-data"
-          // onSubmit="copyTraderClk(event)"
+          onSubmit={copyTraderClk}
         >
           <div className="row">
             <div className="col-xl-3 col-lg-3 col-12">
@@ -77,6 +101,9 @@ const TraderProfile = () => {
                 type="text"
                 className="form-control"
                 placeholder="Enter username"
+                value={userInfo.username}
+                onChange={handleChangeInfo}
+                required
               />
             </div>
             <div className="col-xl-3 col-lg-3 col-12">
@@ -86,6 +113,9 @@ const TraderProfile = () => {
                 type="email"
                 className="form-control"
                 placeholder="Enter Email Address"
+                value={userInfo.email}
+                onChange={handleChangeInfo}
+                required
               />
             </div>
           </div>
@@ -122,6 +152,7 @@ const TraderProfile = () => {
                 placeholder="Last Name"
                 value={userInfo.lastname}
                 onChange={handleChangeInfo}
+                required
               />
             </div>
             <div className="col-xl-3 col-lg-3 col-12">
@@ -170,21 +201,14 @@ const TraderProfile = () => {
             </div>
             <div className="col-xl-3 col-lg-3 col-12">
               <label className="form-label">City *</label>
-              {/* <Input id="citySelect" name="city" type="select" onChange={handleChangeInfo}>
-                {cityList.length > 0 ? cityList.map(item =>
-                    <option value={item.isoCode}>{item.name}</option>
-                  ):(
-                    <option value="">None</option>
-                  )
-                }
-              </Input> */}
               <input
                 name="city"
                 type="text"
                 className="form-control"
                 placeholder="Enter City"
-                // value={userInfo.middlename}
-                // onChange={handleChangeInfo}
+                value={userInfo.city}
+                onChange={handleChangeInfo}
+                required
               />
             </div>
           </div>
@@ -194,8 +218,12 @@ const TraderProfile = () => {
               <input
                 name="zipcode"
                 type="text"
+                pattern="[0-9]{5}"
                 className="form-control"
                 placeholder="Zip Code"
+                value={userInfo.zipcode}
+                onChange={handleChangeInfo}
+                required
               />
             </div>
             <div className="col-xl-6 col-lg-4 col-12">
@@ -205,6 +233,9 @@ const TraderProfile = () => {
                 type="text"
                 className="form-control"
                 placeholder="Address"
+                value={userInfo.address}
+                onChange={handleChangeInfo}
+                required
               />
             </div>
             <div className="col-xl-3 col-lg-4 col-12">
@@ -214,6 +245,8 @@ const TraderProfile = () => {
                 type="text"
                 className="form-control"
                 placeholder="free"
+                value={userInfo.subscriptionprice}
+                onChange={handleChangeInfo}
                 disabled=""
               />
             </div>
@@ -227,6 +260,8 @@ const TraderProfile = () => {
                 className="form-control"
                 placeholder="Enter Channel Name"
                 pattern="[A-Za-z]{1,15}"
+                value={userInfo.telegramname}
+                onChange={handleChangeInfo}
               />
             </div>
             <div className="col-xl-3 col-lg-3 col-12">
@@ -236,6 +271,8 @@ const TraderProfile = () => {
                 type="text"
                 className="form-control"
                 placeholder="Enter Channel ID"
+                value={userInfo.telegramid}
+                onChange={handleChangeInfo}
               />
             </div>
          
@@ -246,6 +283,8 @@ const TraderProfile = () => {
                 type="text"
                 className="form-control"
                 placeholder="Enter Joining Link"
+                value={userInfo.telegramlink}
+                onChange={handleChangeInfo}
               />
             </div>
           </div>
@@ -257,6 +296,8 @@ const TraderProfile = () => {
                 className="form-control"
                 rows="5"
                 placeholder="Write your details"
+                value={userInfo.details}
+                onChange={handleChangeInfo}
               ></textarea>
             </div>
             <div className="col-xl-6 col-lg-6 col-12">
@@ -266,22 +307,16 @@ const TraderProfile = () => {
                 className="form-control"
                 rows="5"
                 placeholder="Write your strategy"
+                value={userInfo.strategy}
+                onChange={handleChangeInfo}
               ></textarea>
             </div>
           </div>
           <div className="row mt-4">
             <div className="col-xl-12 col-lg-12 col-12">
-            <Link  to="/copy-trading/view-copy-trader-list">
-              <button type="submit" className="btn btn-primary mob-mt-3 h45 "
-               onClick={() => {
-                alert.error(
-                  `Welcome Name. You are now proud Copy Trader of Traderpro Comunity`
-                );
-        
-              }}>
+              <button type="submit" className="btn btn-primary mob-mt-3 h45 ">
                 Join as a Copy Trader
               </button>
-              </Link>
             </div>
           </div>
         </form>

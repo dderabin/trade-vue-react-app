@@ -1,12 +1,13 @@
 import googleplus from "../assets/uploads/google-plus.svg";
 import apple from "../assets/uploads/apple.svg";
 import { Logo } from "../components/Logo";
-import { Link, Routes, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 import { Helmet } from "react-helmet";
-import AuthService from '../services/auth.service';
+import { useAuth } from "../hooks";
 
 const Login = (props) => {
+  const { login } = useAuth();
   const [currentFormType, setCurrentFormType] = useState("login");
   const [loginForm, setLoginForm] = useState({
     email: "", password: "", remember: false
@@ -14,47 +15,30 @@ const Login = (props) => {
   const [regForm, setRegForm] = useState({
     email: "", username: "", password:"", confirmPassword: "", firstname: "", lastName: "", agree: false
   })
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log("reg data changed: ", loginForm);
-  }, [loginForm]);
-
   
-  const handleLogin = (event) => {
-    navigate('/favourites');
-
-    let { email, password } = loginForm
-    // AuthService.login(email, password)
-    //   .then(({ status, data}) => {
-    //     if (status !== 200)
-    //       throw new Error("Error! Todo not saved")
-    //       console.log("status: ", data);
-    //       localStorage.setItem("trade-token", data.token)
-    //       localStorage.setItem("trade-refresh", data.refreshToken)
-    //       navigate('/favourites')
-    //     })
-    //     .catch(err => console.log(err))
-
+  const loginClick = (event) => {
+    const { email, password } = loginForm
+    login(email, password);
     event.preventDefault();
   }
+
   const handleChangeLogin = (e) => {
     setLoginForm({...loginForm, [e.target.name]: e.target.value})
   }
 
   const handleSignup = (e) => {
     let { email, username, password } = regForm;
-    AuthService.register(username, email, password)
-      .then(({ status, data}) => {
-        if (status !== 200)
-          throw new Error("Error! Todo not saved")
-          // setTodos(data.todos)
-          console.log("status: ", data);
-        localStorage.setItem("trade-token", data.token)
-        localStorage.setItem("trade-refresh", data.refreshToken)
-        navigate('/favourites')
-      })
-      .catch(err => console.log(err))
+    // AuthService.register(username, email, password)
+    //   .then(({ status, data}) => {
+    //     if (status !== 200)
+    //       throw new Error("Error! Todo not saved")
+    //       // setTodos(data.todos)
+    //       console.log("status: ", data);
+    //     localStorage.setItem("trade-token", data.token)
+    //     localStorage.setItem("trade-refresh", data.refreshToken)
+    //     navigate('/favourites')
+    //   })
+    //   .catch(err => console.log(err))
 
     e.preventDefault();
   }
@@ -82,13 +66,13 @@ const Login = (props) => {
           >
             <div className="card-body">
               {currentFormType === "login" ? (
-                <>
+                <form onSubmit={loginClick}>
                   <div className="row">
                     <div className="col-xl-12 col-lg-12 col-12">
                       <h1 className="auth-title">Login</h1>
                     </div>
                   </div>
-                  <form>
+                  <div>
                     <div className="row">
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div>
@@ -100,6 +84,7 @@ const Login = (props) => {
                             placeholder="Enter email address"
                             value={loginForm.email}
                             onChange={(e) => handleChangeLogin(e)}
+                            required
                           />
                         </div>
                       </div>
@@ -115,6 +100,8 @@ const Login = (props) => {
                             placeholder="Enter password"
                             value={loginForm.password}
                             onChange={(e) => handleChangeLogin(e)}
+                            autoComplete="on"
+                            required
                           />
                         </div>
                       </div>
@@ -151,9 +138,7 @@ const Login = (props) => {
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div className="d-grid gap-2">
                           <button
-                            to="/favourites"
                             className="btn btn-primary btn-green font-18"
-                            onClick={(e) => handleLogin(e)}
                           >
                             Login
                           </button>
@@ -205,8 +190,8 @@ const Login = (props) => {
                         </button>
                       </p>
                     </div>
-                  </form>
-                </>
+                  </div>
+                </form>
               ) : currentFormType === "forgot-password" ? (
                 <>
                   <Helmet>

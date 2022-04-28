@@ -11,8 +11,10 @@ import avatar_5 from "./../assets/img/avatars/avatar-5.jpg";
 import { useEffect, useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../hooks";
 
 export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) => {
+  const { logout } = useAuth();
   const location = useLocation();
   const [notificationShow, setNotificationShow] = useState(false);
   const [inboxShow, setInboxShow] = useState(false);
@@ -24,7 +26,7 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
     if(width < 780 && location.hash == '') {
       onOutsideSidebarClickHandler()
     }
-    console.log(location);
+    // console.log(location);
   }, [location])
 
   window.addEventListener('resize', function(){
@@ -32,10 +34,13 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
     if(width < 780) {
       onOutsideSidebarClickHandler()
     }
-    console.log("resize console.log!", width)
+    // console.log("resize console.log!", width)
   })
 
-  useEffect(() => {console.log("hello header, are you there?")}, [])
+  useEffect(() => {
+    // console.log("hello header, are you there?")
+  }, [])
+
   return (
     <>
       <nav className="navbar navbar-expand navbar-light navbar-bg justify-content-between">
@@ -358,6 +363,7 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
                     </svg>
                     Profile
                   </Link>
+                  <div className="dropdown-divider"></div>
                   <Link className="dropdown-item" to="/profile/change-password" onClick={() => setProfileOptionsShow(!profileOptionsShow)}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -403,7 +409,7 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
                     Authentication
                   </Link>
                   <div className="dropdown-divider"></div>
-                  <a href="/" className="dropdown-item" onClick={() => setProfileOptionsShow(!profileOptionsShow)}>
+                  <a href="#" className="dropdown-item" onClick={logout}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"

@@ -160,14 +160,14 @@ export const FavouritesPages = () => {
                           className="img-fluid ps-1"
                         />
                       </th>
-                      {/* <th scope="col" className="text-center">
-                        Configure
+                      <th scope="col" className="text-center">
+                        {/* Configure
                         <img
                           src={arrowicon}
                           alt=""
                           className="img-fluid ps-1"
-                        />
-                      </th> */}
+                        /> */}
+                      </th>
                     </tr>
                   </thead>
                   <tbody id="myTabledata">

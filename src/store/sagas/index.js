@@ -1,13 +1,13 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import * as Api from '../api'
 import { AppActions } from '../actions'
+import * as Api from '../api'
 
 function* performFetchExchanges(action) {
     try {
         const response = yield call(Api.GET_EXCHANGE_LIST, action.payload)
-        yield put(AppActions.exchangeFetchSuccessAction, response)
+        yield put(AppActions.exchangeFetchSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.exchangeFetchFailAction, {message: e.message})
+        yield put(AppActions.exchangeFetchFailAction(e.message))
     }
 }
 
@@ -18,9 +18,9 @@ function* fetchExchangesSaga() {
 function* performSignUp(action) {
     try {
         const response = yield call(Api.SIGNUP_USER, action.payload)
-        yield put(AppActions.userSignUpSuccessAction, response)
+        yield put(AppActions.userSignUpSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.userSignUpFailAction, {message: e.message})
+        yield put(AppActions.userSignUpFailAction(e.message))
     }
 }
 
@@ -31,9 +31,9 @@ function* signUpSaga() {
 function* performLogIn(action) {
     try {
         const response = yield call(Api.LOGIN_USER, action.payload)
-        yield put(AppActions.userLogInSuccessAction, response)
+        yield put(AppActions.userLogInSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.userLogInFailAction, {message: e.message})
+        yield put(AppActions.userLogInFailAction(e.message))
     }
 }
 
@@ -44,9 +44,9 @@ function* logInSaga() {
 function* performAddSignal(action) {
     try {
         const response = yield call(Api.ADD_NEW_SIGNAL, action.payload)
-        yield put(AppActions.signalAddSuccessAction, response)
+        yield put(AppActions.signalAddSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.signalAddFailAction, {message: e.message})
+        yield put(AppActions.signalAddFailAction(e.message))
     }
 }
 
@@ -57,9 +57,9 @@ function* addSignalSaga() {
 function* performUpdateSignal(action) {
     try {
         const response = yield call(Api.UPDATE_SIGNAL, action.payload)
-        yield put(AppActions.signalUpdateSuccessAction, response)
+        yield put(AppActions.signalUpdateSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.signalUpdateFailAction, {message: e.message})
+        yield put(AppActions.signalUpdateFailAction(e.message))
     }
 }
 
@@ -70,9 +70,9 @@ function* updateSignalSaga() {
 function* performFetchProfile(action) {
     try {
         const response = yield call(Api.GET_PROFILE, action.payload)
-        yield put(AppActions.userProfileFetchSuccessAction, response)
+        yield put(AppActions.userProfileFetchSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.userProfileFetchFailAction, {message: e.message})
+        yield put(AppActions.userProfileFetchFailAction(e.message))
     }
 }
 
@@ -83,9 +83,9 @@ function* fetchProfileSaga() {
 function* performExchangeCU(action) {
     try {
         const response = yield call(Api.ADD_UPDATE_EXCHANGE, action.payload)
-        yield put(AppActions.exchangeCUSuccessAction, response)
+        yield put(AppActions.exchangeCUSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.exchangeCUFailAction, {message: e.message})
+        yield put(AppActions.exchangeCUFailAction(e.message))
     }
 }
 
@@ -96,9 +96,9 @@ function* exchangeCUSaga() {
 function* performRemoveExchange(action) {
     try {
         const response = yield call(Api.REMOVE_EXCHANGE, action.payload)
-        yield put(AppActions.exchangeDeleteSuccessAction, response)
+        yield put(AppActions.exchangeDeleteSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.exchangeDeleteFailAction, {message: e.message})
+        yield put(AppActions.exchangeDeleteFailAction(e.message))
     }
 }
 
@@ -109,9 +109,9 @@ function* removeExchangeSaga() {
 function* performUpdateUserInfo(action) {
     try {
         const response = yield call(Api.ADD_USER_INFO, action.payload)
-        yield put(AppActions.userInfoUpdateSuccessAction, response)
+        yield put(AppActions.userInfoUpdateSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.userInfoUpdateFailAction, {message: e.message})
+        yield put(AppActions.userInfoUpdateFailAction(e.message))
     }
 }
 
@@ -122,9 +122,9 @@ function* updateUserInfoSaga() {
 function* performEnableCopyTrader(action) {
     try {
         const response = yield call(Api.ENABLE_COPYTRADER, action.payload)
-        yield put(AppActions.userEnableCopyTraderSuccessAction, response)
+        yield put(AppActions.userEnableCopyTraderSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.userEnableCopyTraderFailAction, {message: e.message})
+        yield put(AppActions.userEnableCopyTraderFailAction(e.message))
     }
 }
 
@@ -135,9 +135,9 @@ function* enableCopyTraderSaga() {
 function* performSubscribe(action) {
     try {
         const response = yield call(Api.SUBSCRIBE_TO_COPYTRADER_OR_SIGNALPROVIDER, action.payload)
-        yield put(AppActions.userSubscribeSuccessAction, response)
+        yield put(AppActions.userSubscribeSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.userSubscribeFailAction, {message: e.message})
+        yield put(AppActions.userSubscribeFailAction(e.message))
     }
 }
 
@@ -148,9 +148,9 @@ function* subscribeSaga() {
 function* performEnableSignalProvider(action) {
     try {
         const response = yield call(Api.ENABLE_SIGNALPROVIDER, action.payload)
-        yield put(AppActions.userEnableSignalProviderSuccessAction, response)
+        yield put(AppActions.userEnableSignalProviderSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.userEnableSignalProviderFailAction, {message: e.message})
+        yield put(AppActions.userEnableSignalProviderFailAction(e.message))
     }
 }
 
@@ -161,9 +161,9 @@ function* enableSignalProviderSaga() {
 function* performUploadDocuments(action) {
     try {
         const response = yield call(Api.UPLOAD_DOCUMENTS, action.payload)
-        yield put(AppActions.userUploadDocumentsSuccessAction, response)
+        yield put(AppActions.userUploadDocumentsSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.userUploadDocumentsFailAction, {message: e.message})
+        yield put(AppActions.userUploadDocumentsFailAction(e.message))
     }
 }
 
@@ -174,9 +174,9 @@ function* uploadDocumentsSaga() {
 function* performDeleteDocument(action) {
     try {
         const response = yield call(Api.DELETE_DOCUMENT, action.payload)
-        yield put(AppActions.deleteDocumentSuccessAction, response)
+        yield put(AppActions.deleteDocumentSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.deleteDocumentFailAction, {message: e.message})
+        yield put(AppActions.deleteDocumentFailAction(e.message))
     }
 }
 
@@ -187,9 +187,9 @@ function* deleteDocumentSaga() {
 function* performConfigureSubscribe(action) {
     try {
         const response = yield call(Api.CONFIGURE_SUBSCRIPTION_STATUS, action.payload)
-        yield put(AppActions.configureSubscriptionSuccessAction, response)
+        yield put(AppActions.configureSubscriptionSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.configureSubscriptionFailAction, {message: e.message})
+        yield put(AppActions.configureSubscriptionFailAction(e.message))
     }
 }
 
@@ -200,9 +200,9 @@ function* configureSubscribeSaga() {
 function* performNewFAQ(action) {
     try {
         const response = yield call(Api.NEW_FAQ, action.payload)
-        yield put(AppActions.addFAQSuccessAction, response)
+        yield put(AppActions.addFAQSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.addFAQFailAction, {message: e.message})
+        yield put(AppActions.addFAQFailAction(e.message))
     }
 }
 
@@ -213,9 +213,9 @@ function* newFAQSaga() {
 function* performUpdateFAQ(action) {
     try {
         const response = yield call(Api.UPDATE_FAQ, action.payload)
-        yield put(AppActions.updateFAQSuccessAction, response)
+        yield put(AppActions.updateFAQSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.updateFAQFailAction, {message: e.message})
+        yield put(AppActions.updateFAQFailAction(e.message))
     }
 }
 
@@ -226,9 +226,9 @@ function* updateFAQSaga() {
 function* performDeleteFAQ(action) {
     try {
         const response = yield call(Api.DELETE_FAQ, action.payload)
-        yield put(AppActions.deleteFAQSuccessAction, response)
+        yield put(AppActions.deleteFAQSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.deleteFAQFailAction, {message: e.message})
+        yield put(AppActions.deleteFAQFailAction(e.message))
     }
 }
 
@@ -239,9 +239,9 @@ function* deleteFAQSaga() {
 function* performRefreshToken(action) {
     try {
         const response = yield call(Api.REFRESH_TOKEN, action.payload)
-        yield put(AppActions.refreshTokenSuccessAction, response)
+        yield put(AppActions.refreshTokenSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.refreshTokenFailAction, {message: e.message})
+        yield put(AppActions.refreshTokenFailAction(e.message))
     }
 }
 
@@ -252,9 +252,9 @@ function* refreshTokenSaga() {
 function* performFetchCopyTraders(action) {
     try {
         const response = yield call(Api.GET_COPYTRADERS, action.payload)
-        yield put(AppActions.copytradersFetchSuccessAction, response)
+        yield put(AppActions.copytradersFetchSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.copytradersFetchFailAction, {message: e.message})
+        yield put(AppActions.copytradersFetchFailAction(e.message))
     }
 }
 
@@ -265,9 +265,9 @@ function* fetchCopyTradersSaga() {
 function* performFetchSignalProviders(action) {
     try {
         const response = yield call(Api.GET_SIGNALPROVIDERS, action.payload)
-        yield put(AppActions.signalProvidersFetchSuccessAction, response)
+        yield put(AppActions.signalProvidersFetchSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.signalProvidersFetchFailAction, {message: e.message})
+        yield put(AppActions.signalProvidersFetchFailAction(e.message))
     }
 }
 

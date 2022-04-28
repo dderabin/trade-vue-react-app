@@ -1,5 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit"
 import { AppActions } from "../actions";
+
 const defaultState = {
     loading: false,
     exchanges: []

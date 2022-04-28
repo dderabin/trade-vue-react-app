@@ -5,7 +5,7 @@ import FaqTrade from "./../../components/join-copy-trader/faq";
 import { useState } from "react";
 import infoIcon from "./../../assets/img/info.svg";
 import { Helmet } from "react-helmet";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 const JoinCopyTraderPage = () => {
   const [activetab, setActiveTab] = useState("profile");
   const handleProfile = () => {

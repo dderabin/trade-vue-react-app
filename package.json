@@ -13,6 +13,7 @@
     "country-state-city": "^3.0.1",
     "font-awesome": "^4.7.0",
     "gh-pages": "^3.2.3",
+    "jwt-decode": "^3.1.2",
     "pako": "^2.0.4",
     "react": "^17.0.2",
     "react-alert": "^7.0.3",

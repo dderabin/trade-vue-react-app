@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks';
 import { Header } from '../Header';
 import { Sidebar } from '../Sidebar';
 import './../../assets/css/defaults.scss';
@@ -10,9 +12,18 @@ export const PagesLayout = ({
   handleHamburguerClick,
   onOutsideSidebarClickHandler
 }) => {
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
   useEffect(() => {
-    console.log("pagelayout");
+    // console.log("pagelayout");
   }, [])
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/')
+    }
+  }, [isAuthenticated, navigate])
   
   const handleLeftPanel = () => {
       let width = window.innerWidth

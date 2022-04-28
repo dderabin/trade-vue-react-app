@@ -47,6 +47,7 @@ import ViewSignalSubscribersPage from "./pages/signal-provider/view-signal-subsc
 import ViewSubscribersPage from "./pages/copy-trading/view-suscribers";
 import { Provider } from "react-redux";
 import store from './store';
+import { AuthProvider } from "./store/contexts/JWTAuthContext";
 // require('react-date-picker/dist/DatePicker.css');
 
 const options = {
@@ -79,7 +80,7 @@ function App() {
   }, [windowDimensions]);
 
   useEffect(() => {
-    console.log("collapseSidebar change in Appjs: ", collapseSidebar);
+    // console.log("collapseSidebar change in Appjs: ", collapseSidebar);
   }, [collapseSidebar])
 
   const handleOutSidebarClickHandler = () => {
@@ -92,494 +93,496 @@ function App() {
   return (
     <Provider store={store}>
       <AlertProvider template={AlertTemplate} {...options}>
-        <Router>
-          <Routes >
-            <Route
-              path="/"
-              element={
-                <DefaultLayout>
-                  <Login/>
-                </DefaultLayout>
-              }
-            />
-            <Route
-              path="/dashboard"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  } 
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  <DashboardPage />
-                </PagesLayout>
-              }
-            />
-            <Route
-              path="/favourites"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  } 
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  <FavouritesPages/>
-                </PagesLayout>
-              }
-            />
-            {/* copy trading */}
-            <Route
-              path="/copy-trading/join-copy-trader"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  } 
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  
-                  <JoinCopyTraderPage/>
-                </PagesLayout>
-              }
-            />
-            <Route
-              path="/copy-trading/view-copy-trader-list"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  <ViewCopyTraderListPage/>
-                </PagesLayout>
-              }
-            />
-            <Route
-              path="/trade-configuration/:id"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  <TradeConfigurationPage/>
-                </PagesLayout>
-              }
-            />
-            <Route
-              path="/copy-trading/view-suscribers"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  <ViewSubscribersPage/>
-                </PagesLayout>
-              }
-            />
-            {/*  */}
-            {/* Signal Provider */}
-            {/*  */}
-         
-            <Route
-              path="/signal-provider/join-signal-provider"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  
-                  <JoinSignalProviderPage/>
-                </PagesLayout>
-              }
-            />
-            <Route
-              path="/signal-provider/view-signal-provider"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  <ViewSignalProviderPage/>
-                </PagesLayout>
-              }
-            />
-            <Route
-              path="/signal-provider/view-subscribers"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  <ViewSignalSubscribersPage/>
-                </PagesLayout>
-              }
-            />
-            {/*  */}
-            {/* Price Comparison */}
-            {/*  */}
-            <Route
-              path="/price-comparison"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  <PriceComparisonPage/>
-                </PagesLayout>
-              }
-            />
-            {/*  */}
-            {/* Trade Terminal */}
-            {/*  */}
-            <Route
-              path="/trade-terminal"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  <TradeTerminalPage/>
-                </PagesLayout>
-              }
-            />
-            {/*  */}
-            {/* Portfolio Performance */}
-            {/*  */}
-            <Route
-              path="/portfolio-performance"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  <PortfolioPerformancePage/>
-                </PagesLayout>
-              }
-            />
-            {/*  */}
-            {/* Reports */}
-            {/*  */}
-            <Route
-              path="/reports/trade-signals"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  <TradeSignalsPage/>
-                </PagesLayout>
-              }
-            />
-            <Route
-              path="/reports/my-trades"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  <MyTradesPage/>
-                </PagesLayout>
-              }
-            />
-            {/*  */}
-            {/* Exchange Account */}
-            {/*  */}
-            <Route
-              path="/exchange-account/exchange-account"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  <ExchangeAccountPage/>
-                </PagesLayout>
-              }
-            />
-            {/*  */}
-            {/* Profile */}
-            <Route
-              path="/profile"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  <ProfilePage/>
-                </PagesLayout>
-              }
-            />
-            {/*  */}
-            <Route
-              path="/profile/change-password"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  <ChangePasswordPage/>
-                </PagesLayout>
-              }
-            />
-            {/*  */}
-            <Route
-              path="/authentication"
-              element={
-                <PagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                  onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
-                >
-                  <AuthenticationPage/>
-                </PagesLayout>
-              }
-            />
-            {/*  */}
+        <AuthProvider>
+          <Router>
+            <Routes >
+              <Route
+                path="/"
+                element={
+                  <DefaultLayout>
+                    <Login/>
+                  </DefaultLayout>
+                }
+              />
+              <Route
+                path="/dashboard"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    } 
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    <DashboardPage />
+                  </PagesLayout>
+                }
+              />
+              <Route
+                path="/favourites"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    } 
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    <FavouritesPages/>
+                  </PagesLayout>
+                }
+              />
+              {/* copy trading */}
+              <Route
+                path="/copy-trading/join-copy-trader"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    } 
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    
+                    <JoinCopyTraderPage/>
+                  </PagesLayout>
+                }
+              />
+              <Route
+                path="/copy-trading/view-copy-trader-list"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    <ViewCopyTraderListPage/>
+                  </PagesLayout>
+                }
+              />
+              <Route
+                path="/trade-configuration/:id"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    <TradeConfigurationPage/>
+                  </PagesLayout>
+                }
+              />
+              <Route
+                path="/copy-trading/view-suscribers"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    <ViewSubscribersPage/>
+                  </PagesLayout>
+                }
+              />
+              {/*  */}
+              {/* Signal Provider */}
+              {/*  */}
+          
+              <Route
+                path="/signal-provider/join-signal-provider"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    
+                    <JoinSignalProviderPage/>
+                  </PagesLayout>
+                }
+              />
+              <Route
+                path="/signal-provider/view-signal-provider"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    <ViewSignalProviderPage/>
+                  </PagesLayout>
+                }
+              />
+              <Route
+                path="/signal-provider/view-subscribers"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    <ViewSignalSubscribersPage/>
+                  </PagesLayout>
+                }
+              />
+              {/*  */}
+              {/* Price Comparison */}
+              {/*  */}
+              <Route
+                path="/price-comparison"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    <PriceComparisonPage/>
+                  </PagesLayout>
+                }
+              />
+              {/*  */}
+              {/* Trade Terminal */}
+              {/*  */}
+              <Route
+                path="/trade-terminal"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    <TradeTerminalPage/>
+                  </PagesLayout>
+                }
+              />
+              {/*  */}
+              {/* Portfolio Performance */}
+              {/*  */}
+              <Route
+                path="/portfolio-performance"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    <PortfolioPerformancePage/>
+                  </PagesLayout>
+                }
+              />
+              {/*  */}
+              {/* Reports */}
+              {/*  */}
+              <Route
+                path="/reports/trade-signals"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    <TradeSignalsPage/>
+                  </PagesLayout>
+                }
+              />
+              <Route
+                path="/reports/my-trades"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    <MyTradesPage/>
+                  </PagesLayout>
+                }
+              />
+              {/*  */}
+              {/* Exchange Account */}
+              {/*  */}
+              <Route
+                path="/exchange-account/exchange-account"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    <ExchangeAccountPage/>
+                  </PagesLayout>
+                }
+              />
+              {/*  */}
+              {/* Profile */}
+              <Route
+                path="/profile"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    <ProfilePage/>
+                  </PagesLayout>
+                }
+              />
+              {/*  */}
+              <Route
+                path="/profile/change-password"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    <ChangePasswordPage/>
+                  </PagesLayout>
+                }
+              />
+              {/*  */}
+              <Route
+                path="/authentication"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    <AuthenticationPage/>
+                  </PagesLayout>
+                }
+              />
+              {/*  */}
 
-            <Route
-              path="/admin/dashboard"
-              element={
-                <AdminPagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                >
-                  <AdminDashboardPage/>
-                </AdminPagesLayout>
-              }
-            />
-            <Route
-              path="/admin/administrator/create-admin"
-              element={
-                <AdminPagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                >
-                  <CreateAdminPage/>
-                </AdminPagesLayout>
-              }
-            />
-            <Route
-              path="/admin/administrator/view-admin"
-              element={
-                <AdminPagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                >
-                  <ViewAdminPage/>
-                </AdminPagesLayout>
-              }
-            />
-            <Route
-              path="admin/signal-provider/activate-signal-provider"
-              element={
-                <AdminPagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                >
-                  <ActivateSignalProviderPage/>
-                </AdminPagesLayout>
-              }
-            />
-            <Route
-              path="admin/signal-provider/view-signal-provider"
-              element={
-                <AdminPagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                >
-                  <AdminViewSignalProviderPage/>
-                </AdminPagesLayout>
-              }
-            />
-            <Route
-              path="admin/traders/view-copy-trader"
-              element={
-                <AdminPagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                >
-                  <ViewCopyTrader/>
-                </AdminPagesLayout>
-              }
-            />
-            <Route
-              path="admin/traders/view-trader"
-              element={
-                <AdminPagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                >
-                  <ViewTrader/>
-                </AdminPagesLayout>
-              }
-            />
-            <Route
-              path="admin/trade-signals/from-signal-provider"
-              element={
-                <AdminPagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                >
-                  <FromSignalProviderPage/>
-                </AdminPagesLayout>
-              }
-            />
-            <Route
-              path="admin/trade-signals/from-copy-trader"
-              element={
-                <AdminPagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                >
-                  <FromCopyTraderPage/>
-                </AdminPagesLayout>
-              }
-            />
-            <Route
-              path="admin/trade-executed/executed-signal-provider"
-              element={
-                <AdminPagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                >
-                  <ExecutedSignalProviderPage/>
-                </AdminPagesLayout>
-              }
-            />
-            <Route
-              path="admin/trade-executed/executed-copy-trader"
-              element={
-                <AdminPagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                >
-                  <ExecutedCopyTraderPage/>
-                </AdminPagesLayout>
-              }
-            />
-            <Route
-              path="admin/trading-symbols/add-trade-symbol"
-              element={
-                <AdminPagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                >
-                  <AddTradeSymbolPage/>
-                </AdminPagesLayout>
-              }
-            />
-            <Route
-              path="admin/trading-symbols/view-trade-symbols"
-              element={
-                <AdminPagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                >
-                  <ViewTradeSymbolsPage/>
-                </AdminPagesLayout>
-              }
-            />
-            <Route
-              path="admin/g-auth"
-              element={
-                <AdminPagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                >
-                  <GAuthPage/>
-                </AdminPagesLayout>
-              }
-            />
-            <Route
-              path="admin/login-logs"
-              element={
-                <AdminPagesLayout
-                  collapseSidebar={collapseSidebar}
-                  handleHamburguerClick={() =>
-                    setCollapseSidebar(!collapseSidebar)
-                  }
-                >
-                  <LoginLogsPage/>
-                </AdminPagesLayout>
-              }
-            />
-            {/*  */}
-          </Routes>
-        </Router>
+              <Route
+                path="/admin/dashboard"
+                element={
+                  <AdminPagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                  >
+                    <AdminDashboardPage/>
+                  </AdminPagesLayout>
+                }
+              />
+              <Route
+                path="/admin/administrator/create-admin"
+                element={
+                  <AdminPagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                  >
+                    <CreateAdminPage/>
+                  </AdminPagesLayout>
+                }
+              />
+              <Route
+                path="/admin/administrator/view-admin"
+                element={
+                  <AdminPagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                  >
+                    <ViewAdminPage/>
+                  </AdminPagesLayout>
+                }
+              />
+              <Route
+                path="admin/signal-provider/activate-signal-provider"
+                element={
+                  <AdminPagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                  >
+                    <ActivateSignalProviderPage/>
+                  </AdminPagesLayout>
+                }
+              />
+              <Route
+                path="admin/signal-provider/view-signal-provider"
+                element={
+                  <AdminPagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                  >
+                    <AdminViewSignalProviderPage/>
+                  </AdminPagesLayout>
+                }
+              />
+              <Route
+                path="admin/traders/view-copy-trader"
+                element={
+                  <AdminPagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                  >
+                    <ViewCopyTrader/>
+                  </AdminPagesLayout>
+                }
+              />
+              <Route
+                path="admin/traders/view-trader"
+                element={
+                  <AdminPagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                  >
+                    <ViewTrader/>
+                  </AdminPagesLayout>
+                }
+              />
+              <Route
+                path="admin/trade-signals/from-signal-provider"
+                element={
+                  <AdminPagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                  >
+                    <FromSignalProviderPage/>
+                  </AdminPagesLayout>
+                }
+              />
+              <Route
+                path="admin/trade-signals/from-copy-trader"
+                element={
+                  <AdminPagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                  >
+                    <FromCopyTraderPage/>
+                  </AdminPagesLayout>
+                }
+              />
+              <Route
+                path="admin/trade-executed/executed-signal-provider"
+                element={
+                  <AdminPagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                  >
+                    <ExecutedSignalProviderPage/>
+                  </AdminPagesLayout>
+                }
+              />
+              <Route
+                path="admin/trade-executed/executed-copy-trader"
+                element={
+                  <AdminPagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                  >
+                    <ExecutedCopyTraderPage/>
+                  </AdminPagesLayout>
+                }
+              />
+              <Route
+                path="admin/trading-symbols/add-trade-symbol"
+                element={
+                  <AdminPagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                  >
+                    <AddTradeSymbolPage/>
+                  </AdminPagesLayout>
+                }
+              />
+              <Route
+                path="admin/trading-symbols/view-trade-symbols"
+                element={
+                  <AdminPagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                  >
+                    <ViewTradeSymbolsPage/>
+                  </AdminPagesLayout>
+                }
+              />
+              <Route
+                path="admin/g-auth"
+                element={
+                  <AdminPagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                  >
+                    <GAuthPage/>
+                  </AdminPagesLayout>
+                }
+              />
+              <Route
+                path="admin/login-logs"
+                element={
+                  <AdminPagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                  >
+                    <LoginLogsPage/>
+                  </AdminPagesLayout>
+                }
+              />
+              {/*  */}
+            </Routes>
+          </Router>
+        </AuthProvider>
       </AlertProvider>
     </Provider>
   );
