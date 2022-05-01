@@ -46,13 +46,9 @@ export const UPDATE_SIGNAL = () => {
     return AxiosInstance.post(`/user/trade/signal`, body)
 }
 
-export const SIGNUP_USER = () => {
+export const SIGNUP_USER = (data) => {
     // form data body
-    const body = {
-        "email": "dderabin@outlook.com",
-        "password": "qwert"
-    }
-    return AxiosInstance.post(`/user/new`, body)
+    return AxiosInstance.post(`/user/new`, data)
 }
 
 export const LOGIN_USER = (data) => {
@@ -64,14 +60,9 @@ export const GET_PROFILE = () => {
     return AxiosInstance.get(`/user/profile`);
 }
 
-export const ADD_UPDATE_EXCHANGE = () => {
+export const ADD_UPDATE_EXCHANGE = (data) => {
     // raw json body
-    const body = {
-        "exchangePlatform": "testnet-binanceusdm",
-        "apiKey": "asdsa",
-        "apiSecret": "sad"
-    }
-    return AxiosInstance.put(`/user/exchanges`, body)
+    return AxiosInstance.put(`/user/exchanges`, data)
 }
 
 export const REMOVE_EXCHANGE = () => {

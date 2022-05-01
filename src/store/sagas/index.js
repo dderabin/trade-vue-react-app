@@ -1,18 +1,18 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest, takeLeading } from 'redux-saga/effects';
 import { AppActions } from '../actions'
 import * as Api from '../api'
 
-function* performFetchExchanges(action) {
+function* performFetchExchangePlatforms(action) {
     try {
         const response = yield call(Api.GET_EXCHANGE_LIST, action.payload)
-        yield put(AppActions.exchangeFetchSuccessAction(response.data))
+        yield put(AppActions.exchangePlatformsFetchSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.exchangeFetchFailAction(e.message))
+        yield put(AppActions.exchangePlatformsFetchFailAction(e.message))
     }
 }
 
-function* fetchExchangesSaga() {
-    yield takeLatest(AppActions.exchangeFetchAction.toString(), performFetchExchanges)
+function* fetchExchangePlatformsSaga() {
+    yield takeLatest(AppActions.exchangePlatformsFetchAction.toString(), performFetchExchangePlatforms)
 }
 
 function* performSignUp(action) {
@@ -80,30 +80,30 @@ function* fetchProfileSaga() {
     yield takeLatest(AppActions.userProfileFetchAction.toString(), performFetchProfile)
 }
 
-function* performExchangeCU(action) {
+function* performExchangePlatformCU(action) {
     try {
         const response = yield call(Api.ADD_UPDATE_EXCHANGE, action.payload)
-        yield put(AppActions.exchangeCUSuccessAction(response.data))
+        yield put(AppActions.exchangePlatformCUSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.exchangeCUFailAction(e.message))
+        yield put(AppActions.exchangePlatformCUFailAction({msg: e.message || 'Something went wrong'}))
     }
 }
 
-function* exchangeCUSaga() {
-    yield takeLatest(AppActions.exchangeCUAction.toString(), performExchangeCU)
+function* exchangePlatformCUSaga() {
+    yield takeLeading(AppActions.exchangePlatformCUAction.toString(), performExchangePlatformCU)
 }
 
-function* performRemoveExchange(action) {
+function* performRemoveExchangePlatform(action) {
     try {
         const response = yield call(Api.REMOVE_EXCHANGE, action.payload)
-        yield put(AppActions.exchangeDeleteSuccessAction(response.data))
+        yield put(AppActions.exchangePlatformDeleteSuccessAction(response.data))
     } catch (e) {
-        yield put(AppActions.exchangeDeleteFailAction(e.message))
+        yield put(AppActions.exchangePlatformDeleteFailAction(e.message))
     }
 }
 
-function* removeExchangeSaga() {
-    yield takeLatest(AppActions.exchangeDeleteAction.toString(), performRemoveExchange)
+function* removeExchangePlatformSaga() {
+    yield takeLatest(AppActions.exchangePlatformDeleteAction.toString(), performRemoveExchangePlatform)
 }
 
 function* performUpdateUserInfo(action) {
@@ -279,13 +279,12 @@ export default function* rootSaga() {
     yield all([
         logInSaga(),
         signUpSaga(),
-        exchangeCUSaga(),
-        fetchExchangesSaga(),
+        fetchExchangePlatformsSaga(),
         addSignalSaga(),
         updateSignalSaga(),
         fetchProfileSaga(),
-        exchangeCUSaga(),
-        removeExchangeSaga(),
+        exchangePlatformCUSaga(),
+        removeExchangePlatformSaga(),
         updateUserInfoSaga(),
         enableCopyTraderSaga(),
         subscribeSaga(),

@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
+import { useAlert } from 'react-alert';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks';
+import { AppActions } from '../../store/actions';
 import { Header } from '../Header';
 import { Sidebar } from '../Sidebar';
 import './../../assets/css/defaults.scss';
@@ -13,11 +16,25 @@ export const PagesLayout = ({
   onOutsideSidebarClickHandler
 }) => {
   const { isAuthenticated } = useAuth();
+  const alert = useAlert();
+  const dispatch = useDispatch();
+  const successMessage = useSelector(state => state.appState.successMessage)
+  const failMessage = useSelector(state => state.appState.failMessage)
   const navigate = useNavigate();
 
   useEffect(() => {
-    // console.log("pagelayout");
-  }, [])
+    if (successMessage) {
+      alert.success(successMessage);
+      dispatch(AppActions.messageConsumedAction())
+    } 
+  }, [successMessage])
+
+  useEffect(() => {
+    if (failMessage) {
+      alert.error(failMessage);
+      dispatch(AppActions.messageConsumedAction())
+    } 
+  }, [failMessage])
 
   useEffect(() => {
     if (!isAuthenticated) {

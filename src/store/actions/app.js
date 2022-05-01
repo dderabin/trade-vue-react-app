@@ -3,6 +3,8 @@ import { createAction } from "@reduxjs/toolkit";
 export const initAction = createAction('app/init')
 export const logoutAction = createAction('user/logout');
 
+export const messageConsumedAction = createAction('message/consumed');
+
 export const apiFecthingAction = createAction('api/fetching')
 
 export const signalAddAction = createAction('signal/add')
@@ -25,17 +27,17 @@ export const userProfileFetchAction = createAction('user/profile/fetch')
 export const userProfileFetchSuccessAction = createAction('user/profile/fetch/success')
 export const userProfileFetchFailAction = createAction('user/profile/fetch/fail')
 
-export const exchangeCUAction = createAction('exchange/create/update')
-export const exchangeCUSuccessAction = createAction('exchange/create/update/success')
-export const exchangeCUFailAction = createAction('exchange/create/update/fail')
+export const exchangePlatformCUAction = createAction('exchangePlatform/create/update')
+export const exchangePlatformCUSuccessAction = createAction('exchangePlatform/create/update/success')
+export const exchangePlatformCUFailAction = createAction('exchangePlatform/create/update/fail')
 
-export const exchangeFetchAction = createAction('exchange/fetch')
-export const exchangeFetchSuccessAction = createAction('exchange/fetch/success')
-export const exchangeFetchFailAction = createAction('exchange/fetch/fail')
+export const exchangePlatformsFetchAction = createAction('exchangePlatform/fetch')
+export const exchangePlatformsFetchSuccessAction = createAction('exchangePlatform/fetch/success')
+export const exchangePlatformsFetchFailAction = createAction('exchangePlatform/fetch/fail')
 
-export const exchangeDeleteAction = createAction('exchange/delete')
-export const exchangeDeleteSuccessAction = createAction('exchange/delete/success')
-export const exchangeDeleteFailAction = createAction('exchange/delete/fail')
+export const exchangePlatformDeleteAction = createAction('exchangePlatform/delete')
+export const exchangePlatformDeleteSuccessAction = createAction('exchangePlatform/delete/success')
+export const exchangePlatformDeleteFailAction = createAction('exchangePlatform/delete/fail')
 
 export const userInfoUpdateAction = createAction('user/user-info/update')
 export const userInfoUpdateSuccessAction = createAction('user/user-info/update/success')

@@ -22,7 +22,7 @@ export const setSession = (accessToken, refreshToken) => {
     if (accessToken) {
         localStorageHelper.accessToken = accessToken;
         localStorageHelper.refreshToken = refreshToken;
-        AxiosInstance.defaults.headers['Authorization'] = `${accessToken}`
+        AxiosInstance.defaults.headers.common.Authorization = accessToken
     } else {
         localStorageHelper.clearAuthData()
         delete AxiosInstance.defaults.headers.common.Authorization
@@ -42,31 +42,28 @@ export const AuthProvider = ({ children }) => {
     const authState = useSelector(state => state.authState)
 
     const login = async (email, password) => {
-        const response = await Api.LOGIN_USER({email, password})
-        const { token, refreshToken } = response.data
+        try {
+            const response = await Api.LOGIN_USER({email, password})
+            const { token, refreshToken } = response.data
 
-        setSession(token, refreshToken)
+            setSession(token, refreshToken)
 
-        dispatch(AppActions.userLogInSuccessAction({user: {email}}))
+            dispatch(AppActions.userLogInSuccessAction({user: {email}}))
+        } catch (e) {
+            console.log(e)
+        }
     }
 
-    const register = async (email, username, password) => {
-        const response = await AxiosInstance.post('/api/auth/register', {
-            email,
-            username,
-            password,
-        })
-
-        const { accessToken, user } = response.data
-
-        setSession(accessToken)
-
-        dispatch({
-            type: 'REGISTER',
-            payload: {
-                user,
-            },
-        })
+    const register = async (email, password) => {
+        try {
+            const response = await Api.SIGNUP_USER({email, password})
+            const { token, refreshToken } = response.data
+            setSession(token, refreshToken)
+    
+            dispatch(AppActions.userLogInSuccessAction({user: {email}}))
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     const logout = () => {

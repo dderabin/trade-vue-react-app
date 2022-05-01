@@ -3,23 +3,29 @@ import { AppActions } from "../actions";
 
 const defaultState = {
     loading: false,
-    exchanges: []
+    exchangePlatforms: [],
+    successMessage: null,
+    failMessage: null,
 }
 
 const appReducer = createReducer(defaultState, {
     [AppActions.apiFecthingAction]: (state, action) => {
         state.loading = true;
     },
-    [AppActions.exchangeCUSuccessAction]: (state, action) => {
-        console.log(action)
+    [AppActions.exchangePlatformCUSuccessAction]: (state, action) => {
+        state.successMessage = action.payload.msg || "Message arrived"
     },
-    [AppActions.exchangeCUFailAction]: (state, action) => {
-        console.log(action)
+    [AppActions.exchangePlatformCUFailAction]: (state, action) => {
+        state.failMessage = action.payload.msg || "Something went wrong"
     },
-    [AppActions.exchangeFetchSuccessAction]: (state, action) => {
-        console.log(action)
+    [AppActions.exchangePlatformsFetchSuccessAction]: (state, action) => {
+        state.exchangePlatforms = action.payload;
     },
-    [AppActions.exchangeFetchFailAction]: (state, action) => {
+    [AppActions.messageConsumedAction]: (state) => {
+        state.successMessage = null
+        state.failMessage = null
+    },
+    [AppActions.exchangePlatformsFetchFailAction]: (state, action) => {
         console.log(action)
     }
 });

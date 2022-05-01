@@ -254,11 +254,11 @@ const TraderProfile = () => {
               <button type="submit" className="btn btn-primary mob-mt-3 h45 "
                onClick={() => {
                 alert.error(
-                  `Welcome Name. You are now proud Copy Trader of Traderpro Comunity`
+                  `Welcome Name. You are now proud Signal Provider of Traderpro Comunity`
                 );
         
               }}>
-                Join as a Copy Trader
+                Join as a Signal Provider
               </button>
               </Link>
             </div>

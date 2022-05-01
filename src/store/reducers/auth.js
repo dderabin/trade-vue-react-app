@@ -11,16 +11,16 @@ const authReducer = createReducer(defaultState, {
     [AppActions.apiFecthingAction]: (state, action) => {
         state.loading = true;
     },
-    [AppActions.exchangeCUSuccessAction]: (state, action) => {
+    [AppActions.exchangePlatformCUSuccessAction]: (state, action) => {
         console.log(action)
     },
-    [AppActions.exchangeCUFailAction]: (state, action) => {
+    [AppActions.exchangePlatformCUFailAction]: (state, action) => {
         console.log(action)
     },
-    [AppActions.exchangeFetchSuccessAction]: (state, action) => {
+    [AppActions.exchangePlatformsFetchSuccessAction]: (state, action) => {
         console.log(action)
     },
-    [AppActions.exchangeFetchFailAction]: (state, action) => {
+    [AppActions.exchangePlatformsFetchFailAction]: (state, action) => {
         console.log(action)
     },
     [AppActions.initAction]: (state, action) => {

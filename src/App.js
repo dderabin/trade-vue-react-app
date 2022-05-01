@@ -323,7 +323,7 @@ function App() {
               {/* Exchange Account */}
               {/*  */}
               <Route
-                path="/exchange-account/exchange-account"
+                path="/exchange-account"
                 element={
                   <PagesLayout
                     collapseSidebar={collapseSidebar}

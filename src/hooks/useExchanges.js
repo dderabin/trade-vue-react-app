@@ -4,15 +4,13 @@ import { AppActions } from '../store/actions';
 
 const useExchanges = () => {
   const dispatch = useDispatch();
-  const exchanges = useSelector(state => state.appState.exchanges);
+  const exchangePlatforms = useSelector(state => state.appState.exchangePlatforms);
 
   useEffect(() => {
-    if (exchanges.length === 0) {
-      dispatch(AppActions.exchangeFetchAction())
-    }
-  }, [exchanges])
+    dispatch(AppActions.exchangePlatformsFetchAction())
+  }, [])
 
-  return { exchanges }
+  return { exchangePlatforms }
 }
 
 export default useExchanges

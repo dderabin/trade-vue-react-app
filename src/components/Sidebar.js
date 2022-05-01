@@ -353,12 +353,10 @@ export const Sidebar = ({ collapseSidebar, onOutsideSidebarClickHandler }) => {
                               </li>
                             </ul>
                           </li>
-                          <li className="sub-menu" onClick={() => {
-                                closeCollapse()
-                                setShowExchangeScroll(!showExchangeScroll)
-                              }}>
+                          <li>
                             <Link
-                              to="#0"
+                            onClick={() => closeCollapse()}
+                              to="/exchange-account"
                               className={`${
                                 location.pathname.includes("/exchange-account")
                                   ? "active"
@@ -371,15 +369,15 @@ export const Sidebar = ({ collapseSidebar, onOutsideSidebarClickHandler }) => {
                                 className="img-fluid menu-icon"
                               />
                               Exchange Account
-                              <span className="float-right">
+                              {/* <span className="float-right">
                                 <img
                                   src={sb_arrowdown}
                                   alt=""
                                   className="img-fluid"
                                 />
-                              </span>
+                              </span> */}
                             </Link>
-                            <ul
+                            {/* <ul
                               className={`${
                                 showExchangeScroll ? "showScrollMenu" : ""
                               }`}
@@ -397,7 +395,7 @@ export const Sidebar = ({ collapseSidebar, onOutsideSidebarClickHandler }) => {
                                   Update Account
                                 </Link>
                               </li>
-                            </ul>
+                            </ul> */}
                           </li>
                         </ul>
                       </nav>

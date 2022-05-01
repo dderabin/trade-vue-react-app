@@ -3,22 +3,30 @@ import iconCloseEye from "../../assets/img/uploads/eye-hidden.svg";
 import iconShowEye from "../../assets/img/uploads/eye-show.svg";
 import infoIcon from "./../../assets/img/info.svg";
 import { Helmet } from "react-helmet";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppActions } from "../../store/actions";
 import { useExchanges } from "../../hooks";
 
 export const ExchangeAccountPage = () => {
+  const dispatch = useDispatch()
   const [apiState, setApiState] = useState(true)
   const [secretState, setSecretState] = useState(true)
-  const [apikey, setApiKey] = useState()
-  const [secretkey, setSecretKey] = useState()
-  const dispatch = useDispatch()
-  const { exchanges } = useExchanges()
+  const [apiKey, setApiKey] = useState('')
+  const [apiSecret, setApiSecret] = useState('')
+  const [exchangePlatform, setExchangePlatform] = useState('')
+  const { exchangePlatforms = [] } = useExchanges()
 
-  const updateSettings = () => {
-    dispatch(AppActions.exchangeCUAction({hello: 'hello'}))
+  const updateSettings = (event) => {
+    dispatch(AppActions.exchangePlatformCUAction({exchangePlatform, apiKey, apiSecret}))
+    event.preventDefault();
   }
+
+  useEffect(() => {
+    if (exchangePlatforms.length > 0) {
+      setExchangePlatform(exchangePlatforms[0])
+    }
+  }, [exchangePlatforms])
 
   return (
     <>
@@ -81,75 +89,75 @@ export const ExchangeAccountPage = () => {
                     <select
                       className="form-select"
                       aria-label="Default select example"
+                      value={exchangePlatform}
+                      onChange={(event) => {setExchangePlatform(event.target.value); setApiKey(''); setApiSecret('')}}
                     >
-                      <option value="binance">
-                        Binance
-                      </option>
-                      <option value="ftx">
-                        FTX
-                      </option>
+                      { exchangePlatforms.map((item, index) => <option key={index} value={item}>{item}</option> ) }
                     </select>
                   </div>
                 </div>
-                <div className="row my-4">
-                  <div className="col-xl-6 col-lg-6 col-12">
-                    <label className="form-label mb-3">API Key *</label>
-                    <div className="input-group mb-3">
-                      <input
-                        name="apikey"
-                        id="apikey"
-                        type={apiState? 'password': 'text'}
-                        className="form-control"
-                        placeholder="API Key"
-                        aria-label="API Key"
-                        aria-describedby="api-key"
-                        value={apikey}
-                        onChange={(event) => setApiKey(event.target.value)}
-                      />
-                      <button 
-                        className="input-group-text" 
-                        id="api-key"
-                        onClick={()=>setApiState(apiState => apiState = !apiState)}
-                      >
-                        <img src={apiState ? iconShowEye : iconCloseEye} alt="" className="img-fluid" />
-                      </button>
+                <form onSubmit={updateSettings}>
+                  <div className="row my-4">
+                    <div className="col-xl-6 col-lg-6 col-12">
+                      <label className="form-label mb-3">API Key *</label>
+                      <div className="input-group mb-3">
+                        <input
+                          name="apiKey"
+                          id="apiKey"
+                          type={apiState? 'password': 'text'}
+                          className="form-control"
+                          placeholder="API Key"
+                          aria-label="API Key"
+                          aria-describedby="api-key"
+                          value={apiKey}
+                          onChange={(event) => setApiKey(event.target.value)}
+                          required
+                        />
+                        <button 
+                          className="input-group-text" 
+                          id="api-key"
+                          onClick={()=>setApiState(apiState => apiState = !apiState)}
+                        >
+                          <img src={apiState ? iconShowEye : iconCloseEye} alt="" className="img-fluid" />
+                        </button>
+                      </div>
+                    </div>
+                    <div className="col-xl-6 col-lg-6 col-12">
+                      <label className="form-label mb-3">Secret Key *</label>
+                      <div className="input-group mb-3">
+                        <input
+                          name="apiSecret"
+                          id="apiSecret"
+                          type={secretState? 'password': 'text'}
+                          className="form-control"
+                          placeholder="Secret Key"
+                          aria-label="Secret Key"
+                          aria-describedby="secret-key"
+                          value={apiSecret}
+                          onChange={(event) => setApiSecret(event.target.value)}
+                          required
+                        />
+                        <button
+                          href="#0"
+                          className="input-group-text"
+                          id="secret-key"
+                          onClick={()=>setSecretState(secretState => secretState = !secretState)}
+                        >
+                          <img src={secretState ? iconShowEye : iconCloseEye} alt="" className="img-fluid" />
+                        </button>
+                      </div>
                     </div>
                   </div>
-                  <div className="col-xl-6 col-lg-6 col-12">
-                    <label className="form-label mb-3">Secret Key *</label>
-                    <div className="input-group mb-3">
-                      <input
-                        name="secretkey"
-                        id="secretkey"
-                        type={secretState? 'password': 'text'}
-                        className="form-control"
-                        placeholder="Secret Key"
-                        aria-label="Secret Key"
-                        aria-describedby="secret-key"
-                        value={secretkey}
-                        onChange={(event) => setSecretKey(event.target.value)}
-                      />
+                  <div className="row mt-4 mb-2">
+                    <div className="col-xl-12 col-lg-12 col-12 account-update">
                       <button
-                        href="#0"
-                        className="input-group-text"
-                        id="secret-key"
-                        onClick={()=>setSecretState(secretState => secretState = !secretState)}
+                        className="btn btn-primary btn-50"
                       >
-                        <img src={secretState ? iconShowEye : iconCloseEye} alt="" className="img-fluid" />
+                        Update Account Details
                       </button>
                     </div>
                   </div>
-                </div>
-                <div className="row mt-4 mb-2">
-                  <div className="col-xl-12 col-lg-12 col-12 account-update">
-                    <button
-                      onClick={updateSettings}
-                      className="btn btn-primary btn-50"
-                    >
-                      Update Account Details
-                    </button>
-                  </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>

@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet";
 import { useAuth } from "../hooks";
 
 const Login = (props) => {
-  const { login } = useAuth();
+  const { login, register } = useAuth();
   const [currentFormType, setCurrentFormType] = useState("login");
   const [loginForm, setLoginForm] = useState({
     email: "", password: "", remember: false
@@ -26,22 +26,12 @@ const Login = (props) => {
     setLoginForm({...loginForm, [e.target.name]: e.target.value})
   }
 
-  const handleSignup = (e) => {
-    let { email, username, password } = regForm;
-    // AuthService.register(username, email, password)
-    //   .then(({ status, data}) => {
-    //     if (status !== 200)
-    //       throw new Error("Error! Todo not saved")
-    //       // setTodos(data.todos)
-    //       console.log("status: ", data);
-    //     localStorage.setItem("trade-token", data.token)
-    //     localStorage.setItem("trade-refresh", data.refreshToken)
-    //     navigate('/favourites')
-    //   })
-    //   .catch(err => console.log(err))
-
+  const registerClick = (e) => {
+    const { email, password } = regForm;
+    register(email, password);
     e.preventDefault();
   }
+  
   const handleChangeReg = (event) => {
     setRegForm({...regForm, [event.target.name]: event.target.value})
   }
@@ -127,7 +117,6 @@ const Login = (props) => {
                       <div className="col-xl-6 col-lg-6 col-6 mob-mt-3 text-end">
                         <button
                           onClick={() => setCurrentFormType("forgot-password")}
-                          href="forgotPassword.html"
                           className="btn font-14"
                         >
                           Forgot Password ?
@@ -266,8 +255,6 @@ const Login = (props) => {
                       <p className="text-center font-14 mob-mt-3">
                         Don't have an account ?{" "}
                         <button
-                          onClick={() => handleSignup()}
-                          href="signup.html"
                           className="color-green ms-2 btn"
                         >
                           Sign up
@@ -288,7 +275,7 @@ const Login = (props) => {
                       <h1 className="auth-title">Create an Account</h1>
                     </div>                                                                                                                                        
                   </div>
-                  <form>
+                  <form onSubmit={registerClick}>
                     <div className="row">
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div>
@@ -300,11 +287,12 @@ const Login = (props) => {
                             placeholder="Enter email address"
                             value={regForm.email}
                             onChange={ e => handleChangeReg(e)}
+                            required
                           />
                         </div>
                       </div>
                     </div>
-                    <div className="row mt-3">
+                    {/* <div className="row mt-3">
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div>
                           <label className="form-label">Username *</label>
@@ -315,10 +303,11 @@ const Login = (props) => {
                             placeholder="Enter password"
                             value={regForm.username}
                             onChange={ e => handleChangeReg(e)}
+                            required
                           />
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="row mt-3">
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div>
@@ -328,8 +317,10 @@ const Login = (props) => {
                             name="password"
                             className="form-control"
                             placeholder="Enter password"
+                            minLength={5}
                             value={regForm.password}
                             onChange={ e => handleChangeReg(e)}
+                            required
                           />
                         </div>
                       </div>
@@ -345,8 +336,10 @@ const Login = (props) => {
                             name="confirmPassword"
                             className="form-control"
                             placeholder="Re-enter password"
+                            minLength={5}
                             value={regForm.confirmPassword}
                             onChange={ e => handleChangeReg(e)}
+                            required
                           />
                         </div>
                       </div>
@@ -374,7 +367,6 @@ const Login = (props) => {
                         <div className="d-grid gap-2">
                           <button
                             className="btn btn-primary btn-green font-18"
-                            onClick={(e) => handleSignup(e)}
                           >
                             Register Now
                           </button>
