@@ -73,22 +73,9 @@ export const REMOVE_EXCHANGE = () => {
     return AxiosInstance.delete(`/user/exchanges`, body)
 }
 
-export const ADD_USER_INFO = () => {
+export const ADD_USER_INFO = (data) => {
     // raw json body
-    const body = {
-        "userName": "JohnDoe3",
-        "firstName": "John",
-        "middleName": "dd", 
-        "lastName": "Doe",
-        "gender": "male", 
-        "birthDate": "1997-07-16",
-        "country": "US",
-        "state":"somewhere",
-        "city":"someCity",
-        "zipCode":123465,
-        "address":"adssss"
-    }
-    return AxiosInstance.put(`/user/user-info`, body)
+    return AxiosInstance.put(`/user/user-info`, data)
 }
 
 export const ENABLE_COPYTRADER = () => {

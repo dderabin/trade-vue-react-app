@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-date-picker";
-import { Link} from "react-router-dom" ;
-import { useAlert } from "react-alert";
 import { Country, State, City }  from 'country-state-city';
 import { Input } from 'reactstrap'
 import SelectCountry from '../SelectCountry'
+import { useDispatch } from "react-redux";
+import { AppActions } from '../../store/actions'
 
 const TraderProfile = () => {
-  const [dateValue, onDateChange] = useState(new Date());
+  const dispatch =  useDispatch()
+  const [dateValue, onDateChange] = useState(null);
   const [userInfo, setUserInfo] = useState({
-    username: '',
+    userName: '',
     email: '',
-    firstname: '',
-    middlename: '',
-    lastname: '',
+    firstName: '',
+    middleName: '',
+    lastName: '',
     gender: '',
+    birthDate: '',
     state: '',
     city: '',
-    zipcode: '',
+    zipCode: '',
     address: '',
-    subscriptionprice: '',
-    telegramname: '',
-    telegramid: '',
-    telegramlink: '',
+    subscriptionPrice: '',
+    telegramName: '',
+    telegramId: '',
+    telegramLink: '',
     details: '',
     strategy: '',
   })
@@ -38,43 +40,46 @@ const TraderProfile = () => {
     console.log("useInfo: ", userInfo);
   }, [userInfo])
 
+  useEffect(() => {
+    console.log(dateValue)
+    if (dateValue) {
+      const birthDate = new Date(dateValue).toISOString().split('T')[0]
+      setUserInfo({...userInfo, birthDate})
+    } else {
+      setUserInfo({...userInfo, birthDate:''})
+    }
+  }, [dateValue])
+
   const handleChangeInfo = (event) => {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
     const letterNumber = /^[a-zA-Z]+$/;
 
-    if (name === 'firstname' || name === 'middlename' || name === 'lastname') {
+    if (name === 'firstName' || name === 'middleName' || name === 'lastName') {
       if(!value.match(letterNumber) && value !== '') {
         console.log("handleChange Info")
         return
       }
     } else if (name === 'state')
-      setCityList(City.getCitiesOfState(userInfo.countryid, value))
+      setCityList(City.getCitiesOfState(userInfo.country, value))
 
     setUserInfo({...userInfo, [name]: value})
   }
   
   const handleChangeCountry = (value, name ) => {
-    setUserInfo({...userInfo, countryid: value, countryname: name})
+    setUserInfo({...userInfo, country: value, countryname: name})
   }
 
   const copyTraderClk = (event) => {
-    console.log(userInfo);
-    
-    if (false) {
-      alert.error(
-        `Welcome Name. You are now proud Copy Trader of Traderpro Comunity`
-      );
-    }
+    dispatch(AppActions.userInfoUpdateAction(userInfo))
     event.preventDefault()
   }
 
   useEffect(() => {
-    setStateList(State.getStatesOfCountry(userInfo.countryid))
-  }, [userInfo.countryid])
+    setStateList(State.getStatesOfCountry(userInfo.country))
+  }, [userInfo.country])
 
-  const alert = useAlert();
   return (
     <div className="row">
       <div className="col-xl-12">
@@ -97,12 +102,13 @@ const TraderProfile = () => {
             <div className="col-xl-3 col-lg-3 col-12">
               <label className="form-label">User Name *</label>
               <input
-                name="username"
+                name="userName"
                 type="text"
                 className="form-control"
-                placeholder="Enter username"
-                value={userInfo.username}
+                placeholder="Enter userName"
+                value={userInfo.userName}
                 onChange={handleChangeInfo}
+                minLength={3}
                 required
               />
             </div>
@@ -123,22 +129,22 @@ const TraderProfile = () => {
             <div className="col-xl-3 col-lg-3 col-12">
               <label className="form-label">First Name *</label>
               <input
-                name="firstname"
+                name="firstName"
                 type="text"
                 className="form-control"
                 placeholder="First Name"
-                value={userInfo.firstname}
+                value={userInfo.firstName}
                 onChange={handleChangeInfo}
               />
             </div>
             <div className="col-xl-3 col-lg-3 col-12">
               <label className="form-label">Middle Name </label>
               <input
-                name="middlename"
+                name="middleName"
                 type="text"
                 className="form-control"
                 placeholder="Middle Name"
-                value={userInfo.middlename}
+                value={userInfo.middleName}
                 onChange={handleChangeInfo}
               />
             </div>
@@ -146,11 +152,11 @@ const TraderProfile = () => {
             <div className="col-xl-3 col-lg-3 col-12">
               <label className="form-label">Last Name *</label>
               <input
-                name="lastname"
+                name="lastName"
                 type="text"
                 className="form-control"
                 placeholder="Last Name"
-                value={userInfo.lastname}
+                value={userInfo.lastName}
                 onChange={handleChangeInfo}
                 required
               />
@@ -161,12 +167,14 @@ const TraderProfile = () => {
                 name="gender"
                 className="form-select"
                 aria-label="Default select example"
-                defaultValue={""}
+                value={userInfo.gender}
+                onChange={handleChangeInfo}
+                required
               >
-                <option className="hover-lb" value="">Select a Gender</option>
-                <option value="1">Male</option>
-                <option value="2">Female</option>
-                <option value="3">Not Mentioned</option>
+                {/* <option className="hover-lb" value="">Select a Gender</option> */}
+                <option value="">Not Mentioned</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
               </select>
             </div>
           </div>
@@ -179,6 +187,7 @@ const TraderProfile = () => {
                 isClearable
                 placeholderText="Date of Birth"
                 className="form-control"
+                required
               />
             </div>
             <div className="col-xl-3 col-lg-3 col-12">
@@ -216,12 +225,12 @@ const TraderProfile = () => {
             <div className="col-xl-3 col-lg-4 col-12">
               <label className="form-label">Zip Code *</label>
               <input
-                name="zipcode"
+                name="zipCode"
                 type="text"
                 pattern="[0-9]{5}"
                 className="form-control"
                 placeholder="Zip Code"
-                value={userInfo.zipcode}
+                value={userInfo.zipCode}
                 onChange={handleChangeInfo}
                 required
               />
@@ -235,17 +244,18 @@ const TraderProfile = () => {
                 placeholder="Address"
                 value={userInfo.address}
                 onChange={handleChangeInfo}
+                minLength={5}
                 required
               />
             </div>
             <div className="col-xl-3 col-lg-4 col-12">
               <label className="form-label">Subscription Price</label>
               <input
-                name="subscriptionprice"
+                name="subscriptionPrice"
                 type="text"
                 className="form-control"
                 placeholder="free"
-                value={userInfo.subscriptionprice}
+                value={userInfo.subscriptionPrice}
                 onChange={handleChangeInfo}
                 disabled=""
               />
@@ -255,23 +265,23 @@ const TraderProfile = () => {
             <div className="col-xl-3 col-lg-3 col-12">
               <label className="form-label"> Telegram Channel Name</label>
               <input
-                name="telegramname"
+                name="telegramName"
                 type="text"
                 className="form-control"
                 placeholder="Enter Channel Name"
                 pattern="[A-Za-z]{1,15}"
-                value={userInfo.telegramname}
+                value={userInfo.telegramName}
                 onChange={handleChangeInfo}
               />
             </div>
             <div className="col-xl-3 col-lg-3 col-12">
               <label className="form-label">Telegram Channel ID</label>
               <input
-                name="telegramid"
+                name="telegramId"
                 type="text"
                 className="form-control"
                 placeholder="Enter Channel ID"
-                value={userInfo.telegramid}
+                value={userInfo.telegramId}
                 onChange={handleChangeInfo}
               />
             </div>
@@ -279,11 +289,11 @@ const TraderProfile = () => {
             <div className="col-xl-3 col-lg-3 col-12">
               <label className="form-label">Joining Link</label>
               <input
-                name="telegramlink"
+                name="telegramLink"
                 type="text"
                 className="form-control"
                 placeholder="Enter Joining Link"
-                value={userInfo.telegramlink}
+                value={userInfo.telegramLink}
                 onChange={handleChangeInfo}
               />
             </div>

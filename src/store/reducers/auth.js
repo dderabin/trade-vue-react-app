@@ -11,18 +11,6 @@ const authReducer = createReducer(defaultState, {
     [AppActions.apiFecthingAction]: (state, action) => {
         state.loading = true;
     },
-    [AppActions.exchangePlatformCUSuccessAction]: (state, action) => {
-        console.log(action)
-    },
-    [AppActions.exchangePlatformCUFailAction]: (state, action) => {
-        console.log(action)
-    },
-    [AppActions.exchangePlatformsFetchSuccessAction]: (state, action) => {
-        console.log(action)
-    },
-    [AppActions.exchangePlatformsFetchFailAction]: (state, action) => {
-        console.log(action)
-    },
     [AppActions.initAction]: (state, action) => {
         const { isAuthenticated, user } = action.payload
         state.isAuthenticated = isAuthenticated

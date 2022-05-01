@@ -13,10 +13,18 @@ const appReducer = createReducer(defaultState, {
         state.loading = true;
     },
     [AppActions.exchangePlatformCUSuccessAction]: (state, action) => {
-        state.successMessage = action.payload.msg || "Message arrived"
+        const { msg = "Performed successfully" } = action.payload;
+        state.successMessage = msg;
     },
-    [AppActions.exchangePlatformCUFailAction]: (state, action) => {
-        state.failMessage = action.payload.msg || "Something went wrong"
+    [AppActions.sagaSuccessAction]: (state, action) => {
+        const { msg = null } = action.payload;
+        const { message = null } = action.payload;
+        state.successMessage = msg || message || "Performed successfully";
+    },
+    [AppActions.sagaFailAction]: (state, action) => {
+        const { error = null } = action.payload;
+        const { msg = null } = error;
+        state.failMessage = msg || error || "Something went wrong";
     },
     [AppActions.exchangePlatformsFetchSuccessAction]: (state, action) => {
         state.exchangePlatforms = action.payload;
@@ -25,9 +33,6 @@ const appReducer = createReducer(defaultState, {
         state.successMessage = null
         state.failMessage = null
     },
-    [AppActions.exchangePlatformsFetchFailAction]: (state, action) => {
-        console.log(action)
-    }
 });
 
 export default appReducer
