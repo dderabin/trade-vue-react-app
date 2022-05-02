@@ -37,10 +37,6 @@ const TraderProfile = () => {
   }, [])
 
   useEffect(() => {
-    console.log("useInfo: ", userInfo);
-  }, [userInfo])
-
-  useEffect(() => {
     console.log(dateValue)
     if (dateValue) {
       const birthDate = new Date(dateValue).toISOString().split('T')[0]

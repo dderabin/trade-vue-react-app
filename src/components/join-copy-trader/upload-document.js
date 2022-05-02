@@ -1,23 +1,32 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 // import passport from "../../assets/img/passport.svg";
 // import aadhaar from "../../assets/img/aadhaar.svg";
 // import drivinglicence from "../../assets/img/license.svg";
 import sorticon from "../../assets/img/table-arrow.svg";
 import dustbinicon from "../../assets/img/dustbin.svg";
+import { useDispatch } from "react-redux";
+import { AppActions } from "../../store/actions";
 const UploadDocument = () => {
+    const dispatch = useDispatch();
     const [documents, setDocuments] = useState({
         passport: null,
         nationalId: null,
         drivingLicense: null
     })
+
     const handleSubmit = (event) => {
+        dispatch(AppActions.userUploadDocumentsAction(documents))
         event.preventDefault()
     }
+
     const handleChangeDocuments = (event) => {
         const target = event.target;
-        const { name, files = null } = target.name;
-        
+        const { name, files = null } = target;
+        if (files) {
+            setDocuments(documents => setDocuments({ ...documents, [name]: files[0]}))
+        }
     }
+
     return (
         <>
             <div className="row">
@@ -67,6 +76,7 @@ const UploadDocument = () => {
                             className="form-control"
                             aria-label="Upload"
                             name="nationalId"
+                            onChange={handleChangeDocuments}
                         />
                     </div>
                 </div>
@@ -83,6 +93,7 @@ const UploadDocument = () => {
                             className="form-control"
                             aria-label="Upload"
                             name="drivingLicense"
+                            onChange={handleChangeDocuments}
                         />
                     </div>
                     {/* <img

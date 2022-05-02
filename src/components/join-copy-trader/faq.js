@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import editicon from "../../assets/img/edit.svg";
 import downicon from "../../assets/img/uploads/arrow-down-performance.svg";
-import { useAlert } from "react-alert";
+import { AppActions } from "../../store/actions";
 const FaqTrade = () => {
-    const alert = useAlert();   return (
+    const dispatch = useDispatch()
+    const [faq, setFAQ] = useState({
+        type: 'copyTrader',
+        title: '',
+        answer: ''
+    })
+    const submitFAQ = (event) => {
+        dispatch(AppActions.addFAQAction(faq))
+        event.preventDefault()
+    }
+    const handleChange = (event) => {
+        const target = event.target
+        const { name, value } = target
+        setFAQ(faq => ({...faq, [name]: value}))
+    }
+    return (
         <>
             <div className="row">
                 <div className="col-xl-12 col-lg-12 col-12">
@@ -14,37 +30,36 @@ const FaqTrade = () => {
             </div>
             <div className="row mt-2">
                 <div className="col-xl-12 col-lg-12 col-12">
-                    <form>
+                    <form onSubmit={submitFAQ}>
                     <div className="row">
                         <div className="col-xl-3 col-lg-3 col-12">
-                        <label className="form-label">Question</label>
+                        <label className="form-label">Question *</label>
                         <input
                             type="text"
                             className="form-control"
                             placeholder="Write Question"
+                            name="title"
+                            onChange={handleChange}
+                            required
                         />
                         </div>
                     </div>
                     <div className="row mt-4">
                         <div className="col-xl-12 col-lg-12 col-12">
-                        <label className="form-label">Answer</label>
+                        <label className="form-label">Answer *</label>
                         <textarea
                             className="form-control"
                             rows="10"
                             placeholder="Write answer"
+                            name="answer"
+                            onChange={handleChange}
+                            required
                         ></textarea>
                         </div>
                     </div>
                     <div className="row mt-4">
                         <div className="col-xl-12 col-lg-12 col-12">
-                        <button className="btn btn-primary mob-mt-3 h45
-                        "
-                        onClick={() => {
-                            alert.error(
-                              `FAQ  added succesfully`
-                            );
-                    
-                          }}>
+                        <button className="btn btn-primary mob-mt-3 h45">
                             Submit
                         </button>
                         </div>

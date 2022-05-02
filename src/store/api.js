@@ -103,15 +103,14 @@ export const ENABLE_SIGNALPROVIDER = () => {
     return AxiosInstance.post(`/user/enable-signal-provider`, body)
 }
 
-export const UPLOAD_DOCUMENTS = () => {
-    const file1 = {}
-    const file2 = {}
+export const UPLOAD_DOCUMENTS = (data) => {
     // form-data body
-    const body = {
-        "nationalId": file1,
-        "drivingLicense": file2,
-    }
-    return AxiosInstance.put(`/user/upload-documents`, body)
+    const { passport, drivingLicense, nationalId } = data;
+    const formData = new FormData();
+    passport && formData.append("passport", passport);
+    drivingLicense && formData.append("drivingLicense", drivingLicense);
+    nationalId && formData.append("nationalId", nationalId);
+    return AxiosInstance.put(`/user/upload-documents`, formData)
 }
 
 export const DELETE_DOCUMENT = () => {
@@ -133,14 +132,9 @@ export const CONFIGURE_SUBSCRIPTION_STATUS = () => {
     return AxiosInstance.post(`/user/configure-subscription`, body)
 }
 
-export const NEW_FAQ = () => {
+export const NEW_FAQ = (data) => {
     // raw json body
-    const body = {
-        "type": "copyTrader",
-        "title": "Question 1",
-        "answer": "answer to Question 1"
-    }
-    return AxiosInstance.put(`/user/faq`, body)
+    return AxiosInstance.put(`/user/faq`, data)
 }
 
 export const UPDATE_FAQ = () => {

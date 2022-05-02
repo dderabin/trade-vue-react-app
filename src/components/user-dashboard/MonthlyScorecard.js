@@ -302,7 +302,7 @@ const MonthlyScorecard = () => {
             </div>
             {selected.map((item, index) => {
               if(!visibleMore && index >= 3 )
-                return (<></>)
+                return (<React.Fragment key={index}></React.Fragment>)
               else 
                 return (
                   <div key={index} className='chart-item'>
