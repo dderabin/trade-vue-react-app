@@ -4,6 +4,8 @@ import { AppActions } from "../actions";
 const defaultState = {
     loading: false,
     exchangePlatforms: [],
+    copyTraders: [],
+    signalProviders: [],
     successMessage: null,
     failMessage: null,
 }
@@ -28,6 +30,12 @@ const appReducer = createReducer(defaultState, {
     },
     [AppActions.exchangePlatformsFetchSuccessAction]: (state, action) => {
         state.exchangePlatforms = action.payload;
+    },
+    [AppActions.copyTradersFetchSuccessAction]: (state, action) => {
+        state.copyTraders = action.payload
+    },
+    [AppActions.signalProvidersFetchSuccessAction]: (state, action) => {
+        state.signalProviders = action.payload
     },
     [AppActions.messageConsumedAction]: (state) => {
         state.successMessage = null

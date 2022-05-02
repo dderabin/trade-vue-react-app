@@ -12,8 +12,10 @@ import { ShowBreadcrumbs } from "../../components/ShowBreadcrumbs";
 import { useAlert } from "react-alert";
 import useDraggableScroll from "use-draggable-scroll";
 import { Helmet } from "react-helmet";
+import { useCopyTraders } from "../../hooks";
 
 export const ViewCopyTraderListPage = () => {
+  const { copyTraders } = useCopyTraders();
   const ref = useRef(null);
   const alert = useAlert();
 
@@ -158,14 +160,14 @@ export const ViewCopyTraderListPage = () => {
                     </tr>
                   </thead>
                   <tbody id="myTabledata">
-                    <TraderList traderList={traderList} />
+                    <TraderList traderList={copyTraders} />
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
          ) : (
-         <GridTraderList traderList={traderList} />
+         <GridTraderList traderList={copyTraders} />
         )}
       </div>
     </>

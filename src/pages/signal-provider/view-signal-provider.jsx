@@ -13,8 +13,10 @@ import { useRef, useState } from "react";
 import { ShowBreadcrumbs } from "../../components/ShowBreadcrumbs";
 import { useAlert } from "react-alert";
 import { Helmet } from "react-helmet";
+import { useSignalProviders } from "../../hooks";
 
 const ViewSignalProviderPage = () => {
+  const { signalProviders } = useSignalProviders()
   const ref = useRef(null);
 
   const { onMouseDown } = useDraggableScroll(ref);
@@ -123,14 +125,14 @@ const ViewSignalProviderPage = () => {
                     </tr>
                   </thead>
                   <tbody id="myTabledata">
-                    <ProviderList providerList={providerList} />
+                    <ProviderList providerList={signalProviders} />
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
         ) : (
-          <GridProviderList providerList={providerList} />
+          <GridProviderList providerList={signalProviders} />
         )}
       </div>
     </>

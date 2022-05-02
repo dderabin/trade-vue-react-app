@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import editicon from "../../assets/img/edit.svg";
 import downicon from "../../assets/img/uploads/arrow-down-performance.svg";
-
+import { AppActions } from "../../store/actions";
 const FaqTrade = () => {
+    const dispatch = useDispatch()
+    const [faq, setFAQ] = useState({
+        type: 'signalProvider',
+        title: '',
+        answer: ''
+    })
+    const submitFAQ = (event) => {
+        dispatch(AppActions.addFAQAction(faq))
+        event.preventDefault()
+    }
+    const handleChange = (event) => {
+        const target = event.target
+        const { name, value } = target
+        setFAQ(faq => ({...faq, [name]: value}))
+    }
     return (
         <>
             <div className="row">
@@ -14,24 +30,30 @@ const FaqTrade = () => {
             </div>
             <div className="row mt-2">
                 <div className="col-xl-12 col-lg-12 col-12">
-                    <form>
+                    <form onSubmit={submitFAQ}>
                     <div className="row">
                         <div className="col-xl-3 col-lg-3 col-12">
-                        <label className="form-label">Question</label>
+                        <label className="form-label">Question *</label>
                         <input
                             type="text"
                             className="form-control"
                             placeholder="Write Question"
+                            name="title"
+                            onChange={handleChange}
+                            required
                         />
                         </div>
                     </div>
                     <div className="row mt-4">
                         <div className="col-xl-12 col-lg-12 col-12">
-                        <label className="form-label">Answer</label>
+                        <label className="form-label">Answer *</label>
                         <textarea
                             className="form-control"
                             rows="10"
                             placeholder="Write answer"
+                            name="answer"
+                            onChange={handleChange}
+                            required
                         ></textarea>
                         </div>
                     </div>
@@ -126,7 +148,7 @@ const FaqTrade = () => {
                             data-bs-target="#collapseTwo"
                             aria-expanded="false"
                             aria-controls="collapseTwo"
-                        >
+                           >
                             <a href="#0">
                             <img
                                 src={editicon}

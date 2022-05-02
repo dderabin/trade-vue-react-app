@@ -252,14 +252,14 @@ function* refreshTokenSaga() {
 function* performFetchCopyTraders(action) {
     try {
         const response = yield call(Api.GET_COPYTRADERS, action.payload)
-        yield put(AppActions.copytradersFetchSuccessAction(response.data))
+        yield put(AppActions.copyTradersFetchSuccessAction(response.data))
     } catch (e) {
         yield put(AppActions.sagaFailAction(e))
     }
 }
 
 function* fetchCopyTradersSaga() {
-    yield takeLatest(AppActions.copytradersFetchAction.toString(), performFetchCopyTraders)
+    yield takeLatest(AppActions.copyTradersFetchAction.toString(), performFetchCopyTraders)
 }
 
 function* performFetchSignalProviders(action) {

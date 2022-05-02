@@ -1,12 +1,32 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 // import passport from "../../assets/img/passport.svg";
 // import aadhaar from "../../assets/img/aadhaar.svg";
 // import drivinglicence from "../../assets/img/license.svg";
 import sorticon from "../../assets/img/table-arrow.svg";
 import dustbinicon from "../../assets/img/dustbin.svg";
-import { useAlert } from "react-alert";
+import { useDispatch } from "react-redux";
+import { AppActions } from "../../store/actions";
 const UploadDocument = () => {
-    const alert = useAlert();  
+    const dispatch = useDispatch();
+    const [documents, setDocuments] = useState({
+        passport: null,
+        nationalId: null,
+        drivingLicense: null
+    })
+
+    const handleSubmit = (event) => {
+        dispatch(AppActions.userUploadDocumentsAction(documents))
+        event.preventDefault()
+    }
+
+    const handleChangeDocuments = (event) => {
+        const target = event.target;
+        const { name, files = null } = target;
+        if (files) {
+            setDocuments(documents => setDocuments({ ...documents, [name]: files[0]}))
+        }
+    }
+
     return (
         <>
             <div className="row">
@@ -16,12 +36,14 @@ const UploadDocument = () => {
                     </h1>
                 </div>
             </div>
+            <form encType="multipart/form-data" onSubmit={handleSubmit}>
             <div className="row mt-4">
                 <div className="col-xl-4 col-lg-4 col-12 mob-mt-3">
-                    <input
+                    <label>Passport</label>
+                    {/* <input
                         type="text"
                         className="form-control mb-3"
-                        placeholder="Passport" />
+                        placeholder="Passport" /> */}
                     {/* <img
                         src={passport}
                         alt=""
@@ -32,38 +54,46 @@ const UploadDocument = () => {
                             type="file"
                             className="form-control"
                             aria-label="Upload"
+                            name="passport"
+                            onChange={handleChangeDocuments}
                         />
                     </div>
                 </div>
                 <div className="col-xl-4 col-lg-4 col-12 mob-mt-3">
-                    <input
+                    <label>Aadhar Card / National ID</label>
+                    {/* <input
                         type="text"
                         className="form-control mb-3"
-                        placeholder="Aadhaar Card / National ID" />
+                        placeholder="Aadhaar Card / National ID" /> */}
                     {/* <img
                         src={aadhaar}
                         alt=""
                         className="img-fluid upload-img" style={{width: '100%'}} /> */}
                     <div className="input-group">
                         <input
-                        id="file-selector"
-                        type="file"
-                        className="form-control"
-                        aria-label="Upload"
+                            id="file-selector"
+                            type="file"
+                            className="form-control"
+                            aria-label="Upload"
+                            name="nationalId"
+                            onChange={handleChangeDocuments}
                         />
                     </div>
                 </div>
                 <div className="col-xl-4 col-lg-4 col-12 mob-mt-3">
-                    <input
+                    <label>Driving License</label>
+                    {/* <input
                         type="text"
                         className="form-control mb-3"
-                        placeholder="Driving License" />
+                        placeholder="Driving License" /> */}
                     <div className="input-group">
                         <input
-                        id="file-selector"
-                        type="file"
-                        className="form-control"
-                        aria-label="Upload"
+                            id="file-selector"
+                            type="file"
+                            className="form-control"
+                            aria-label="Upload"
+                            name="drivingLicense"
+                            onChange={handleChangeDocuments}
                         />
                     </div>
                     {/* <img
@@ -74,20 +104,12 @@ const UploadDocument = () => {
             </div>
             <div className="row mt-4">
                 <div className="col-xl-12 col-lg-12 col-12">
-                    <button
-                    type="submit"
-                    className="btn btn-primary mob-mt-3 h45"
-                    onClick={() => {
-                        alert.error(
-                          `Upload Succesfull`
-                        );
-                
-                      }}>
-                    
-                    Upload Document
+                    <button className="btn btn-primary mob-mt-3 h45">                    
+                    Upload Documents
                     </button>
                 </div>
             </div>
+            </form>
             <hr className="mt-5" />
             <div className="row mt-5">
                 <div className="col-xl-12 col-lg-12 col-12">

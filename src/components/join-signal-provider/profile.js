@@ -1,63 +1,82 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-date-picker";
-import { Link} from "react-router-dom" ;
-import { useAlert } from "react-alert";
-import { Country, State, City }  from 'country-state-city';
+import { Country, State }  from 'country-state-city';
 import { Input } from 'reactstrap'
 import SelectCountry from '../SelectCountry'
+import { useDispatch } from "react-redux";
+import { AppActions } from '../../store/actions'
 
 const TraderProfile = () => {
-  const [dateValue, onDateChange] = useState(new Date());
+  const dispatch =  useDispatch()
+  const [dateValue, onDateChange] = useState(null);
   const [userInfo, setUserInfo] = useState({
-    firstname: '', middlename: '', lastname: '', gender: '',
-    countryid: '', countryname: '', state: '', city: ''
+    userName: '',
+    email: '',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    gender: '',
+    birthDate: '',
+    state: '',
+    city: '',
+    zipCode: '',
+    address: '',
+    subscriptionPrice: '',
+    details: '',
+    strategy: '',
   })
   const [countryList, setCountryList] = useState([])
   const [stateList, setStateList] = useState([])
-  const [cityList, setCityList] = useState([])
 
   useEffect(()=>{
     setCountryList(Country.getAllCountries())
   }, [])
 
   useEffect(() => {
-    console.log("useInfo: ", userInfo);
-  }, [userInfo])
+    console.log(dateValue)
+    if (dateValue) {
+      const birthDate = new Date(dateValue).toISOString().split('T')[0]
+      setUserInfo({...userInfo, birthDate})
+    } else {
+      setUserInfo({...userInfo, birthDate:''})
+    }
+  }, [dateValue])
 
-  const handleChangeInfo = (e) => {
-    let value = e.target.value
-    let name = e.target.name
-    var letterNumber = /^[a-zA-Z]+$/;
+  const handleChangeInfo = (event) => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    const letterNumber = /^[a-zA-Z]+$/;
 
-    console.log("evetn dataa: ", e)
-
-    if (name === 'firstname' || name === 'middlename' || name === 'lastname') {
+    if (name === 'firstName' || name === 'middleName' || name === 'lastName') {
       if(!value.match(letterNumber) && value !== '') {
         console.log("handleChange Info")
         return
       }
-    } else if (name === 'state')
-      setCityList(City.getCitiesOfState(userInfo.country, value))
+    }
 
     setUserInfo({...userInfo, [name]: value})
   }
-
+  
   const handleChangeCountry = (value, name ) => {
-    setUserInfo({...userInfo, countryid: value, countryname: name})
+    setUserInfo({...userInfo, country: value, countryname: name})
+  }
+
+  const copyTraderClk = (event) => {
+    dispatch(AppActions.userInfoUpdateAction(userInfo))
+    event.preventDefault()
   }
 
   useEffect(() => {
-    setStateList(State.getStatesOfCountry(userInfo.countryid))
-  }, [userInfo.countryid])
+    setStateList(State.getStatesOfCountry(userInfo.country))
+  }, [userInfo.country])
 
-
-  const alert = useAlert();
   return (
     <div className="row">
       <div className="col-xl-12">
         <form
           encType="multipart/form-data"
-          // onSubmit="copyTraderClk(event)"
+          onSubmit={copyTraderClk}
         >
           <div className="row">
             <div className="col-xl-3 col-lg-3 col-12">
@@ -74,10 +93,14 @@ const TraderProfile = () => {
             <div className="col-xl-3 col-lg-3 col-12">
               <label className="form-label">User Name *</label>
               <input
-                name="username"
+                name="userName"
                 type="text"
                 className="form-control"
-                placeholder="Enter username"
+                placeholder="Enter userName"
+                value={userInfo.userName}
+                onChange={handleChangeInfo}
+                minLength={3}
+                required
               />
             </div>
             <div className="col-xl-3 col-lg-3 col-12">
@@ -87,6 +110,9 @@ const TraderProfile = () => {
                 type="email"
                 className="form-control"
                 placeholder="Enter Email Address"
+                value={userInfo.email}
+                onChange={handleChangeInfo}
+                required
               />
             </div>
           </div>
@@ -94,22 +120,22 @@ const TraderProfile = () => {
             <div className="col-xl-3 col-lg-3 col-12">
               <label className="form-label">First Name *</label>
               <input
-                name="firstname"
+                name="firstName"
                 type="text"
                 className="form-control"
                 placeholder="First Name"
-                value={userInfo.firstname}
+                value={userInfo.firstName}
                 onChange={handleChangeInfo}
               />
             </div>
             <div className="col-xl-3 col-lg-3 col-12">
               <label className="form-label">Middle Name </label>
               <input
-                name="middlename"
+                name="middleName"
                 type="text"
                 className="form-control"
                 placeholder="Middle Name"
-                value={userInfo.middlename}
+                value={userInfo.middleName}
                 onChange={handleChangeInfo}
               />
             </div>
@@ -117,12 +143,13 @@ const TraderProfile = () => {
             <div className="col-xl-3 col-lg-3 col-12">
               <label className="form-label">Last Name *</label>
               <input
-                name="lastname"
+                name="lastName"
                 type="text"
                 className="form-control"
                 placeholder="Last Name"
-                value={userInfo.lastname}
+                value={userInfo.lastName}
                 onChange={handleChangeInfo}
+                required
               />
             </div>
             <div className="col-xl-3 col-lg-3 col-12">
@@ -131,12 +158,14 @@ const TraderProfile = () => {
                 name="gender"
                 className="form-select"
                 aria-label="Default select example"
-                defaultValue={""}
+                value={userInfo.gender}
+                onChange={handleChangeInfo}
+                required
               >
-                <option className="hover-lb" value="">Select a Gender</option>
-                <option value="1">Male</option>
-                <option value="2">Female</option>
-                <option value="3">Not Mentioned</option>
+                {/* <option className="hover-lb" value="">Select a Gender</option> */}
+                <option value="">Not Mentioned</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
               </select>
             </div>
           </div>
@@ -149,27 +178,20 @@ const TraderProfile = () => {
                 isClearable
                 placeholderText="Date of Birth"
                 className="form-control"
+                required
               />
             </div>
             <div className="col-xl-3 col-lg-3 col-12">
               <label className="form-label">Country of Residence *</label>
               <SelectCountry list={countryList} onSelected={handleChangeCountry} />
-              {/* <Input id="countrySelect" name="country" type="select" onChange={handleChangeInfo}>
-                {countryList.length > 0 ? countryList.map((item, index) => 
-                    <option value={item.isoCode} key={index}>{item.name}</option>
-                  ):(
-                    <option value="">None</option>
-                  )
-                }
-              </Input> */}
             </div>
             <div className="col-xl-3 col-lg-3 col-12" style={{position: 'relative'}}>
               <label className="form-label">State *</label>
               <Input id="stateSelect" name="state" type="select" onChange={handleChangeInfo}>
-                {stateList.length > 0 ? stateList.map(item =>
-                    <option value={item.isoCode}>{item.name}</option>
+                {stateList.length > 0 ? stateList.map((item, index) =>
+                    <option key={index} value={item.isoCode}>{item.name}</option>
                   ):(
-                    <option value="" style={{color: '#111'}}></option>
+                    <option value=""></option>
                   )
                 }
               </Input>
@@ -177,35 +199,31 @@ const TraderProfile = () => {
                 <span style={{position:'absolute', color: '#d6d6d6', left: '28px', bottom: '9px'}}>Select State of Residence</span>
               }
             </div>
-            <div className="col-xl-3 col-lg-3 col-12" style={{position: 'relative'}}>
+            <div className="col-xl-3 col-lg-3 col-12">
               <label className="form-label">City *</label>
-              {/* <Input id="citySelect" name="text" type="select" onChange={handleChangeInfo}>
-                {cityList.length > 0 ? cityList.map(item =>
-                    <option value={item.isoCode}>{item.name}</option>
-                  ):(
-                    <option value="">None</option>
-                    )
-                  }
-              </Input> */}
               <input
                 name="city"
                 type="text"
                 className="form-control"
                 placeholder="Enter City"
-                // value={userInfo.middlename}
-                // onChange={handleChangeInfo}
+                value={userInfo.city}
+                onChange={handleChangeInfo}
+                required
               />
-              {/* <span style={{position:'absolute', color: '#d6d6d6', left: '28px', bottom: '9px'}}>Select State of Residence</span> */}
             </div>
           </div>
           <div className="row mt-4">
             <div className="col-xl-3 col-lg-4 col-12">
               <label className="form-label">Zip Code *</label>
               <input
-                name="zipcode"
+                name="zipCode"
                 type="text"
+                pattern="[0-9]{5}"
                 className="form-control"
                 placeholder="Zip Code"
+                value={userInfo.zipCode}
+                onChange={handleChangeInfo}
+                required
               />
             </div>
             <div className="col-xl-6 col-lg-4 col-12">
@@ -215,15 +233,21 @@ const TraderProfile = () => {
                 type="text"
                 className="form-control"
                 placeholder="Address"
+                value={userInfo.address}
+                onChange={handleChangeInfo}
+                minLength={5}
+                required
               />
             </div>
             <div className="col-xl-3 col-lg-4 col-12">
               <label className="form-label">Subscription Price</label>
               <input
-                name="subscriptionprice"
+                name="subscriptionPrice"
                 type="text"
                 className="form-control"
                 placeholder="free"
+                value={userInfo.subscriptionPrice}
+                onChange={handleChangeInfo}
                 disabled=""
               />
             </div>
@@ -236,6 +260,8 @@ const TraderProfile = () => {
                 className="form-control"
                 rows="5"
                 placeholder="Write your details"
+                value={userInfo.details}
+                onChange={handleChangeInfo}
               ></textarea>
             </div>
             <div className="col-xl-6 col-lg-6 col-12">
@@ -245,22 +271,16 @@ const TraderProfile = () => {
                 className="form-control"
                 rows="5"
                 placeholder="Write your strategy"
+                value={userInfo.strategy}
+                onChange={handleChangeInfo}
               ></textarea>
             </div>
           </div>
           <div className="row mt-4">
             <div className="col-xl-12 col-lg-12 col-12">
-            <Link  to="/copy-trading/view-copy-trader-list">
-              <button type="submit" className="btn btn-primary mob-mt-3 h45 "
-               onClick={() => {
-                alert.error(
-                  `Welcome Name. You are now proud Signal Provider of Traderpro Comunity`
-                );
-        
-              }}>
+              <button type="submit" className="btn btn-primary mob-mt-3 h45 ">
                 Join as a Signal Provider
               </button>
-              </Link>
             </div>
           </div>
         </form>

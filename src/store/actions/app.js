@@ -86,9 +86,9 @@ export const refreshTokenAction = createAction('refresh/token')
 export const refreshTokenSuccessAction = createAction('refresh/token/success')
 export const refreshTokenFailAction = createAction('refresh/token/fail')
 
-export const copytradersFetchAction = createAction('copytraders/fetch')
-export const copytradersFetchSuccessAction = createAction('copytraders/fetch/success')
-export const copytradersFetchFailAction = createAction('copytraders/fetch/fail')
+export const copyTradersFetchAction = createAction('copytraders/fetch')
+export const copyTradersFetchSuccessAction = createAction('copytraders/fetch/success')
+export const copyTradersFetchFailAction = createAction('copytraders/fetch/fail')
 
 export const signalProvidersFetchAction = createAction('signalproviders/fetch')
 export const signalProvidersFetchSuccessAction = createAction('signalproviders/fetch/success')
