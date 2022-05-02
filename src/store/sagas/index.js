@@ -275,6 +275,19 @@ function* fetchSignalProvidersSaga() {
     yield takeLatest(AppActions.signalProvidersFetchAction.toString(), performFetchSignalProviders)
 }
 
+function* performFetchExchangeComparison(action) {
+    try {
+        const response = yield call(Api.GET_COMPARISON_PAGE_COINS, action.payload)
+        yield put(AppActions.exchangeComparisonFetchSuccessAction(response.data))
+    } catch (e) {
+        yield put(AppActions.sagaFailAction(e))
+    }    
+}
+
+function* fetchExchangeComparisonSaga() {
+    yield takeLatest(AppActions.exchangeComparisonFetchAction.toString(), performFetchExchangeComparison)
+}
+
 export default function* rootSaga() {
     yield all([
         logInSaga(),
@@ -298,5 +311,6 @@ export default function* rootSaga() {
         refreshTokenSaga(),
         fetchCopyTradersSaga(),
         fetchSignalProvidersSaga(),
+        fetchExchangeComparisonSaga(),
     ])
 }

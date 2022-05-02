@@ -6,6 +6,7 @@ const defaultState = {
     exchangePlatforms: [],
     copyTraders: [],
     signalProviders: [],
+    coinList: [],
     successMessage: null,
     failMessage: null,
 }
@@ -36,6 +37,9 @@ const appReducer = createReducer(defaultState, {
     },
     [AppActions.signalProvidersFetchSuccessAction]: (state, action) => {
         state.signalProviders = action.payload
+    },
+    [AppActions.exchangeComparisonFetchSuccessAction]: (state, action) => {
+        state.coinList = action.payload
     },
     [AppActions.messageConsumedAction]: (state) => {
         state.successMessage = null

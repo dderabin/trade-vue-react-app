@@ -38,6 +38,10 @@ export const exchangePlatformsFetchAction = createAction('exchangePlatform/fetch
 export const exchangePlatformsFetchSuccessAction = createAction('exchangePlatform/fetch/success')
 export const exchangePlatformsFetchFailAction = createAction('exchangePlatform/fetch/fail')
 
+export const exchangeComparisonFetchAction = createAction('exchangeComparison/fetch')
+export const exchangeComparisonFetchSuccessAction = createAction('exchangeComparison/fetch/success')
+export const exchangeComparisonFetchFailAction = createAction('exchangeComparison/fetch/fail')
+
 export const exchangePlatformDeleteAction = createAction('exchangePlatform/delete')
 export const exchangePlatformDeleteSuccessAction = createAction('exchangePlatform/delete/success')
 export const exchangePlatformDeleteFailAction = createAction('exchangePlatform/delete/fail')

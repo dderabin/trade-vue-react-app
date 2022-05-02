@@ -185,6 +185,10 @@ export const GET_SIGNALPROVIDERS = () => {
     return AxiosInstance.get(`/users/signal-providers?page=${page}&pagination=${pagination}&orderBy=${orderBy}&type=${type}`)
 }
 
+export const GET_COMPARISON_PAGE_COINS = () => {
+    return AxiosInstance.get(`/exchanges/comparison-page-coins`)   
+}
+
 export const TEST_SERVER = () => {
     return AxiosInstance.get(`/test`);
 }

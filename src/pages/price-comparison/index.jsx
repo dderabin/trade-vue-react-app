@@ -19,6 +19,7 @@ import HuobiList from "./../../components/price-comparison/huobi";
 import KrakenList from "./../../components/price-comparison/kraken";
 import Pagination from "./../../components/price-comparison/pagination";
 import { Helmet } from "react-helmet";
+import { useCoinList } from "../../hooks";
 
 const pako = require("pako");
 var wsbn = null;
@@ -30,6 +31,7 @@ var Ftxwebsocket = null;
 
 const PriceComparisonPage = () => {
   const ref = useRef(null);
+  const { coinList } = useCoinList()
   const { onMouseDown } = useDraggableScroll(ref);
   const [loading, setLoading] = useState(false);
   const [pricedata, setPriceData] = useState([]);
@@ -640,100 +642,81 @@ const PriceComparisonPage = () => {
     setLoading(false);
   };
   const CurrencyTable = () => {
-    fetch(
-      "http://" +
-        process.env.REACT_APP_HOST +
-        ":" +
-        process.env.REACT_APP_PORT +
-        "/coins/"
-    )
-      .then((response) => {
-        if (response.ok) {
-          response.json().then((data) => {
-            allcoin = data.coins;
-            setPriceData(allcoin.slice((page - 1) * pagesize, page * pagesize));
-            setTotalPages(Math.ceil(allcoin.length / pagesize));
-            setLoading(true);
-            var marklist = [];
-            for (let i = 0; i < allcoin.length; i++) {
-              var marketBinance = allcoin[i].symbol.toLowerCase() + "usdt";
-              marklist.push(marketBinance + "@ticker");
-            }
-            if (isFirstLoading) {
-              setIsFirstLoading(false);
+    allcoin = coinList;
+    setPriceData(allcoin.slice((page - 1) * pagesize, page * pagesize));
+    setTotalPages(Math.ceil(allcoin.length / pagesize));
+    setLoading(true);
+    var marklist = [];
+    for (let i = 0; i < allcoin.length; i++) {
+      var marketBinance = allcoin[i].symbol.toLowerCase() + "usdt";
+      marklist.push(marketBinance + "@ticker");
+    }
 
-              wsbn = new WebSocket(
-                "wss://stream.binance.com:9443/ws/" + marklist.join("/")
-              );
+      wsbn = new WebSocket(
+        "wss://stream.binance.com:9443/ws/" + marklist.join("/")
+      );
 
-              var object = null;
-              wsbn.onmessage = (evt) => {
-                object = JSON.parse(evt.data);
-                let priceB = parseFloat(object.a);
-                let priceBb = parseFloat(object.b);
-                var idB = object.s;
-                if (priceB != null) {
-                  if (document.getElementById(idB)) {
-                    document.getElementById(idB).innerText = priceB;
-                    document.getElementById(idB).style.color =
-                      parseFloat(
-                        document.getElementById("o" + idB).innerText
-                      ) === priceB
-                        ? "black"
-                        : priceB >
-                          parseFloat(
-                            document.getElementById("o" + idB).innerText
-                          )
-                        ? "green"
-                        : "red";
-                    setInterval(function () {
-                      if (document.getElementById(idB)) {
-                        document.getElementById(idB).style.color = "black";
-                      }
-                    }, 5000);
-                  }
-                  if (document.getElementById("o" + idB)) {
-                    document.getElementById("o" + idB).innerText = priceB;
-                  }
-                }
-                if (priceBb != null) {
-                  if (document.getElementById(idB + "b")) {
-                    document.getElementById(idB + "b").innerText = priceBb;
-                    document.getElementById(idB + "b").style.color =
-                      parseFloat(
-                        document.getElementById("o" + idB + "b").innerText
-                      ) === priceBb
-                        ? "black"
-                        : priceBb >
-                          parseFloat(
-                            document.getElementById("o" + idB + "b").innerText
-                          )
-                        ? "green"
-                        : "red";
-                    setInterval(function () {
-                      if (document.getElementById(idB + "b")) {
-                        document.getElementById(idB + "b").style.color =
-                          "black";
-                      }
-                    }, 5000);
-                  }
-                  if (document.getElementById("o" + idB + "b")) {
-                    document.getElementById("o" + idB + "b").innerText =
-                      priceBb;
-                  }
-                }
-              };
-              wsbn.onclose = () => {
-                wsbn = null;
-                setTimeout(CurrencyTable, 3000);
-              };
-            }
-          });
+      var object = null;
+      wsbn.onmessage = (evt) => {
+        object = JSON.parse(evt.data);
+        let priceB = parseFloat(object.a);
+        let priceBb = parseFloat(object.b);
+        var idB = object.s;
+        if (priceB != null) {
+          if (document.getElementById(idB)) {
+            document.getElementById(idB).innerText = priceB;
+            document.getElementById(idB).style.color =
+              parseFloat(
+                document.getElementById("o" + idB).innerText
+              ) === priceB
+                ? "black"
+                : priceB >
+                  parseFloat(
+                    document.getElementById("o" + idB).innerText
+                  )
+                ? "green"
+                : "red";
+            setInterval(function () {
+              if (document.getElementById(idB)) {
+                document.getElementById(idB).style.color = "black";
+              }
+            }, 5000);
+          }
+          if (document.getElementById("o" + idB)) {
+            document.getElementById("o" + idB).innerText = priceB;
+          }
         }
-      })
-      .catch((error) => {
-        //console.log(error);
-      });
+        if (priceBb != null) {
+          if (document.getElementById(idB + "b")) {
+            document.getElementById(idB + "b").innerText = priceBb;
+            document.getElementById(idB + "b").style.color =
+              parseFloat(
+                document.getElementById("o" + idB + "b").innerText
+              ) === priceBb
+                ? "black"
+                : priceBb >
+                  parseFloat(
+                    document.getElementById("o" + idB + "b").innerText
+                  )
+                ? "green"
+                : "red";
+            setInterval(function () {
+              if (document.getElementById(idB + "b")) {
+                document.getElementById(idB + "b").style.color =
+                  "black";
+              }
+            }, 5000);
+          }
+          if (document.getElementById("o" + idB + "b")) {
+            document.getElementById("o" + idB + "b").innerText =
+              priceBb;
+          }
+        }
+      };
+      wsbn.onclose = () => {
+        wsbn = null;
+        setTimeout(CurrencyTable, 3000);
+      };
   };
   const refresgWebSocket = () => {
     if (wsbn !== null) {
@@ -770,7 +753,7 @@ const PriceComparisonPage = () => {
 
   useEffect(() => {
     CurrencyTable();
-  }, [page, pagesize]);
+  }, [page, pagesize, coinList]);
 
   return (
     <>
