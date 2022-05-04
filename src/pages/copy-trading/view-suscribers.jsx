@@ -12,8 +12,10 @@ import { ShowBreadcrumbs } from "../../components/ShowBreadcrumbs";
 
 import useDraggableScroll from "use-draggable-scroll";
 import { Helmet } from "react-helmet";
+import { useSelector } from "react-redux";
 
 export const ViewSubscribersPage = () => {
+  const { subscribers = [] } = useSelector(state => state.appState.copyTrader)
  
   const ref = useRef(null);
  
@@ -118,14 +120,14 @@ export const ViewSubscribersPage = () => {
                     </tr>
                   </thead>
                   <tbody id="myTabledata">
-                    <SubscriberList subscriberList={subscriberList} />
+                    <SubscriberList subscriberList={subscribers} />
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
         ) : (
-          <GridTraderList traderList={subscriberList} />
+          <GridTraderList traderList={subscribers} />
         )}
       </div>
     </>

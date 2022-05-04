@@ -34,6 +34,10 @@ const appReducer = createReducer(defaultState, {
     [AppActions.apiFecthingAction]: (state, action) => {
         state.loading = true;
     },
+    [AppActions.deleteDocumentSuccessAction]: (state, action) => {
+        delete state.userInfo.files[action.payload];
+        state.successMessage = "Success";
+    },
     [AppActions.exchangePlatformCUSuccessAction]: (state, action) => {
         const { msg = "Performed successfully" } = action.payload;
         state.successMessage = msg;

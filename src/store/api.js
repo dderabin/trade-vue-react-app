@@ -113,12 +113,9 @@ export const UPLOAD_DOCUMENTS = (data) => {
     return AxiosInstance.put(`/user/upload-documents`, formData)
 }
 
-export const DELETE_DOCUMENT = () => {
+export const DELETE_DOCUMENT = (documentType) => {
     // raw json body
-    const body = {
-        "documentType": "drivingLisence"
-    }
-    return AxiosInstance.delete(`/user/upload-documents`, body)
+    return AxiosInstance.delete(`/user/upload-documents`, {documentType})
 }
 
 export const CONFIGURE_SUBSCRIPTION_STATUS = () => {

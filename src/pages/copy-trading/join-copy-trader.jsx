@@ -16,7 +16,7 @@ const JoinCopyTraderPage = () => {
     subscribers = [], 
     subscriptedTo = [],
   } = useSelector(state => state.appState.copyTrader)
-  const { files = [], ...profile } = useSelector(state => state.appState.userInfo)
+  const { files = {}, ...profile } = useSelector(state => state.appState.userInfo)
   const [activetab, setActiveTab] = useState("profile");
   const handleProfile = () => {
     setActiveTab("profile");

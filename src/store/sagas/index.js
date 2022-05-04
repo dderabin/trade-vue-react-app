@@ -173,8 +173,8 @@ function* uploadDocumentsSaga() {
 
 function* performDeleteDocument(action) {
     try {
-        const response = yield call(Api.DELETE_DOCUMENT, action.payload)
-        yield put(AppActions.sagaSuccessAction(response.data))
+        yield call(Api.DELETE_DOCUMENT, action.payload)
+        yield put(AppActions.deleteDocumentSuccessAction(action.payload))
     } catch (e) {
         yield put(AppActions.sagaFailAction(e))
     }

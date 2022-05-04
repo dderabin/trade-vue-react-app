@@ -6,7 +6,7 @@ import sorticon from "../../assets/img/table-arrow.svg";
 import dustbinicon from "../../assets/img/dustbin.svg";
 import { useDispatch } from "react-redux";
 import { AppActions } from "../../store/actions";
-const UploadDocument = () => {
+const UploadDocument = ({_id, ...files}) => {
     const dispatch = useDispatch();
     const [documents, setDocuments] = useState({
         passport: null,
@@ -25,6 +25,10 @@ const UploadDocument = () => {
         if (files) {
             setDocuments(documents => setDocuments({ ...documents, [name]: files[0]}))
         }
+    }
+
+    const deleteDocument = (documentType) => {
+        dispatch(AppActions.deleteDocumentAction(documentType))
     }
 
     return (
@@ -163,41 +167,26 @@ const UploadDocument = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Passport</td>
-                            <td className="text-center">31-10-2021</td>
-                            <td className="text-center">10:26 pm</td>
-                            <td className="text-center">Submitted</td>
-                            <td className="text-center">
-                            <img
-                                src={dustbinicon}
-                                alt=""
-                                className="img-fluid"
-                            />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Passport</td>
-                            <td className="text-center">31-10-2021</td>
-                            <td className="text-center">10:26 pm</td>
-                            <td className="text-center text-green">
-                            Verified
-                            </td>
-                            <td className="text-center"></td>
-                        </tr>
-                        <tr>
-                            <td>Passport</td>
-                            <td className="text-center">31-10-2021</td>
-                            <td className="text-center">10:26 pm</td>
-                            <td className="text-center">Submitted</td>
-                            <td className="text-center">
-                            <img
-                                src={dustbinicon}
-                                alt=""
-                                className="img-fluid"
-                            />
-                            </td>
-                        </tr>
+                        {Object.keys(files).map((item, index) => {
+                            const fileItem = files[item];
+                            return (
+                                <tr key={index}>
+                                    <td>{item}</td>
+                                    <td className="text-center">31-10-2021</td>
+                                    <td className="text-center">10:26 pm</td>
+                                    <td className="text-center">{fileItem.status}</td>
+                                    <td className="text-center">
+                                    <img
+                                        src={dustbinicon}
+                                        alt=""
+                                        className="img-fluid"
+                                        role="button"
+                                        onClick={() => deleteDocument(item)}
+                                    />
+                                    </td>
+                                </tr>
+                            )
+                        })}                        
                         </tbody>
                     </table>
                     </div>

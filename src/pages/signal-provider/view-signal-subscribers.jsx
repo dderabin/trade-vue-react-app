@@ -13,8 +13,10 @@ import { useRef, useState } from "react";
 import { ShowBreadcrumbs } from "../../components/ShowBreadcrumbs";
 // import { useAlert } from "react-alert";
 import { Helmet } from "react-helmet";
+import { useSelector } from "react-redux";
 
 const ViewSignalSubscribersPage = () => {
+  const { subscribers = [] } = useSelector(state => state.appState.signalProvider)
   const ref = useRef(null);
 
   const { onMouseDown } = useDraggableScroll(ref);
@@ -117,14 +119,14 @@ const ViewSignalSubscribersPage = () => {
                     </tr>
                   </thead>
                   <tbody id="myTabledata">
-                    <SubscriberList subscriberList={subscriberList} />
+                    <SubscriberList subscriberList={subscribers} />
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
         ) : (
-          <GridTraderList traderList={subscriberList} />
+          <GridTraderList traderList={subscribers} />
         )}
       </div>
     </>

@@ -5,7 +5,19 @@ import FaqTrade from "./../../components/join-signal-provider/faq";
 import { useState } from "react";
 import infoIcon from "./../../assets/img/info.svg";
 import { Helmet } from "react-helmet";
+import { useSelector } from "react-redux";
+
 const JoinSignalProviderPage = () => {
+  const { 
+    FAQs = [], 
+    profitRate = 0,
+    signals = [], 
+    state = "disabled",
+    subscribeFee = 0,
+    subscribers = [], 
+    subscriptedTo = [],
+  } = useSelector(state => state.appState.copyTrader)
+  const { files = {}, ...profile } = useSelector(state => state.appState.userInfo)
   const [activetab, setActiveTab] = useState("profile");
   const handleProfile = () => {
     setActiveTab("profile");
@@ -119,11 +131,11 @@ const JoinSignalProviderPage = () => {
                 </ul>
                 <div className="tab-content mt-4" id="myTabContent">
                   {activetab === "profile" ? (
-                    <TraderProfile />
+                    <TraderProfile {...profile} />
                   ) : activetab === "upload" ? (
-                    <UploadDocument />
+                    <UploadDocument {...files} />
                   ) : (
-                    <FaqTrade />
+                    <FaqTrade {...FAQs} />
                   )}
                 </div>
               </div>
