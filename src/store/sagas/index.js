@@ -173,8 +173,9 @@ function* uploadDocumentsSaga() {
 
 function* performDeleteDocument(action) {
     try {
-        yield call(Api.DELETE_DOCUMENT, action.payload)
-        yield put(AppActions.deleteDocumentSuccessAction(action.payload))
+        const documentType = action.payload;
+        yield call(Api.DELETE_DOCUMENT, documentType)
+        yield put(AppActions.deleteDocumentSuccessAction({ documentType }))
     } catch (e) {
         yield put(AppActions.sagaFailAction(e))
     }
