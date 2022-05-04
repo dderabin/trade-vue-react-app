@@ -115,7 +115,7 @@ export const UPLOAD_DOCUMENTS = (data) => {
 
 export const DELETE_DOCUMENT = (documentType) => {
     // raw json body
-    return AxiosInstance.delete(`/user/upload-documents`, {documentType})
+    return AxiosInstance.delete(`/user/upload-documents`, { data: { documentType } })
 }
 
 export const CONFIGURE_SUBSCRIPTION_STATUS = () => {
