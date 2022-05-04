@@ -5,8 +5,18 @@ import FaqTrade from "./../../components/join-copy-trader/faq";
 import { useState } from "react";
 import infoIcon from "./../../assets/img/info.svg";
 import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const JoinCopyTraderPage = () => {
+  const { 
+    FAQs = [], 
+    profitRate = 0,
+    signals = [], 
+    state = "disabled",
+    subscribeFee = 0,
+    subscribers = [], 
+    subscriptedTo = [],
+  } = useSelector(state => state.appState.copyTrader)
+  const { files = [], ...profile } = useSelector(state => state.appState.userInfo)
   const [activetab, setActiveTab] = useState("profile");
   const handleProfile = () => {
     setActiveTab("profile");
@@ -120,11 +130,11 @@ const JoinCopyTraderPage = () => {
                 </ul>
                 <div className="tab-content mt-4" id="myTabContent">
                   {activetab === "profile" ? (
-                    <TraderProfile />
+                    <TraderProfile {...profile} />
                   ) : activetab === "upload" ? (
-                    <UploadDocument />
+                    <UploadDocument {...files} />
                   ) : (
-                    <FaqTrade />
+                    <FaqTrade {...FAQs} />
                   )}
                 </div>
               </div>

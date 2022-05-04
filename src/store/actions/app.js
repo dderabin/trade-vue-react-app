@@ -2,6 +2,7 @@ import { createAction } from "@reduxjs/toolkit";
 
 export const initAction = createAction('app/init')
 export const logoutAction = createAction('user/logout');
+export const terminateStatesAction = createAction('terminate/states/action');
 
 export const sagaSuccessAction = createAction('saga/success');
 export const sagaFailAction = createAction('saga/fail');

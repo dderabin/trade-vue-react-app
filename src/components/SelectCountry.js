@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-const SelectCountry = ({list, onSelected}) => {
+const SelectCountry = ({list, onSelected, countryIndex}) => {
   const [datas, setDatas] = useState([])
   const [selected, setSelected] = useState({src: '', name: ''})
   const [visible, setVisible] = useState(false)
@@ -25,6 +25,15 @@ const SelectCountry = ({list, onSelected}) => {
   useEffect(() => {
     setDatas(list)
   }, [visible])
+
+  useEffect(() => {
+    // countryIndex !== -1 && list.length > 0 && handleSelect(0);    
+    datas.length > 0 && countryIndex > -1 &&
+    setSelected({
+      src: 'http://purecatamphetamine.github.io/country-flag-icons/3x2/'+datas[countryIndex].isoCode+'.svg',
+      name: datas[countryIndex].name
+    })
+  }, [datas, countryIndex])
 
   return (
     <div className="select-country">

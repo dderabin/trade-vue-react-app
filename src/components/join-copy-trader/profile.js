@@ -6,38 +6,39 @@ import SelectCountry from '../SelectCountry'
 import { useDispatch } from "react-redux";
 import { AppActions } from '../../store/actions'
 
-const TraderProfile = () => {
+const TraderProfile = (props) => {
   const dispatch =  useDispatch()
-  const [dateValue, onDateChange] = useState(null);
+  const [dateValue, onDateChange] = useState(props.birthDate || null);
   const [userInfo, setUserInfo] = useState({
-    userName: '',
-    email: '',
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    gender: '',
-    birthDate: '',
-    state: '',
-    city: '',
-    zipCode: '',
-    address: '',
-    subscriptionPrice: '',
-    telegramName: '',
-    telegramId: '',
-    telegramLink: '',
-    details: '',
-    strategy: '',
+    userName: props.userName || '',
+    email: props.email || '',
+    country: props.country || '',
+    firstName: props.firstName || '',
+    middleName: props.middleName || '',
+    lastName: props.lastName || '',
+    gender: props.gender || '',
+    birthDate: props.birthDate || null,
+    state: props.state || '',
+    city: props.city || '',
+    zipCode: props.zipCode || '',
+    address: props.address || '',
+    subscriptionPrice: props.subscriptionPrice || '',
+    telegramName: props.telegramName || '',
+    telegramId: props.telegramId || '',
+    telegramLink: props.telegramLink || '',
+    details: props.details || '',
+    strategy: props.strategy || '',
   })
   const [countryList, setCountryList] = useState([])
   const [stateList, setStateList] = useState([])
   const [cityList, setCityList] = useState([])
+  const [countryIndex, setCountryIndex] = useState(0)
 
   useEffect(()=>{
     setCountryList(Country.getAllCountries())
   }, [])
 
   useEffect(() => {
-    console.log(dateValue)
     if (dateValue) {
       const birthDate = new Date(dateValue).toISOString().split('T')[0]
       setUserInfo({...userInfo, birthDate})
@@ -73,8 +74,11 @@ const TraderProfile = () => {
   }
 
   useEffect(() => {
-    setStateList(State.getStatesOfCountry(userInfo.country))
-  }, [userInfo.country])
+    if (userInfo.country !== '' && countryList.length > 0) {
+      setCountryIndex(countryList.findIndex(country => country.isoCode === userInfo.country))
+      setStateList(State.getStatesOfCountry(userInfo.country))
+    }
+  }, [userInfo.country, countryList])
 
   return (
     <div className="row">
@@ -188,7 +192,7 @@ const TraderProfile = () => {
             </div>
             <div className="col-xl-3 col-lg-3 col-12">
               <label className="form-label">Country of Residence *</label>
-              <SelectCountry list={countryList} onSelected={handleChangeCountry} />
+              <SelectCountry list={countryList} onSelected={handleChangeCountry} countryIndex={countryIndex}/>
             </div>
             <div className="col-xl-3 col-lg-3 col-12" style={{position: 'relative'}}>
               <label className="form-label">State *</label>

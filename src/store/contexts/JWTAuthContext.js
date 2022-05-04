@@ -49,6 +49,7 @@ export const AuthProvider = ({ children }) => {
             setSession(token, refreshToken)
 
             dispatch(AppActions.userLogInSuccessAction({user: {email}}))
+            dispatch(AppActions.userProfileFetchAction())
         } catch (e) {
             console.log(e)
         }
@@ -68,6 +69,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         setSession(null)
+        dispatch(AppActions.terminateStatesAction())
         dispatch(AppActions.logoutAction())
     }
 
@@ -80,23 +82,14 @@ export const AuthProvider = ({ children }) => {
                 if (accessToken && isValidToken(accessToken)) {
                     setSession(accessToken, refreshToken)
                     const response = await Api.GET_PROFILE()
-                    const { user } = response.data
-                    dispatch(AppActions.initAction({
-                        isAuthenticated: true,
-                        user,
-                    }))
+                    dispatch(AppActions.userProfileFetchSuccessAction(response.data))
+                    dispatch(AppActions.initAction({isAuthenticated: true}))
                 } else {
-                    dispatch(AppActions.initAction({
-                        isAuthenticated: false,
-                        user: null,
-                    }))
+                    dispatch(AppActions.initAction({isAuthenticated: false}))
                 }
             } catch (err) {
                 console.error(err)
-                dispatch(AppActions.initAction({
-                    isAuthenticated: false,
-                    user: null,
-                }))
+                dispatch(AppActions.initAction({isAuthenticated: false}))
             }
         })()
     }, [dispatch])

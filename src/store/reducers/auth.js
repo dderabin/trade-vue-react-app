@@ -12,9 +12,8 @@ const authReducer = createReducer(defaultState, {
         state.loading = true;
     },
     [AppActions.initAction]: (state, action) => {
-        const { isAuthenticated, user } = action.payload
+        const { isAuthenticated } = action.payload
         state.isAuthenticated = isAuthenticated
-        state.user = user
         state.isInitialised = true
     },
     [AppActions.userLogInSuccessAction]: (state, action) => {
@@ -25,9 +24,9 @@ const authReducer = createReducer(defaultState, {
     [AppActions.userLogInFailAction]: (state, action) => {
         console.log(action)
     },
-    [AppActions.logoutAction]: (state, action) => {
-        state.isAuthenticated = false
-        state.user = null
+    [AppActions.logoutAction]: (state) => {
+        state.isAuthenticated = false;
+        state.user = null;
     },
     [AppActions.userSignUpSuccessAction]: (state, action) => {
         const { user } = action.payload

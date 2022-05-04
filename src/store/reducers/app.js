@@ -9,9 +9,28 @@ const defaultState = {
     coinList: [],
     successMessage: null,
     failMessage: null,
+    userInfo: {},
+    copyTrader: {},
+    signalProvider: {},
+    notifications: [],
+    email: null,
 }
 
 const appReducer = createReducer(defaultState, {
+    [AppActions.terminateStatesAction]: (state) => {
+        state.loading = false;
+        state.exchangePlatforms = [];
+        state.copyTraders = [];
+        state.signalProviders = [];
+        state.coinList = [];
+        state.successMessage = null;
+        state.failMessage = null;
+        state.userInfo = {};
+        state.copyTrader = {};
+        state.signalProvider = {};
+        state.notifications = [];
+        state.email = null;
+    },
     [AppActions.apiFecthingAction]: (state, action) => {
         state.loading = true;
     },
@@ -45,6 +64,20 @@ const appReducer = createReducer(defaultState, {
         state.successMessage = null
         state.failMessage = null
     },
+    [AppActions.userProfileFetchSuccessAction]: (state, action) => {
+        const { 
+            userInfo, 
+            copyTrader,
+            signalProvider,
+            notifications,
+            email
+        } = action.payload
+        state.userInfo = userInfo
+        state.copyTrader = copyTrader
+        state.signalProvider = signalProvider
+        state.notifications = notifications
+        state.email = email
+    }
 });
 
 export default appReducer
