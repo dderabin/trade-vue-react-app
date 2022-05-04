@@ -31,6 +31,9 @@ const appReducer = createReducer(defaultState, {
         state.notifications = [];
         state.email = null;
     },
+    [AppActions.userInfoUpdateSuccessAction]: (state, action) => {
+        state.userInfo = {...state.userInfo, ...action.payload}
+    },
     [AppActions.apiFecthingAction]: (state, action) => {
         state.loading = true;
     },

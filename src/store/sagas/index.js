@@ -109,7 +109,8 @@ function* removeExchangePlatformSaga() {
 function* performUpdateUserInfo(action) {
     try {
         const response = yield call(Api.ADD_USER_INFO, action.payload)
-        yield put(AppActions.userInfoUpdateSuccessAction(response.data))
+        yield put(AppActions.userInfoUpdateSuccessAction(action.payload))
+        yield put(AppActions.sagaSuccessAction(response.data))
     } catch (e) {
         yield put(AppActions.sagaFailAction(e))
     }
@@ -174,8 +175,8 @@ function* uploadDocumentsSaga() {
 function* performDeleteDocument(action) {
     try {
         const documentType = action.payload;
-        yield call(Api.DELETE_DOCUMENT, documentType)
-        yield put(AppActions.deleteDocumentSuccessAction({ documentType }))
+        yield call(Api.DELETE_DOCUMENT, {documentType})
+        yield put(AppActions.deleteDocumentSuccessAction(documentType))
     } catch (e) {
         yield put(AppActions.sagaFailAction(e))
     }
