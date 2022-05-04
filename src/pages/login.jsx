@@ -15,6 +15,8 @@ const Login = (props) => {
   const [regForm, setRegForm] = useState({
     email: "", username: "", password:"", confirmPassword: "", firstname: "", lastName: "", agree: false
   })
+
+  const [resetEmail, setResetEmail] = useState('')
   
   const loginClick = (event) => {
     const { email, password } = loginForm
@@ -34,6 +36,10 @@ const Login = (props) => {
   
   const handleChangeReg = (event) => {
     setRegForm({...regForm, [event.target.name]: event.target.value})
+  }
+
+  const resetPassword = (event) => {
+    event.preventDefault();
   }
 
   return (
@@ -116,6 +122,7 @@ const Login = (props) => {
                       </div>
                       <div className="col-xl-6 col-lg-6 col-6 mob-mt-3 text-end">
                         <button
+                          type="button"
                           onClick={() => setCurrentFormType("forgot-password")}
                           className="btn font-14"
                         >
@@ -128,6 +135,7 @@ const Login = (props) => {
                         <div className="d-grid gap-2">
                           <button
                             className="btn btn-primary btn-green font-18"
+                            type="submit"
                           >
                             Login
                           </button>
@@ -172,7 +180,6 @@ const Login = (props) => {
                         Don't have an account ?{" "}
                         <button
                           onClick={() => setCurrentFormType("sign-up")}
-                          href="signup.html"
                           className="color-green ms-2 btn"
                         >
                           Sign up
@@ -193,15 +200,19 @@ const Login = (props) => {
                       <h1 className="auth-title">Reset Password</h1>
                     </div>
                   </div>
-                  <form>
+                  <form onSubmit={resetPassword}>
                     <div className="row">
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div>
                           <label className="form-label">Email Address *</label>
                           <input
                             type="email"
+                            name="email"
                             className="form-control"
                             placeholder="Enter email address"
+                            value={resetEmail}
+                            onChange={(e) => setResetEmail(e.target.value)}
+                            required
                           />
                         </div>
                       </div>
@@ -209,12 +220,12 @@ const Login = (props) => {
                     <div className="row mt-3">
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div className="d-grid gap-2">
-                          <Link
-                            to="/favourites"
+                          <button
                             className="btn btn-primary btn-green font-18"
+                            type="submit"
                           >
                             Reset Password
-                          </Link>
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -256,6 +267,7 @@ const Login = (props) => {
                         Don't have an account ?{" "}
                         <button
                           className="color-green ms-2 btn"
+                          onClick={() => setCurrentFormType('sign-up')}
                         >
                           Sign up
                         </button>
@@ -367,6 +379,7 @@ const Login = (props) => {
                         <div className="d-grid gap-2">
                           <button
                             className="btn btn-primary btn-green font-18"
+                            type="submit"
                           >
                             Register Now
                           </button>
