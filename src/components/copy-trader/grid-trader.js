@@ -13,7 +13,7 @@ const GridTraderList = ({ traderList }) => {
           <Link to={`/trade-configuration/${trader.id}`}>
             <div className="grid-card-body">
               <img
-                src={trader.traderimage}
+                src={trader.userInfo.avatar}
                 className="card-img-top"
                 alt="..."
               />
@@ -24,12 +24,12 @@ const GridTraderList = ({ traderList }) => {
                       className="font-16 font-bold text-dark mb-2"
                       style={{ whiteSpace: "nowrap" }}
                     >
-                      {trader.firstname}
+                      {trader.userInfo.firstName}
                     </div>
                     <div className="card-text font-12 mb-0">
                       <span className="font-regular font-13">
                         {" "}
-                        {trader.lastname} |{" "}
+                        {trader.userInfo.lastName} |{" "}
                       </span>
                       India
                       <img
@@ -46,7 +46,7 @@ const GridTraderList = ({ traderList }) => {
                           disabled=""
                           onClick={() => {
                             alert.error(
-                              `You cancel your suscription to ${trader.firstname}`
+                              `You cancel your suscription to ${trader.userInfo.firstName}`
                             );
                             trader.suscribed = false;
                           }}
@@ -66,7 +66,7 @@ const GridTraderList = ({ traderList }) => {
                           disabled=""
                           onClick={() => {
                             alert.error(
-                              `You have suscribed to ${trader.firstname}`
+                              `You have suscribed to ${trader.userInfo.firstName}`
                             );
                           }}
                           className="btn btn-success"

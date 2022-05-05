@@ -14,6 +14,8 @@ const defaultState = {
     signalProvider: {},
     notifications: [],
     email: null,
+    userName: null,
+    selfSignals: [],
 }
 
 const appReducer = createReducer(defaultState, {
@@ -30,6 +32,38 @@ const appReducer = createReducer(defaultState, {
         state.signalProvider = {};
         state.notifications = [];
         state.email = null;
+        state.userName = null;
+        state.selfSignals = [];
+    },
+    [AppActions.userUploadDocumentsSuccessAction]: (state, action) => {
+        state.userInfo.files = action.payload
+    },
+    [AppActions.updateFAQSuccessAction]: (state, action) => {
+        const {faqId, ...faq} = action.payload
+        let removedOld = [];
+        if (faq.type === 'copyTrader') {
+            removedOld = state.copyTrader.FAQs.filter(item => item._id !== faqId)
+            state.copyTrader.FAQs = [...removedOld, faq]
+        } else {
+            removedOld = state.signalProvider.FAQs.filter(item => item._id !== faqId)
+            state.signalProvider.FAQs = [...removedOld, faq]
+        }
+    },
+    [AppActions.deleteFAQSuccessAction]: (state, action) => {
+        const { type, faqId } = action.payload
+        if (type === 'copyTrader') {
+            state.copyTrader.FAQs = state.copyTrader.FAQs.filter(({_id}) => _id !== faqId)
+        } else {
+            state.signalProvider.FAQs = state.signalProvider.FAQs.filter(({_id}) => _id !== faqId)
+        }
+    },
+    [AppActions.addFAQSuccessAction]: (state, action) => {
+        const { type } = action.payload
+        if (type === 'copyTrader') {
+            state.copyTrader.FAQs = [...state.copyTrader.FAQs, action.payload]
+        } else {
+            state.signalProvider.FAQs = [...state.signalProvider.FAQs, action.payload]
+        }       
     },
     [AppActions.userInfoUpdateSuccessAction]: (state, action) => {
         state.userInfo = {...state.userInfo, ...action.payload}
@@ -77,13 +111,19 @@ const appReducer = createReducer(defaultState, {
             copyTrader,
             signalProvider,
             notifications,
-            email
+            email,
+            userName,
+            selfSignals,
+            _id,
         } = action.payload
         state.userInfo = userInfo
         state.copyTrader = copyTrader
         state.signalProvider = signalProvider
         state.notifications = notifications
         state.email = email
+        state.userName = userName
+        state.selfSignals = selfSignals
+        state.userId = _id
     }
 });
 

@@ -1,11 +1,12 @@
 import { ShowBreadcrumbs } from "../../components/ShowBreadcrumbs";
 import TraderProfile from "./../../components/join-signal-provider/profile";
-import UploadDocument from "./../../components/join-signal-provider/upload-document";
+import UploadDocument from "./../../components/join-copy-trader/upload-document";
 import FaqTrade from "./../../components/join-signal-provider/faq";
 import { useState } from "react";
 import infoIcon from "./../../assets/img/info.svg";
 import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
+import { enableStatus } from "../../store/consts";
 
 const JoinSignalProviderPage = () => {
   const { 
@@ -16,7 +17,7 @@ const JoinSignalProviderPage = () => {
     subscribeFee = 0,
     subscribers = [], 
     subscriptedTo = [],
-  } = useSelector(state => state.appState.copyTrader)
+  } = useSelector(state => state.appState.signalProvider)
   const { files = {}, ...profile } = useSelector(state => state.appState.userInfo)
   const [activetab, setActiveTab] = useState("profile");
   const handleProfile = () => {
@@ -66,7 +67,7 @@ const JoinSignalProviderPage = () => {
               </div>
               <div className="col-xl-4 col-lg-4 col-12 text-end mob-text-left">
                 <p className="mb-0 mob-mt-3">
-                  Current Status: <span id="dataPresent"> </span>
+                  Current Status: <span id="dataPresent" className={`text-${state}`}>{enableStatus[state]}</span>
                 </p>
               </div>
             </div>

@@ -162,6 +162,7 @@ function* enableSignalProviderSaga() {
 function* performUploadDocuments(action) {
     try {
         const response = yield call(Api.UPLOAD_DOCUMENTS, action.payload)
+        yield put(AppActions.userUploadDocumentsSuccessAction(response.data.files))
         yield put(AppActions.sagaSuccessAction(response.data))
     } catch (e) {
         yield put(AppActions.sagaFailAction(e))
@@ -202,6 +203,7 @@ function* configureSubscribeSaga() {
 function* performNewFAQ(action) {
     try {
         const response = yield call(Api.NEW_FAQ, action.payload)
+        yield put(AppActions.addFAQSuccessAction({...action.payload, _id: response.data.newFaqId}))
         yield put(AppActions.sagaSuccessAction(response.data))
     } catch (e) {
         yield put(AppActions.sagaFailAction(e))
@@ -215,6 +217,7 @@ function* newFAQSaga() {
 function* performUpdateFAQ(action) {
     try {
         const response = yield call(Api.UPDATE_FAQ, action.payload)
+        yield put(AppActions.updateFAQSuccessAction(action.payload))
         yield put(AppActions.sagaSuccessAction(response.data))
     } catch (e) {
         yield put(AppActions.sagaFailAction(e))
@@ -228,6 +231,7 @@ function* updateFAQSaga() {
 function* performDeleteFAQ(action) {
     try {
         const response = yield call(Api.DELETE_FAQ, action.payload)
+        yield put(AppActions.deleteFAQSuccessAction(action.payload))
         yield put(AppActions.sagaSuccessAction(response.data))
     } catch (e) {
         yield put(AppActions.sagaFailAction(e))
@@ -290,6 +294,20 @@ function* fetchExchangeComparisonSaga() {
     yield takeLatest(AppActions.exchangeComparisonFetchAction.toString(), performFetchExchangeComparison)
 }
 
+function* performUploadAvatar(action) {
+    try {
+        const response = yield call(Api.UPLOAD_AVATAR, action.payload)
+        yield put(AppActions.uploadAvatarSuccessAction())
+        yield put(AppActions.sagaSuccessAction(response.data))
+    } catch (e) {
+        yield put(AppActions.sagaFailAction(e))
+    }
+}
+
+function* uploadAvatarSaga() {
+    yield takeLatest(AppActions.uploadAvatarAction.toString(), performUploadAvatar)
+}
+
 export default function* rootSaga() {
     yield all([
         logInSaga(),
@@ -314,5 +332,6 @@ export default function* rootSaga() {
         fetchCopyTradersSaga(),
         fetchSignalProvidersSaga(),
         fetchExchangeComparisonSaga(),
+        uploadAvatarSaga(),
     ])
 }

@@ -3,15 +3,17 @@ import DatePicker from "react-date-picker";
 import { Country, State }  from 'country-state-city';
 import { Input } from 'reactstrap'
 import SelectCountry from '../SelectCountry'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppActions } from '../../store/actions'
 
 const TraderProfile = (props) => {
+  const { state } = useSelector(state => state.appState.signalProvider)
+  const { userName, email } = useSelector(state => state.appState)
   const dispatch =  useDispatch()
   const [dateValue, onDateChange] = useState(props.birthDate || null);
   const [userInfo, setUserInfo] = useState({
-    userName: props.userName || '',
-    email: props.email || '',
+    userName,
+    email,
     country: props.country || '',
     firstName: props.firstName || '',
     middleName: props.middleName || '',
@@ -70,7 +72,16 @@ const TraderProfile = (props) => {
 
   const copyTraderClk = (event) => {
     dispatch(AppActions.userInfoUpdateAction(userInfo))
+    state === "disabled" && dispatch(AppActions.userEnableSignalProviderAction())
     event.preventDefault()
+  }
+
+  const handleChangeAvatar = (event) => {
+    const target = event.target;
+    const { name, files = null } = target;
+    if (files) {
+      dispatch(AppActions.uploadAvatarAction({[name]: files[0]}))
+    }
   }
 
   useEffect(() => {
@@ -93,7 +104,9 @@ const TraderProfile = (props) => {
                 <input
                   id="file-selector"
                   type="file"
+                  name="avatar"
                   className="form-control"
+                  onChange={handleChangeAvatar}
                   aria-label="Upload"
                 />
               </div>
@@ -105,10 +118,8 @@ const TraderProfile = (props) => {
                 type="text"
                 className="form-control"
                 placeholder="Enter userName"
-                value={userInfo.userName}
-                onChange={handleChangeInfo}
-                minLength={3}
-                required
+                value={userName}
+                readOnly
               />
             </div>
             <div className="col-xl-3 col-lg-3 col-12">
@@ -118,9 +129,8 @@ const TraderProfile = (props) => {
                 type="email"
                 className="form-control"
                 placeholder="Enter Email Address"
-                value={userInfo.email}
-                onChange={handleChangeInfo}
-                required
+                value={email}
+                readOnly
               />
             </div>
           </div>

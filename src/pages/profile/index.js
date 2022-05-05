@@ -7,12 +7,12 @@ import { useSelector } from "react-redux";
 
 export const ProfilePage = () => {
   const { 
-  FAQs = [], 
+  FAQs = [],
   profitRate = 0,
-  signals = [], 
+  signals = [],
   state = "disabled",
   subscribeFee = 0,
-  subscribers = [], 
+  subscribers = [],
   subscriptedTo = [],
 } = useSelector(state => state.appState.copyTrader)
 const { files = {}, ...profile } = useSelector(state => state.appState.userInfo)
@@ -26,6 +26,7 @@ const { files = {}, ...profile } = useSelector(state => state.appState.userInfo)
   const handleFaq = () => {
     setActiveTab("faq");
   };
+  
   return (
     <>
       <Helmet>
@@ -37,11 +38,6 @@ const { files = {}, ...profile } = useSelector(state => state.appState.userInfo)
             <div className="row">
               <div className="col-xl-8 col-lg-8 col-12">
                 <h1 className="font-18 font-bold mb-0">Your Profile</h1>
-              </div>
-              <div className="col-xl-4 col-lg-4 col-12 text-end mob-text-left">
-                <p className="mb-0 mob-mt-3">
-                  Current Status: <span id="dataPresent"> </span>
-                </p>
               </div>
             </div>
             <div className="row mt-4">

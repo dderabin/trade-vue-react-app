@@ -6,6 +6,7 @@ import { useState } from "react";
 import infoIcon from "./../../assets/img/info.svg";
 import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
+import { enableStatus } from "../../store/consts";
 const JoinCopyTraderPage = () => {
   const { 
     FAQs = [], 
@@ -65,7 +66,7 @@ const JoinCopyTraderPage = () => {
               </div>
               <div className="col-xl-4 col-lg-4 col-12 text-end mob-text-left">
                 <p className="mb-0 mob-mt-3">
-                  Current Status: <span id="dataPresent" className="txt-red">Not Submitted </span>
+                  Current Status: <span id="dataPresent" className={`text-${state}`}>{enableStatus[state]}</span>
                 </p>
               </div>
             </div>

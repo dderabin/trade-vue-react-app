@@ -26,7 +26,7 @@ export const FavouritesPages = () => {
 
   const { onMouseDown } = useDraggableScroll(ref);
 
-  const [traderList, setTraderList] = useState(traders);
+  const [traderList, setTraderList] = useState([]);
   const [viewtype, setViewType] = useState(true);
   var searchTraderList;
   const searchTrader = (value) => {

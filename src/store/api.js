@@ -56,7 +56,7 @@ export const LOGIN_USER = (data) => {
     return AxiosInstance.post(`/user/login`, data);
 }
 
-export const GET_PROFILE = (data) => {
+export const GET_PROFILE = () => {
     return AxiosInstance.get(`/user/profile`);
 }
 
@@ -78,11 +78,9 @@ export const ADD_USER_INFO = (data) => {
     return AxiosInstance.put(`/user/user-info`, data)
 }
 
-export const ENABLE_COPYTRADER = (data) => {
+export const ENABLE_COPYTRADER = () => {
     // no data
-    // const data = {        
-    // }
-    return AxiosInstance.post(`/user/enable-copy-trader`, data)
+    return AxiosInstance.post(`/user/enable-copy-trader`)
 }
 
 export const SUBSCRIBE_TO_COPYTRADER_OR_SIGNALPROVIDER = (data) => {
@@ -151,7 +149,7 @@ export const DELETE_FAQ = (data) => {
     //     "type": "copyTrader",
     //     "faqId": "6228ce89d4ae0e26f138bbcc"
     // }
-    return AxiosInstance.delete(`/user/faq`, data)
+    return AxiosInstance.delete(`/user/faq`, {data})
 }
 
 export const REFRESH_TOKEN = (data) => {
@@ -184,6 +182,18 @@ export const GET_SIGNALPROVIDERS = (data) => {
 
 export const GET_COMPARISON_PAGE_COINS = () => {
     return AxiosInstance.get(`/exchanges/comparison-page-coins`)   
+}
+
+export const UPLOAD_AVATAR = (data) => {
+    const { avatar } = data
+    const formData = new FormData();
+    formData.append("avatar", avatar)
+    return AxiosInstance.put(`/user/upload-avatar`, formData)
+}
+
+export const GET_SIGNAL_HISTORY = (data) => {
+    const { page = 0, count = 5 } = data;
+    return AxiosInstance.get(`/user/signal-history?page=${page}&pagination=${count}`)
 }
 
 export const TEST_SERVER = () => {

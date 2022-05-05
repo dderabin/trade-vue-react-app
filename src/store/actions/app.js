@@ -98,3 +98,11 @@ export const copyTradersFetchFailAction = createAction('copytraders/fetch/fail')
 export const signalProvidersFetchAction = createAction('signalproviders/fetch')
 export const signalProvidersFetchSuccessAction = createAction('signalproviders/fetch/success')
 export const signalProvidersFetchFailAction = createAction('signalproviders/fetch/fail')
+
+export const uploadAvatarAction = createAction('upload/avatar')
+export const uploadAvatarSuccessAction = createAction('upload/avatar/success')
+export const uploadAvatarFaileAction = createAction('upload/avatar/faile')
+
+export const signalHistoryFetchAction = createAction('signal/history/fetch')
+export const signalHistoryFetchSuccessAction = createAction('signal/history/fetch/success')
+export const signalHistoryFetchFailAction = createAction('signal/history/fetch/fail')

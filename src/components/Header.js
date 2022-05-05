@@ -12,8 +12,11 @@ import { useEffect, useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks";
+import AxiosInstance from "../axiosClient";
+import { useSelector } from "react-redux";
 
 export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) => {
+  const { userId, userInfo: {firstName = '', lastName = '', middleName = '', successMessage} } = useSelector(state => state.appState)
   const { logout } = useAuth();
   const location = useLocation();
   const [notificationShow, setNotificationShow] = useState(false);
@@ -246,7 +249,7 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
                       <div className="row g-0 align-items-center">
                         <div className="col-2">
                           <img
-                            src={avatar_5}
+                            src={avatar_2}
                             className="avatar img-fluid rounded-circle"
                             alt="Vanessa Tucker"
                           />
@@ -334,7 +337,7 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
                 data-bs-toggle="dropdown"
               >
                 <div className="position-relative nav-user">
-                  <img src={avatar_2} className="img-fluid" alt="User pic" style={{borderRadius: '50px'}} />
+                  <img src={`${AxiosInstance.defaults.baseURL}/users/avatar/${userId}`} className="img-fluid" alt="User pic" style={{borderRadius: '50px'}} title={`${firstName} ${middleName} ${lastName}`}/>
                 </div>
               </a>
               <OutsideClickHandler

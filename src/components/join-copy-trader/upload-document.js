@@ -169,11 +169,12 @@ const UploadDocument = ({_id, ...files}) => {
                         <tbody>
                         {Object.keys(files).map((item, index) => {
                             const fileItem = files[item];
+                            const uploadTime = new Date(fileItem.uploadTime);
                             return (
                                 <tr key={index}>
                                     <td>{item}</td>
-                                    <td className="text-center">31-10-2021</td>
-                                    <td className="text-center">10:26 pm</td>
+                                    <td className="text-center">{uploadTime.toLocaleDateString()}</td>
+                                    <td className="text-center">{uploadTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
                                     <td className="text-center">{fileItem.status}</td>
                                     <td className="text-center">
                                     <img

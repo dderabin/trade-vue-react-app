@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
+import AxiosInstance from "../../axiosClient";
 
 const TraderList = ({ traderList }) => {
   const alert = useAlert();
@@ -19,26 +20,26 @@ const TraderList = ({ traderList }) => {
             >
               <div>
                 <img
-                  src={trader.traderimage}
+                  src={`${AxiosInstance.defaults.baseURL}/users/avatar/${trader?.userInfo?.avatar.slice(0, -4) || null}`}
                   alt=""
                   className="img-fluid table-pic"
                 />
               </div>
               <span to={`/trade-configuration/${trader.id}`}>
                 <div>
-                  <div className="fw-light">{trader.firstname}</div>
-                  <span className="fw-bold">{trader.lastname}</span>
+                  <div className="fw-light">{trader?.userInfo?.firstName || ''}</div>
+                  <span className="fw-bold">{trader?.userInfo?.lastName || ''}</span>
                 </div>
               </span>
             </div>
           </td>
-          <td className="text-center">{trader.subscribers}</td>
-          <td className="cubscriber">{trader.membership}</td>
-          <td className="text-center">{trader.signalssent}</td>
+          <td className="text-center">{trader.subscribersCount}</td>
+          <td className="cubscriber">{trader?.copyTrader?.subscribeFee || 0}</td>
+          <td className="text-center">{trader.signalsCount}</td>
           <td className="text-center">{trader.copytrades}</td>
           <td className="text-center">
             <img src="img/uploads/profit-up.svg" alt="" className="img-fluid" />
-            <span className="text-green">{trader.profit} </span>
+            <span className="text-green">{trader?.copyTrader?.profitRate || 0} </span>
           </td>
           <td className="text-center">
             {trader.suscribed ? (
