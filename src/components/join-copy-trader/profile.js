@@ -8,7 +8,7 @@ import { AppActions } from '../../store/actions'
 
 const TraderProfile = (props) => {
   const { state } = useSelector(state => state.appState.copyTrader)
-  const { userName, email } = useSelector(state => state.appState)
+  const { userName = '', email } = useSelector(state => state.appState)
   const dispatch =  useDispatch()
   const [dateValue, onDateChange] = useState(new Date(props.birthDate || null));
   const [userInfo, setUserInfo] = useState({
@@ -120,7 +120,7 @@ const TraderProfile = (props) => {
                 className="form-control"
                 placeholder="Enter userName"
                 value={userName}
-                readOnly
+                readOnly={userName !== ''}
               />
             </div>
             <div className="col-xl-3 col-lg-3 col-12">
