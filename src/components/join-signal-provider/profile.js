@@ -237,7 +237,7 @@ const TraderProfile = (props) => {
               <input
                 name="zipCode"
                 type="text"
-                pattern="[0-9]{5}"
+                pattern="[0-9]{9}"
                 className="form-control"
                 placeholder="Zip Code"
                 value={userInfo.zipCode}
