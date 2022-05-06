@@ -192,8 +192,32 @@ export const UPLOAD_AVATAR = (data) => {
 }
 
 export const GET_SIGNAL_HISTORY = (data) => {
-    const { page = 0, count = 5 } = data;
+    const page = 0, count = 5;
     return AxiosInstance.get(`/user/signal-history?page=${page}&pagination=${count}`)
+}
+
+export const GET_PORTFOLIO_VALUE = () => {
+    return AxiosInstance.get(`/user/portfolio/portfolio-value`)
+}
+
+export const GET_BEST_COPTY_TRADERS = () => {
+    return AxiosInstance.get(`/user/portfolio/best-copytraders`)
+}
+
+export const GET_BEST_SIGNAL_PROVIDERS = () => {
+    return AxiosInstance.get(`/user/portfolio/best-signalproviders`)
+}
+
+export const GET_MONTHLY_SCORE_CARD = () => {
+    return AxiosInstance.get(`/user/portfolio/monthly-score-card`)
+}
+
+export const GET_MONTHLY_SIGNAL_SUBSCRIBERS_COUNT = () => {
+    return AxiosInstance.get(`/user/portfolio/monthly-signal-subscribers-count`)
+}
+
+export const GET_MONTHLY_COPYTRADER_SUBSCRIBERS_COUNT = () => {
+    return AxiosInstance.get(`/user/portfolio/monthly-copytrader-subscribers-count`)
 }
 
 export const TEST_SERVER = () => {

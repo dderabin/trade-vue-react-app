@@ -337,7 +337,7 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
                 data-bs-toggle="dropdown"
               >
                 <div className="position-relative nav-user">
-                  <img src={`${AxiosInstance.defaults.baseURL}/users/avatar/${userId}`} className="img-fluid" alt="User pic" style={{borderRadius: '50px'}} title={`${firstName} ${middleName} ${lastName}`}/>
+                  <img src={`${AxiosInstance.defaults.baseURL}/users/avatar/${userId}`} className="img-fluid" alt="User pic" style={{borderRadius: '50px', width: '50px', height: '50px'}} title={`${firstName} ${middleName} ${lastName}`}/>
                 </div>
               </a>
               <OutsideClickHandler

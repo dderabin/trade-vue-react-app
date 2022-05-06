@@ -44,18 +44,20 @@ const JoinCopyTraderPage = () => {
             </a>
           </div>
         </div>
-        <div className="row my-3">
-          <div className="col-xl-12 col-lg-12 col-12">
-            <div className="alert alert-primary p-4" style={{margin: 0}} role="alert">
-              <ul className="alert-ul ul-basic">
-                <li>
-                  <img src={infoIcon} alt="" className="me-2 info-icon" />
-                  To Join as a Copy Trader, please submit your information.
-                </li>
-              </ul>
+        { state === "disabled" && (<>
+          <div className="row my-3">
+            <div className="col-xl-12 col-lg-12 col-12">
+              <div className="alert alert-primary p-4" style={{margin: 0}} role="alert">
+                <ul className="alert-ul ul-basic">
+                  <li>
+                    <img src={infoIcon} alt="" className="me-2 info-icon" />
+                    To Join as a Copy Trader, please submit your information.
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
+        </>)}
         <div className="card mb-0">
           <div className="card-body mob-pad-0">
             <div className="row">

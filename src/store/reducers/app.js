@@ -16,6 +16,7 @@ const defaultState = {
     email: null,
     userName: null,
     selfSignals: [],
+    traderHistory: [],
 }
 
 const appReducer = createReducer(defaultState, {

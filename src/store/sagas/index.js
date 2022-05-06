@@ -308,6 +308,19 @@ function* uploadAvatarSaga() {
     yield takeLatest(AppActions.uploadAvatarAction.toString(), performUploadAvatar)
 }
 
+function* performFetchSignalHistory(action) {
+    try {
+        const response = yield call(Api.GET_SIGNAL_HISTORY, action.payload)
+        yield put(AppActions.signalHistoryFetchSuccessAction(response.data))
+    } catch (e) {
+        yield put(AppActions.sagaFailAction(e))
+    }
+}
+
+function* fetchSignalHistorySaga() {
+    yield takeLatest(AppActions.signalHistoryFetchAction.toString(), performFetchSignalHistory)
+}
+
 export default function* rootSaga() {
     yield all([
         logInSaga(),
@@ -333,5 +346,6 @@ export default function* rootSaga() {
         fetchSignalProvidersSaga(),
         fetchExchangeComparisonSaga(),
         uploadAvatarSaga(),
+        fetchSignalHistorySaga(),
     ])
 }

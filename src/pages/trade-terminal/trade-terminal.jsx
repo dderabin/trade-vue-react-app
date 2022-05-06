@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { RealTimeChartWidget } from "react-tradingview-widgets";
-import traderHistory from "./data/history";
+// import traderHistory from "./data/history";
 import TraderHistoryList from "../../components/trade-terminal/trade-history";
 import {Dropdown}  from 'semantic-ui-react';
 import "font-awesome/css/font-awesome.css";
@@ -14,6 +14,7 @@ import {
 } from 'reactstrap'
 import icon_modal_close from "./../../assets/img/icons/modal-close.svg";
 import icon_modal_minus from "./../../assets/img/icons/modal-minus.svg";
+import { useTraderHistory } from "../../hooks";
 
 export const TradeTerminalPage = () => {
   return (
@@ -38,16 +39,11 @@ const options = [
 ];
 
 export const GraphicalChartArea = () => {
-  // const [historyList, setHistoryList] = useState(traderHistory);
+  const { traderHistory } = useTraderHistory()
   const [historyList] = useState(traderHistory);
   const [createOpen, setCreateOpen] = useState(false)
   const [editOpen, setEditOpen] = useState(false)
   
-  useEffect(() => {
-    console.log("modal createOpen state changed: ", createOpen);
-    console.log("modal editOpen state changed: ", editOpen);
-  }, [createOpen, editOpen])
-
   return (
     <>
       <Helmet>
@@ -240,18 +236,18 @@ export const BuyNowUpdatePositionBar = () => {
 
 export const BuySellForm = (props) => {
   const [active, setActive] = useState('buy');
-  const [activebtn, setActiveBtn] = useState('spot');
+  const [signalType, setActiveBtn] = useState('spot');
   const [activeCryto, setActiveCryto] = useState('usdt');
   const [price, setPrice] = useState(0);
-  const [quantity, setQuantity] = useState(0);
-  const [priceStop, setPriceStop] = useState(0);
-  const [quantityStop, setQuantityStop] = useState(0);
+  const [entryPrice, setQuantity] = useState(0);
+  const [stopLoss, setPriceStop] = useState(0);
+  const [amount, setQuantityStop] = useState(0);
   const { editState } = props
   const [buyProfit, setBuyProfit] = useState([
-    { price: 0, quantity: 0 }
+    { price: 0, amount: 0 }
   ])
   const [updateProfit, setUpdateProfit] = useState([
-    { price: 0, quantity: 0 }
+    { price: 0, amount: 0 }
   ])
 
   const handleBuy = () => {
@@ -433,8 +429,8 @@ export const BuySellForm = (props) => {
                 <div className="row mt-3 ">
                   <div className="btn-group terminal-button">
 
-                    <button type="button" style={{borderRight: 'none', width: '50%'}} onClick={() => setActiveBtn('spot')} className={`trade-type btn ${activebtn === 'spot' ? 'btn-trade' : 'btn-white'}`}>Spot</button>
-                    <button type="button" style={{borderLeft: 'none', width: '50%'}} onClick={() => setActiveBtn('future')} className={`trade-type btn ${activebtn === 'future' ? 'btn-trade' : 'btn-white'}`}>Futures</button>
+                    <button type="button" style={{borderRight: 'none', width: '50%'}} onClick={() => setActiveBtn('spot')} className={`trade-type btn ${signalType === 'spot' ? 'btn-trade' : 'btn-white'}`}>Spot</button>
+                    <button type="button" style={{borderLeft: 'none', width: '50%'}} onClick={() => setActiveBtn('future')} className={`trade-type btn ${signalType === 'future' ? 'btn-trade' : 'btn-white'}`}>Futures</button>
                     
                   </div>
                 </div>
@@ -555,7 +551,7 @@ export const BuySellForm = (props) => {
                         </label>
                         <div className="input-group mb-3">
                           <div className="input-group-prepend">
-                            <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeQuantity(quantity - 1)} type="button">-</button>
+                            <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeQuantity(entryPrice - 1)} type="button">-</button>
                           </div>
                           <input 
                             type="text"
@@ -564,10 +560,10 @@ export const BuySellForm = (props) => {
                               if(e.target.value !== '')
                               handleChangeQuantity(parseFloat(e.target.value))
                             }}
-                            value={quantity}  
+                            value={entryPrice}  
                           />
                           <div className="input-group-prepend">
-                            <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeQuantity(quantity + 1)} type="button">+</button>
+                            <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeQuantity(entryPrice + 1)} type="button">+</button>
                           </div>
                         </div>
                       </div>
@@ -598,7 +594,7 @@ export const BuySellForm = (props) => {
                         </label>
                         <div className="input-group mb-3">
                           <div className="input-group-prepend">
-                            <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangePriceStop(priceStop - 1)} type="button">-</button>
+                            <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangePriceStop(stopLoss - 1)} type="button">-</button>
                           </div>
                           <input
                             type="text"
@@ -607,10 +603,10 @@ export const BuySellForm = (props) => {
                               if(e.target.value !== '')
                                 handleChangePriceStop(parseFloat(e.target.value))
                             }}
-                            value={priceStop}
+                            value={stopLoss}
                           />
                           <div className="input-group-prepend">
-                            <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangePriceStop(priceStop + 1)} type="button">+</button>
+                            <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangePriceStop(stopLoss + 1)} type="button">+</button>
                           </div>
                         </div>
                       </div>
@@ -624,7 +620,7 @@ export const BuySellForm = (props) => {
                         </label>
                         <div className="input-group mb-3">
                           <div className="input-group-prepend">
-                            <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeQuantityStop(quantityStop - 1)} type="button">-</button>
+                            <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeQuantityStop(amount - 1)} type="button">-</button>
                           </div>
                           <input
                             type="text"
@@ -633,10 +629,10 @@ export const BuySellForm = (props) => {
                               if(e.target.value !== '')
                                 handleChangeQuantityStop(parseFloat(e.target.value))
                             }}
-                            value={quantityStop}
+                            value={amount}
                           />
                           <div className="input-group-prepend">
-                            <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeQuantityStop(quantityStop + 1)} type="button">+</button>
+                            <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeQuantityStop(amount + 1)} type="button">+</button>
                           </div>
                         </div>
                       </div>
@@ -686,20 +682,20 @@ export const BuySellForm = (props) => {
                             </label>
                             <div className="input-group ">
                               <div className="input-group-prepend">
-                                <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeProfit("quantity", item.quantity - 1, index)} type="button">-</button>
+                                <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeProfit("amount", item.amount - 1, index)} type="button">-</button>
                               </div>
                               <input
                                 type="text"
                                 className="form-control price-border"
-                                name="quantity"
+                                name="amount"
                                 onChange={e => {
                                   if(e.target.value !== '')
-                                    handleChangeProfit("quantity", parseFloat(e.target.value), index)
+                                    handleChangeProfit("amount", parseFloat(e.target.value), index)
                                 }}
-                                value={item.quantity}
+                                value={item.amount}
                               />
                               <div className="input-group-prepend">
-                                <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeProfit("quantity", item.quantity + 1, index)} type="button">+</button>
+                                <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeProfit("amount", item.amount + 1, index)} type="button">+</button>
                               </div>
                             </div>
                           </div>
@@ -828,8 +824,8 @@ export const BuySellForm = (props) => {
                 </div>
                 <div className="row mt-3 ">
                   <div className="btn-group terminal-button">
-                    <button type="button" style={{borderRight: 'none', width: '50%'}} onClick={() => setActiveBtn('spot')} className={`trade-type btn ${activebtn === 'spot' ? 'btn-trade' : 'btn-white'}`}>Spot</button>
-                    <button type="button" style={{borderLeft: 'none', width: '50%'}} onClick={() => setActiveBtn('future')} className={`trade-type btn ${activebtn === 'future' ? 'btn-trade' : 'btn-white'}`}>Futures</button>
+                    <button type="button" style={{borderRight: 'none', width: '50%'}} onClick={() => setActiveBtn('spot')} className={`trade-type btn ${signalType === 'spot' ? 'btn-trade' : 'btn-white'}`}>Spot</button>
+                    <button type="button" style={{borderLeft: 'none', width: '50%'}} onClick={() => setActiveBtn('future')} className={`trade-type btn ${signalType === 'future' ? 'btn-trade' : 'btn-white'}`}>Futures</button>
                   </div>
                 </div>
                 <div className="row mt-3">
@@ -949,7 +945,7 @@ export const BuySellForm = (props) => {
                         </label>
                         <div className="input-group mb-3">
                           <div className="input-group-prepend">
-                            <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeQuantity(quantity - 1)} type="button">-</button>
+                            <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeQuantity(entryPrice - 1)} type="button">-</button>
                           </div>
                           {/* <input type="text" className="form-control price-border" onChange={e => setQuantity(parseFloat(e.target.value))} value={quantity} /> */}
                           <input
@@ -959,10 +955,10 @@ export const BuySellForm = (props) => {
                               if(e.target.value !== '')
                               handleChangeQuantity(parseFloat(e.target.value))
                             }}
-                            value={quantity}
+                            value={entryPrice}
                           />
                           <div className="input-group-prepend">
-                            <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeQuantity(quantity + 1)} type="button">+</button>
+                            <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeQuantity(entryPrice + 1)} type="button">+</button>
                           </div>
                         </div>
                       </div>
@@ -993,7 +989,7 @@ export const BuySellForm = (props) => {
                         </label>
                         <div className="input-group mb-3">
                           <div className="input-group-prepend">
-                            <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangePriceStop(priceStop - 1)} type="button">-</button>
+                            <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangePriceStop(stopLoss - 1)} type="button">-</button>
                           </div>
                           <input
                             type="text"
@@ -1002,10 +998,10 @@ export const BuySellForm = (props) => {
                               if(e.target.value !== '')
                                 handleChangePriceStop(parseFloat(e.target.value))
                             }}
-                            value={priceStop}
+                            value={stopLoss}
                           />
                           <div className="input-group-prepend">
-                            <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangePriceStop(priceStop + 1)} type="button">+</button>
+                            <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangePriceStop(stopLoss + 1)} type="button">+</button>
                           </div>
                         </div>
                       </div>
@@ -1019,7 +1015,7 @@ export const BuySellForm = (props) => {
                         </label>
                         <div className="input-group mb-3">
                           <div className="input-group-prepend">
-                            <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeQuantityStop(quantityStop - 1)} type="button">-</button>
+                            <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeQuantityStop(amount - 1)} type="button">-</button>
                           </div>
                           <input
                             type="text"
@@ -1028,10 +1024,10 @@ export const BuySellForm = (props) => {
                               if(e.target.value !== '')
                                 handleChangeQuantityStop(parseFloat(e.target.value))
                             }}
-                            value={quantityStop}
+                            value={amount}
                           />
                           <div className="input-group-prepend">
-                            <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeQuantityStop(quantityStop + 1)} type="button">+</button>
+                            <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeQuantityStop(amount + 1)} type="button">+</button>
                           </div>
                         </div>
                       </div>

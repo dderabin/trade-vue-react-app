@@ -3,6 +3,7 @@ import useAuth from "./useAuth";
 import useCopyTraders from "./useCopyTraders";
 import useSignalProviders from "./useSignalProviders";
 import useCoinList from "./useCoinList";
+import useTraderHistory from "./useTradeHistory";
 
 export {
   useExchanges,
@@ -10,4 +11,5 @@ export {
   useCopyTraders,
   useSignalProviders,
   useCoinList,
+  useTraderHistory,
 }
