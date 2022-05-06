@@ -119,7 +119,8 @@ const TraderProfile = (props) => {
                 type="text"
                 className="form-control"
                 placeholder="Enter userName"
-                value={userName}
+                value={userInfo.userName}
+                onChange={handleChangeInfo}
                 readOnly={userName !== ''}
               />
             </div>
