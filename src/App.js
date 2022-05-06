@@ -48,6 +48,7 @@ import ViewSubscribersPage from "./pages/copy-trading/view-suscribers";
 import { Provider } from "react-redux";
 import store from './store';
 import { AuthProvider } from "./store/contexts/JWTAuthContext";
+import { TradeReportPage } from "./pages/reports";
 // require('react-date-picker/dist/DatePicker.css');
 
 const options = {
@@ -290,6 +291,20 @@ function App() {
               />
               {/*  */}
               {/* Reports */}
+              <Route
+                path="/reports"
+                element={
+                  <PagesLayout
+                    collapseSidebar={collapseSidebar}
+                    handleHamburguerClick={() =>
+                      setCollapseSidebar(!collapseSidebar)
+                    }
+                    onOutsideSidebarClickHandler={() => handleOutSidebarClickHandler()}
+                  >
+                    <TradeReportPage/>
+                  </PagesLayout>
+                }
+              />
               {/*  */}
               <Route
                 path="/reports/trade-signals"

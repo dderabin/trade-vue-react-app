@@ -274,7 +274,7 @@ export const Sidebar = ({ collapseSidebar, onOutsideSidebarClickHandler }) => {
                           </li>
                           <li>
                             <Link
-                            onClick={() => closeCollapse()}
+                              onClick={() => closeCollapse()}
                               to="/portfolio-performance"
                               className={`${
                                 location.pathname === "/portfolio-performance"
@@ -290,16 +290,16 @@ export const Sidebar = ({ collapseSidebar, onOutsideSidebarClickHandler }) => {
                               Portfolio Performance
                             </Link>
                           </li>
-                          <li className="sub-menu" onClick={() => {
+                          {/* <li className="sub-menu" onClick={() => {
                                 closeCollapse()
                                 setShowReportsScroll(!showReportsScroll)
-                              }}>
-                           
+                              }}> */}
+                          <li> 
                             <Link
-                              to="#0"
-                              
+                              onClick={() => closeCollapse()}
+                              to="/reports"
                               className={`${
-                                location.pathname.includes("/reports")
+                                location.pathname === "/reports"
                                   ? "active"
                                   : ""
                               } `}
@@ -309,16 +309,16 @@ export const Sidebar = ({ collapseSidebar, onOutsideSidebarClickHandler }) => {
                                 alt=""
                                 className="img-fluid menu-icon"
                               />
-                              Reports
-                              <span className="float-right">
+                              Trade Report
+                              {/* <span className="float-right">
                                 <img
                                   src={sb_arrowdown}
                                   alt=""
                                   className="img-fluid"
                                 />
-                              </span>
+                              </span> */}
                             </Link>
-                            <ul
+                            {/* <ul
                               className={`${
                                 location.pathname.includes("/reports") ||
                                 showReportsScroll
@@ -351,7 +351,7 @@ export const Sidebar = ({ collapseSidebar, onOutsideSidebarClickHandler }) => {
                                   My Trades
                                 </Link>
                               </li>
-                            </ul>
+                            </ul> */}
                           </li>
                           <li>
                             <Link
