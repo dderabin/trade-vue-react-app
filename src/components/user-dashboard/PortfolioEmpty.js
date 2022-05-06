@@ -16,8 +16,8 @@ import avatar_1 from "./../../assets/img/avatars/avatar.jpg";
 import avatar_2 from "./../../assets/img/avatars/avatar-2.jpg";
 import avatar_3 from "./../../assets/img/avatars/avatar-3.jpg";
 
-// import chat_laptop from "./../../assets/img/chat_laptop.svg";
-// import chat_mobile from "./../../assets/img/chat_mobile.svg";
+import chat_laptop from "./../../assets/img/chat_laptop.svg";
+import chat_mobile from "./../../assets/img/chat_mobile.svg";
 
 
 
@@ -249,8 +249,8 @@ const PortfolioEmpty = () => {
           </div>
           <div className="col-12 col-md-6 discuss discuss_chart">
             <span className="discuss-title">Discuss & Share Your Trading Strategies</span>
-            {/* <img src={chat_mobile} className="chat_mobile" alt="chat" />
-            <img src={chat_laptop} className="chat_laptop" alt="chat" /> */}
+            <img src={chat_mobile} className="chat_mobile" alt="chat" />
+            <img src={chat_laptop} className="chat_laptop" alt="chat" />
           </div>
         </div>
       </div>

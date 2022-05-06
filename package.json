@@ -49,8 +49,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "prettier --single-quote --trailing-comma es5 --write src/*.js src/components/*.js src/components/*/*.js",
-    "postbuild": "purgecss --css build/static/css/*.css --content build/index.html build/static/js/*.js --output build/static/css"
+    "lint": "prettier --single-quote --trailing-comma es5 --write src/*.js src/components/*.js src/components/*/*.js"
   },
   "eslintConfig": {
     "extends": [
