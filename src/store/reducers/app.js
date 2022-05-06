@@ -67,7 +67,9 @@ const appReducer = createReducer(defaultState, {
         }       
     },
     [AppActions.userInfoUpdateSuccessAction]: (state, action) => {
+        const { userName } = action.payload;
         state.userInfo = {...state.userInfo, ...action.payload}
+        state.userName = userName;
     },
     [AppActions.apiFecthingAction]: (state, action) => {
         state.loading = true;
