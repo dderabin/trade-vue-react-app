@@ -16,7 +16,17 @@ import icon_modal_close from "./../../assets/img/icons/modal-close.svg";
 import icon_modal_minus from "./../../assets/img/icons/modal-minus.svg";
 import { useTraderHistory } from "../../hooks";
 
+let wsbn = null;
+let object = null;
+
 export const TradeTerminalPage = () => {
+  useEffect(() => {
+    wsbn = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@trade');
+    wsbn.onmessage = (event) => {
+      object = JSON.parse(event.data);
+      console.log("wsbn message object", object)
+    }
+  }, [])
   return (
     <div className="tt-wrapper">
       <GraphicalChartArea />
@@ -42,7 +52,7 @@ export const GraphicalChartArea = () => {
   const { traderHistory } = useTraderHistory()
   const [historyList] = useState(traderHistory);
   const [createOpen, setCreateOpen] = useState(false)
-  const [editOpen, setEditOpen] = useState(false)
+  const [editOpen, setEditOpen] = useState(false)  
   
   return (
     <>

@@ -10,7 +10,7 @@ const TraderProfile = (props) => {
   const { state } = useSelector(state => state.appState.signalProvider)
   const { userName, email } = useSelector(state => state.appState)
   const dispatch =  useDispatch()
-  const [dateValue, onDateChange] = useState(props.birthDate || null);
+  const [dateValue, onDateChange] = useState(new Date(props.birthDate || null));
   const [userInfo, setUserInfo] = useState({
     userName,
     email,
@@ -19,7 +19,7 @@ const TraderProfile = (props) => {
     middleName: props.middleName || '',
     lastName: props.lastName || '',
     gender: props.gender || '',
-    birthDate: props.birthDate || null,
+    birthDate: new Date(props.birthDate || null),
     state: props.state || '',
     city: props.city || '',
     zipCode: props.zipCode || '',
