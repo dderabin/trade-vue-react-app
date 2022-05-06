@@ -2,8 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import AxiosInstance from "../../axiosClient";
+import { useSelector } from "react-redux";
 
 const TraderList = ({ traderList }) => {
+  const { userId } = useSelector(state => state.appState)
   const alert = useAlert();
   const goConfig = () => {
     console.log("click");
@@ -11,7 +13,7 @@ const TraderList = ({ traderList }) => {
 
   return (
     <>
-      {traderList.map((trader, index) => (
+      {traderList.filter(({_id}) => _id !== userId).map((trader, index) => (
         <tr key={index}>
           <td className="mw-none" style={{ minWidth: "250px" }}>
             <div
