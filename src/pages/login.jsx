@@ -80,6 +80,7 @@ const Login = (props) => {
                             placeholder="Enter email address"
                             value={loginForm.email}
                             onChange={(e) => handleChangeLogin(e)}
+                            autoComplete="off"
                             required
                           />
                         </div>
@@ -96,7 +97,7 @@ const Login = (props) => {
                             placeholder="Enter password"
                             value={loginForm.password}
                             onChange={(e) => handleChangeLogin(e)}
-                            autoComplete="on"
+                            autoComplete="off"
                             required
                           />
                         </div>
@@ -212,6 +213,7 @@ const Login = (props) => {
                             placeholder="Enter email address"
                             value={resetEmail}
                             onChange={(e) => setResetEmail(e.target.value)}
+                            autoComplete="off"
                             required
                           />
                         </div>
@@ -299,6 +301,7 @@ const Login = (props) => {
                             placeholder="Enter email address"
                             value={regForm.email}
                             onChange={ e => handleChangeReg(e)}
+                            autoComplete="off"
                             required
                           />
                         </div>
@@ -332,6 +335,7 @@ const Login = (props) => {
                             minLength={5}
                             value={regForm.password}
                             onChange={ e => handleChangeReg(e)}
+                            autoComplete="off"
                             required
                           />
                         </div>
@@ -351,6 +355,7 @@ const Login = (props) => {
                             minLength={5}
                             value={regForm.confirmPassword}
                             onChange={ e => handleChangeReg(e)}
+                            autoComplete="off"
                             required
                           />
                         </div>

@@ -26,7 +26,7 @@ const TraderList = ({ traderList }) => {
             >
               <div>
                 <img
-                  src={`${AxiosInstance.defaults.baseURL}/users/avatar/${trader?.userInfo?.avatar.slice(0, -4) || null}`}
+                  src={`${AxiosInstance.defaults.baseURL}/users/avatar/${trader?.userInfo?.avatar?.slice(0, -4) || null}`}
                   alt=""
                   className="img-fluid table-pic"
                 />

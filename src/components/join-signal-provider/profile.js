@@ -71,8 +71,11 @@ const TraderProfile = (props) => {
   }
 
   const copyTraderClk = (event) => {
-    dispatch(AppActions.userInfoUpdateAction(userInfo))
-    state === "disabled" && dispatch(AppActions.userEnableSignalProviderAction())
+    const { middleName, ...payload } = userInfo
+    dispatch(AppActions.userInfoUpdateAction(middleName !== '' ? userInfo : payload))
+    setTimeout(() => {
+      state === "disabled" && dispatch(AppActions.userEnableSignalProviderAction())
+    }, 500)
     event.preventDefault()
   }
 
@@ -112,7 +115,7 @@ const TraderProfile = (props) => {
               </div>
             </div>
             <div className="col-xl-3 col-lg-3 col-12">
-              <label className="form-label">User Name</label>
+              <label className="form-label">User Name *</label>
               <input
                 name="userName"
                 type="text"
@@ -121,6 +124,7 @@ const TraderProfile = (props) => {
                 value={userInfo.userName}
                 onChange={handleChangeInfo}
                 readOnly={userName !== ''}
+                required
               />
             </div>
             <div className="col-xl-3 col-lg-3 col-12">

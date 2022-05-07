@@ -54,7 +54,8 @@ const SelectCountry = ({list, onSelected, countryIndex}) => {
         <i className="bi bi-chevron-down"></i>
       { visible && 
         <div className="select-body">
-          <input 
+          <input
+            hidden 
             type="text" 
             onChange={handleChange}
           />
