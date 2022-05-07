@@ -11,6 +11,10 @@ const TraderList = ({ traderList }) => {
     console.log("click");
   };
 
+  const handleSubscribe = () => {
+    
+  }
+
   return (
     <>
       {traderList.filter(({_id}) => _id !== userId).map((trader, index) => (
@@ -62,9 +66,7 @@ const TraderList = ({ traderList }) => {
               <Link to={`/trade-configuration/${trader.id}`}>
                 <button
                   disabled=""
-                  onClick={() => {
-                    alert.success(`You have suscribed to ${trader.firstname}`);
-                  }}
+                  onClick={handleSubscribe}
                   className="btn btn-success"
                   style={{ minWidth: "90px", maxWidth: "90px" }}
                 >

@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-date-picker";
-import { Country, State, City }  from 'country-state-city';
+import { Country, State }  from 'country-state-city';
 import { Input } from 'reactstrap'
 import SelectCountry from '../SelectCountry'
 import { useDispatch, useSelector } from "react-redux";
 import { AppActions } from '../../store/actions'
 
 const TraderProfile = (props) => {
-  const { state } = useSelector(state => state.appState.copyTrader)
-  const { userName = '', email } = useSelector(state => state.appState)
   const dispatch =  useDispatch()
-  const [dateValue, onDateChange] = useState(new Date(props.birthDate || null));
+  const { state } = useSelector(state => state.appState.copyTrader)
+  const { userName = '', email = '' } = useSelector(state => state.appState)
+  const birthDateProp = props.birthDate ? new Date(props.birthDate) : null
+  const [dateValue, onDateChange] = useState(birthDateProp);
   const [userInfo, setUserInfo] = useState({
-    userName,
-    email,
+    userName: userName || '',
+    email: email || '',
     country: props.country || '',
     firstName: props.firstName || '',
     middleName: props.middleName || '',
     lastName: props.lastName || '',
     gender: props.gender || '',
-    birthDate: new Date(props.birthDate || null),
+    birthDate: props.birthDate,
     state: props.state || '',
     city: props.city || '',
     zipCode: props.zipCode || '',
@@ -33,8 +34,7 @@ const TraderProfile = (props) => {
   })
   const [countryList, setCountryList] = useState([])
   const [stateList, setStateList] = useState([])
-  const [cityList, setCityList] = useState([])
-  const [countryIndex, setCountryIndex] = useState(0)
+  const [countryIndex, setCountryIndex] = useState()
 
   useEffect(()=>{
     setCountryList(Country.getAllCountries())
@@ -47,6 +47,7 @@ const TraderProfile = (props) => {
     } else {
       setUserInfo({...userInfo, birthDate:''})
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateValue])
 
   const handleChangeInfo = (event) => {
@@ -60,8 +61,7 @@ const TraderProfile = (props) => {
         console.log("handleChange Info")
         return
       }
-    } else if (name === 'state')
-      setCityList(City.getCitiesOfState(userInfo.country, value))
+    }
 
     setUserInfo({...userInfo, [name]: value})
   }
@@ -90,7 +90,7 @@ const TraderProfile = (props) => {
       setStateList(State.getStatesOfCountry(userInfo.country))
     }
   }, [userInfo.country, countryList])
-
+  
   return (
     <div className="row">
       <div className="col-xl-12">
@@ -121,7 +121,7 @@ const TraderProfile = (props) => {
                 placeholder="Enter userName"
                 value={userInfo.userName}
                 onChange={handleChangeInfo}
-                readOnly={userName !== ''}
+                readOnly={userInfo.userName !== ''}
               />
             </div>
             <div className="col-xl-3 col-lg-3 col-12">
@@ -131,7 +131,7 @@ const TraderProfile = (props) => {
                 type="email"
                 className="form-control"
                 placeholder="Enter Email Address"
-                value={email}
+                value={userInfo.email}
                 readOnly
               />
             </div>

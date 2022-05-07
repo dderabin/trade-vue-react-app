@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const AxiosInstance = axios.create({
-    baseURL: 'http://1-traderpro.eu-4.evennode.com/api/v1',
+    baseURL: 'http://2-traderpro.eu-4.evennode.com/api/v1',
     headers: {
         'Access-Control-Allow-Origin': '*'
     }

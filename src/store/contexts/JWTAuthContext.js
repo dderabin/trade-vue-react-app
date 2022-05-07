@@ -48,10 +48,13 @@ export const AuthProvider = ({ children }) => {
 
             setSession(token, refreshToken)
 
+            dispatch(AppActions.sagaSuccessAction({msg: 'Logged in successfully'}))
+            dispatch(AppActions.messageConsumedAction())
             dispatch(AppActions.userLogInSuccessAction({user: {email}}))
             dispatch(AppActions.userProfileFetchAction())
         } catch (e) {
-            console.log(e)
+            dispatch(AppActions.sagaFailAction(e))
+            dispatch(AppActions.messageConsumedAction())
         }
     }
 
@@ -60,10 +63,14 @@ export const AuthProvider = ({ children }) => {
             const response = await Api.SIGNUP_USER({email, password})
             const { token, refreshToken } = response.data
             setSession(token, refreshToken)
-    
+            
+            dispatch(AppActions.sagaSuccessAction({msg: 'Logged in successfully'}))
+            dispatch(AppActions.messageConsumedAction())
             dispatch(AppActions.userLogInSuccessAction({user: {email}}))
+            dispatch(AppActions.userProfileFetchAction())
         } catch (e) {
-            console.log(e)
+            dispatch(AppActions.sagaFailAction(e))
+            dispatch(AppActions.messageConsumedAction())
         }
     }
 

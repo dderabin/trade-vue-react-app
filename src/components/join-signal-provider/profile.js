@@ -8,18 +8,19 @@ import { AppActions } from '../../store/actions'
 
 const TraderProfile = (props) => {
   const { state } = useSelector(state => state.appState.signalProvider)
-  const { userName = '', email } = useSelector(state => state.appState)
+  const { userName = '', email = '' } = useSelector(state => state.appState)
   const dispatch =  useDispatch()
-  const [dateValue, onDateChange] = useState(new Date(props.birthDate || null));
+  const birthDataProp = props.birthDate ? new Date(props.birthDate) : null
+  const [dateValue, onDateChange] = useState(birthDataProp);
   const [userInfo, setUserInfo] = useState({
-    userName,
-    email,
+    userName: userName || '',
+    email: email || '',
     country: props.country || '',
     firstName: props.firstName || '',
     middleName: props.middleName || '',
     lastName: props.lastName || '',
     gender: props.gender || '',
-    birthDate: new Date(props.birthDate || null),
+    birthDate: props.birthDate,
     state: props.state || '',
     city: props.city || '',
     zipCode: props.zipCode || '',
@@ -33,21 +34,20 @@ const TraderProfile = (props) => {
   })
   const [countryList, setCountryList] = useState([])
   const [stateList, setStateList] = useState([])
-  const [countryIndex, setCountryIndex] = useState(0)
-
+  const [countryIndex, setCountryIndex] = useState()
 
   useEffect(()=>{
     setCountryList(Country.getAllCountries())
   }, [])
 
   useEffect(() => {
-    console.log(dateValue)
     if (dateValue) {
       const birthDate = new Date(dateValue).toISOString().split('T')[0]
       setUserInfo({...userInfo, birthDate})
     } else {
       setUserInfo({...userInfo, birthDate:''})
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateValue])
 
   const handleChangeInfo = (event) => {
@@ -130,7 +130,7 @@ const TraderProfile = (props) => {
                 type="email"
                 className="form-control"
                 placeholder="Enter Email Address"
-                value={email}
+                value={userInfo.email}
                 readOnly
               />
             </div>
