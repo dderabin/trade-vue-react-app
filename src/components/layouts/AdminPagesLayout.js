@@ -1,3 +1,4 @@
+import React from 'react'
 import { AdminSidebar } from "../AdminSidebar";
 import { Header } from "../Header";
 import "./../../assets/css/defaults.scss";

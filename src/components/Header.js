@@ -1,3 +1,4 @@
+import React from 'react'
 import icon_search from "./../assets/img/icons/search-icon.svg";
 import icon_brand from "./../assets/img/icons/brand.svg";
 import icon_notification from "./../assets/img/icons/notification.svg";
@@ -16,31 +17,47 @@ import AxiosInstance from "../axiosClient";
 import { useSelector } from "react-redux";
 
 export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) => {
-  const { userId, userInfo: {firstName = '', lastName = '', middleName = '', successMessage} } = useSelector(state => state.appState)
+  const { userId, userInfo: { firstName = '', lastName = '', middleName = '', successMessage } } = useSelector(state => state.appState)
   const { logout } = useAuth();
   const location = useLocation();
   const [notificationShow, setNotificationShow] = useState(false);
   const [inboxShow, setInboxShow] = useState(false);
   const [profileOptionsShow, setProfileOptionsShow] = useState(false);
   const [profileList, setProfileList] = useState(false);
+  const [isImageLoaded, setIsImageLoaded] = useState(true)
+  const [avatar, setAvatar] = useState(null)
 
+  const userSvg = require('../assets/img/userSvg.svg')
   useEffect(() => {
     let width = window.innerWidth
-    if(width < 780 && location.hash == '') {
+    if (width < 780 && location.hash == '') {
       onOutsideSidebarClickHandler()
     }
     // console.log(location);
   }, [location])
 
-  window.addEventListener('resize', function(){
+  window.addEventListener('resize', function () {
     let width = window.innerWidth
-    if(width < 780) {
+    if (width < 780) {
       onOutsideSidebarClickHandler()
     }
     // console.log("resize console.log!", width)
   })
 
+  async function avatarRequest() {
+    try {
+      const response = await AxiosInstance.get(`/users/avatar/${userId}`)
+      console.log('response is =>', response.data[0])
+      setAvatar(response.data[0])
+    }
+    catch (err) {
+      console.log('error in avatarReq =>', err)
+      setAvatar(null)
+    }
+  }
+
   useEffect(() => {
+    avatarRequest()
     // console.log("hello header, are you there?")
   }, [])
 
@@ -74,9 +91,8 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
           <ul className="navbar-nav navbar-align">
             <li className="nav-item dropdown">
               <a
-                className={`nav-icon dropdown-toggle navbar-link ${
-                  notificationShow ? "show pe-none" : ""
-                }`}
+                className={`nav-icon dropdown-toggle navbar-link ${notificationShow ? "show pe-none" : ""
+                  }`}
                 onClick={() => setNotificationShow(!notificationShow)}
                 href="#0"
                 id="alertsDropdown"
@@ -91,9 +107,8 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
                 onOutsideClick={() => setNotificationShow(false)}
               >
                 <div
-                  className={`dropdown-menu dropdown-menu-lg dropdown-menu-end py-0 header-notification-modal ${
-                    notificationShow ? "show" : ""
-                  }`}
+                  className={`dropdown-menu dropdown-menu-lg dropdown-menu-end py-0 header-notification-modal ${notificationShow ? "show" : ""
+                    }`}
                   aria-labelledby="alertsDropdown"
                 >
                   <div className="dropdown-menu-header">4 New Notifications</div>
@@ -221,9 +236,8 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
             </li>
             <li className="nav-item dropdown">
               <a
-                className={`nav-icon dropdown-toggle navbar-link ${
-                  inboxShow ? "show pe-none" : ""
-                }`}
+                className={`nav-icon dropdown-toggle navbar-link ${inboxShow ? "show pe-none" : ""
+                  }`}
                 onClick={() => setInboxShow(!inboxShow)}
                 href="#0"
                 id="messagesDropdown"
@@ -236,9 +250,8 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
 
               <OutsideClickHandler onOutsideClick={() => setInboxShow(false)}>
                 <div
-                  className={`dropdown-menu dropdown-menu-lg dropdown-menu-end py-0 header-notification-modal ${
-                    inboxShow ? "show" : ""
-                  }`}
+                  className={`dropdown-menu dropdown-menu-lg dropdown-menu-end py-0 header-notification-modal ${inboxShow ? "show" : ""
+                    }`}
                   aria-labelledby="messagesDropdown"
                 >
                   <div className="dropdown-menu-header">
@@ -329,24 +342,27 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
             </li>
             <li className="nav-item dropdown ">
               <a
-                className={`nav-link dropdown-toggle ${
-                  profileOptionsShow ? "show pe-none" : ""
-                }`}
+                className={`nav-link dropdown-toggle ${profileOptionsShow ? "show pe-none" : ""
+                  }`}
                 onClick={() => setProfileOptionsShow(!profileOptionsShow)}
                 href="#0"
                 data-bs-toggle="dropdown"
+                style={{padding: '10px 0 10px '}}
               >
-                <div className="position-relative nav-user">
-                  <img src={`${AxiosInstance.defaults.baseURL}/users/avatar/${userId}`} className="img-fluid" alt="User pic" style={{borderRadius: '50px', width: '50px', height: '50px'}} title={`${firstName} ${middleName} ${lastName}`}/>
+                <div className="position-relative nav-user" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  
+                  <img src={avatar ? `https://api.server.traderpro.live/api/v1/users/avatar/${userId}` : require('../assets/img/user.png')} className="img-fluid" alt="User pic" style={{ borderRadius: '50%', width: 50, height: 50, objectFit: 'cover', marginRight: 5}} title={`${firstName} ${middleName} ${lastName}`} />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14.828" height="8.414" viewBox="0 0 14.828 8.414">
+                    <path id="arrow-down" d="M17,9l-6,6L5,9" transform="translate(-3.586 -7.586)" fill="none" stroke="#2b5468" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                  </svg>
                 </div>
               </a>
               <OutsideClickHandler
                 onOutsideClick={() => setProfileOptionsShow(false)}
               >
                 <div
-                  className={`dropdown-menu dropdown-menu-end header-notification-modal ${
-                    profileOptionsShow ? "show" : ""
-                  }`}
+                  className={`dropdown-menu dropdown-menu-end header-notification-modal ${profileOptionsShow ? "show" : ""
+                    }`}
                 >
                   <Link className="dropdown-item" to="/profile" onClick={() => setProfileOptionsShow(!profileOptionsShow)}>
                     <svg

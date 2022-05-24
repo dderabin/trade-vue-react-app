@@ -2,9 +2,13 @@ import googleplus from "../assets/uploads/google-plus.svg";
 import apple from "../assets/uploads/apple.svg";
 import { Logo } from "../components/Logo";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useAuth } from "../hooks";
+import { Button, Col, Divider, Input, Row } from "antd";
+import { MailFilled, LockFilled, EyeTwoTone, EyeInvisibleOutlined, AppleFilled, GoogleOutlined, UserOutlined } from '@ant-design/icons';
+import { useGoogleLogin } from '@react-oauth/google';
+import AxiosInstance from "../axiosClient";
 
 const Login = (props) => {
   const { login, register } = useAuth();
@@ -13,11 +17,29 @@ const Login = (props) => {
     email: "", password: "", remember: false
   })
   const [regForm, setRegForm] = useState({
-    email: "", username: "", password:"", confirmPassword: "", firstname: "", lastName: "", agree: false
+    email: "", username: "", password: "", confirmPassword: "", firstname: "", lastName: "", agree: false
   })
 
   const [resetEmail, setResetEmail] = useState('')
-  
+
+  const clientId = "278315676653-p894mp7jnnavs0oim2si23nfc2966v5a.apps.googleusercontent.com"
+
+  // const googleLogin = useGoogleLogin({
+  //   onSuccess: async tokenResponse => {
+  //     try{
+  //       console.log('tokenResponse =>', tokenResponse)
+  //       const response = await AxiosInstance.post('/user/google-sign-in', {
+  //         credential: tokenResponse.access_token
+  //       })
+  //       console.log('response in googleLogin =>', response.data)
+  //     }
+  //     catch(err){
+  //       console.log('error in googleLogin =>', err)
+  //     }
+  //   }
+  // })
+
+
   const loginClick = (event) => {
     const { email, password } = loginForm
     login(email, password);
@@ -25,7 +47,7 @@ const Login = (props) => {
   }
 
   const handleChangeLogin = (e) => {
-    setLoginForm({...loginForm, [e.target.name]: e.target.value})
+    setLoginForm({ ...loginForm, [e.target.name]: e.target.value })
   }
 
   const registerClick = (e) => {
@@ -33,23 +55,25 @@ const Login = (props) => {
     register(email, password);
     e.preventDefault();
   }
-  
+
   const handleChangeReg = (event) => {
-    setRegForm({...regForm, [event.target.name]: event.target.value})
+    setRegForm({ ...regForm, [event.target.name]: event.target.value })
   }
 
   const resetPassword = (event) => {
     event.preventDefault();
   }
 
+
   return (
     <>
+
       <Helmet>
         <meta charSet="utf-8" />
         <title>Login · Traderpro</title>
         <link rel="canonical" href="https://traderpro.live" />
       </Helmet>
-      <div className="auth-bg">
+      <div className="auth-bg" >
         <div className="pt-md-1">
           <div className="logo-container" style={{ marginTop: "25px" }}>
             <Link to="/">
@@ -57,23 +81,25 @@ const Login = (props) => {
             </Link>
           </div>
           <div
-            className="card mx-4 px-4  auth-card"
-            style={{ marginTop: "3rem", paddingTop: ".5rem" }}
+            className="card mx-4 px-4 auth-card"
+            style={{ marginTop: "2rem", paddingTop: ".5rem", paddingBottom: 0 }}
           >
-            <div className="card-body">
+            <div className="card-body" style={{ margin: 0, paddingTop: 20, paddingBottom: 20 }}>
               {currentFormType === "login" ? (
                 <form onSubmit={loginClick}>
                   <div className="row">
                     <div className="col-xl-12 col-lg-12 col-12">
-                      <h1 className="auth-title">Login</h1>
+                      <h2 className="auth-title">Login Into Trader Pro</h2>
                     </div>
+                    <Divider style={{ margin: 0 }}></Divider>
                   </div>
                   <div>
                     <div className="row">
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div>
-                          <label className="form-label">Email Address *</label>
-                          <input
+                          <label className="form-label" style={{ fontWeight: 'bold', marginTop: 10 }}>Email Address*</label>
+                          <Input
+                            prefix={<MailFilled style={{ paddingRight: 5 }} />}
                             type="email"
                             name="email"
                             className="form-control"
@@ -81,6 +107,7 @@ const Login = (props) => {
                             value={loginForm.email}
                             onChange={(e) => handleChangeLogin(e)}
                             autoComplete="off"
+                            style={{ borderRadius: 8 }}
                             required
                           />
                         </div>
@@ -89,16 +116,18 @@ const Login = (props) => {
                     <div className="row mt-3">
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div>
-                          <label className="form-label">Password *</label>
-                          <input
+                          <label className="form-label" style={{ fontWeight: 'bold' }}>Password*</label>
+                          <Input.Password
+                            prefix={<LockFilled style={{ paddingRight: 5 }} />}
                             type="password"
                             name="password"
                             className="form-control"
                             placeholder="Enter password"
                             value={loginForm.password}
                             onChange={(e) => handleChangeLogin(e)}
-                            autoComplete="off"
+                            style={{ borderRadius: 8 }}
                             required
+                            iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                           />
                         </div>
                       </div>
@@ -110,22 +139,23 @@ const Login = (props) => {
                             type="checkbox"
                             className="form-check-input"
                             id="exampleCheck1"
-                            onChange={() => setLoginForm({...loginForm, remember: !loginForm.remember})}
-                            checked={loginForm.remember ? true: false}
+                            onChange={() => setLoginForm({ ...loginForm, remember: !loginForm.remember })}
+                            checked={loginForm.remember ? true : false}
                           />
                           <label
                             className="form-check-label"
                             htmlFor="exampleCheck1"
                           >
-                            Remember
+                            Remember me
                           </label>
                         </div>
                       </div>
                       <div className="col-xl-6 col-lg-6 col-6 mob-mt-3 text-end">
                         <button
+                          style={{ paddingTop: 0, color: '#67a1b8', paddingRight: 0 }}
                           type="button"
                           onClick={() => setCurrentFormType("forgot-password")}
-                          className="btn font-14"
+                          className="btn font-12"
                         >
                           Forgot Password ?
                         </button>
@@ -135,7 +165,8 @@ const Login = (props) => {
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div className="d-grid gap-2">
                           <button
-                            className="btn btn-primary btn-green font-18"
+                            className="btn btn-success font-18"
+                            style={{ height: 40 }}
                             type="submit"
                           >
                             Login
@@ -143,41 +174,32 @@ const Login = (props) => {
                         </div>
                       </div>
                     </div>
-                    <div className="row mb-1 mt-3">
+                    <Divider plain>Or</Divider>
+                    {/* <div className="row mb-1 mt-3">
                       <div className="col-xl-12 col-lg-12 col-12">
                         <p className="text-center mb-4 mob-mt-3">or</p>
                       </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-xl-12 col-lg-12 col-12">
-                        <div className="d-grid gap-2">
-                          <button
-                            type="button"
-                            className="btn btn-outline-dark"
-                          >
-                            <img
-                              src={googleplus}
-                              alt="Continue with Google+"
-                              className="img-fluid me-2"
-                            />
-                            Continue with Google
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-outline-dark"
-                          >
-                            <img
-                              src={apple}
-                              alt="Continue with Apple"
-                              className="img-fluid me-2 pb-1"
-                            />
-                            Continue with Apple
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row mt-4">
-                      <p className="text-center font-14 mob-mt-3">
+                    </div> */}
+                    <Row gutter={12} justify="space-between" align="middle">
+                      <Col span={12}>
+                        <Button style={{ fontSize: '0.5rem', width: '100%', backgroundColor: '#e7e7e7' }}
+                        //  onClick={() => googleLogin()}
+                        >
+                          <div style={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <GoogleOutlined style={{ fontSize: '0.9rem', paddingRight: 3, color: 'red' }} /> Continue with Google
+                          </div>
+                        </Button>
+                      </Col>
+                      <Col span={12}>
+                        <Button style={{ fontSize: '0.5rem', width: '100%', backgroundColor: '#e7e7e7' }}>
+                          <div style={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <AppleFilled style={{ fontSize: '1rem', paddingRight: 5 }} /> Continue with Apple
+                          </div>
+                        </Button>
+                      </Col>
+                    </Row>
+                    <div className="row mt-4" style={{ margin: 0 }}>
+                      <p style={{ margin: 0 }} className="text-center font-12 mob-mt-3">
                         Don't have an account ?{" "}
                         <button
                           onClick={() => setCurrentFormType("sign-up")}
@@ -198,19 +220,21 @@ const Login = (props) => {
                   </Helmet>
                   <div className="row">
                     <div className="col-xl-12 col-lg-12 col-12">
-                      <h1 className="auth-title">Reset Password</h1>
+                      <h2 className="auth-title">Reset Your Password</h2>
+                      <Divider style={{ margin: 0 }}></Divider>
                     </div>
                   </div>
                   <form onSubmit={resetPassword}>
                     <div className="row">
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div>
-                          <label className="form-label">Email Address *</label>
-                          <input
+                          <label className="form-label" style={{ marginTop: 10 }}>Email Address *</label>
+                          <Input
+                            prefix={<MailFilled style={{ marginRight: 5 }} />}
                             type="email"
                             name="email"
                             className="form-control"
-                            placeholder="Enter email address"
+                            placeholder="Enter email ID"
                             value={resetEmail}
                             onChange={(e) => setResetEmail(e.target.value)}
                             autoComplete="off"
@@ -223,7 +247,8 @@ const Login = (props) => {
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div className="d-grid gap-2">
                           <button
-                            className="btn btn-primary btn-green font-18"
+                            className="btn btn-success font-18"
+                            style={{ height: 40 }}
                             type="submit"
                           >
                             Reset Password
@@ -231,41 +256,25 @@ const Login = (props) => {
                         </div>
                       </div>
                     </div>
-                    <div className="row mb-1 mt-3">
-                      <div className="col-xl-12 col-lg-12 col-12">
-                        <p className="text-center mb-4 mob-mt-3">or</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-xl-12 col-lg-12 col-12">
-                        <div className="d-grid gap-2">
-                          <button
-                            type="button"
-                            className="btn btn-outline-dark"
-                          >
-                            <img
-                              src={googleplus}
-                              alt="Continue with Google+"
-                              className="img-fluid me-2"
-                            />
-                            Continue with Google
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-outline-dark"
-                          >
-                            <img
-                              src={apple}
-                              alt="Continue with Apple"
-                              className="img-fluid me-2 pb-1"
-                            />
-                            Continue with Apple
-                          </button>
-                        </div>
-                      </div>
-                    </div>
+                    <Divider plain>Or</Divider>
+                    <Row gutter={12} justify="space-between" align="middle">
+                      <Col span={12}>
+                        <Button style={{ fontSize: '0.5rem', width: '100%', backgroundColor: '#e7e7e7' }}>
+                          <div style={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <GoogleOutlined style={{ fontSize: '0.9rem', paddingRight: 3, color: 'red' }} /> Continue with Google
+                          </div>
+                        </Button>
+                      </Col>
+                      <Col span={12}>
+                        <Button style={{ fontSize: '0.5rem', width: '100%', backgroundColor: '#e7e7e7' }}>
+                          <div style={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <AppleFilled style={{ fontSize: '1rem', paddingRight: 5 }} /> Continue with Apple
+                          </div>
+                        </Button>
+                      </Col>
+                    </Row>
                     <div className="row mt-4">
-                      <p className="text-center font-14 mob-mt-3">
+                      <p className="text-center font-12 mob-mt-3" style={{ margin: 0 }}>
                         Don't have an account ?{" "}
                         <button
                           className="color-green ms-2 btn"
@@ -286,23 +295,43 @@ const Login = (props) => {
                   </Helmet>
                   <div className="row">
                     <div className="col-xl-12 col-lg-12 col-12">
-                      <h1 className="auth-title">Create an Account</h1>
-                    </div>                                                                                                                                        
+                      <h2 className="auth-title">Create an Account</h2>
+                    </div>
+                    <Divider style={{ margin: 0 }}></Divider>
                   </div>
                   <form onSubmit={registerClick}>
                     <div className="row">
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div>
-                          <label className="form-label">Email Address *</label>
-                          <input
+                          <label className="form-label" style={{ marginTop: 10 }} >User Name*</label>
+                          <Input
+                            prefix={<UserOutlined style={{ color: '#9a9a9a', marginRight: 5 }} />}
+                            type="text"
+                            name="username"
+                            className="form-control"
+                            placeholder="Enter Username"
+                            value={regForm.username}
+                            onChange={e => handleChangeReg(e)}
+                            autoComplete="off"
+                            required
+                            style={{ borderRadius: 6 }}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                        <div>
+                          <label className="form-label" style={{ marginTop: 10 }}>Email Address *</label>
+                          <Input
+                            prefix={<MailFilled style={{ color: '#9a9a9a', marginRight: 5 }} />}
                             type="email"
                             name="email"
                             className="form-control"
                             placeholder="Enter email address"
                             value={regForm.email}
-                            onChange={ e => handleChangeReg(e)}
+                            onChange={e => handleChangeReg(e)}
                             autoComplete="off"
                             required
+                            style={{ borderRadius: 6 }}
                           />
                         </div>
                       </div>
@@ -310,7 +339,7 @@ const Login = (props) => {
                     {/* <div className="row mt-3">
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div>
-                          <label className="form-label">Username *</label>
+                          <label className="form-label" style={{marginTop: 10}}>Username *</label>
                           <input
                             type="text"
                             name="username"
@@ -319,6 +348,7 @@ const Login = (props) => {
                             value={regForm.username}
                             onChange={ e => handleChangeReg(e)}
                             required
+                            style={{borderRadius: 6}}
                           />
                         </div>
                       </div>
@@ -326,17 +356,20 @@ const Login = (props) => {
                     <div className="row mt-3">
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div>
-                          <label className="form-label">Password *</label>
-                          <input
+                          <label className="form-label" >Password *</label>
+                          <Input
+                            prefix={<LockFilled style={{ color: '#9a9a9a', marginRight: 5 }} />}
                             type="password"
                             name="password"
                             className="form-control"
                             placeholder="Enter password"
                             minLength={5}
                             value={regForm.password}
-                            onChange={ e => handleChangeReg(e)}
+                            onChange={e => handleChangeReg(e)}
                             autoComplete="off"
                             required
+                            style={{ borderRadius: 6 }}
+                            iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                           />
                         </div>
                       </div>
@@ -347,16 +380,19 @@ const Login = (props) => {
                           <label className="form-label">
                             Confirm Password *
                           </label>
-                          <input
+                          <Input
+                            prefix={<LockFilled style={{ color: '#9a9a9a', marginRight: 5 }} />}
                             type="password"
                             name="confirmPassword"
                             className="form-control"
                             placeholder="Re-enter password"
                             minLength={5}
                             value={regForm.confirmPassword}
-                            onChange={ e => handleChangeReg(e)}
+                            onChange={e => handleChangeReg(e)}
                             autoComplete="off"
                             required
+                            style={{ borderRadius: 6 }}
+                            iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                           />
                         </div>
                       </div>
@@ -372,9 +408,10 @@ const Login = (props) => {
                           <label
                             className="form-check-label"
                             htmlFor="exampleCheck1"
+                            style={{ fontSize: '0.8rem' }}
                           >
-                            By proceeding I agree to TraderPro Terms and
-                            Conditions and Privacy Policy.
+                            By proceeding I agree to TraderPro <a style={{ color: '#74a2b8' }}>Terms and
+                              Conditions</a> and <a style={{ color: '#74a2b8' }}>Privacy Policy</a>.
                           </label>
                         </div>
                       </div>
@@ -383,56 +420,41 @@ const Login = (props) => {
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div className="d-grid gap-2">
                           <button
-                            className="btn btn-primary btn-green font-18"
+                            className="btn btn-success font-18"
                             type="submit"
+                            style={{ height: 40 }}
                           >
                             Register Now
                           </button>
                         </div>
                       </div>
                     </div>
-                    <div className="row mb-1 mt-3">
-                      <div className="col-xl-12 col-lg-12 col-12">
-                        <p className="text-center mb-4 mob-mt-3">or</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-xl-12 col-lg-12 col-12">
-                        <div className="d-grid gap-2">
-                          <button
-                            type="button"
-                            className="btn btn-outline-dark"
-                          >
-                            <img
-                              src={googleplus}
-                              alt="Continue with Google+"
-                              className="img-fluid me-2"
-                            />
-                            Continue with Google
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-outline-dark"
-                          >
-                            <img
-                              src={apple}
-                              alt="Continue with Apple"
-                              className="img-fluid me-2 pb-1"
-                            />
-                            Continue with Apple
-                          </button>
-                        </div>
-                      </div>
-                    </div>
+                    <Divider plain>Or</Divider>
+                    <Row gutter={12} justify="space-between" align="middle">
+                      <Col span={12}>
+                        <Button style={{ fontSize: '0.5rem', width: '100%', backgroundColor: '#e7e7e7' }}>
+                          <div style={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <GoogleOutlined style={{ fontSize: '0.9rem', paddingRight: 3, color: 'red' }} /> Continue with Google
+                          </div>
+                        </Button>
+                      </Col>
+                      <Col span={12}>
+                        <Button style={{ fontSize: '0.5rem', width: '100%', backgroundColor: '#e7e7e7' }}>
+                          <div style={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <AppleFilled style={{ fontSize: '1rem', paddingRight: 5 }} /> Continue with Apple
+                          </div>
+                        </Button>
+                      </Col>
+                    </Row>
                     <div className="row mt-4">
-                      <p className="text-center font-14 mob-mt-3">
-                        Don't have an account ?{" "}
+                      <p className="text-center font-12 mob-mt-3">
+                        Already have an account ?{" "}
                         <button
                           onClick={() => setCurrentFormType("login")}
                           href="signup.html"
                           className="color-green ms-2 btn"
                         >
-                          Login
+                          Sign In
                         </button>
                       </p>
                     </div>

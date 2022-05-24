@@ -3,7 +3,7 @@ import iconCloseEye from "../../assets/img/uploads/eye-hidden.svg";
 import iconShowEye from "../../assets/img/uploads/eye-show.svg";
 import infoIcon from "./../../assets/img/info.svg";
 import { Helmet } from "react-helmet";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppActions } from "../../store/actions";
 import { useExchanges } from "../../hooks";

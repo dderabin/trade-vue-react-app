@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16.971" height="14" viewBox="0 0 16.971 14">
+  <g id="trade-signals" transform="translate(-30 -555)">
+    <path id="iconmonstr-wireless-7" d="M0,5.708a11.563,11.563,0,0,1,16.971,0l-1.442,1.52a9.6,9.6,0,0,0-14.087,0L0,5.708ZM4.045,9.975a6.052,6.052,0,0,1,8.881,0l1.48-1.561a8.068,8.068,0,0,0-11.841,0l1.48,1.561ZM6.631,12.7a2.528,2.528,0,0,1,3.708,0l1.455-1.534a4.508,4.508,0,0,0-6.616,0L6.631,12.7Z" transform="translate(30 553)" fill="#d6df22"/>
+    <g id="Ellipse_18" data-name="Ellipse 18" transform="translate(37 566)" fill="#d6df22" stroke="#d6df22" stroke-width="1">
+      <circle cx="1.5" cy="1.5" r="1.5" stroke="none"/>
+      <circle cx="1.5" cy="1.5" r="1" fill="none"/>
+    </g>
+  </g>
+</svg>

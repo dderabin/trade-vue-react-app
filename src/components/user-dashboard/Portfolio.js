@@ -97,10 +97,10 @@ const Portfolio = () => {
               </td>
               <td className="text-center">ETHUSDT</td>
               <td className="text-center">Universal</td>
-              <td className="text-center">Signal Provider</td>
-              <td className="text-center">22-Feb-2022</td>
+              <td className="text-center">Copy Trader</td>
+              <td className="text-center">20-May-2022</td>
               <td className="text-center">2113</td>
-              <td className="text-center invest">$300</td>
+              <td className="text-center invest">$750</td>
             </tr>
             {toogle === 1 && (
               <div className="toggle">
@@ -129,9 +129,9 @@ const Portfolio = () => {
               <td className="text-center">ETHUSDT</td>
               <td className="text-center">Universal</td>
               <td className="text-center">Signal Provider</td>
-              <td className="text-center">22-Feb-2022</td>
-              <td className="text-center">2113</td>
-              <td className="text-center invest">$300</td>
+              <td className="text-center">21-May-2022</td>
+              <td className="text-center">2114</td>
+              <td className="text-center invest">$850</td>
             </tr>
             {toogle === 2 && (
               <div className="toggle">
@@ -149,7 +149,7 @@ const Portfolio = () => {
                 </p>
               </div>
             )}
-            <tr>
+            {/* <tr>
               <td className="small" onClick={() => showToogle(3)}>
                 <img
                   src="/img/uploads/plus.svg"
@@ -365,7 +365,7 @@ const Portfolio = () => {
                   <strong>Take Profit 4:</strong> 0.00
                 </p>
               </div>
-            )}
+            )} */}
           </tbody>
         </table>
       </div>
@@ -380,7 +380,7 @@ const Portfolio = () => {
             <a href="/" className="btn btn-light active">
               1
             </a>
-            <a href="/" className="btn btn-light">
+            {/* <a href="/" className="btn btn-light">
               2
             </a>
             <a href="/" className="btn btn-light">
@@ -400,7 +400,7 @@ const Portfolio = () => {
             </a>
             <a href="/" className="btn btn-light">
               8
-            </a>
+            </a> */}
             <a href="/" className="btn btn-light">
               Next
             </a>

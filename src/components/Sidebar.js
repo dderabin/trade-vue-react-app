@@ -10,7 +10,7 @@ import sb_reports from "./../assets/img/icons/reports-icon-dark.svg";
 import sb_exchangeaccount from "./../assets/img/icons/exchangeaccount-icon-dark.svg";
 import sb_arrowdown from "./../assets/img/icons/arrow-down.svg";
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Logo } from "./Logo";
 // import OutsideClickHandler from "react-outside-click-handler/esm/OutsideClickHandler";
 

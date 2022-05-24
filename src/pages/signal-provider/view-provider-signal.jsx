@@ -1,3 +1,4 @@
+import React from 'react'
 export const ViewProviderSignalPage = () => {
   return (
     <div className="container-fluid p-0">

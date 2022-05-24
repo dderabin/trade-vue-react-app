@@ -1,3 +1,4 @@
+import React from 'react'
 import { allCurrencies } from '../fixtures/currencies.js';
 import { createNewDateTimeString } from '../utils/utils';
 

@@ -1,6 +1,6 @@
 import tableArrow_icon from "./../../../assets/img/icons/table-arrow.svg";
 import OutsideClickHandler from 'react-outside-click-handler';
-import { useState } from "react";
+import React, { useState } from "react";
 
 export const ViewTradeSymbolsPage = () => {
   // const [listView, setListView] = useState("list");

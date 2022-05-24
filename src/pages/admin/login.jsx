@@ -1,3 +1,4 @@
+import React from 'react'
 import googleplus from "../../assets/uploads/google-plus.svg";
 import apple from "../../assets/uploads/apple.svg";
 import LoginLogo from "../../components/loginlogo";

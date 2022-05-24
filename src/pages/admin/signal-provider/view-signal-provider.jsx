@@ -1,3 +1,4 @@
+import React from 'react'
 import tableArrow_icon from "./../../../assets/img/icons/table-arrow.svg";
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useState } from "react";

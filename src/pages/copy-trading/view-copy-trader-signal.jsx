@@ -1,5 +1,5 @@
 import { ShowBreadcrumbs } from "../../components/ShowBreadcrumbs";
-
+import React from 'react'
 export const ViewCopyTraderSignalPage = () => {
   return (
     <div className="container-fluid p-0">

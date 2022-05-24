@@ -1,3 +1,4 @@
+import React from 'react'
 import dash_empty from "./../../assets/img/icons/dash_empty.svg";
 import binance_icon from "./../../assets/img/icons/dash_binance.svg";
 import ftx_icon from "./../../assets/img/icons/dash_ftx.svg";
@@ -53,6 +54,32 @@ const options = [
   },
 ];
 
+
+const history = [
+  {
+    _id: '1679463',
+    exchangePlatform: 'Binance',
+    symbol: {
+      from: 'BTC',
+      to: 'USDT'
+    },
+    entryPrice: 32000,
+    stopLoss: 29000,
+    state: 'ordered'
+  },
+  {
+    _id: '1679464',
+    exchangePlatform: 'Binance',
+    symbol: {
+      from: 'MATIC',
+      to: 'USDT'
+    },
+    entryPrice: 0.7,
+    stopLoss: 0.5,
+    state: 'ordered'
+  },
+]
+
 const PortfolioEmpty = () => {
   return (
     <div className="row portfolio-empty">
@@ -62,14 +89,70 @@ const PortfolioEmpty = () => {
             <div className="card mb-0">
               <div className="card-body welcome">
                 {/* <div className="row"></div> */}
-                <div>
+                {/* <div>
                   <img src={dash_empty} alt="dash-empty" />
-                </div>
+                </div> */}
                 <div>
-                  <span >Welcome Kuldeep Singh!</span  >
-                  <span>Your Portfolio is Empty</span>
-                  <span>Start investing in the company of experts.</span>
-                  <span>Copy people or/and subscribe to professional signal providers.</span>
+                  <div className="tt-history" style={{ marginTop: "10px" }}>
+                    <div className="card pt-3" style={{ height: "300px" }}>
+                      <div className="trade-history">
+                        <div className="card-body pt-0">
+                          <div className="table-responsive">
+                            <table className="w-100 main_table">
+                              <thead className="rounded" style={{ backgroundColor: "#F2F4F5" }}>
+                                <tr >
+                                  <th scope="col" className="fw-bold" style={{ color: "#264655", paddingLeft: "10px", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                                    Order Id
+                                  </th>
+                                  <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                                    Market Type
+                                  </th>
+                                  <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                                    From
+                                  </th>
+                                  <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                                    To
+                                  </th>
+                                  <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                                    Open Price
+                                  </th>
+                                  <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                                    Stop Loss
+                                  </th>
+                                  <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                                    State
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {history.map((history, index) => (
+                                  <tr style={{ fontWeight: 'bold', textAlign: 'center', cursor: (history.state == 'ordered' || history.state == 'preOrder' || history.state == 'position') && 'pointer' }}>
+                                    <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>{history._id}</td>
+                                    <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>{history.exchangePlatform}</td>
+                                    <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>{history.symbol.from}</td>
+                                    <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>{history.symbol.to}</td>
+                                    <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>{history.entryPrice}</td>
+                                    <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>{history.stopLoss}</td>
+                                    <td style=
+                                      {{
+                                        height: '38px',
+                                        fontSize: '0.7rem', textAlign: 'center',
+                                        color: history.state == 'closedWithError' || history.state == 'closedByStopLoss' ? 'red'
+                                          : history.state == 'closedByLastTarget' || history.state == 'closedByMiddleTargets' || history.state == 'inPosition' ? 'yellow'
+                                            : history.state == 'ordered' ? 'green' : 'black'
+                                      }}>
+                                      {history.state}
+                                    </td>
+                                  </tr>
+                                ))}
+
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -159,7 +242,7 @@ const PortfolioEmpty = () => {
             </div>
           </div>
         </div>
-        <div className="row">   
+        <div className="row">
           <div className="col-12 col-md-6 live live_price">
             <span className="live-title">Live Cryto Prices</span>
             <div className="card mb-0 d-xl-block d-non live-content">
@@ -256,7 +339,7 @@ const PortfolioEmpty = () => {
       </div>
       <div className="col-xl-3 col-lg-12 col-md-12 col-12 chat_list_card ">
         <div className="card mb-0  d-non d-xl-block myChatListCard">
-        {/* <div className="card mb-0"> */}
+          {/* <div className="card mb-0"> */}
           <div className="card-body myChatListLeft">
             <div className="top-user">
               <span>Explore Copy Trading</span>
@@ -336,7 +419,7 @@ const PortfolioEmpty = () => {
             </div>
           </div>
         </div>
-        
+
       </div>
     </div>
   )

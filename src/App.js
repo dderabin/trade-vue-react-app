@@ -1,10 +1,11 @@
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import Login from "../src/pages/login";
 import {PagesLayout} from "./components/layouts/PagesLayout";
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {DefaultLayout} from "./components/layouts/DefaultLayout";
 import JoinCopyTraderPage from "./pages/copy-trading/join-copy-trader";
 
@@ -93,6 +94,7 @@ function App() {
 
   return (
     <Provider store={store}>
+      <GoogleOAuthProvider clientId="278315676653-p894mp7jnnavs0oim2si23nfc2966v5a.apps.googleusercontent.com">
       <AlertProvider template={AlertTemplate} {...options}>
         <AuthProvider>
           <Router>
@@ -599,6 +601,7 @@ function App() {
           </Router>
         </AuthProvider>
       </AlertProvider>
+      </GoogleOAuthProvider>
     </Provider>
   );
 }

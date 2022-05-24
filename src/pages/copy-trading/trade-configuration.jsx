@@ -1,14 +1,22 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { ShowBreadcrumbs } from "../../components/ShowBreadcrumbs";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
+import moment from 'moment'
+import AxiosInstance from "../../axiosClient";
 
 export const TradeConfigurationPage = () => {
+  let navigate = useNavigate()
   const { id } = useParams();
   console.log(id);
   const [checktype, setCheckType] = useState(true);
+  const [exchangesList, setExchangesList] = useState([])
+  const [capitalPercent, setCapitalPercent] = useState(5)
+  const [chosenExchange, setChosenExchange] = useState('')
+  const [subscriptedTo, setSubscriptedTo] = useState({})
+  const re = /^[0-9\b]+$/;
   const handleChange = (e) => {
     setCheckType(e.target.checked);
   };
@@ -16,6 +24,55 @@ export const TradeConfigurationPage = () => {
     console.log("updateConf");
   };
   const alert = useAlert();
+
+  async function setTradeConfiguration() {
+    try {
+      const response = await AxiosInstance.post('/user/subscribe', {
+        userId: id,
+        type: 'copyTrader',
+        exchange: chosenExchange,
+        capitalPercent: Number(capitalPercent)
+      })
+      alert.success('statusCode: ' + response.status)
+      navigate('/copy-trading/view-copy-trader-list')
+      console.log('response in setTradeConfig =>', response.status)
+    }
+    catch (err) {
+      alert.error('statusCode: ' + err.response.data)
+      console.log('err in setTradeConfig =>', err.response.status)
+    }
+  }
+
+  async function getSubscriberInfo() {
+    try {
+      const response = await AxiosInstance.get('/user/profile')
+      let subscriptedTo = response.data.copyTrader
+        .subscriptedTo.filter(item => {
+          if (item.userId === id)
+            return item
+        })
+      setSubscriptedTo(subscriptedTo[0])
+      console.log('subscriptedTo =>', subscriptedTo)
+    }
+    catch (err) {
+      console.log('error in copytrader =>', err)
+    }
+  }
+
+  async function getExchanges() {
+    try {
+      const response = await AxiosInstance.get('/exchanges/list')
+      setExchangesList(response.data)
+      setChosenExchange(response.data[0])
+    }
+    catch (err) {
+      console.log('err in getExchanges =>', err.response)
+    }
+  }
+  useEffect(() => {
+    getSubscriberInfo()
+    getExchanges()
+  }, [])
   return (
     <>
       <Helmet>
@@ -28,7 +85,7 @@ export const TradeConfigurationPage = () => {
               TraderPro &gt;{" "}
             </a>
             <a href="#0" className="theme-color font-bold">
-            Trade Configuration
+              Trade Configuration
             </a>
           </div>
         </div>
@@ -51,7 +108,8 @@ export const TradeConfigurationPage = () => {
                       id="tradername"
                       type="text"
                       className="form-control"
-                      placeholder="Signal Provider"
+                      placeholder="Copy Trading"
+                      value={subscriptedTo.userName}
                       disabled
                     />
                   </div>
@@ -61,9 +119,10 @@ export const TradeConfigurationPage = () => {
                       disabled
                       name="subscriptionDate"
                       id="subscriptionDate"
-                      type="date"
+                      type="text"
                       className="form-control"
-                      placeholder="5/14/2021 12:32:22 PM"
+                      value={moment(subscriptedTo.subscriptionStartTime).format('yyyy/mm/DD').toString()}
+                    // placeholder={date}
                     />
                   </div>
                   <div className="col-xl-4 col-lg-4 col-12">
@@ -74,9 +133,10 @@ export const TradeConfigurationPage = () => {
                       disabled
                       name="subscriptionExpiryDate"
                       id="subscriptionExpiryDate"
-                      type="date"
+                      type="text"
                       className="form-control"
-                      placeholder="6/13/2021 12:32:22 PM"
+                      value={moment(subscriptedTo.subscriptionEndTime).format('yyyy/mm/DD').toString()}
+                    // placeholder={date}
                     />
                   </div>
                 </div>
@@ -84,28 +144,36 @@ export const TradeConfigurationPage = () => {
                   <div className="col-xl-4 col-lg-4 col-12">
                     <label className="form-label mb-3">Exchange *</label>
                     <select
-                      defaultValue={"ftx"}
                       id="subscriptionExchange"
                       className="form-select"
                       aria-label="Default select example"
+                      value={chosenExchange}
+                      onChange={(e) => setChosenExchange(e.target.value)}
                     >
-                      <option value="ftx">FTX</option>
-                      <option value="Binance">Binance</option>
+                      {
+                        exchangesList.length > 0 &&
+                        exchangesList.map(item => (
+                          <option value={item}>{item == 'testnet-binanceusdm' ? 'Binance' : item}</option>
+                        ))
+                      }
                     </select>
                   </div>
                   <div className="col-xl-4 col-lg-4 col-12 mob-mt-3">
                     <label className="form-label mb-3">
-                      Trade size in USD/USDT *
+                      Trade size Percentage *
                     </label>
                     <input
                       type="number"
-                      min="35"
+                      min={5}
+                      max={100}
                       id="tradeSize"
                       className="form-control disabled-text"
-                      placeholder="35"
+                      placeholder="Capital Percent"
+                      value={capitalPercent}
+                      onChange={(e) => re.test(e.target.value) && setCapitalPercent(e.target.value)}
                     />
                     <div id="emailHelp" className="form-text text-danger">
-                      Minimum trade size should be $35 *
+                      Minimum trade size should be $5 *
                     </div>
                   </div>
                   <div className="col-xl-3 col-lg-3 col-8 mob-mt-3">
@@ -156,20 +224,19 @@ export const TradeConfigurationPage = () => {
                 </div>
                 <div className="row mt-4 mb-2">
                   <div className="col-xl-12 col-lg-12 col-12">
-                  <Link  to="/copy-trading/view-copy-trader-list">
+                    {/* <Link to="/copy-trading/view-copy-trader-list"> */}
                     <button
-                       onClick={() => {
-                        alert.error(
-                          `You have suscribed to trader name `
-                        );
-                
-                      }}
-                                            
+                      onClick={() => setTradeConfiguration()}
+                      //   // alert.error(
+                      //   //   `You have suscribed to trader name `
+                      //   // );
+                      // }
+
                       className="btn btn-primary btn-50 mob-mt-3"
                     >
                       Update Configuration
                     </button>
-                    </Link>
+                    {/* </Link> */}
                   </div>
                 </div>
               </div>

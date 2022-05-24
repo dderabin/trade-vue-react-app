@@ -1,7 +1,7 @@
 import FaqTrade from "../../components/join-copy-trader/faq";
 import TraderProfile from "../../components/join-copy-trader/profile";
 import UploadDocument from "../../components/join-copy-trader/upload-document";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
 

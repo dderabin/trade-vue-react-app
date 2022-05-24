@@ -77,7 +77,7 @@ export const DashboardPage = () => {
         {/* <div className="card mb-0 d-none d-xl-block "> */}
           <div className="card-body dash-header">
             <div className="dash-item d-xl-block d-none">
-              <span className="value">00</span>
+              <span className="value">2</span>
               <span className="label">Total Trades</span>
             </div>
             <div className="dash-item d-xl-block d-none">
@@ -85,7 +85,7 @@ export const DashboardPage = () => {
               <span className="plus">+</span>
             </div>
             <div className="dash-item">
-              <span className="value">$0.00</span>
+              <span className="value">$1800.00</span>
               <span className="label d-xl-block d-none">Total Investment</span>
               <span className="label d-block d-sm-none investment">Investment</span>
             </div>
@@ -95,8 +95,8 @@ export const DashboardPage = () => {
             </div>
             <div className="dash-item">
               <div style={{ display: 'flex', alignItems: 'baseline'}}>
-                <span className="value">$00.00</span>&nbsp;
-                <span className="sub-value">(00.0%)</span>
+                <span className="value">$890</span>&nbsp;
+                <span className="sub-value">(3.0%)</span>
               </div>
               <span className="label">Profit</span>
             </div>
@@ -105,7 +105,7 @@ export const DashboardPage = () => {
               <span className="plus">=</span>
             </div>
             <div className="dash-item">
-              <span className="value"><img src={open_dir_icon} alt="open direction" style={{backgroundColor: 'white', width: '18px', height: '10px' }} />$0.00</span>
+              <span className="value"><img src={open_dir_icon} alt="open direction" style={{backgroundColor: 'white', width: '18px', height: '10px' }} />$2,690.00</span>
               <span className="label">Portfolio Value</span>
             </div>
           </div>
@@ -133,7 +133,7 @@ export const DashboardPage = () => {
                   <span className="d-none d-xl-block">Portfolio</span>
                 </button>
               </li>
-              <li className="nav-item" role="presentation">
+              {/* <li className="nav-item" role="presentation">
                 <button 
                   className={`nav-link ${activeTab === 'Profitability' ? 'active': ''}`}
                   id="profitability-tab"
@@ -148,7 +148,7 @@ export const DashboardPage = () => {
                   <img src={dash_profitability_icon} alt="Portfolio" />&nbsp;
                   <span className="d-none d-xl-block">Profitability</span>
                 </button>
-              </li>
+              </li> */}
               <li className="nav-item" role="presentation">
                 <button 
                   className={`nav-link ${activeTab === 'Monthly Scorecard' ? 'active': ''}`}
@@ -209,14 +209,14 @@ export const DashboardPage = () => {
               </div>
             </div>
               {/* {activeTab === 'Portfolio' && <Portfolio />} */}
-            {activeTab === 'Portfolio' && <PortfolioEmpty />}
-            {activeTab === 'Profitability' && <Profitability />}
+            {activeTab === 'Portfolio' && <Portfolio />}
+            {/* {activeTab === 'Profitability' && <Profitability />} */}
             {activeTab === 'Monthly Scorecard' && <MonthlyScorecard />}
             {activeTab === 'Subscription' && <Subscription />}
           </div>
         </div>
 
-        { activeTab === 'Profitability' && (
+        {/* { activeTab === 'Profitability' && (
           <div className="card mb-0 dash-content mt-4">
             <div className="card-head dash-tab">
               <div className="tab-title coin-base">
@@ -382,7 +382,7 @@ export const DashboardPage = () => {
             </div>
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

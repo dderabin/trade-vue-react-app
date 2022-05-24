@@ -29,11 +29,15 @@ var krakenwebsocket = null;
 var coinbasewebsocket = null;
 var Ftxwebsocket = null;
 
+var pageOpened = false
+
+var mainMarkList = []
+
 const PriceComparisonPage = () => {
   const ref = useRef(null);
   const { coinList } = useCoinList()
   const { onMouseDown } = useDraggableScroll(ref);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [pricedata, setPriceData] = useState([]);
   const [pagesize, setPageSize] = useState(20);
   const [page, setPage] = useState(1);
@@ -106,10 +110,10 @@ const PriceComparisonPage = () => {
   const onOpenbitmex = () => {
     fetch(
       "http://" +
-        process.env.REACT_APP_HOST +
-        ":" +
-        process.env.REACT_APP_PORT +
-        "/coins/"
+      process.env.REACT_APP_HOST +
+      ":" +
+      process.env.REACT_APP_PORT +
+      "/coins/"
     )
       .then((response) => {
         if (response.ok) {
@@ -141,8 +145,8 @@ const PriceComparisonPage = () => {
           parseFloat(document.getElementById("o" + id).innerText) > priceBit
             ? "black"
             : priceBit > parseFloat(document.getElementById("o" + id).innerText)
-            ? "green"
-            : "red";
+              ? "green"
+              : "red";
         setInterval(function () {
           if (document.getElementById(id)) {
             document.getElementById(id).style.color = "black";
@@ -153,12 +157,12 @@ const PriceComparisonPage = () => {
         document.getElementById(id + "b").innerText = priceBitb;
         document.getElementById(id + "b").style.color =
           parseFloat(document.getElementById("o" + id + "b").innerText) >
-          priceBitb
+            priceBitb
             ? "black"
             : priceBitb >
               parseFloat(document.getElementById("o" + id + "b").innerText)
-            ? "green"
-            : "red";
+              ? "green"
+              : "red";
         setInterval(function () {
           if (document.getElementById(id + "b")) {
             document.getElementById(id + "b").style.color = "black";
@@ -166,7 +170,7 @@ const PriceComparisonPage = () => {
         }, 5000);
         document.getElementById("o" + id + "b").innerText = priceBitb;
       }
-    } catch (e) {}
+    } catch (e) { }
   };
   const huobiWebSocketGet = () => {
     try {
@@ -185,7 +189,7 @@ const PriceComparisonPage = () => {
         huobiwebsocket = null;
         setTimeout(huobiWebSocketGet, 3000);
       };
-    } catch (e) {}
+    } catch (e) { }
   };
   const onOpenhuobi = (evt) => {
     var marketss = [
@@ -300,12 +304,12 @@ const PriceComparisonPage = () => {
 
           document.getElementById(idBh).style.color =
             parseFloat(document.getElementById("o" + idBh).innerText) ===
-            priceBh
+              priceBh
               ? "black"
               : priceBh >
                 parseFloat(document.getElementById("o" + idBh).innerText)
-              ? "green"
-              : "red";
+                ? "green"
+                : "red";
           setInterval(function () {
             if (document.getElementById(idBh)) {
               document.getElementById(idBh).style.color = "black";
@@ -323,12 +327,12 @@ const PriceComparisonPage = () => {
 
           document.getElementById(idBhb).style.color =
             parseFloat(document.getElementById("o" + idBhb).innerText) ===
-            priceBhb
+              priceBhb
               ? "black"
               : priceBhb >
                 parseFloat(document.getElementById("o" + idBhb).innerText)
-              ? "green"
-              : "red";
+                ? "green"
+                : "red";
           setInterval(function () {
             if (document.getElementById(idBhb)) {
               document.getElementById(idBhb).style.color = "black";
@@ -393,8 +397,8 @@ const PriceComparisonPage = () => {
               ? "black"
               : priceK >
                 parseFloat(document.getElementById("o" + idK).innerText)
-              ? "green"
-              : "red";
+                ? "green"
+                : "red";
           setInterval(function () {
             if (document.getElementById(idK)) {
               document.getElementById(idK).style.color = "black";
@@ -409,12 +413,12 @@ const PriceComparisonPage = () => {
           document.getElementById(idK + "b").innerText = priceKb;
           document.getElementById(idK + "b").style.color =
             parseFloat(document.getElementById("o" + idK + "b").innerText) >
-            priceKb
+              priceKb
               ? "black"
               : priceKb >
                 parseFloat(document.getElementById("o" + idK + "b").innerText)
-              ? "green"
-              : "red";
+                ? "green"
+                : "red";
           setInterval(function () {
             if (document.getElementById(idK + "b")) {
               document.getElementById(idK + "b").style.color = "black";
@@ -517,28 +521,28 @@ const PriceComparisonPage = () => {
             ? "black"
             : pricecb >
               parseFloat(document.getElementById("o" + idcb).innerText)
-            ? "green"
-            : "red";
-        setInterval(function () {
-          document.getElementById(idcb).style.color = "black";
-        }, 5000);
+              ? "green"
+              : "red";
+        // setInterval(function () {
+        document.getElementById(idcb).style.color = "black";
+        // }, 5000);
         document.getElementById("o" + idcb).innerText = pricecb;
 
         document.getElementById(idcb + "b").innerText = pricecbb;
         document.getElementById(idcb + "b").style.color =
           parseFloat(document.getElementById("o" + idcb + "b").innerText) >
-          pricecbb
+            pricecbb
             ? "black"
             : pricecbb >
               parseFloat(document.getElementById("o" + idcb + "b").innerText)
-            ? "green"
-            : "red";
-        setInterval(function () {
-          document.getElementById(idcb + "b").style.color = "black";
-        }, 5000);
+              ? "green"
+              : "red";
+        // setInterval(function () {
+        document.getElementById(idcb + "b").style.color = "black";
+        // }, 5000);
         document.getElementById("o" + idcb + "b").innerText = pricecbb;
       }
-    } catch (e) {}
+    } catch (e) { }
   };
   const FtxWebSocketGet = () => {
     Ftxwebsocket = new WebSocket("wss://ftx.com/ws/");
@@ -557,10 +561,10 @@ const PriceComparisonPage = () => {
   const onOpenFTX = (evt) => {
     fetch(
       "http://" +
-        process.env.REACT_APP_HOST +
-        ":" +
-        process.env.REACT_APP_PORT +
-        "/coins/"
+      process.env.REACT_APP_HOST +
+      ":" +
+      process.env.REACT_APP_PORT +
+      "/coins/"
     )
       .then((response) => {
         if (response.ok) {
@@ -588,7 +592,7 @@ const PriceComparisonPage = () => {
 
     try {
       payload = JSON.parse(evt.data);
-    } catch (e) {}
+    } catch (e) { }
 
     if (payload) {
       if (payload.channel === "ticker" && payload.type === "update") {
@@ -601,8 +605,8 @@ const PriceComparisonPage = () => {
             parseFloat(document.getElementById("o" + id).innerText) > price
               ? "BLblackACK"
               : price > parseFloat(document.getElementById("o" + id).innerText)
-              ? "green"
-              : "red";
+                ? "green"
+                : "red";
           setInterval(function () {
             if (document.getElementById(id)) {
               document.getElementById(id).style.color = "black";
@@ -617,12 +621,12 @@ const PriceComparisonPage = () => {
           if (document.getElementById("o" + id + "b")) {
             document.getElementById(id + "b").style.color =
               parseFloat(document.getElementById("o" + id + "b").innerText) >
-              priceb
+                priceb
                 ? "black"
                 : priceb >
                   parseFloat(document.getElementById("o" + id + "b").innerText)
-                ? "green"
-                : "red";
+                  ? "green"
+                  : "red";
           }
           setInterval(function () {
             if (document.getElementById(id + "b")) {
@@ -642,6 +646,9 @@ const PriceComparisonPage = () => {
     setLoading(false);
   };
   const CurrencyTable = () => {
+    if (pageOpened)
+      return
+
     allcoin = coinList;
     setPriceData(allcoin.slice((page - 1) * pagesize, page * pagesize));
     setTotalPages(Math.ceil(allcoin.length / pagesize));
@@ -652,71 +659,84 @@ const PriceComparisonPage = () => {
       marklist.push(marketBinance + "@ticker");
     }
 
-      wsbn = new WebSocket(
-        "wss://stream.binance.com:9443/ws/" + marklist.join("/")
-      );
+    if (marklist.length > 0) {
+      mainMarkList = marklist;
+      pageOpened = true
+    }
 
-      var object = null;
-      wsbn.onmessage = (evt) => {
-        object = JSON.parse(evt.data);
-        let priceB = parseFloat(object.a);
-        let priceBb = parseFloat(object.b);
-        var idB = object.s;
-        if (priceB != null) {
-          if (document.getElementById(idB)) {
-            document.getElementById(idB).innerText = priceB;
-            document.getElementById(idB).style.color =
-              parseFloat(
-                document.getElementById("o" + idB).innerText
-              ) === priceB
-                ? "black"
-                : priceB >
-                  parseFloat(
-                    document.getElementById("o" + idB).innerText
-                  )
+    console.log('request to connect ');
+    try {
+      
+      wsbn = new WebSocket(
+        "wss://stream.binance.com:9443/ws/" + mainMarkList.join("/")
+      );
+    } catch (error) {
+      
+    }
+
+    var object = null;
+    wsbn.onmessage = (evt) => {
+      // console.log('event in onmessage =>', evt.data)
+      object = JSON.parse(evt.data);
+      let priceB = parseFloat(object.a);
+      let priceBb = parseFloat(object.b);
+      var idB = object.s;
+      if (priceB != null) {
+        if (document.getElementById(idB)) {
+          document.getElementById(idB).innerText = priceB;
+          document.getElementById(idB).style.color =
+            parseFloat(
+              document.getElementById("o" + idB).innerText
+            ) === priceB
+              ? "black"
+              : priceB >
+                parseFloat(
+                  document.getElementById("o" + idB).innerText
+                )
                 ? "green"
                 : "red";
-            setInterval(function () {
-              if (document.getElementById(idB)) {
-                document.getElementById(idB).style.color = "black";
-              }
-            }, 5000);
-          }
-          if (document.getElementById("o" + idB)) {
-            document.getElementById("o" + idB).innerText = priceB;
-          }
+          setInterval(function () {
+            if (document.getElementById(idB)) {
+              document.getElementById(idB).style.color = "black";
+            }
+          }, 5000);
         }
-        if (priceBb != null) {
-          if (document.getElementById(idB + "b")) {
-            document.getElementById(idB + "b").innerText = priceBb;
-            document.getElementById(idB + "b").style.color =
-              parseFloat(
-                document.getElementById("o" + idB + "b").innerText
-              ) === priceBb
-                ? "black"
-                : priceBb >
-                  parseFloat(
-                    document.getElementById("o" + idB + "b").innerText
-                  )
+        if (document.getElementById("o" + idB)) {
+          document.getElementById("o" + idB).innerText = priceB;
+        }
+      }
+      if (priceBb != null) {
+        if (document.getElementById(idB + "b")) {
+          document.getElementById(idB + "b").innerText = priceBb;
+          document.getElementById(idB + "b").style.color =
+            parseFloat(
+              document.getElementById("o" + idB + "b").innerText
+            ) === priceBb
+              ? "black"
+              : priceBb >
+                parseFloat(
+                  document.getElementById("o" + idB + "b").innerText
+                )
                 ? "green"
                 : "red";
-            setInterval(function () {
-              if (document.getElementById(idB + "b")) {
-                document.getElementById(idB + "b").style.color =
-                  "black";
-              }
-            }, 5000);
-          }
-          if (document.getElementById("o" + idB + "b")) {
-            document.getElementById("o" + idB + "b").innerText =
-              priceBb;
-          }
+          setInterval(function () {
+            if (document.getElementById(idB + "b")) {
+              document.getElementById(idB + "b").style.color =
+                "black";
+            }
+          }, 5000);
         }
-      };
-      wsbn.onclose = () => {
-        wsbn = null;
-        setTimeout(CurrencyTable, 3000);
-      };
+        if (document.getElementById("o" + idB + "b")) {
+          document.getElementById("o" + idB + "b").innerText =
+            priceBb;
+        }
+      }
+    };
+    wsbn.onclose = () => {
+      wsbn = null;
+      console.log("wsbn closed");
+      setTimeout(CurrencyTable, 3000);
+    };
   };
   const refresgWebSocket = () => {
     if (wsbn !== null) {
@@ -757,6 +777,7 @@ const PriceComparisonPage = () => {
 
   return (
     <>
+      {console.log('loading =>', loading)}
       <Helmet>
         <title>Price Comparison · TraderPro</title>
       </Helmet>
@@ -764,13 +785,13 @@ const PriceComparisonPage = () => {
         <div className="row">
           <div className="col-12">
             <div className="dropdown mob-ml-10">
-              <div className="row">
+              <div className="row" style={{ marginBottom: 20 }}>
                 <div className="col-2">
-                  <select className="pc-select-input" style={{border: "1px solid white", backgroundColor:"white"}}>
-                    <option value={"USD"}>$ USD</option>
+                  <select className="pc-select-input" style={{ border: "1px solid white", backgroundColor: "white", borderBottomLeftRadius: 0, borderBottomRightRadius: 0, fontWeight: 'normal' }}>
+                    <option style={{ fontWeight: 'normal' }} value={"USD"}>$ USD</option>
                   </select>
                 </div>
-               
+
                 {/* <div className="ms-2 col-2">
                 <legend className="small-legend">Refresh:</legend>
                 <button className="btn btn-white btn-sm" onClick={refresgWebSocket}>3s to Refresh</button>
@@ -829,7 +850,9 @@ const PriceComparisonPage = () => {
                     </div>
                   </div>
                 </li>
-                {loading ? <PriceItemList coinList={pricedata} /> : <div></div>}
+                {loading &&
+                  <PriceItemList coinList={pricedata} />
+                }
               </ul>
               <div id="#valueCoinList" className="overflow-scroll-x">
                 <div
@@ -849,11 +872,11 @@ const PriceComparisonPage = () => {
                       <span>Binance</span>
                     </div>
                     <ul className="itemss">
-                      {loading ? (
+
+                      {loading &&
                         <BinaceList coinList={pricedata} />
-                      ) : (
-                        <div></div>
-                      )}
+                      }
+
                     </ul>
                   </div>
                   <div className="items">
@@ -864,7 +887,9 @@ const PriceComparisonPage = () => {
                       <span>FTX</span>
                     </div>
                     <ul className="itemss">
-                      {loading ? <FtxList coinList={pricedata} /> : <div></div>}
+                      {loading &&
+                        <FtxList coinList={pricedata} />
+                      }
                     </ul>
                   </div>
                   <div className="items">
@@ -875,11 +900,11 @@ const PriceComparisonPage = () => {
                       <span>Coinbase Pro</span>
                     </div>
                     <ul className="itemss">
-                      {loading ? (
+
+                      {loading &&
                         <CoinBaseList coinList={pricedata} />
-                      ) : (
-                        <div></div>
-                      )}
+                      }
+
                     </ul>
                   </div>
                   <div className="items">
@@ -890,11 +915,9 @@ const PriceComparisonPage = () => {
                       <span>Huobi Global</span>
                     </div>
                     <ul className="itemss">
-                      {loading ? (
+                      {loading &&
                         <HuobiList coinList={pricedata} />
-                      ) : (
-                        <div></div>
-                      )}
+                      }
                     </ul>
                   </div>
                   <div className="items">
@@ -905,11 +928,9 @@ const PriceComparisonPage = () => {
                       <span> Bitmex</span>
                     </div>
                     <ul className="itemss">
-                      {loading ? (
+                      {loading &&
                         <BitmexList coinList={pricedata} />
-                      ) : (
-                        <div></div>
-                      )}
+                      }
                     </ul>
                   </div>
                   <div className="items">
@@ -923,11 +944,9 @@ const PriceComparisonPage = () => {
                       &nbsp;
                     </div>
                     <ul className="itemss">
-                      {loading ? (
+                      {loading &&
                         <KrakenList coinList={pricedata} />
-                      ) : (
-                        <div></div>
-                      )}
+                      }
                     </ul>
                   </div>
                 </div>
@@ -941,16 +960,6 @@ const PriceComparisonPage = () => {
               />
             </div>
 
-            {!loading ? (
-              <div className="button" id="loader">
-                <a href="#0" className="btn btn-link">
-                  Loading...
-                </a>
-                <div className="loader"></div>
-              </div>
-            ) : (
-              <div></div>
-            )}
           </div>
         </div>
       </section>

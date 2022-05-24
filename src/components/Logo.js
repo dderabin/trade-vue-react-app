@@ -1,3 +1,4 @@
+import React from 'react'
 import logo from "../assets/uploads/logo.svg";
 
 export const Logo = ({ style, className }) => {

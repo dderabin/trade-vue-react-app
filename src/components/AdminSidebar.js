@@ -1,5 +1,5 @@
 // sidebar icons
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import sb_dashboard from "./../assets/img/panel-icons/dashboard.svg";
 import sb_administrator from "./../assets/img/panel-icons/administrator.svg";
 import sb_signalprovider from "./../assets/img/panel-icons/signal-provider.svg";

@@ -94,7 +94,7 @@ const Subscription = () => {
           <div className='signal-sub'>
             <div className='chart-section'>
               <span>Signal Subscribers</span>
-              <span>19945</span>
+              <span>1561</span>
               <div className='d-xl-block d-none chat_section_graph'>
                 <Chart
                   options={signalData.options}
@@ -117,13 +117,13 @@ const Subscription = () => {
               <div className='col-md-12'>
                 <div className='info-section'>
                   <div className='sent-section'>
-                    <span>2456</span>
+                    <span>1238</span>
                     <span>Signal Sent</span>
                   </div>
                   <div className='profit-section'>
                     <div className='profit-value'>
                       <img src={icon_up} alt="icon_up" />
-                      <span>56%</span>
+                      <span>34%</span>
                     </div>
                     <span>Profit</span>
                   </div>
@@ -135,7 +135,7 @@ const Subscription = () => {
           <div className='copy-sub'>
             <div className='chart-section'>
               <span>Copy Trading Subscribers</span>
-              <span>19945</span>
+              <span>678</span>
               <div className='d-xl-block d-none chat_section_graph'>
                 <Chart
                   options={copyData.options}
@@ -158,13 +158,13 @@ const Subscription = () => {
               <div className='col-md-12'>
                 <div className='info-section'>
                   <div className='sent-section'>
-                    <span>2456</span>
+                    <span>1961</span>
                     <span>Copy Trades</span>
                   </div>
                   <div className='profit-section'>
                     <div className='profit-value'>
                       <img src={icon_up} alt="icon_up" />
-                      <span>56%</span>
+                      <span>15%</span>
                     </div>
                     <span>Profit</span>
                   </div>
