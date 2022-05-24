@@ -1,25 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { RealTimeChartWidget } from "react-tradingview-widgets";
-// import traderHistory from "./data/history";
-import TraderHistoryList from "../../components/trade-terminal/trade-history";
-import { Dropdown } from 'semantic-ui-react';
 import "font-awesome/css/font-awesome.css";
 import {
   Modal,
   ModalBody,
-  // ModalFooter,
-  // Button,
   ModalHeader
 } from 'reactstrap'
 import icon_modal_close from "./../../assets/img/icons/modal-close.svg";
 import icon_modal_minus from "./../../assets/img/icons/modal-minus.svg";
-import { useTraderHistory } from "../../hooks";
 import axios from "../../axiosClient";
 import Axios from "axios"
 
-let wsbn = null;
-let object = null;
 const re = /^[0-9\b]+$/;
 
 export const TradeTerminalPage = () => {
@@ -33,13 +25,10 @@ export const TradeTerminalPage = () => {
 };
 
 export const GraphicalChartArea = () => {
-  const { traderHistory } = useTraderHistory()
-  console.log('traderHistory =>', traderHistory)
   const [historyList, setHistoryList] = useState([]);
   const [updateState, setUpdateState] = useState({})
   const [createOpen, setCreateOpen] = useState(false)
   const [editOpen, setEditOpen] = useState(false)
-  const [type, setType] = useState('self')
   const [active, setActive] = useState('buy');
   const [exchanges, setExchanges] = useState([])
   const [chosenExchange, setChosenExchange] = useState('')
@@ -48,15 +37,7 @@ export const GraphicalChartArea = () => {
     from: 'BTC',
     to: 'USDT'
   })
-  const [chartPrice, setChartPrice] = useState(0)
   const [chartInfo, setChartInfo] = useState(null)
-  const [order, setOrder] = useState('limit')
-  const [price, setPrice] = useState(0);
-  const [position, setPosition] = useState('')
-  const [Leverage, setLeverage] = useState(0)
-  const [entryPrice, setQuantity] = useState(0);
-  const [stopLoss, setPriceStop] = useState(0);
-  const [amount, setQuantityStop] = useState(0);
   const handleBuy = () => {
     setActive('buy');
   }
@@ -146,7 +127,7 @@ export const GraphicalChartArea = () => {
   }
 
   function updateStateMaking(history) {
-    if (history.state == 'ordered' || history.state == 'preOrder' || history.state == 'position') {
+    if (history.state === 'ordered' || history.state === 'preOrder' || history.state === 'position') {
       setEditOpen(true)
       setUpdateState(history)
       setActive('update')
@@ -177,6 +158,7 @@ export const GraphicalChartArea = () => {
     else {
       getFTXPriceAPI()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenExchange, tradingSymbol.tradingSymbol])
   useEffect(() => {
     getTradeHistory()
@@ -223,7 +205,7 @@ export const GraphicalChartArea = () => {
           </div>
           <div style={{ minHeight: "500px" }}>
             <RealTimeChartWidget
-              symbol={chosenExchange == 'ftx' ? `FTX:${tradingSymbol.tradingSymbol}` : `BINANCE:${tradingSymbol.tradingSymbol}`}
+              symbol={chosenExchange === 'ftx' ? `FTX:${tradingSymbol.tradingSymbol}` : `BINANCE:${tradingSymbol.tradingSymbol}`}
               locale="en"
               interval="D"
               autosize="true"
@@ -264,7 +246,7 @@ export const GraphicalChartArea = () => {
                       <tbody>
                         {/* <TraderHistoryList traderHistoryList={historyList} onEditOpen={setEditOpen} /> */}
                         {historyList.map((history, index) => (
-                          <tr style={{ fontWeight: 'bold', textAlign: 'center', cursor: (history.state == 'ordered' || history.state == 'preOrder' || history.state == 'position') && 'pointer' }} key={index} onClick={() => updateStateMaking(history)}>
+                          <tr style={{ fontWeight: 'bold', textAlign: 'center', cursor: (history.state === 'ordered' || history.state === 'preOrder' || history.state === 'position') && 'pointer' }} key={index} onClick={() => updateStateMaking(history)}>
                             <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>{history._id}</td>
                             <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>{history.exchangePlatform}</td>
                             <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>{history.symbol.from}</td>
@@ -275,9 +257,9 @@ export const GraphicalChartArea = () => {
                               {{
                                 height: '38px',
                                 fontSize: '0.7rem', textAlign: 'center',
-                                color: history.state == 'closedWithError' || history.state == 'closedByStopLoss' ? 'red'
-                                  : history.state == 'closedByLastTarget' || history.state == 'closedByMiddleTargets' || history.state == 'inPosition' ? 'yellow'
-                                    : history.state == 'ordered' ? 'green' : 'black'
+                                color: history.state === 'closedWithError' || history.state === 'closedByStopLoss' ? 'red'
+                                  : history.state === 'closedByLastTarget' || history.state === 'closedByMiddleTargets' || history.state === 'inPosition' ? 'yellow'
+                                    : history.state === 'ordered' ? 'green' : 'black'
                               }}>
                               {history.state}
                             </td>
@@ -454,9 +436,8 @@ export const BuyNowUpdatePositionBar = (props) => {
 
 export const BuySellForm = (props) => {
   const [type, setType] = useState('self')
-  const [ids, setIds] = useState('')
   const [signalType, setActiveBtn] = useState('spot');
-  const [activeCryto, setActiveCryto] = useState(props.tradingSymbol.from);
+  const [activeCrypto, setActiveCrypto] = useState('USDT');
   const [order, setOrder] = useState('limit')
   const [position, setPosition] = useState('Spot')
   const [Leverage, setLeverage] = useState(0)
@@ -480,7 +461,7 @@ export const BuySellForm = (props) => {
   }
   const handleChangePriceStop = (price) => {
     if (Number(price) >= 0) {
-      if (position.toLowerCase() == 'short') {
+      if (position.toLowerCase() === 'short') {
         setPriceStop(Number(price) > entryPrice ? Number(price) : entryPrice)
       }
       else {
@@ -501,9 +482,9 @@ export const BuySellForm = (props) => {
   const handleChangeProfit = (name, value, index_num) => {
     let valueVar = Number(value)
     console.log("handlechangeprofit: ", name, Number(value), index_num);
-    if (Number(value) < 0 || Number(value) == NaN)
+    if (Number(value) < 0 || Number.isNan(value))
       valueVar = 0
-    // if (position.toLowerCase() == 'short') {
+    // if (position.toLowerCase() === 'short') {
     //   if (Number(value) < entryPrice)
     //     valueVar = Number(value)
     //   else
@@ -552,7 +533,7 @@ export const BuySellForm = (props) => {
 
   const handleChangeUpdateProfit = (name, value, index_num) => {
     console.log("handlechangeUpdateprofit: ", name, value, index_num);
-    if (value < 0 || value == NaN)
+    if (value < 0 || Number.isNaN(value))
       value = 0
 
     setUpdateProfit(buyProfit => updateProfit.map((item, index) => {
@@ -574,18 +555,18 @@ export const BuySellForm = (props) => {
     }
   }
   function signalProviderCheckBox() {
-    if (type == 'self' || type == 'copyTrader')
+    if (type === 'self' || type === 'copyTrader')
       setType('signalProvider')
-    else if (type == 'signalProvider')
+    else if (type === 'signalProvider')
       setType('self')
     else
       setType('self')
   }
 
   function copyTraderCheckBox() {
-    if (type == 'self' || type == 'signalProvider')
+    if (type === 'self' || type === 'signalProvider')
       setType('copyTrader')
-    else if (type == 'copyTrader')
+    else if (type === 'copyTrader')
       setType('self')
     else
       setType('self')
@@ -593,8 +574,8 @@ export const BuySellForm = (props) => {
 
   async function submitOrder() {
     try {
-      if (signalType.toLowerCase() == 'spot') {
-        if (order == 'limit') {
+      if (signalType.toLowerCase() === 'spot') {
+        if (order === 'limit') {
           const response = await axios.put('/user/trade/signal', {
             type,
             exchangePlatform: props.chosenExchange,
@@ -602,13 +583,12 @@ export const BuySellForm = (props) => {
             to: props.tradingSymbol.to,
             signalType: 'Spot',
             entryPrice,
-            amount: activeCryto == activeCryto == props.tradingSymbol.from ? parseFloat(amount) : parseFloat(amount) / props.chartInfo.price,
+            amount: activeCrypto === props.tradingSymbol.from ? parseFloat(amount) : parseFloat(amount) / props.chartInfo.price,
             stopLoss,
-            entryPrice,
             targets: buyProfit
             // targets:
           })
-          console.log('test')
+          console.log('test', response)
         } else {
           const response = await axios.put('/user/trade/signal', {
             type,
@@ -616,29 +596,29 @@ export const BuySellForm = (props) => {
             from: props.tradingSymbol.from,
             to: props.tradingSymbol.to,
             // signalType,
-            amount: activeCryto == activeCryto == props.tradingSymbol.from ? parseFloat(amount) : parseFloat(amount) / props.chartInfo.price,
+            amount: activeCrypto === props.tradingSymbol.from ? parseFloat(amount) : parseFloat(amount) / props.chartInfo.price,
             stopLoss,
             signalType: position,
             entryPrice,
             targets: buyProfit
           })
-          console.log('test')
+          console.log('test', response)
         }
       }
-      else if (signalType.toLowerCase() == 'futures') {
+      else if (signalType.toLowerCase() === 'futures') {
         const response = await axios.put('/user/trade/signal', {
           type,
           exchangePlatform: props.chosenExchange,
           from: props.tradingSymbol.from,
           to: props.tradingSymbol.to,
           signalType: position,
-          amount: activeCryto == props.tradingSymbol.from ? parseFloat(amount) : parseFloat(amount) / props.chartInfo.price,
+          amount: activeCrypto === props.tradingSymbol.from ? parseFloat(amount) : parseFloat(amount) / props.chartInfo.price,
           stopLoss,
           leverage: Leverage,
           entryPrice,
           targets: buyProfit
         })
-        console.log('test')
+        console.log('test', response)
       }
     }
     catch (err) {
@@ -680,10 +660,10 @@ export const BuySellForm = (props) => {
     ])
   }, [signalType])
   useEffect(() => {
-    if (props.updateState == {}) {
+    if (props.updateState === {}) {
       setType('self')
       setActiveBtn('spot')
-      setActiveCryto(props.tradingSymbol.from)
+      setActiveCrypto(props.tradingSymbol.from)
       setOrder('limit')
       setPosition('Spot')
       setLeverage(0)
@@ -697,10 +677,11 @@ export const BuySellForm = (props) => {
         { price: 0, amount: 0 }
       ])
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.active])
   // useEffect(() => {
   //   if(props.updateState != undefined){
-  //   if(props.updateState.state == 'preOrder' || props.updateState == 'ordered') {
+  //   if(props.updateState.state === 'preOrder' || props.updateState === 'ordered') {
 
   //     setEntryPrice(props.updateState.entryPrice)
   //     setPriceStop(props.updateState.stopLoss)
@@ -714,7 +695,12 @@ export const BuySellForm = (props) => {
   // }, [props.updateState])
   useEffect(() => {
     handleChangePrice(entryPrice)
-  }, [entryPrice, activeCryto, position])
+  }, [entryPrice, activeCrypto, position])
+
+  useEffect(() => {
+    setActiveCrypto(props.tradingSymbol.to)
+    console.log("updated props.tradingSymbol: ", props.tradingSymbol)
+  }, [props.tradingSymbol])
   return (
     <div className="tab-content" id="myTabContent">
 
@@ -780,7 +766,7 @@ export const BuySellForm = (props) => {
                           >
                             {props.exchanges.map(item => (
                               <option key={item.key} value={item.value}>
-                                {item.value == 'testnet-binanceusdm' ? 'Binance' : item.value}
+                                {item.value === 'testnet-binanceusdm' ? 'Binance' : item.value}
                               </option>
 
                             )
@@ -860,8 +846,8 @@ export const BuySellForm = (props) => {
                               className="form-control form-input"
                               disabled
                               placeholder="Position"
-                              style={signalType == "spot" ? { backgroundColor: '#e9ecef' } : {}} />
-                            {signalType == 'futures' &&
+                              style={signalType === "spot" ? { backgroundColor: '#e9ecef' } : {}} />
+                            {signalType === 'futures' &&
                               <span style={{ width: '50%' }}
                                 className="input-group-text p-0 border-0"
                               >
@@ -889,9 +875,9 @@ export const BuySellForm = (props) => {
                               id="leverage-input"
                               type="number"
                               className="form-control form-input"
-                              disabled={signalType == "spot" ? true : false}
+                              disabled={signalType === "spot" ? true : false}
                               placeholder="Leverage"
-                              style={signalType == "spot" ? { backgroundColor: '#e9ecef' } : {}}
+                              style={signalType === "spot" ? { backgroundColor: '#e9ecef' } : {}}
                               max={20}
                               min={0}
                               onChange={(e) => setLeverage(e.target.value <= 20 && e.target.value >= 0 && re.test(e.target.value) ? e.target.value : e.target.value <= 0 && 0)}
@@ -922,7 +908,7 @@ export const BuySellForm = (props) => {
                                 className="form-select select-left" style={{ borderLeft: 'none' }}
                                 onChange={(e) => {
                                   setOrder(e.target.value)
-                                  e.target.value == 'market' ? setEntryPrice(props.chartInfo.price) : setEntryPrice(0)
+                                  e.target.value === 'market' ? setEntryPrice(props.chartInfo.price) : setEntryPrice(0)
                                 }}
                                 value={order}
                               >
@@ -945,24 +931,24 @@ export const BuySellForm = (props) => {
                           </label>
                           <div className="input-group">
                             <div className="input-group-prepend">
-                              <button className="btn btn-outline-price btn-left change-value-btn" disabled={order == 'market'} onClick={() => handleChangePrice(entryPrice - 1)} type="button" style={order == 'market' ? { backgroundColor: '#e9ecef' } : {}}>-</button>
+                              <button className="btn btn-outline-price btn-left change-value-btn" disabled={order === 'market'} onClick={() => handleChangePrice(entryPrice - 1)} type="button" style={order === 'market' ? { backgroundColor: '#e9ecef' } : {}}>-</button>
                             </div>
                             <input
                               type="text"
                               className="form-control price-border"
-                              disabled={order == 'market'}
-                              style={order == 'market' ? { backgroundColor: '#e9ecef' } : {}}
+                              disabled={order === 'market'}
+                              style={order === 'market' ? { backgroundColor: '#e9ecef' } : {}}
                               onChange={(e) => {
                                 handleChangePrice(e.target.value)
                               }}
                               // onChange={(e) => {
                               //   setOrder(e.target.value)
-                              //   e.target.value == 'market' ? setEntryPrice(props.chartInfo.price) : setEntryPrice(0)
+                              //   e.target.value === 'market' ? setEntryPrice(props.chartInfo.price) : setEntryPrice(0)
                               // }}
-                              value={order == 'market' ? 0 : entryPrice ? entryPrice : 0}
+                              value={order === 'market' ? 0 : entryPrice ? entryPrice : 0}
                             />
                             <div className="input-group-prepend">
-                              <button className="btn btn-outline-price btn-right change-value-btn" disabled={order == 'market'} onClick={() => handleChangePrice(entryPrice + 1)} type="button" style={order == 'market' ? { backgroundColor: '#e9ecef' } : {}}>+</button>
+                              <button className="btn btn-outline-price btn-right change-value-btn" disabled={order === 'market'} onClick={() => handleChangePrice(entryPrice + 1)} type="button" style={order === 'market' ? { backgroundColor: '#e9ecef' } : {}}>+</button>
                             </div>
                           </div>
                         </div>
@@ -1001,8 +987,8 @@ export const BuySellForm = (props) => {
                         <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                           <label></label>
                           <div className="input-group mb-3 mt_3" style={{ width: '100%' }}>
-                            <button type="button" style={{ borderRight: 'none', width: '50%', fontFamily: 'Regular, serif', fontWeight: '600' }} onClick={() => setActiveCryto(props.tradingSymbol.from, () => { handleChangeQuantity() })} className={`terminal_button trade-type btn ${activeCryto === props.tradingSymbol.from ? 'btn-trade' : 'btn-white'}`}>{props.tradingSymbol.from}</button>
-                            <button type="button" style={{ borderLeft: 'none', width: '50%', borderRight: '1px solid #ced4da', fontFamily: 'Regular, serif', fontWeight: '600' }} onClick={() => setActiveCryto(props.tradingSymbol.to)} className={`terminal_button trade-type btn ${activeCryto === props.tradingSymbol.to ? 'btn-trade' : 'btn-white'}`}>{props.tradingSymbol.to}</button>
+                            <button type="button" style={{ borderRight: 'none', width: '50%', fontFamily: 'Regular, serif', fontWeight: '600' }} onClick={() => setActiveCrypto(props.tradingSymbol.from, () => { handleChangeQuantity() })} className={`terminal_button trade-type btn ${activeCrypto === props.tradingSymbol.from ? 'btn-trade' : 'btn-white'}`}>{props.tradingSymbol.from}</button>
+                            <button type="button" style={{ borderLeft: 'none', width: '50%', borderRight: '1px solid #ced4da', fontFamily: 'Regular, serif', fontWeight: '600' }} onClick={() => setActiveCrypto(props.tradingSymbol.to)} className={`terminal_button trade-type btn ${activeCrypto === props.tradingSymbol.to ? 'btn-trade' : 'btn-white'}`}>{props.tradingSymbol.to}</button>
                           </div>
                         </div></div>
                     </div>
@@ -1134,7 +1120,7 @@ export const BuySellForm = (props) => {
                         onChange={(e) => {
                           copyTraderCheckBox()
                         }}
-                        checked={type == 'copyTrader'} />
+                        checked={type === 'copyTrader'} />
                       <label className="form-check-label" htmlFor="subscriber">Copy The Order For My Subscribers</label>
                     </div>
                     <div className="form-check" style={{ paddingLeft: '2.5em' }}>
@@ -1142,7 +1128,7 @@ export const BuySellForm = (props) => {
                         onChange={(e) => {
                           signalProviderCheckBox()
                         }}
-                        checked={type == 'signalProvider'}
+                        checked={type === 'signalProvider'}
                       />
                       <label className="form-check-label" htmlFor="sendorder">Send The Order As A Signal</label>
                     </div>
@@ -1183,7 +1169,7 @@ export const BuySellForm = (props) => {
                           >
                             {props.exchanges.map(item => (
                               <option key={item.key} value={item.value}>
-                                {item.value == 'testnet-binanceusdm' ? 'Binance' : item.value}
+                                {item.value === 'testnet-binanceusdm' ? 'Binance' : item.value}
                               </option>
 
                             )
@@ -1373,20 +1359,20 @@ export const BuySellForm = (props) => {
                           </label>
                           <div className="input-group mb-3">
                             <div className="input-group-prepend">
-                              <button className="btn btn-outline-price btn-left change-value-btn" disabled={order == 'market'} onClick={() => handleChangePrice(entryPrice - 1)} style={order == 'market' ? { backgroundColor: '#e9ecef' } : {}} type="button">-</button>
+                              <button className="btn btn-outline-price btn-left change-value-btn" disabled={order === 'market'} onClick={() => handleChangePrice(entryPrice - 1)} style={order === 'market' ? { backgroundColor: '#e9ecef' } : {}} type="button">-</button>
                             </div>
                             <input
                               type="text"
                               className="form-control price-border"
-                              disabled={order == 'market'}
-                              style={order == 'market' ? { backgroundColor: '#e9ecef' } : {}}
+                              disabled={order === 'market'}
+                              style={order === 'market' ? { backgroundColor: '#e9ecef' } : {}}
                               onChange={(e) => {
                                 handleChangePrice(e.target.value)
                               }}
-                              value={order == 'market' ? 0 : entryPrice ? entryPrice : 0}
+                              value={order === 'market' ? 0 : entryPrice ? entryPrice : 0}
                             />
                             <div className="input-group-prepend">
-                              <button className="btn btn-outline-price btn-right change-value-btn" disabled={order == 'market'} onClick={() => handleChangePrice(entryPrice + 1)} style={order == 'market' ? { backgroundColor: '#e9ecef' } : {}} type="button">+</button>
+                              <button className="btn btn-outline-price btn-right change-value-btn" disabled={order === 'market'} onClick={() => handleChangePrice(entryPrice + 1)} style={order === 'market' ? { backgroundColor: '#e9ecef' } : {}} type="button">+</button>
                             </div>
                           </div>
                         </div>
@@ -1426,8 +1412,8 @@ export const BuySellForm = (props) => {
                         <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                           <label></label>
                           <div className="input-group mb-3 mt_3" style={{ width: '100%' }}>
-                            <button disabled type="button" style={{ borderRight: 'none', width: '50%', cursor: 'not-allowed' }} onClick={() => setActiveCryto(props.tradingSymbol.from)} className={`terminal_button trade-type btn ${activeCryto === props.tradingSymbol.from ? 'btn-trade' : 'btn-white'}`}>{props.tradingSymbol.from}</button>
-                            <button disabled type="button" style={{ borderLeft: 'none', width: '50%', borderRight: '1px solid #ced4da', cursor: 'not-allowed' }} onClick={() => setActiveCryto(props.tradingSymbol.to)} className={`terminal_button trade-type btn ${activeCryto === props.tradingSymbol.to ? 'btn-trade' : 'btn-white'}`}>{props.tradingSymbol.to}</button>
+                            <button disabled type="button" style={{ borderRight: 'none', width: '50%', cursor: 'not-allowed' }} onClick={() => setActiveCrypto(props.tradingSymbol.from)} className={`terminal_button trade-type btn ${activeCrypto === props.tradingSymbol.from ? 'btn-trade' : 'btn-white'}`}>{props.tradingSymbol.from}</button>
+                            <button disabled type="button" style={{ borderLeft: 'none', width: '50%', borderRight: '1px solid #ced4da', cursor: 'not-allowed' }} onClick={() => setActiveCrypto(props.tradingSymbol.to)} className={`terminal_button trade-type btn ${activeCrypto === props.tradingSymbol.to ? 'btn-trade' : 'btn-white'}`}>{props.tradingSymbol.to}</button>
                           </div>
                         </div></div>
                     </div>
@@ -1560,7 +1546,7 @@ export const BuySellForm = (props) => {
                         onChange={(e) => {
                           copyTraderCheckBox()
                         }}
-                        checked={type == 'copyTrader'} />
+                        checked={type === 'copyTrader'} />
                       <label className="form-check-label" htmlFor="subscriber">Copy The Order For My Subscribers</label>
                     </div>
                     <div className="form-check" style={{ paddingLeft: '2.5em' }}>
@@ -1568,7 +1554,7 @@ export const BuySellForm = (props) => {
                         onChange={(e) => {
                           signalProviderCheckBox()
                         }}
-                        checked={type == 'signalProvider'}
+                        checked={type === 'signalProvider'}
                       />
                       <label className="form-check-label" htmlFor="sendorder">Send The Order As A Signal</label>
                     </div>
