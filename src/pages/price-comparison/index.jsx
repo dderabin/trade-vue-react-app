@@ -787,7 +787,7 @@ const PriceComparisonPage = () => {
             <div className="dropdown mob-ml-10">
               <div className="row" style={{ marginBottom: 20 }}>
                 <div className="col-2">
-                  <select className="pc-select-input" style={{ border: "1px solid gray", backgroundColor: "white", fontWeight: 'normal' }}>
+                  <select className="pc-select-input" style={{ border: "1px solid lightgray", backgroundColor: "white", fontWeight: 'normal' }}>
                     <option style={{ fontWeight: 'normal' }} value={"USD"}>$ USD</option>
                   </select>
                 </div>
