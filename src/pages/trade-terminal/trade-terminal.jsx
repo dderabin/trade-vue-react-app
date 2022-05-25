@@ -158,15 +158,19 @@ export const GraphicalChartArea = () => {
     // else {
     //   getFTXPriceAPI()
     // }
+    let mounted = true;
     const interval = setInterval(() => {
       if (chosenExchange.includes('binance')) {
-        getBinancePriceAPI()
+        mounted && getBinancePriceAPI()
       }
       else {
-        getFTXPriceAPI()
+        mounted && getFTXPriceAPI()
       }
     }, 1000);
-    return () => clearInterval(interval)
+    return () => {
+      mounted = false;
+      clearInterval(interval)
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenExchange, tradingSymbol.tradingSymbol])
   useEffect(() => {

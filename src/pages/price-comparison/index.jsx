@@ -646,8 +646,8 @@ const PriceComparisonPage = () => {
     setLoading(false);
   };
   const CurrencyTable = () => {
-    if (pageOpened)
-      return
+    // if (pageOpened)
+    //   return
 
     allcoin = coinList;
     setPriceData(allcoin.slice((page - 1) * pagesize, page * pagesize));
@@ -734,8 +734,8 @@ const PriceComparisonPage = () => {
     };
     wsbn.onclose = () => {
       wsbn = null;
-      console.log("wsbn closed");
-      setTimeout(CurrencyTable, 3000);
+      // console.log("wsbn closed");
+      // setTimeout(CurrencyTable, 3000);
     };
   };
   const refresgWebSocket = () => {
@@ -787,7 +787,7 @@ const PriceComparisonPage = () => {
             <div className="dropdown mob-ml-10">
               <div className="row" style={{ marginBottom: 20 }}>
                 <div className="col-2">
-                  <select className="pc-select-input" style={{ border: "1px solid white", backgroundColor: "white", borderBottomLeftRadius: 0, borderBottomRightRadius: 0, fontWeight: 'normal' }}>
+                  <select className="pc-select-input" style={{ border: "1px solid gray", backgroundColor: "white", fontWeight: 'normal' }}>
                     <option style={{ fontWeight: 'normal' }} value={"USD"}>$ USD</option>
                   </select>
                 </div>
