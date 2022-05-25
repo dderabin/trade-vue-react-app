@@ -49,6 +49,7 @@ const TraderList = ({ traderList }) => {
     <>
       {traderListState.filter(({ _id }) => _id !== userId).map((trader, index) => {        
         const avatar = trader?.userInfo?.avatar || null;
+        console.log('trader.userInfo => ', trader.userInfo)
         return <tr key={index}>
           <td className="mw-none" style={{ minWidth: "250px" }}>
             <div
