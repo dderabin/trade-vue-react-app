@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useParams, useNavigate } from "react-router-dom";
-import { ShowBreadcrumbs } from "../../components/ShowBreadcrumbs";
-import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import moment from 'moment'
 import AxiosInstance from "../../axiosClient";
@@ -10,7 +8,6 @@ import AxiosInstance from "../../axiosClient";
 export const TradeConfigurationPage = () => {
   let navigate = useNavigate()
   const { id } = useParams();
-  console.log(id);
   const [checktype, setCheckType] = useState(true);
   const [exchangesList, setExchangesList] = useState([])
   const [capitalPercent, setCapitalPercent] = useState(5)
@@ -19,9 +16,6 @@ export const TradeConfigurationPage = () => {
   const re = /^[0-9\b]+$/;
   const handleChange = (e) => {
     setCheckType(e.target.checked);
-  };
-  const updateConf = () => {
-    console.log("updateConf");
   };
   const alert = useAlert();
 
@@ -109,7 +103,7 @@ export const TradeConfigurationPage = () => {
                       type="text"
                       className="form-control"
                       placeholder="Copy Trading"
-                      value={subscriptedTo.userName}
+                      value={subscriptedTo?.userName || ''}
                       disabled
                     />
                   </div>
@@ -121,7 +115,7 @@ export const TradeConfigurationPage = () => {
                       id="subscriptionDate"
                       type="text"
                       className="form-control"
-                      value={moment(subscriptedTo.subscriptionStartTime).format('yyyy/mm/DD').toString()}
+                      value={moment(subscriptedTo?.subscriptionStartTime || new Date()).format('yyyy/mm/DD').toString()}
                     // placeholder={date}
                     />
                   </div>
@@ -135,7 +129,7 @@ export const TradeConfigurationPage = () => {
                       id="subscriptionExpiryDate"
                       type="text"
                       className="form-control"
-                      value={moment(subscriptedTo.subscriptionEndTime).format('yyyy/mm/DD').toString()}
+                      value={moment(subscriptedTo?.subscriptionEndTime || new Date()).format('yyyy/mm/DD').toString()}
                     // placeholder={date}
                     />
                   </div>
@@ -152,8 +146,8 @@ export const TradeConfigurationPage = () => {
                     >
                       {
                         exchangesList.length > 0 &&
-                        exchangesList.map(item => (
-                          <option value={item}>{item == 'testnet-binanceusdm' ? 'Binance' : item}</option>
+                        exchangesList.map((item, index) => (
+                          <option key={index} value={item}>{item === 'testnet-binanceusdm' ? 'Binance' : item}</option>
                         ))
                       }
                     </select>
