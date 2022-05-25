@@ -1,15 +1,7 @@
-import traders from "./data/trader-data";
 import TraderList from "../../components/copy-trader/traders";
 import GridTraderList from "../../components/copy-trader/grid-trader";
-import listview from "../../assets/img/uploads/list-view.svg";
-import listwhiteview from "../../assets/img/uploads/list-white.svg";
-import gridview from "../../assets/img/uploads/grid-view.svg";
-import gridfilledview from "../../assets/img/uploads/grid-filled.svg";
-import searchicon from "../../assets/img/uploads/search-icon.svg";
 import arrowicon from "../../assets/img/table-arrow.svg";
-import React, { useRef, useState } from "react";
-import { ShowBreadcrumbs } from "../../components/ShowBreadcrumbs";
-import { useAlert } from "react-alert";
+import React, { useRef } from "react";
 import useDraggableScroll from "use-draggable-scroll";
 import { Helmet } from "react-helmet";
 import { useCopyTraders } from "../../hooks";
@@ -17,21 +9,9 @@ import { useCopyTraders } from "../../hooks";
 export const ViewCopyTraderListPage = () => {
   const { copyTraders } = useCopyTraders();
   const ref = useRef(null);
-  const alert = useAlert();
 
   const { onMouseDown } = useDraggableScroll(ref);
 
-  const [traderList, setTraderList] = useState(traders);
-  const [viewtype, setViewType] = useState(true);
-  var searchTraderList;
-  const searchTrader = (value) => {
-    if (value !== "") {
-      searchTraderList = traders.filter((trader) => trader.firstname === value);
-    } else {
-      searchTraderList = traders;
-    }
-    setTraderList(searchTraderList);
-  };
   return (
     <>
       <Helmet>
@@ -79,7 +59,7 @@ export const ViewCopyTraderListPage = () => {
             </div>
           </div>
         </div> */}
-        {viewtype === true ? (
+        {copyTraders.length > 0 ? (
           <div className="card mb-0 card-light-grey mt-3">
             <div id="myData"></div>
             <script type="text/javascript"></script>
