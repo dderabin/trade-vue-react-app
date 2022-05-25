@@ -259,10 +259,16 @@ list-wrapper::-webkit-scrollbar {
   }
   .title {
     justify-content: flex-end;
-    padding-right: 2rem;
+    padding-right: 12px;
   }
   .coin-lists {
     width: 50vw;
+  }
+  .items li {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 7px;
   }
 }
 /* only portrait mode ends */
