@@ -99,7 +99,7 @@
 .carouselcontrol {
   position: absolute;
   top: 12px;
-  right: 5.75rem;
+  right: 4.75rem;
   width: 6px;
 }
 @media (min-width: 800px) {
@@ -255,11 +255,14 @@ list-wrapper::-webkit-scrollbar {
 @media (min-width: 360px) and (max-width: 413px) {
   .items li {
     justify-content: flex-end;
-    padding-right: 1.5rem;
+    // padding-right: 1.5rem;
   }
   .title {
     justify-content: flex-end;
     padding-right: 2rem;
+  }
+  .coin-lists {
+    width: 50vw;
   }
 }
 /* only portrait mode ends */
