@@ -348,7 +348,7 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
               >
                 <div className="position-relative nav-user" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   
-                  { (avatar !== null || firstName === '') ? <img src={avatar ? `https://api.server.traderpro.live/api/v1/users/avatar/${userId}` : icon_user} className="img-fluid" alt="User pic" title={`${firstName} ${middleName} ${lastName}`} width={40} style={{borderRadius: '50%'}}/> : <span className="letter-avatar" style={{ backgroundColor: generateHSL(firstName+lastName)}}>
+                  { (avatar !== null || firstName === '') ? <img src={avatar ? `https://api.server.traderpro.live/api/v1/users/avatar/${userId}` : icon_user} className="img-fluid" alt="User pic" title={`${firstName} ${middleName} ${lastName}`} width={40} height={40} style={{borderRadius: '50%'}}/> : <span className="letter-avatar" style={{ backgroundColor: generateHSL(firstName+lastName)}}>
                     { firstName.slice(0,1).toUpperCase() }{ lastName.slice(0,1).toUpperCase() }
                   </span>}&nbsp;
                   <svg xmlns="http://www.w3.org/2000/svg" width="14.828" height="8.414" viewBox="0 0 14.828 8.414">
