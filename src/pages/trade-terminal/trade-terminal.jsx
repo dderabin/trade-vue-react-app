@@ -150,19 +150,30 @@ export const GraphicalChartArea = () => {
     getExchanges()
   }, [])
   useEffect(() => {
-    if (chosenExchange.includes('binance')) {
-      getBinancePriceAPI()
-      let BinanceWebSocket = new WebSocket(`wss://stream.binance.com:9443/ws/${tradingSymbol.tradingSymbol}@ticker`)
-      console.log('BinanceWebSocket =>', BinanceWebSocket)
-    }
-    else {
-      getFTXPriceAPI()
-    }
+    // if (chosenExchange.includes('binance')) {
+    //   getBinancePriceAPI()
+    //   // let BinanceWebSocket = new WebSocket(`wss://stream.binance.com:9443/ws/${tradingSymbol.tradingSymbol}@ticker`)
+    //   // console.log('BinanceWebSocket =>', BinanceWebSocket)
+    // }
+    // else {
+    //   getFTXPriceAPI()
+    // }
+    const interval = setInterval(() => {
+      if (chosenExchange.includes('binance')) {
+        getBinancePriceAPI()
+      }
+      else {
+        getFTXPriceAPI()
+      }
+    }, 1000);
+    return () => clearInterval(interval)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenExchange, tradingSymbol.tradingSymbol])
   useEffect(() => {
-    getTradeHistory()
+    getTradeHistory()    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
   return (
     <>
       <Helmet>

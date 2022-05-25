@@ -212,9 +212,13 @@ const TraderProfile = (props) => {
             <div className="col-xl-3 col-lg-3 col-12" style={{position: 'relative'}}>
               <label className="form-label">State *</label>
               <Input id="stateSelect" name="state" type="select" onChange={handleChangeInfo}>
-                {stateList.length > 0 ? stateList.map((item, index) =>
-                    <option key={index} value={item.isoCode}>{item.name}</option>
-                  ):(
+                {stateList.length > 0 ? (<>
+                  <option value="">Select State</option>
+                  {
+                    stateList.map((item, index) =>
+                      <option key={index} value={item.isoCode} selected={item.isoCode === userInfo.state}>{item.name}</option>)
+                  }</>)
+                  :(
                     <option value=""></option>
                   )
                 }

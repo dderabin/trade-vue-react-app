@@ -14,11 +14,19 @@ const SelectCountry = ({list, onSelected, countryIndex}) => {
   }
 
   const handleSelect = (index) => {
-    onSelected(datas[index].isoCode, datas[index].name)
-    setSelected({
-      src: 'http://purecatamphetamine.github.io/country-flag-icons/3x2/'+datas[index].isoCode+'.svg',
-      name: datas[index].name
-    })
+    if (index === -1) {
+      onSelected(-1, null)
+      setSelected({
+        src: null,
+        name: 'Select Country'
+      })
+    } else {
+      onSelected(datas[index].isoCode, datas[index].name)
+      setSelected({
+        src: 'http://purecatamphetamine.github.io/country-flag-icons/3x2/'+datas[index].isoCode+'.svg',
+        name: datas[index].name
+      })
+    }
     setVisible(false)
   }
 
@@ -55,15 +63,17 @@ const SelectCountry = ({list, onSelected, countryIndex}) => {
       { visible && 
         <div className="select-body">
           <input
-            hidden 
             type="text" 
             onChange={handleChange}
           />
           <div className="select-list">
-            <ul>
+            <ul>              
+              <li onClick={() =>handleSelect(-1)}>
+                <span>Select Country</span>
+              </li>
               {datas && datas.map((item, index) => {
                 let img_url = 'http://purecatamphetamine.github.io/country-flag-icons/3x2/' + item.isoCode + '.svg'
-                return (
+                return (<>
                   <li 
                     key={index}
                     onClick={() =>handleSelect(index)}
@@ -73,7 +83,7 @@ const SelectCountry = ({list, onSelected, countryIndex}) => {
                     />
                     <span>{item.name}</span>
                   </li>
-                )
+                </>)
               })}
             </ul>
           </div>
