@@ -7,7 +7,6 @@ import icon_user from "./../assets/img/icons/user.svg";
 import avatar_2 from "./../assets/img/avatars/avatar-2.jpg";
 import avatar_3 from "./../assets/img/avatars/avatar-3.jpg";
 import avatar_4 from "./../assets/img/avatars/avatar-4.jpg";
-import avatar_5 from "./../assets/img/avatars/avatar-5.jpg";
 
 import { useEffect, useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
@@ -17,17 +16,39 @@ import AxiosInstance from "../axiosClient";
 import { useSelector } from "react-redux";
 
 export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) => {
-  const { userId, userInfo: { firstName = '', lastName = '', middleName = '', successMessage } } = useSelector(state => state.appState)
+  const { userId, userInfo: { firstName = '', lastName = '', middleName = '' } } = useSelector(state => state.appState)
   const { logout } = useAuth();
   const location = useLocation();
   const [notificationShow, setNotificationShow] = useState(false);
   const [inboxShow, setInboxShow] = useState(false);
   const [profileOptionsShow, setProfileOptionsShow] = useState(false);
-  const [profileList, setProfileList] = useState(false);
-  const [isImageLoaded, setIsImageLoaded] = useState(true)
   const [avatar, setAvatar] = useState(null)
 
-  const userSvg = require('../assets/img/userSvg.svg')
+  const hRange = [0, 360];
+  const sRange = [0, 100];
+  const lRange = [0, 100];
+
+  const getHashOfString = (str) => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    hash = Math.abs(hash);
+    return hash;
+  };
+
+  const normalizeHash = (hash, min, max) => {
+    return Math.floor((hash % (max - min)) + min);
+  };
+
+  const generateHSL = (name) => {
+    const hash = getHashOfString(name);
+    const h = normalizeHash(hash, hRange[0], hRange[1]);
+    const s = normalizeHash(hash, sRange[0], sRange[1]);
+    const l = normalizeHash(hash, lRange[0], lRange[1]);
+    return `hsl(${h}, ${s}%, ${l}%)`;
+  };
+  
   useEffect(() => {
     let width = window.innerWidth
     if (width < 780 && location.hash == '') {
@@ -351,7 +372,9 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
               >
                 <div className="position-relative nav-user" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   
-                  <img src={avatar ? `https://api.server.traderpro.live/api/v1/users/avatar/${userId}` : require('../assets/img/user.png')} className="img-fluid" alt="User pic" style={{ borderRadius: '50%', width: 50, height: 50, objectFit: 'cover', marginRight: 5}} title={`${firstName} ${middleName} ${lastName}`} />
+                  { (avatar !== null || firstName === '') ? <img src={avatar ? `https://api.server.traderpro.live/api/v1/users/avatar/${userId}` : icon_user} className="img-fluid" alt="User pic" title={`${firstName} ${middleName} ${lastName}`} /> : <span className="letter-avatar" style={{ backgroundColor: generateHSL(firstName+lastName)}}>
+                    { firstName.slice(0,1).toUpperCase() }{ lastName.slice(0,1).toUpperCase() }
+                  </span>}&nbsp;
                   <svg xmlns="http://www.w3.org/2000/svg" width="14.828" height="8.414" viewBox="0 0 14.828 8.414">
                     <path id="arrow-down" d="M17,9l-6,6L5,9" transform="translate(-3.586 -7.586)" fill="none" stroke="#2b5468" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                   </svg>

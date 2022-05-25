@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.3cd4699c.css",
-    "main.js": "/static/js/main.eaa3098f.js",
+    "main.css": "/static/css/main.7712e546.css",
+    "main.js": "/static/js/main.37e3791c.js",
     "static/js/787.55c8f489.chunk.js": "/static/js/787.55c8f489.chunk.js",
     "static/media/chat_laptop.svg": "/static/media/chat_laptop.42205155e3a61b2325aea895ce849d60.svg",
     "static/media/chat_mobile.svg": "/static/media/chat_mobile.a5a3cacad99aa5a21f437b86459f72d0.svg",
@@ -43,7 +43,6 @@
     "static/media/trading-box-img-mobile2.png": "/static/media/trading-box-img-mobile2.8337edc6005bed6d09bb.png",
     "static/media/ourtraders-bg.png": "/static/media/ourtraders-bg.cf2313f05a9f6b2cd58b.png",
     "static/media/trading-bg.png": "/static/media/trading-bg.724cb7b777d445c3a819.png",
-    "static/media/avatar-5.jpg": "/static/media/avatar-5.9f4ab75310d32b7a672d.jpg",
     "static/media/avatar-3.jpg": "/static/media/avatar-3.b3ebcb259969299b8b4e.jpg",
     "static/media/educate-bg.png": "/static/media/educate-bg.80a0f17d055decef62a4.png",
     "static/media/exchnages-ethereum.png": "/static/media/exchnages-ethereum.320dc6a12f4e818d8189.png",
@@ -100,7 +99,6 @@
     "static/media/list-view.svg": "/static/media/list-view.b1aa160ee3d112947301c48c199833c5.svg",
     "static/media/notification.svg": "/static/media/notification.078b25f4f4561e85a9eeb79e2ae8c364.svg",
     "static/media/list-white.svg": "/static/media/list-white.b9a94f82ff65a52f9fe900ba178a6e80.svg",
-    "static/media/userSvg.svg": "/static/media/userSvg.6a8e9d5f0423dce070940c0b6419f4bf.svg",
     "static/media/modal-minus.svg": "/static/media/modal-minus.a6a8bf32d89afede37bc9547db740c21.svg",
     "static/media/google-plus.svg": "/static/media/google-plus.fb6abcea602216d7cbe784dd44c8c3dc.svg",
     "static/media/dir_down.svg": "/static/media/dir_down.b9072717e8f8316e4fd7dd669a99c8b2.svg",
@@ -121,12 +119,12 @@
     "static/media/open_dir.svg": "/static/media/open_dir.a0333f81e8547ba2ec93e24e6490d638.svg",
     "static/media/right-arrow.svg": "/static/media/right-arrow.2d9e037d76fb1b767bb3ff7a0e256efb.svg",
     "static/media/left-arrow.svg": "/static/media/left-arrow.89879f66475909b0035d1385d0bcd6e2.svg",
-    "main.3cd4699c.css.map": "/static/css/main.3cd4699c.css.map",
-    "main.eaa3098f.js.map": "/static/js/main.eaa3098f.js.map",
+    "main.7712e546.css.map": "/static/css/main.7712e546.css.map",
+    "main.37e3791c.js.map": "/static/js/main.37e3791c.js.map",
     "787.55c8f489.chunk.js.map": "/static/js/787.55c8f489.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3cd4699c.css",
-    "static/js/main.eaa3098f.js"
+    "static/css/main.7712e546.css",
+    "static/js/main.37e3791c.js"
   ]
 }

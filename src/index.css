@@ -131,3 +131,12 @@
   -ms-user-select: none;
   user-select: none;
 }
+
+.letter-avatar {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  color: white;
+  text-align: center;
+  line-height: 30px;
+}
