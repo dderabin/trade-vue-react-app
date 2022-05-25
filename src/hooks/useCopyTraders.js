@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppActions } from '../store/actions';
 
@@ -8,6 +8,8 @@ const useCopyTraders = () => {
 
   useEffect(() => {
     dispatch(AppActions.copyTradersFetchAction())
+    
+  // eslint-disable-next-line
   }, [])
 
   return { copyTraders }

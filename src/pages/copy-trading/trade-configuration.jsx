@@ -4,9 +4,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import moment from 'moment'
 import AxiosInstance from "../../axiosClient";
+import { useCopyTraders } from "../../hooks";
 
 export const TradeConfigurationPage = () => {
   let navigate = useNavigate()
+  const { copyTraders } = useCopyTraders();
   const { id } = useParams();
   const [checktype, setCheckType] = useState(true);
   const [exchangesList, setExchangesList] = useState([])
@@ -64,9 +66,15 @@ export const TradeConfigurationPage = () => {
     }
   }
   useEffect(() => {
-    getSubscriberInfo()
+    // getSubscriberInfo()
     getExchanges()
   }, [])
+
+  useEffect(() => {
+    if (id && copyTraders.length > 0) {
+      setSubscriptedTo(copyTraders.find(item => item._id === id))
+    } 
+  }, [copyTraders, id])
   return (
     <>
       <Helmet>
