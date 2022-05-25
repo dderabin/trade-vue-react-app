@@ -73,7 +73,7 @@ const SelectCountry = ({list, onSelected, countryIndex}) => {
               </li>
               {datas && datas.map((item, index) => {
                 let img_url = 'http://purecatamphetamine.github.io/country-flag-icons/3x2/' + item.isoCode + '.svg'
-                return (<>
+                return (
                   <li 
                     key={index}
                     onClick={() =>handleSelect(index)}
@@ -83,7 +83,7 @@ const SelectCountry = ({list, onSelected, countryIndex}) => {
                     />
                     <span>{item.name}</span>
                   </li>
-                </>)
+                )
               })}
             </ul>
           </div>

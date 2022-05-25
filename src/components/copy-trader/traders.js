@@ -5,34 +5,20 @@ import { useSelector } from "react-redux";
 import { generateHSL } from "../../helper";
 
 const TraderList = ({ traderList }) => {
-  console.log('traderList', traderList)
   const { userId } = useSelector(state => state.appState)
-  const [avatar, setAvatar] = useState(null)
+  // const [avatar, setAvatar] = useState(null)
   const [traderListState, setTraderListState] = useState([])
   const goConfig = () => {
-    console.log("click");
   };
 
   const handleSubscribe = () => {
 
-  }
-  async function avatarRequest() {
-    try {
-      const response = await AxiosInstance.get(`/users/avatar/${userId}`)
-      console.log('response is =>', response.data[0])
-      setAvatar(response.data[0])
-    }
-    catch (err) {
-      console.log('error in avatarReq =>', err)
-      setAvatar(null)
-    }
   }
 
   async function getSubscriberInfo() {
     try {
       const response = await AxiosInstance.get('/user/profile')
       let subscriptedTo = response.data.copyTrader.subscriptedTo.map(item => item.userId)
-      console.log('123 =>', subscriptedTo)
       let test = traderList.map(item => {
         if(subscriptedTo.find(element => element == item._id) != undefined ){
           return {
@@ -48,26 +34,22 @@ const TraderList = ({ traderList }) => {
         }
       })
       setTraderListState([...test])
-      console.log('test =>', test)
     }
     catch (err) {
-      console.log('error in copytrader =>', err)
     }
   }
 
 
   useEffect(() => {
-    avatarRequest()
     getSubscriberInfo()
-    // console.log("hello header, are you there?")
+    // eslint-disable-next-line
   }, [])
-
-
 
   return (
     <>
-      {traderListState.filter(({ _id }) => _id !== userId).map((trader, index) => (
-        <tr key={index}>
+      {traderListState.filter(({ _id }) => _id !== userId).map((trader, index) => {        
+        const avatar = trader?.userInfo?.avatar || null;
+        return <tr key={index}>
           <td className="mw-none" style={{ minWidth: "250px" }}>
             <div
               className="d-flex align-baseline align-items-center"
@@ -75,7 +57,7 @@ const TraderList = ({ traderList }) => {
             >
               { (avatar !== null || trader?.userInfo?.firstName === null) ? 
                 <img
-                  src={avatar ? `${AxiosInstance.defaults.baseURL}/users/avatar/${trader?.userInfo?.avatar?.slice(0, -4) || null}` : require('../../assets/img/user.png')}
+                  src={avatar ? `${AxiosInstance.defaults.baseURL}/users/avatar/${avatar.slice(0, -4)}` : require('../../assets/img/user.png')}
                   alt=""
                   className="img-fluid table-pic"
                 /> : <span className="letter-avatar-big" style={{ backgroundColor: generateHSL(trader?.userInfo?.firstName+trader?.userInfo?.lastName)}}>
@@ -133,7 +115,7 @@ const TraderList = ({ traderList }) => {
             )}
           </td>
         </tr>
-      ))}
+      })}
     </>
   );
 };

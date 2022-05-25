@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.40392801.css",
-    "main.js": "/static/js/main.bdd9d901.js",
+    "main.css": "/static/css/main.b3d340ee.css",
+    "main.js": "/static/js/main.dc6317d5.js",
     "static/js/787.55c8f489.chunk.js": "/static/js/787.55c8f489.chunk.js",
     "static/media/chat_laptop.svg": "/static/media/chat_laptop.42205155e3a61b2325aea895ce849d60.svg",
     "static/media/chat_mobile.svg": "/static/media/chat_mobile.a5a3cacad99aa5a21f437b86459f72d0.svg",
@@ -71,7 +71,7 @@
     "static/media/case_active.svg": "/static/media/case_active.a88ea3f172659e6217d8375574028e79.svg",
     "static/media/case_deactive.svg": "/static/media/case_deactive.8a930d9dbc23513234e29135abb6bc0b.svg",
     "static/media/dashboard.svg": "/static/media/dashboard.c79d802a45d7d33b0019862cbbad494f.svg",
-    "static/media/conpytrading-icon-dark.svg": "/static/media/conpytrading-icon-dark.91bf7f1889c7fece34f216778a7e826e.svg",
+    "static/media/conpytrading-icon-dark.svg": "/static/media/conpytrading-icon-dark.2aa012cdb38f2537b3e708db122ad2ec.svg",
     "static/media/traders.svg": "/static/media/traders.e91179ddb85119ca1e5fb0ac5218638e.svg",
     "static/media/dash_subscription.svg": "/static/media/dash_subscription.44f1c2ddc5681931f62a4311944804f6.svg",
     "static/media/pricecomparison-icon-dark.svg": "/static/media/pricecomparison-icon-dark.fbdd6b4c3047e328448148719f50ebde.svg",
@@ -119,12 +119,12 @@
     "static/media/open_dir.svg": "/static/media/open_dir.a0333f81e8547ba2ec93e24e6490d638.svg",
     "static/media/right-arrow.svg": "/static/media/right-arrow.2d9e037d76fb1b767bb3ff7a0e256efb.svg",
     "static/media/left-arrow.svg": "/static/media/left-arrow.89879f66475909b0035d1385d0bcd6e2.svg",
-    "main.40392801.css.map": "/static/css/main.40392801.css.map",
-    "main.bdd9d901.js.map": "/static/js/main.bdd9d901.js.map",
+    "main.b3d340ee.css.map": "/static/css/main.b3d340ee.css.map",
+    "main.dc6317d5.js.map": "/static/js/main.dc6317d5.js.map",
     "787.55c8f489.chunk.js.map": "/static/js/787.55c8f489.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.40392801.css",
-    "static/js/main.bdd9d901.js"
+    "static/css/main.b3d340ee.css",
+    "static/js/main.dc6317d5.js"
   ]
 }

@@ -123,7 +123,7 @@ export const TradeConfigurationPage = () => {
                       id="subscriptionDate"
                       type="text"
                       className="form-control"
-                      value={moment(subscriptedTo?.subscriptionStartTime || new Date()).format('yyyy/mm/DD').toString()}
+                      value={moment(subscriptedTo?.subscriptionStartTime || new Date()).format('yyyy/MM/DD').toString()}
                     // placeholder={date}
                     />
                   </div>
@@ -137,7 +137,7 @@ export const TradeConfigurationPage = () => {
                       id="subscriptionExpiryDate"
                       type="text"
                       className="form-control"
-                      value={moment(subscriptedTo?.subscriptionEndTime || new Date()).format('yyyy/mm/DD').toString()}
+                      value={moment(subscriptedTo?.subscriptionEndTime || new Date()).add(1, 'M').format('yyyy/MM/DD').toString()}
                     // placeholder={date}
                     />
                   </div>

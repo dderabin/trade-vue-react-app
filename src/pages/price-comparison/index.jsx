@@ -854,7 +854,7 @@ const PriceComparisonPage = () => {
                   <PriceItemList coinList={pricedata} />
                 }
               </ul>
-              <div id="#valueCoinList" className="overflow-scroll-x">
+              <div id="valueCoinList" className="overflow-scroll-x">
                 <div
                   className="list-wrapper"
                   id="container"

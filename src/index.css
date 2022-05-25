@@ -151,3 +151,15 @@
   margin-right: 10px;
   font-size: medium;
 }
+
+section.exchnages-bg span {
+  font-weight: 500;
+}
+
+span.font-11.fw-bolder.ms-1 {
+  font-weight: 400 !important;
+}
+
+#valueCoinList span {
+  font-weight: 500;
+}

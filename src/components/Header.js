@@ -27,10 +27,10 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
 
   useEffect(() => {
     let width = window.innerWidth
-    if (width < 780 && location.hash == '') {
+    if (width < 780 && location.hash === '') {
       onOutsideSidebarClickHandler()
     }
-    // console.log(location);
+    // eslint-disable-next-line
   }, [location])
 
   window.addEventListener('resize', function () {
@@ -44,7 +44,6 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
   async function avatarRequest() {
     try {
       const response = await AxiosInstance.get(`/users/avatar/${userId}`)
-      console.log('response is =>', response.data[0])
       setAvatar(response.data[0])
     }
     catch (err) {
@@ -54,9 +53,9 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
   }
 
   useEffect(() => {
-    avatarRequest()
-    // console.log("hello header, are you there?")
-  }, [])
+    userId && avatarRequest()    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId])
 
   return (
     <>
@@ -427,7 +426,7 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
                     Authentication
                   </Link>
                   <div className="dropdown-divider"></div>
-                  <a href="#" className="dropdown-item" onClick={logout}>
+                  <button className="dropdown-item" onClick={logout}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -445,7 +444,7 @@ export const Header = ({ handleHamburguerClick, onOutsideSidebarClickHandler }) 
                       <line x1="21" y1="12" x2="9" y2="12"></line>
                     </svg>
                     Log out
-                  </a>
+                  </button>
                 </div>
               </OutsideClickHandler>
             </li>
