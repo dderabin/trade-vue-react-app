@@ -334,6 +334,18 @@ function* fetchPortfolioValuesSaga() {
     yield takeLatest(AppActions.portfolioValueFetchAction.toString(), performFetchPortfolioValues)
 }
 
+function* performFetchMonthlyScorecard(action) {
+    try {
+        const response = yield call(Api.GET_MONTHLY_SCORE_CARD)
+        yield put(AppActions.monthlyScorecardFetchSuccessAction(response.data))
+    } catch (e) {
+        yield put(AppActions.sagaFailAction(e))
+    }
+}
+
+function* fetchMonthlyScorecardSaga() {
+    yield takeLatest(AppActions.monthlyScorecardFetchAction.toString(), performFetchMonthlyScorecard)
+}
 export default function* rootSaga() {
     yield all([
         logInSaga(),
@@ -361,5 +373,6 @@ export default function* rootSaga() {
         uploadAvatarSaga(),
         fetchSignalHistorySaga(),
         fetchPortfolioValuesSaga(),
+        fetchMonthlyScorecardSaga(),
     ])
 }

@@ -110,3 +110,7 @@ export const signalHistoryFetchFailAction = createAction('signal/history/fetch/f
 export const portfolioValueFetchAction = createAction('portfolio/value/fetch')
 export const portfolioValueFetchSuccessAction = createAction('portfolio/value/fetch/success')
 export const portfolioValueFetchFailAction = createAction('portfolio/value/fetch/fail')
+
+export const monthlyScorecardFetchAction = createAction('monthly/scorecard/fetch')
+export const monthlyScorecardFetchSuccessAction = createAction('monthly/scorecard/fetch/success')
+export const monthlyScorecardFetchFailAction = createAction('monthly/scorecard/fetch/fail')

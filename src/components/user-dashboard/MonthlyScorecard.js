@@ -3,12 +3,13 @@ import Chart from 'react-apexcharts';
 
 // import icon_down from "./../../assets/img/icons/dir_up_green.svg";
 import icon_dropdown from "../../assets/img/icons/drop-down.svg";
+import useMonthlyScorecard from '../../hooks/useMonthlyScorcard';
 
-const data_list = {
-  2020: [30.33, -8.59, -24.87, 34.46, 9.42, -3.12, 24.63, 2.70, -7.75, 28.7, 20.00, 10.00],//, 115.91],
-  2019: [-7.70, -11.22, 8.02, 29.08, 62.42, 25.46, -6.33, -4.81, -13.56, 10.29, -17.55, -5.10],// 69.00],
-  2018: [-27.99, 1.60, -32.67, 33.71, -19.07, -14.79, 21.06, -9.30, -5.93, -4.47, -37.24, -7.09],// 102.18],
-}
+// const data_list = {
+//   2020: [30.33, -8.59, -24.87, 34.46, 9.42, -3.12, 24.63, 2.70, -7.75, 28.7, 20.00, 10.00],//, 115.91],
+//   2019: [-7.70, -11.22, 8.02, 29.08, 62.42, 25.46, -6.33, -4.81, -13.56, 10.29, -17.55, -5.10],// 69.00],
+//   2018: [-27.99, 1.60, -32.67, 33.71, -19.07, -14.79, 21.06, -9.30, -5.93, -4.47, -37.24, -7.09],// 102.18],
+// }
 const mobile_data = [115.91, 10.00, 20.00, 28.7, -7.75, 2.7, 24.63, -3.12, 9.42, 34.46, -24.87, -8.59, 30.33]
 const MonthlyScorecard = () => {
   const [data, setData] = useState({
@@ -167,20 +168,22 @@ const MonthlyScorecard = () => {
     },
   })
 
-  const [selected, setSelected] = useState(data_list[2020]);
+  const { dataList: data_list, currentYear } = useMonthlyScorecard();
+
+  const [selected, setSelected] = useState(data_list[currentYear]);
   const [total, setTotal] = useState(0);
   const month_name = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].reverse();
   const [visible, setVisible] = useState(false);
-  const [selectedLabel, setSelectedLabel] = useState('2020');
+  const [selectedLabel, setSelectedLabel] = useState(currentYear+'');
   const [visibleMore, setVisibleMore] = useState(false);
 
   useEffect(()=>{
-    console.log("selected datalist: ", selected);
+    // console.log("selected datalist: ", selected);
     // console.log("selected datalist reverse: ", selected.reverse());
     let total = 0;
-    selected.forEach((item) => { total += item; })
-    console.log("total: ", total.toFixed(2));
-    setTotal(total.toFixed(2));
+    selected && selected.forEach((item) => { total += item; })
+    // console.log("total: ", total);
+    setTotal(total);
 
     setMobileOption({
       ...mobile_option,
@@ -241,7 +244,7 @@ const MonthlyScorecard = () => {
                 key={key}
                 className={'table-content ' + (selectedLabel === key ? 'table-content-active':'')} 
                 onClick={() => {
-                  setSelected(data_list[key].reverse())
+                  setSelected(data_list[key])
                   setSelectedLabel(key)
                 }}
               >
@@ -250,11 +253,11 @@ const MonthlyScorecard = () => {
                   total += parseFloat(item);
                   if(item >= 0)
                     return(
-                      <span key={i} style={{color: '#B3D47F'}}>{item}</span>
+                      <span key={i} style={{color: '#B3D47F'}}>{item === 0 ? item : item.toFixed(2)}</span>
                     )
                   else
                     return(
-                      <span key={i} style={{color: 'red'}}>{item}</span>
+                      <span key={i} style={{color: 'red'}}>{item.toFixed(2)}</span>
                     )
 
                 })}
@@ -300,7 +303,7 @@ const MonthlyScorecard = () => {
               <span>Total</span>
               <span style={total > 0 ? {color: '#3dae23'}: {color: '#e1191d'}}>{total}</span>
             </div>
-            {selected.map((item, index) => {
+            {selected && selected.map((item, index) => {
               if(!visibleMore && index >= 3 )
                 return (<React.Fragment key={index}></React.Fragment>)
               else 
@@ -308,9 +311,9 @@ const MonthlyScorecard = () => {
                   <div key={index} className='chart-item'>
                     <span>{month_name[index]}</span>
                     {selected[11-index] >= 0 ? (
-                      <span style={{color: '#3dae23'}}>{selected[11-index].toFixed(2)}</span>
+                      <span style={{color: '#3dae23'}}>{parseFloat(selected[11-index]).toFixed(2)}</span>
                     ):(
-                      <span style={{color: '#e1191d'}}>{selected[11-index].toFixed(2)}</span>
+                      <span style={{color: '#e1191d'}}>{parseFloat(selected[11-index]).toFixed(2)}</span>
                     )}
                   </div>
                 )
@@ -341,27 +344,17 @@ const MonthlyScorecard = () => {
           <div className='year-item' onClick={() => console.log("2020")}>
             <button className='btn btn-close' onClick={()=>setVisible(false)}></button>
           </div>
-          <div className='year-item' onClick={() => {
-            setSelected(data_list[2020])
-            setSelectedLabel("2020")
-            setVisible(false)
-          }}>
-            <span>2020</span>
-          </div>
-          <div className='year-item' onClick={() => {
-            setSelected(data_list[2019])
-            setSelectedLabel("2019")
-            setVisible(false)
-          }}>
-            <span>2019</span>
-          </div>
-          <div className='year-item' onClick={() => {
-            setSelected(data_list[2018])
-            setSelectedLabel("2018")
-            setVisible(false)
-          }}>
-            <span>2018</span>
-          </div>
+          { Object.keys(data_list).map((key, index) => {
+            return (<React.Fragment key={key}>
+              <div className='year-item' onClick={() => {
+                setSelected(data_list[currentYear - index])
+                setSelectedLabel(currentYear-index+'')
+                setVisible(false)
+              }}>
+                <span>{currentYear - index}</span>
+              </div>
+            </React.Fragment>)
+          })}          
         </div>
       </div>
     </div>

@@ -23,6 +23,7 @@ const defaultState = {
     portfolioValue: 0,
     avgProfit: 0,
     avgLoss: 0,
+    monthlyScorecard: [],
 }
 
 const appReducer = createReducer(defaultState, {
@@ -48,6 +49,10 @@ const appReducer = createReducer(defaultState, {
         state.portfolioValue = 0;
         state.avgProfit = 0;
         state.avgLoss = 0;
+        state.monthlyScorecard = [];
+    },
+    [AppActions.monthlyScorecardFetchSuccessAction]: (state, action) => {
+        state.monthlyScorecard = action.payload
     },
     [AppActions.portfolioValueFetchSuccessAction]: (state, action) => {
         state.totalTrades = action.payload.totalTrades
