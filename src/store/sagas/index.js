@@ -136,6 +136,7 @@ function* enableCopyTraderSaga() {
 function* performSubscribe(action) {
     try {
         const response = yield call(Api.SUBSCRIBE_TO_COPYTRADER_OR_SIGNALPROVIDER, action.payload)
+        yield put(AppActions.userSubscribeSuccessAction(action.payload))
         yield put(AppActions.sagaSuccessAction(response.data))
     } catch (e) {
         yield put(AppActions.sagaFailAction(e))

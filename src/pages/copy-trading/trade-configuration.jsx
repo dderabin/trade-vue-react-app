@@ -1,27 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useParams, useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
 import moment from 'moment'
-import AxiosInstance from "../../axiosClient";
-import { useCopyTraders } from "../../hooks";
-import { useDispatch } from "react-redux";
+import { useCopyTraders, useExchanges } from "../../hooks";
+import { useDispatch, useSelector } from "react-redux";
 import { AppActions } from "../../store/actions";
 
 export const TradeConfigurationPage = () => {
-  let navigate = useNavigate()
+  const navigate = useNavigate()
+  const { successMessage } = useSelector(state => state.appState)
+  const { exchangePlatforms } = useExchanges()
   const { copyTraders } = useCopyTraders();
   const { id } = useParams();
   const [checktype, setCheckType] = useState(true);
-  const [exchangesList, setExchangesList] = useState([])
   const [capitalPercent, setCapitalPercent] = useState(5)
-  const [chosenExchange, setChosenExchange] = useState('')
+  const [chosenExchange, setChosenExchange] = useState()
   const [subscriptedTo, setSubscriptedTo] = useState({})
   const re = /^[0-9\b]+$/;
   const handleChange = (e) => {
     setCheckType(e.target.checked);
   };
-  const alert = useAlert();
   const dispatch = useDispatch();
 
   const handleSubscribe = () => {
@@ -33,60 +31,22 @@ export const TradeConfigurationPage = () => {
     }))        
   }
 
-  async function setTradeConfiguration() {
-    try {
-      const response = await AxiosInstance.post('/user/subscribe', {
-        userId: id,
-        type: 'copyTrader',
-        exchange: chosenExchange,
-        capitalPercent: Number(capitalPercent)
-      })
-      alert.success('statusCode: ' + response.status)
-      navigate('/copy-trading/view-copy-trader-list')
-      console.log('response in setTradeConfig =>', response.status)
-    }
-    catch (err) {
-      alert.error('statusCode: ' + err.response.data)
-      console.log('err in setTradeConfig =>', err.response.status)
-    }
-  }
-
-  async function getSubscriberInfo() {
-    try {
-      const response = await AxiosInstance.get('/user/profile')
-      let subscriptedTo = response.data.copyTrader
-        .subscriptedTo.filter(item => {
-          if (item.userId === id)
-            return item
-        })
-      setSubscriptedTo(subscriptedTo[0])
-      console.log('subscriptedTo =>', subscriptedTo)
-    }
-    catch (err) {
-      console.log('error in copytrader =>', err)
-    }
-  }
-
-  async function getExchanges() {
-    try {
-      const response = await AxiosInstance.get('/exchanges/list')
-      setExchangesList(response.data)
-      setChosenExchange(response.data[0])
-    }
-    catch (err) {
-      console.log('err in getExchanges =>', err.response)
-    }
-  }
-  useEffect(() => {
-    // getSubscriberInfo()
-    getExchanges()
-  }, [])
-
   useEffect(() => {
     if (id && copyTraders.length > 0) {
       setSubscriptedTo(copyTraders.find(item => item._id === id))
     } 
   }, [copyTraders, id])
+
+  useEffect(() => {
+    if (successMessage) {
+      navigate('/copy-trading/view-copy-trader-list')
+    }
+    // eslint-disable-next-line
+  }, [successMessage])
+
+  useEffect(() => {
+    setChosenExchange(exchangePlatforms[0])
+  }, [exchangePlatforms])
   return (
     <>
       <Helmet>
@@ -165,8 +125,8 @@ export const TradeConfigurationPage = () => {
                       onChange={(e) => setChosenExchange(e.target.value)}
                     >
                       {
-                        exchangesList.length > 0 &&
-                        exchangesList.map((item, index) => (
+                        exchangePlatforms.length > 0 &&
+                        exchangePlatforms.map((item, index) => (
                           <option key={index} value={item}>{item === 'testnet-binanceusdm' ? 'Binance' : item}</option>
                         ))
                       }

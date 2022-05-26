@@ -3,3 +3,6 @@ export const enableStatus = {
   enabled: "Active",
   pending: "Pending"
 }
+
+export const COPY_TRADER = 'copyTrader'
+export const SIGNAL_PROVIDER = 'signalProvider'

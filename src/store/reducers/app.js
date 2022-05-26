@@ -1,5 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit"
 import { AppActions } from "../actions";
+import { COPY_TRADER } from "../consts";
 
 const defaultState = {
     loading: false,
@@ -50,6 +51,22 @@ const appReducer = createReducer(defaultState, {
         state.avgProfit = 0;
         state.avgLoss = 0;
         state.monthlyScorecard = [];
+    },
+    [AppActions.userSubscribeSuccessAction]: (state, action) => {
+        const { type, userId, exchange, capitalPercent } = action.payload
+        let { 
+            copyTrader: { subscriptedTo: copySubscriptedTo },
+            signalProvider: { subscriptedTo: signalSubscriptedTo },
+        } = state;
+        if (type === COPY_TRADER) {
+            copySubscriptedTo = [...copySubscriptedTo, {userId, capitalPercent, exchange}];
+            state.copyTrader.subscriptedTo = [...copySubscriptedTo];
+            state.copyTraders = state.copyTraders.map(item => ({...item, subscribersCount: item.subscribersCount + item._id === userId ? 1 : 0}))
+        } else {
+            signalSubscriptedTo = [...signalSubscriptedTo, {userId, capitalPercent, exchange}];
+            state.signalProvider.subscriptedTo = [...signalSubscriptedTo];
+            state.signalProviders = state.signalProviders.map(item => ({...item, subscribersCount: item.subscribersCount + item._id === userId ? 1 : 0}))
+        }
     },
     [AppActions.monthlyScorecardFetchSuccessAction]: (state, action) => {
         state.monthlyScorecard = action.payload

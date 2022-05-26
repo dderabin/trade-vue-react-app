@@ -18,8 +18,7 @@ export const PagesLayout = ({
   const { isAuthenticated } = useAuth();
   const alert = useAlert();
   const dispatch = useDispatch();
-  const successMessage = useSelector(state => state.appState.successMessage)
-  const failMessage = useSelector(state => state.appState.failMessage)
+  const { successMessage, failMessage } = useSelector(state => state.appState)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,13 +26,15 @@ export const PagesLayout = ({
       alert.success(successMessage);
       dispatch(AppActions.messageConsumedAction())
     } 
+    // eslint-disable-next-line
   }, [successMessage])
-
+  
   useEffect(() => {
     if (failMessage) {
       alert.error(failMessage);
       dispatch(AppActions.messageConsumedAction())
     } 
+    // eslint-disable-next-line
   }, [failMessage])
 
   useEffect(() => {

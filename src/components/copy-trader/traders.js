@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import AxiosInstance from "../../axiosClient";
 import { useSelector } from "react-redux";
@@ -6,48 +6,10 @@ import { generateHSL } from "../../helper";
 
 const TraderList = ({ traderList }) => {
   const { userId } = useSelector(state => state.appState)
-  // const [avatar, setAvatar] = useState(null)
-  const [traderListState, setTraderListState] = useState([])
-  const goConfig = () => {
-  };
-
-  const handleSubscribe = () => {
-
-  }
-
-  async function getSubscriberInfo() {
-    try {
-      const response = await AxiosInstance.get('/user/profile')
-      let subscriptedTo = response.data.copyTrader.subscriptedTo.map(item => item.userId)
-      let test = traderList.map(item => {
-        if(subscriptedTo.find(element => element == item._id) != undefined ){
-          return {
-            ...item,
-            suscribed: true
-          }
-        }
-        else {
-          return {
-            ...item,
-            suscribed: false
-          }
-        }
-      })
-      setTraderListState([...test])
-    }
-    catch (err) {
-    }
-  }
-
-
-  useEffect(() => {
-    getSubscriberInfo()
-    // eslint-disable-next-line
-  }, [])
 
   return (
     <>
-      {traderListState.filter(({ _id }) => _id !== userId).map((trader, index) => {        
+      {traderList.filter(({ _id }) => _id !== userId).map((trader, index) => {        
         const avatar = trader?.userInfo?.avatar || null;
         console.log('trader.userInfo => ', trader.userInfo)
         return <tr key={index}>
@@ -82,7 +44,7 @@ const TraderList = ({ traderList }) => {
             <span className="text-green">{trader?.copyTrader?.profitRate || 0} </span>
           </td>
           <td className="text-center">
-            {trader.suscribed ? (
+            {trader.subscribed ? (
               <button
                 disabled
                 className="btn btn-primary btn-suscribed cursor-default"
@@ -93,8 +55,6 @@ const TraderList = ({ traderList }) => {
             ) : (
               <Link to={`/trade-configuration/${trader._id}`}>
                 <button
-                  disabled=""
-                  onClick={handleSubscribe}
                   className="btn btn-success"
                   style={{ minWidth: "90px", maxWidth: "90px" }}
                 >
@@ -105,14 +65,14 @@ const TraderList = ({ traderList }) => {
             )}
           </td>
           <td className="text-center">
-            {trader.suscribed ? (
+            {trader.subscribed ? (
               <Link to={`/trade-configuration/${trader._id}`}>
-                <button onClick={goConfig} className="btn btn-success">
+                <button className="btn btn-success">
                   Trade Configuration
                 </button>
               </Link>
             ) : (
-              ""
+              <></>
             )}
           </td>
         </tr>

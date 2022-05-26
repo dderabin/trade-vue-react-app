@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet";
 import { useCopyTraders } from "../../hooks";
 
 export const ViewCopyTraderListPage = () => {
-  const { copyTraders } = useCopyTraders();
+  const { appliedCopyTraders } = useCopyTraders();
   const ref = useRef(null);
 
   const { onMouseDown } = useDraggableScroll(ref);
@@ -59,7 +59,7 @@ export const ViewCopyTraderListPage = () => {
             </div>
           </div>
         </div> */}
-        {copyTraders.length > 0 ? (
+        {appliedCopyTraders.length > 0 ? (
           <div className="card mb-0 card-light-grey mt-3">
             <div id="myData"></div>
             <script type="text/javascript"></script>
@@ -140,14 +140,14 @@ export const ViewCopyTraderListPage = () => {
                     </tr>
                   </thead>
                   <tbody id="myTabledata">
-                    <TraderList traderList={copyTraders} />
+                    <TraderList traderList={appliedCopyTraders} />
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
          ) : (
-         <GridTraderList traderList={copyTraders} />
+         <GridTraderList traderList={appliedCopyTraders} />
         )}
       </div>
     </>
