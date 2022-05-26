@@ -106,3 +106,7 @@ export const uploadAvatarFaileAction = createAction('upload/avatar/faile')
 export const signalHistoryFetchAction = createAction('signal/history/fetch')
 export const signalHistoryFetchSuccessAction = createAction('signal/history/fetch/success')
 export const signalHistoryFetchFailAction = createAction('signal/history/fetch/fail')
+
+export const portfolioValueFetchAction = createAction('portfolio/value/fetch')
+export const portfolioValueFetchSuccessAction = createAction('portfolio/value/fetch/success')
+export const portfolioValueFetchFailAction = createAction('portfolio/value/fetch/fail')

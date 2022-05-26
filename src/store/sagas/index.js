@@ -321,6 +321,19 @@ function* fetchSignalHistorySaga() {
     yield takeLatest(AppActions.signalHistoryFetchAction.toString(), performFetchSignalHistory)
 }
 
+function* performFetchPortfolioValues(action) {
+    try {
+        const response = yield call(Api.GET_PORTFOLIO_VALUES, action.payload)
+        yield put(AppActions.portfolioValueFetchSuccessAction(response.data))
+    } catch (e) {
+        yield put(AppActions.sagaFailAction(e))
+    }
+}
+
+function* fetchPortfolioValuesSaga() {
+    yield takeLatest(AppActions.portfolioValueFetchAction.toString(), performFetchPortfolioValues)
+}
+
 export default function* rootSaga() {
     yield all([
         logInSaga(),
@@ -347,5 +360,6 @@ export default function* rootSaga() {
         fetchExchangeComparisonSaga(),
         uploadAvatarSaga(),
         fetchSignalHistorySaga(),
+        fetchPortfolioValuesSaga(),
     ])
 }

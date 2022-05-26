@@ -17,6 +17,12 @@ const defaultState = {
     userName: null,
     selfSignals: [],
     traderHistory: [],
+    totalTrades: 0,
+    totalInvestment: 0,
+    profit: 0,
+    portfolioValue: 0,
+    avgProfit: 0,
+    avgLoss: 0,
 }
 
 const appReducer = createReducer(defaultState, {
@@ -35,6 +41,21 @@ const appReducer = createReducer(defaultState, {
         state.email = null;
         state.userName = null;
         state.selfSignals = [];
+        state.traderHistory = [];
+        state.totalTrades = 0;
+        state.totalInvestment = 0;
+        state.profit = 0;
+        state.portfolioValue = 0;
+        state.avgProfit = 0;
+        state.avgLoss = 0;
+    },
+    [AppActions.portfolioValueFetchSuccessAction]: (state, action) => {
+        state.totalTrades = action.payload.totalTrades
+        state.totalInvestment = action.payload.totalInvestment
+        state.profit = action.payload.profit
+        state.portfolioValue = action.payload.portfolioValue
+        state.avgProfit = action.payload.avgProfit
+        state.avgLoss = action.payload.avgLoss
     },
     [AppActions.userUploadDocumentsSuccessAction]: (state, action) => {
         state.userInfo.files = action.payload

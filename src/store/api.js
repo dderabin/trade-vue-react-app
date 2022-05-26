@@ -196,7 +196,7 @@ export const GET_SIGNAL_HISTORY = (data) => {
     return AxiosInstance.get(`/user/signal-history?page=${page}&pagination=${count}`)
 }
 
-export const GET_PORTFOLIO_VALUE = () => {
+export const GET_PORTFOLIO_VALUES = () => {
     return AxiosInstance.get(`/user/portfolio/portfolio-value`)
 }
 
