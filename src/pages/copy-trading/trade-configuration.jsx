@@ -5,6 +5,8 @@ import { useAlert } from "react-alert";
 import moment from 'moment'
 import AxiosInstance from "../../axiosClient";
 import { useCopyTraders } from "../../hooks";
+import { useDispatch } from "react-redux";
+import { AppActions } from "../../store/actions";
 
 export const TradeConfigurationPage = () => {
   let navigate = useNavigate()
@@ -20,6 +22,16 @@ export const TradeConfigurationPage = () => {
     setCheckType(e.target.checked);
   };
   const alert = useAlert();
+  const dispatch = useDispatch();
+
+  const handleSubscribe = () => {
+    dispatch(AppActions.userSubscribeAction({
+      userId: id,
+      type: 'copyTrader',
+      exchange: chosenExchange,
+      capitalPercent: Number(capitalPercent)
+    }))        
+  }
 
   async function setTradeConfiguration() {
     try {
@@ -228,12 +240,7 @@ export const TradeConfigurationPage = () => {
                   <div className="col-xl-12 col-lg-12 col-12">
                     {/* <Link to="/copy-trading/view-copy-trader-list"> */}
                     <button
-                      onClick={() => setTradeConfiguration()}
-                      //   // alert.error(
-                      //   //   `You have suscribed to trader name `
-                      //   // );
-                      // }
-
+                      onClick={handleSubscribe}
                       className="btn btn-primary btn-50 mob-mt-3"
                     >
                       Update Configuration
