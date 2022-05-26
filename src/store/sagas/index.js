@@ -347,6 +347,21 @@ function* performFetchMonthlyScorecard(action) {
 function* fetchMonthlyScorecardSaga() {
     yield takeLatest(AppActions.monthlyScorecardFetchAction.toString(), performFetchMonthlyScorecard)
 }
+
+function* performChangePassword(action) {
+    try {
+        const response = yield call(Api.CHANGE_PASSWORD, action.payload)
+        yield put(AppActions.sagaSuccessAction(response.data))
+    } catch (e) {
+        yield put(AppActions.sagaFailAction(e))
+    }
+}
+
+function* changePasswordSaga() {
+    yield takeLatest(AppActions.changePasswordAction.toString(), performChangePassword)
+}
+
+
 export default function* rootSaga() {
     yield all([
         logInSaga(),
@@ -375,5 +390,6 @@ export default function* rootSaga() {
         fetchSignalHistorySaga(),
         fetchPortfolioValuesSaga(),
         fetchMonthlyScorecardSaga(),
+        changePasswordSaga(),
     ])
 }

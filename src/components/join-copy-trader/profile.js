@@ -111,6 +111,7 @@ const TraderProfile = (props) => {
                   name="avatar"
                   className="form-control"
                   aria-label="Upload"
+                  accept="image/*"
                   onChange={handleChangeAvatar}
                 />
               </div>

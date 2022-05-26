@@ -220,6 +220,10 @@ export const GET_MONTHLY_COPYTRADER_SUBSCRIBERS_COUNT = () => {
     return AxiosInstance.get(`/user/portfolio/monthly-copytrader-subscribers-count`)
 }
 
+export const CHANGE_PASSWORD = (data) => {
+    return AxiosInstance.post(`/user/change-password`, data)
+}
+
 export const TEST_SERVER = () => {
     return AxiosInstance.get(`/test`);
 }

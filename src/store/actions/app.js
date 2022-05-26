@@ -114,3 +114,7 @@ export const portfolioValueFetchFailAction = createAction('portfolio/value/fetch
 export const monthlyScorecardFetchAction = createAction('monthly/scorecard/fetch')
 export const monthlyScorecardFetchSuccessAction = createAction('monthly/scorecard/fetch/success')
 export const monthlyScorecardFetchFailAction = createAction('monthly/scorecard/fetch/fail')
+
+export const changePasswordAction = createAction('change/password')
+export const changePasswordSuccessAction = createAction('change/password/success')
+export const changePasswordFailAction = createAction('change/password/fail')
