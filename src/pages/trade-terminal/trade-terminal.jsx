@@ -489,10 +489,12 @@ export const BuySellForm = (props) => {
   }
 
   const handleChangeProfit = (name, value, index_num) => {
-    let valueVar = Number(value)
-    console.log("handlechangeprofit: ", name, Number(value), index_num);
-    if (Number(value) < 0 || Number.isNaN(value))
-      valueVar = 0
+    let valueVar = value;
+    if (valueVar !== '' && parseFloat(valueVar) < 0) return;
+    // let valueVar = Number(value)
+    // console.log("handlechangeprofit: ", name, Number(value), index_num);
+    // if (Number(value) < 0 || Number.isNaN(value))
+    //   valueVar = 0
     // if (position.toLowerCase() === 'short') {
     //   if (Number(value) < entryPrice)
     //     valueVar = Number(value)
@@ -512,7 +514,7 @@ export const BuySellForm = (props) => {
     // let remaining = 0
     setBuyProfit(buyProfit => buyProfit.map((item, index) => {
       if (index === index_num) {
-        item[name] = Number(valueVar)
+        item[name] = valueVar
       }
       return item
     }))
@@ -1020,20 +1022,17 @@ export const BuySellForm = (props) => {
                               </label>
                               <div className="input-group">
                                 <div className="input-group-prepend">
-                                  <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeProfit("price", item.price - 1, index)} type="button">-</button>
+                                  <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeProfit("price", parseFloat(item.price) - 1, index)} type="button">-</button>
                                 </div>
                                 <input
                                   type="text"
                                   className="form-control price-border"
                                   name="price"
-                                  onChange={e => {
-                                    if (e.target.value !== '')
-                                      handleChangeProfit("price", parseFloat(e.target.value), index)
-                                  }}
+                                  onChange={e => handleChangeProfit("price", e.target.value, index)}
                                   value={item.price}
                                 />
                                 <div className="input-group-prepend">
-                                  <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeProfit("price", item.price + 1, index)} type="button">+</button>
+                                  <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeProfit("price", parseFloat(item.price) + 1, index)} type="button">+</button>
                                 </div>
                               </div>
                             </div>
@@ -1047,20 +1046,17 @@ export const BuySellForm = (props) => {
                               </label>
                               <div className="input-group ">
                                 <div className="input-group-prepend">
-                                  <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeProfit("amount", item.amount - 1, index)} type="button">-</button>
+                                  <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeProfit("amount", parseFloat(item.amount) - 1, index)} type="button">-</button>
                                 </div>
                                 <input
                                   type="text"
                                   className="form-control price-border"
                                   name="amount"
-                                  onChange={e => {
-                                    if (e.target.value !== '')
-                                      handleChangeProfit("amount", parseFloat(e.target.value), index)
-                                  }}
+                                  onChange={e => handleChangeProfit("amount", e.target.value, index)}
                                   value={item.amount}
                                 />
                                 <div className="input-group-prepend">
-                                  <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeProfit("amount", item.amount + 1, index)} type="button">+</button>
+                                  <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeProfit("amount", parseFloat(item.amount) + 1, index)} type="button">+</button>
                                 </div>
                               </div>
                             </div>
