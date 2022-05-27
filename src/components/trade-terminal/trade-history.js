@@ -17,9 +17,9 @@ const TraderHistoryList = ({ traderHistoryList, onEditOpen }) => {
             {{
               height: '38px',
               fontSize: '0.7rem', textAlign: 'center',
-              color: history.state == 'closedWithError' || history.state == 'closedByStopLoss' ? 'red'
-                : history.state == 'closedByLastTarget' || history.state == 'closedByMiddleTargets' || history.state == 'inPosition' ? 'yellow'
-                  : history.state == 'ordered' ? 'green' : 'black'
+              color: history.state === 'closedWithError' || history.state === 'closedByStopLoss' ? 'red'
+                : history.state === 'closedByLastTarget' || history.state === 'closedByMiddleTargets' || history.state === 'inPosition' ? 'orange'
+                  : history.state === 'ordered' ? 'green' : 'black'
             }}>
             {history.state}
           </td>

@@ -261,7 +261,7 @@ export const GraphicalChartArea = () => {
                                 height: '38px',
                                 fontSize: '0.7rem', textAlign: 'center',
                                 color: history.state === 'closedWithError' || history.state === 'closedByStopLoss' ? 'red'
-                                  : history.state === 'closedByLastTarget' || history.state === 'closedByMiddleTargets' || history.state === 'inPosition' ? 'yellow'
+                                  : history.state === 'closedByLastTarget' || history.state === 'closedByMiddleTargets' || history.state === 'inPosition' ? 'orange'
                                     : history.state === 'ordered' ? 'green' : 'black'
                               }}>
                               {history.state}
@@ -445,7 +445,7 @@ export const BuySellForm = (props) => {
   const [activeCrypto, setActiveCrypto] = useState('USDT');
   const [order, setOrder] = useState('limit')
   const [position, setPosition] = useState('Spot')
-  const [Leverage, setLeverage] = useState('5')
+  const [leverage, setLeverage] = useState('5')
   const [entryPrice, setEntryPrice] = useState('');
   const [stopLoss, setPriceStop] = useState('');
   const [amount, setAmount] = useState(0);
@@ -584,15 +584,17 @@ export const BuySellForm = (props) => {
   }
 
   const handleSubmitOrder = () => {
+    const signalTypeStr = signalType.toLowerCase() === 'spot' ? (order.toLowerCase() === 'limit' ? 'Spot' : position) : position;
     dispatch(AppActions.signalAddAction({
       type,
       exchangePlatform: props.chosenExchange,
       from: props.tradingSymbol.from,
       to: props.tradingSymbol.to,
-      signalType: signalType.toLowerCase() === 'spot' ? (order === 'limit' ? 'Spot' : position) : position,
-      entryPrice,
+      signalType: signalTypeStr,
+      entryPrice: order.toLowerCase() !== 'market' ? entryPrice : undefined,
       amount: activeCrypto === props.tradingSymbol.from ? parseFloat(amount) : parseFloat(amount) / props.chartInfo.price,
       stopLoss,
+      leverage: signalType.toLowerCase() === 'features' ? leverage : undefined,
       targets: buyProfit
     }))
   }
@@ -603,8 +605,8 @@ export const BuySellForm = (props) => {
   // }
 
   useEffect(() => {
-    console.log(Leverage)
-  }, [Leverage])
+    console.log(leverage)
+  }, [leverage])
 
   // const options = [
   //   {
@@ -852,7 +854,7 @@ export const BuySellForm = (props) => {
                                 type="text"
                                 className="form-control form-input"
                                 disabled
-                                placeholder="Leverage"
+                                placeholder="leverage"
                                 style={signalType === "spot" ? { backgroundColor: '#e9ecef' } : {}} />                            
                                 <span style={{ width: '50%' }}
                                   className="input-group-text p-0 border-0"
@@ -1288,7 +1290,7 @@ export const BuySellForm = (props) => {
                               max={20}
                               min={0}
                               onChange={(e) => setLeverage(e.target.value)}
-                              value={Leverage}
+                              value={leverage}
                             />
 
                           </div>
