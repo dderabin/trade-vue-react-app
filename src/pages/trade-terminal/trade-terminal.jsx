@@ -591,11 +591,11 @@ export const BuySellForm = (props) => {
       from: props.tradingSymbol.from,
       to: props.tradingSymbol.to,
       signalType: signalTypeStr,
-      entryPrice: order.toLowerCase() !== 'market' ? entryPrice : undefined,
+      entryPrice: order.toLowerCase() !== 'market' ? parseFloat(entryPrice) : undefined,
       amount: activeCrypto === props.tradingSymbol.from ? parseFloat(amount) : parseFloat(amount) / props.chartInfo.price,
-      stopLoss,
-      leverage: signalType.toLowerCase() === 'features' ? leverage : undefined,
-      targets: buyProfit
+      stopLoss: parseFloat(stopLoss),
+      leverage: signalType.toLowerCase() !== 'spot' ? parseInt(leverage) : undefined,
+      targets: buyProfit.map(item => ({price: parseFloat(item.price), amount: parseFloat(item.amount)}))
     }))
   }
 
@@ -603,10 +603,6 @@ export const BuySellForm = (props) => {
   //   const { namve, value } = event.target
 
   // }
-
-  useEffect(() => {
-    console.log(leverage)
-  }, [leverage])
 
   // const options = [
   //   {
