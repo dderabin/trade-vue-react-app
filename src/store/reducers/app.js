@@ -17,7 +17,7 @@ const defaultState = {
     email: null,
     userName: null,
     selfSignals: [],
-    traderHistory: [],
+    historyList: [],
     totalTrades: 0,
     totalInvestment: 0,
     profit: 0,
@@ -43,7 +43,7 @@ const appReducer = createReducer(defaultState, {
         state.email = null;
         state.userName = null;
         state.selfSignals = [];
-        state.traderHistory = [];
+        state.historyList = [];
         state.totalTrades = 0;
         state.totalInvestment = 0;
         state.profit = 0;
@@ -81,6 +81,9 @@ const appReducer = createReducer(defaultState, {
     },
     [AppActions.userUploadDocumentsSuccessAction]: (state, action) => {
         state.userInfo.files = action.payload
+    },
+    [AppActions.signalHistoryFetchSuccessAction]: (state, action) => {
+        state.historyList = action.payload
     },
     [AppActions.updateFAQSuccessAction]: (state, action) => {
         const {faqId, ...faq} = action.payload

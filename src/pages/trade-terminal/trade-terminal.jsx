@@ -11,6 +11,9 @@ import icon_modal_close from "./../../assets/img/icons/modal-close.svg";
 import icon_modal_minus from "./../../assets/img/icons/modal-minus.svg";
 import axios from "../../axiosClient";
 import Axios from "axios"
+import { useDispatch } from "react-redux";
+import { AppActions } from '../../store/actions'
+import useTraderHistory from "../../hooks/useTradeHistory";
 
 const re = /^[0-9\b]+$/;
 
@@ -25,7 +28,7 @@ export const TradeTerminalPage = () => {
 };
 
 export const GraphicalChartArea = () => {
-  const [historyList, setHistoryList] = useState([]);
+  const { historyList } = useTraderHistory()
   const [updateState, setUpdateState] = useState({})
   const [createOpen, setCreateOpen] = useState(false)
   const [editOpen, setEditOpen] = useState(false)
@@ -86,7 +89,7 @@ export const GraphicalChartArea = () => {
   async function getBinancePriceAPI() {
     try {
       let response = await Axios.get(`https://api.binance.com/api/v3/ticker/24hr?symbol=${tradingSymbol.tradingSymbol}`)
-      console.log('response in binance =>', response.data)
+      // console.log('response in binance =>', response.data)
       let info = {
         name: response.data.symbol,
         price: Number(response.data.lastPrice).toFixed(2),
@@ -134,18 +137,6 @@ export const GraphicalChartArea = () => {
     }
   }
 
-
-  async function getTradeHistory() {
-    try {
-      let response = await axios.get(`/user/signal-history?page=0&pagination=5`)
-      console.log('response in gettingHisotry ===>', response.data)
-      setHistoryList(response.data)
-    }
-    catch (err) {
-      console.log('error in getTradeHistory ===>', err.response)
-    }
-  }
-
   useEffect(() => {
     getExchanges()
   }, [])
@@ -173,10 +164,6 @@ export const GraphicalChartArea = () => {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenExchange, tradingSymbol.tradingSymbol])
-  useEffect(() => {
-    getTradeHistory()    
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
     <>
@@ -450,12 +437,13 @@ export const BuyNowUpdatePositionBar = (props) => {
 };
 
 export const BuySellForm = (props) => {
+  const dispatch = useDispatch()
   const [type, setType] = useState('self')
   const [signalType, setActiveBtn] = useState('spot');
   const [activeCrypto, setActiveCrypto] = useState('USDT');
   const [order, setOrder] = useState('limit')
   const [position, setPosition] = useState('Spot')
-  const [Leverage, setLeverage] = useState(0)
+  const [Leverage, setLeverage] = useState('5')
   const [entryPrice, setEntryPrice] = useState(0);
   const [stopLoss, setPriceStop] = useState(0);
   const [amount, setAmount] = useState(0);
@@ -587,59 +575,28 @@ export const BuySellForm = (props) => {
       setType('self')
   }
 
-  async function submitOrder() {
-    try {
-      if (signalType.toLowerCase() === 'spot') {
-        if (order === 'limit') {
-          const response = await axios.put('/user/trade/signal', {
-            type,
-            exchangePlatform: props.chosenExchange,
-            from: props.tradingSymbol.from,
-            to: props.tradingSymbol.to,
-            signalType: 'Spot',
-            entryPrice,
-            amount: activeCrypto === props.tradingSymbol.from ? parseFloat(amount) : parseFloat(amount) / props.chartInfo.price,
-            stopLoss,
-            targets: buyProfit
-            // targets:
-          })
-          console.log('test', response)
-        } else {
-          const response = await axios.put('/user/trade/signal', {
-            type,
-            exchangePlatform: props.chosenExchange,
-            from: props.tradingSymbol.from,
-            to: props.tradingSymbol.to,
-            // signalType,
-            amount: activeCrypto === props.tradingSymbol.from ? parseFloat(amount) : parseFloat(amount) / props.chartInfo.price,
-            stopLoss,
-            signalType: position,
-            entryPrice,
-            targets: buyProfit
-          })
-          console.log('test', response)
-        }
-      }
-      else if (signalType.toLowerCase() === 'futures') {
-        const response = await axios.put('/user/trade/signal', {
-          type,
-          exchangePlatform: props.chosenExchange,
-          from: props.tradingSymbol.from,
-          to: props.tradingSymbol.to,
-          signalType: position,
-          amount: activeCrypto === props.tradingSymbol.from ? parseFloat(amount) : parseFloat(amount) / props.chartInfo.price,
-          stopLoss,
-          leverage: Leverage,
-          entryPrice,
-          targets: buyProfit
-        })
-        console.log('test', response)
-      }
-    }
-    catch (err) {
-      console.log('error in submit Signal')
-    }
+  const handleSubmitOrder = () => {
+    dispatch(AppActions.signalAddAction({
+      type,
+      exchangePlatform: props.chosenExchange,
+      from: props.tradingSymbol.from,
+      to: props.tradingSymbol.to,
+      signalType: signalType.toLowerCase() === 'spot' ? (order === 'limit' ? 'Spot' : position) : position,
+      entryPrice,
+      amount: activeCrypto === props.tradingSymbol.from ? parseFloat(amount) : parseFloat(amount) / props.chartInfo.price,
+      stopLoss,
+      targets: buyProfit
+    }))
   }
+
+  // const handleChangeBuyForm = (event) => {
+  //   const { namve, value } = event.target
+
+  // }
+
+  useEffect(() => {
+    console.log(Leverage)
+  }, [Leverage])
 
   // const options = [
   //   {
@@ -762,12 +719,13 @@ export const BuySellForm = (props) => {
             <div className="tab-content mt-4" id="myTabContent">
               {props.active === "buy" ?
                 <>
+                  {/* Exchange select ( Binance | FTX ) */}
                   <div className="row">
                     <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                       <div className="input-group">
                         <input
                           type="text"
-                          className="form-control"
+                          className="form-control form-input"
                           placeholder="Exchange*"
                           disabled
                         />
@@ -775,7 +733,7 @@ export const BuySellForm = (props) => {
                           className="input-group-text p-0 border-0"
                         >
                           <select
-                            className="form-select select-left" style={{ borderLeft: 'none' }}
+                            className="form-select"
                             onChange={(e) => props.contractChange(e.target.value)}
                             value={props.chosenExchange}
                           >
@@ -802,10 +760,10 @@ export const BuySellForm = (props) => {
                             </option> */}
                           </select>
                         </span>
-
                       </div>
                     </div>
                   </div>
+                  {/* Trading Symbol select ( BTCUSDT | MATICUSDT | ETHUSDT | BNBUSDT ) */}
                   <div className="row mt-3">
                     <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                       <div className="input-group">
@@ -819,7 +777,7 @@ export const BuySellForm = (props) => {
                           className="input-group-text p-0 border-0"
                         >
                           <select
-                            className="form-select select-left" style={{ borderLeft: 'none' }} 
+                            className="form-select with-group-label" 
                             onChange={(e) => props.setCryptos(e.target.value)}
                             value={props.tradingSymbol.tradingSymbol}
                           >
@@ -843,66 +801,77 @@ export const BuySellForm = (props) => {
                       </div>
                     </div>
                   </div>
+                  {/* Signal Type select ( Spot | Features ) */}
                   <div className="row mt-3 ">
                     <div className="btn-group terminal-button">
-
                       <button type="button" style={{ borderRight: 'none', width: '50%' }} onClick={() => { setActiveBtn('spot'); setPosition('Spot') }} className={`trade-type btn ${signalType === 'spot' ? 'btn-trade' : 'btn-white'}`}>Spot</button>
                       <button type="button" style={{ borderLeft: 'none', width: '50%' }} onClick={() => { setActiveBtn('futures'); setPosition('Short') }} className={`trade-type btn ${signalType === 'futures' ? 'btn-trade' : 'btn-white'}`}>Futures</button>
-
                     </div>
                   </div>
-                  <div className="row mt-3">
-                    <div className="col-sm-6 col-6">
-                      <div className="row">
-                        <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
-                          <div className="input-group">
-                            <input
-                              type="text"
-                              className="form-control form-input"
-                              disabled
-                              placeholder="Position"
-                              style={signalType === "spot" ? { backgroundColor: '#e9ecef' } : {}} />
-                            {signalType === 'futures' &&
-                              <span style={{ width: '50%' }}
-                                className="input-group-text p-0 border-0"
-                              >
-                                <select
-                                  className="form-select select-left" style={{ borderLeft: 'none' }}
-                                  value={position}
-                                  onChange={(e) => setPosition(e.target.value)}
+                  {signalType === 'futures' && <>
+                    <div className="row mt-3">
+                      <div className="col-sm-6 col-6">
+                        <div className="row">
+                          <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                            <div className="input-group">
+                              <input
+                                type="text"
+                                className="form-control form-input"
+                                disabled
+                                placeholder="Position"
+                                style={signalType === "spot" ? { backgroundColor: '#e9ecef' } : {}} />
+                              
+                                <span style={{ width: '50%' }}
+                                  className="input-group-text p-0 border-0"
                                 >
-                                  <option defaultValue={""} value="Short">
-                                    Short
-                                  </option>
-                                  <option value="Long">Long</option>
-                                </select>
-                              </span>
-                            }
+                                  <select
+                                    className="form-select select-left" style={{ borderLeft: 'none' }}
+                                    value={position}
+                                    onChange={(e) => setPosition(e.target.value)}
+                                  >
+                                    <option defaultValue={""} value="Short">
+                                      Short
+                                    </option>
+                                    <option value="Long">Long</option>
+                                  </select>
+                                </span>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="col-sm-6 col-6">
+                      <div className="col-sm-6 col-6">
                       <div className="row">
-                        <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
-                          <div className="input-group">
-                            <input
-                              id="leverage-input"
-                              type="number"
-                              className="form-control form-input"
-                              disabled={signalType === "spot" ? true : false}
-                              placeholder="Leverage"
-                              style={signalType === "spot" ? { backgroundColor: '#e9ecef' } : {}}
-                              max={20}
-                              min={0}
-                              onChange={(e) => setLeverage(e.target.value <= 20 && e.target.value >= 0 && re.test(e.target.value) ? e.target.value : e.target.value <= 0 && 0)}
-                              value={Leverage}
-                            />
+                          <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                            <div className="input-group">
+                              <input
+                                type="text"
+                                className="form-control form-input"
+                                disabled
+                                placeholder="Leverage"
+                                style={signalType === "spot" ? { backgroundColor: '#e9ecef' } : {}} />                            
+                                <span style={{ width: '50%' }}
+                                  className="input-group-text p-0 border-0"
+                                >
+                                  <select
+                                    className="form-select select-left" style={{ borderLeft: 'none' }}
+                                    defaultValue={'5'}
+                                    onChange={(e) => setLeverage(e.target.value)}
+                                  >
+                                    <option value="1">1X</option>
+                                    <option value="2">2X</option>
+                                    <option value="3">3X</option>
+                                    <option value="5">5X</option>
+                                    <option value="10">10X</option>
+                                    <option value="15">15X</option>
+                                    <option value="20">20X</option>
+                                  </select>
+                                </span>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </>}
                   <div className="row mt-2">
                     <div className="col-sm-6 col-6">
                       <div className="row">
@@ -1157,7 +1126,7 @@ export const BuySellForm = (props) => {
                             <button className="btn btn-success submit-order">Register Now</button>
                           </>
                         ) : (
-                          <button className="btn btn-success submit-order" onClick={submitOrder}>Submit Order</button>
+                          <button className="btn btn-success submit-order" onClick={handleSubmitOrder}>Submit Order</button>
                         )}
                       </div>
                     </div>
@@ -1168,12 +1137,7 @@ export const BuySellForm = (props) => {
                   <div className="row">
                     <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                       <div className="input-group">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Exchange*"
-                          style={{ backgroundColor: '#e9ecef' }}
-                        />
+                        <label>Exchange *</label>
                         <span style={{ width: '50%' }}
                           className="input-group-text p-0 border-0"
                         >

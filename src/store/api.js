@@ -1,28 +1,6 @@
 import AxiosInstance from '../axiosClient';
 
 export const ADD_NEW_SIGNAL = (data) => {
-    // raw json data
-    // const data = {
-    //     "type": "copyTrader",
-    //     "exchangePlatform": "testnet-binanceusdm",
-    //     "from": "BTC",
-    //     "to": "USDT",
-    //     "signalType": "Spot",
-    //     "stopLoss": 28000,
-    //     "leverage": 5,
-    //     "entryPrice": 30000,
-    //     "amount": 10,
-    //     "targets": [
-    //         {
-    //             "price": 31000,
-    //             "amount": 50
-    //         },
-    //         {
-    //             "price": 32000,
-    //             "amount": 50
-    //         }
-    //     ]
-    // }
     return AxiosInstance.put(`/user/trade/signal`, data)
 }
 

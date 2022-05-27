@@ -4,13 +4,13 @@ import { AppActions } from '../store/actions';
 
 const useTraderHistory = () => {
   const dispatch = useDispatch();
-  const traderHistory = useSelector(state => state.appState.traderHistory);
+  const { historyList } = useSelector(state => state.appState);
 
   useEffect(() => {
     dispatch(AppActions.signalHistoryFetchAction())
   }, [])
 
-  return { traderHistory }
+  return { historyList }
 }
 
 export default useTraderHistory
