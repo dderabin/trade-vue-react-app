@@ -576,8 +576,8 @@ export const BuySellForm = (props) => {
     dispatch(AppActions.signalUpdateAction({      
       id: signal._id,
       entryPrice: signal.signalType.toLowerCase() === 'spot' ? entryPrice : undefined,
-      stopLoss: 25000,
-      targets: updateProfit
+      stopLoss: parseFloat(stopLoss),
+      targets: updateProfit.map(item => ({price: parseFloat(item.price), amount: parseFloat(item.amount)}))
     }))
   }
 
