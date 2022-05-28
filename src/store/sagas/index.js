@@ -48,6 +48,7 @@ function* performAddSignal(action) {
     try {
         yield put(AppActions.loadingAction())
         const response = yield call(Api.ADD_NEW_SIGNAL, action.payload)
+        yield put(AppActions.signalAddSuccessAction(response.data))
         yield put(AppActions.sagaSuccessAction(response.data))
     } catch (e) {
         yield put(AppActions.sagaFailAction(e))
@@ -62,7 +63,7 @@ function* performUpdateSignal(action) {
     try {
         yield put(AppActions.loadingAction())
         const response = yield call(Api.UPDATE_SIGNAL, action.payload)
-        yield put(AppActions.signalUpdateSuccessAction(response.data))
+        yield put(AppActions.sagaSuccessAction(response.data))
     } catch (e) {
         yield put(AppActions.sagaFailAction(e))
     }
