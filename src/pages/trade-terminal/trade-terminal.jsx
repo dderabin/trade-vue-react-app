@@ -395,7 +395,7 @@ export const BuyNowUpdatePositionBar = (props) => {
   return (
     <>
       {/* toolbar start */}
-      <div className="tt-right-column tt-right-column-expanded" style={{minWidth: '420px'}}>
+      <div className="tt-right-column tt-right-column-expanded">
         {/* toolbar ends */}
 
         <div
@@ -478,16 +478,25 @@ export const BuySellForm = (props) => {
   }
 
   const handleChangePriceStop = (price) => {
-    const priceNum = parseFloat(price);
-    const entryPriceNum = parseFloat(entryPrice);
-    if (priceNum >= 0) {
-      if (position.toLowerCase() === 'short') {
-        setPriceStop(priceNum > entryPriceNum ? priceNum : entryPriceNum)
-      }
-      else {
-        setPriceStop(priceNum < entryPriceNum ? priceNum : entryPriceNum)
-      }
+    let value = price
+    if (value === '') {
+      setPriceStop('');
+      return
     }
+    if (parseFloat(price) < 0) {
+      value = 0
+    }
+    setPriceStop(value)
+    // const priceNum = parseFloat(price);
+    // const entryPriceNum = parseFloat(entryPrice);
+    // if (priceNum >= 0) {
+    //   if (position.toLowerCase() === 'short') {
+    //     setPriceStop(priceNum > entryPriceNum ? price : entryPrice)
+    //   }
+    //   else {
+    //     setPriceStop(priceNum < entryPriceNum ? price : entryPrice)
+    //   }
+    // }
   }
 
   const handleChangeProfit = (name, value, index_num) => {
@@ -604,12 +613,13 @@ export const BuySellForm = (props) => {
   useEffect(() => {
     if (signal) {
       setUpdateProfit(signal.targets.map(({reached, ...item}) => item))
+      setPriceStop(signal.stopLoss)
     }
   }, [signal])
 
   useEffect(() => {
-    console.log(signal)
-  }, [signal])
+    console.log(stopLoss)
+  }, [stopLoss])
 
   useEffect(() => {
     setPosition('Spot')
@@ -974,19 +984,16 @@ export const BuySellForm = (props) => {
                           </label>
                           <div className="input-group mb-3">
                             <div className="input-group-prepend">
-                              <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangePriceStop(stopLoss - 1)} type="button">-</button>
+                              <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangePriceStop(parseFloat(stopLoss) - 1 >= 0 ? parseFloat(stopLoss) - 1 : 0)} type="button">-</button>
                             </div>
                             <input
                               type="text"
                               className="form-control price-border"
-                              onChange={e => {
-                                if (e.target.value !== '')
-                                  handleChangePriceStop(parseFloat(e.target.value))
-                              }}
+                              onChange={e => handleChangePriceStop(e.target.value)}
                               value={stopLoss}
                             />
                             <div className="input-group-prepend">
-                              <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangePriceStop(stopLoss + 1)} type="button">+</button>
+                              <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangePriceStop(parseFloat(stopLoss) + 1)} type="button">+</button>
                             </div>
                           </div>
                         </div>
@@ -1306,16 +1313,16 @@ export const BuySellForm = (props) => {
                             </label>
                             <div className="input-group mb-3">
                               <div className="input-group-prepend">
-                                <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangePriceStop(stopLoss - 1)} type="button">-</button>
+                                <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangePriceStop(parseFloat(stopLoss) - 1 >= 0 ? parseFloat(stopLoss) - 1 : 0)} type="button">-</button>
                               </div>
                               <input
                                 type="text"
                                 className="form-control price-border"
-                                onChange={e => handleChangePriceStop(parseFloat(e.target.value))}
-                                defaultValue={signal.stopLoss}
+                                onChange={e => handleChangePriceStop(e.target.value)}
+                                value={stopLoss}
                               />
                               <div className="input-group-prepend">
-                                <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangePriceStop(stopLoss + 1)} type="button">+</button>
+                                <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangePriceStop(parseFloat(stopLoss) + 1)} type="button">+</button>
                               </div>
                             </div>
                           </div>

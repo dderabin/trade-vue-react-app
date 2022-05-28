@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.25f75a93.css",
-    "main.js": "/static/js/main.6d03e213.js",
+    "main.js": "/static/js/main.8d2a6625.js",
     "static/js/787.55c8f489.chunk.js": "/static/js/787.55c8f489.chunk.js",
     "static/media/chat_laptop.svg": "/static/media/chat_laptop.42205155e3a61b2325aea895ce849d60.svg",
     "static/media/chat_mobile.svg": "/static/media/chat_mobile.a5a3cacad99aa5a21f437b86459f72d0.svg",
@@ -89,8 +89,8 @@
     "static/media/trade-signals.svg": "/static/media/trade-signals.dd01864354c01b44a04e2cfaaa216978.svg",
     "static/media/grid-filled.svg": "/static/media/grid-filled.22dac9237cacea38fecd11dae32ee6a0.svg",
     "static/media/grid-view.svg": "/static/media/grid-view.51ff87238d2e1038cd4790516510aeaf.svg",
-    "static/media/email.svg": "/static/media/email.76df24bf2917a3b4f1ff6e6ef2b6dca3.svg",
     "index.html": "/index.html",
+    "static/media/email.svg": "/static/media/email.76df24bf2917a3b4f1ff6e6ef2b6dca3.svg",
     "static/media/favourite-icon-dark.svg": "/static/media/favourite-icon-dark.e3158e3590713a202163398aa3a232cb.svg",
     "static/media/portfolioperformance-icon-dark.svg": "/static/media/portfolioperformance-icon-dark.508386374c7798e5d22e980089b70676.svg",
     "static/media/eye-hidden.svg": "/static/media/eye-hidden.269df25c7126ab1bb0ce2e4c44bf6dac.svg",
@@ -120,11 +120,11 @@
     "static/media/right-arrow.svg": "/static/media/right-arrow.2d9e037d76fb1b767bb3ff7a0e256efb.svg",
     "static/media/left-arrow.svg": "/static/media/left-arrow.89879f66475909b0035d1385d0bcd6e2.svg",
     "main.25f75a93.css.map": "/static/css/main.25f75a93.css.map",
-    "main.6d03e213.js.map": "/static/js/main.6d03e213.js.map",
+    "main.8d2a6625.js.map": "/static/js/main.8d2a6625.js.map",
     "787.55c8f489.chunk.js.map": "/static/js/787.55c8f489.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.25f75a93.css",
-    "static/js/main.6d03e213.js"
+    "static/js/main.8d2a6625.js"
   ]
 }
