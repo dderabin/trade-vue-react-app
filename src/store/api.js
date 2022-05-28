@@ -4,23 +4,7 @@ export const ADD_NEW_SIGNAL = (data) => {
     return AxiosInstance.put(`/user/trade/signal`, data)
 }
 
-export const UPDATE_SIGNAL = (data) => {
-    // raw json data
-    // const data = {
-    //     "id": "624dfb860248548c445927eb",
-    //     "entryPrice": 2200,
-    //     "stopLoss": 25000,
-    //     "targets": [
-    //         {
-    //             "price": 31000,
-    //             "amount": 5
-    //         },
-    //         {
-    //             "price": 32000,
-    //             "amount": 5
-    //         }
-    //     ]
-    // }
+export const UPDATE_SIGNAL = (data) => {    
     return AxiosInstance.post(`/user/trade/signal`, data)
 }
 

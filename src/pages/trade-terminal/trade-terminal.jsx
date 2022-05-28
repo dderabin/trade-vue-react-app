@@ -395,7 +395,7 @@ export const BuyNowUpdatePositionBar = (props) => {
   return (
     <>
       {/* toolbar start */}
-      <div className="tt-right-column tt-right-column-expanded">
+      <div className="tt-right-column tt-right-column-expanded" style={{minWidth: '420px'}}>
         {/* toolbar ends */}
 
         <div
@@ -438,7 +438,7 @@ export const BuyNowUpdatePositionBar = (props) => {
 
 export const BuySellForm = (props) => {
   const dispatch = useDispatch()
-  const { historyList } = useTraderHistory()
+  const { historyList, historyById } = useTraderHistory()
   const [type, setType] = useState('self')
   const [signalType, setActiveBtn] = useState('spot');
   const [activeCrypto, setActiveCrypto] = useState('USDT');
@@ -449,9 +449,12 @@ export const BuySellForm = (props) => {
   const [stopLoss, setPriceStop] = useState('');
   const [amount, setAmount] = useState(0);
   const { editState } = props.editState;
+  const [signal, setSignal] = useState();
+
   const [buyProfit, setBuyProfit] = useState([
     { price: 0, amount: 0 }
   ])
+  
   const [updateProfit, setUpdateProfit] = useState([
     { price: 0, amount: 0 }
   ])
@@ -490,41 +493,12 @@ export const BuySellForm = (props) => {
   const handleChangeProfit = (name, value, index_num) => {
     let valueVar = value;
     if (valueVar !== '' && parseFloat(valueVar) < 0) return;
-    // let valueVar = Number(value)
-    // console.log("handlechangeprofit: ", name, Number(value), index_num);
-    // if (Number(value) < 0 || Number.isNaN(value))
-    //   valueVar = 0
-    // if (position.toLowerCase() === 'short') {
-    //   if (Number(value) < entryPrice)
-    //     valueVar = Number(value)
-    //   else
-    //     valueVar = entryPrice
-    // }
-    // else {
-    //   if (Number(value) > entryPrice)
-    //     valueVar = Number(value)
-    //   else
-    //     valueVar = entryPrice
-    // }
-    // let sum = 0;
-    // buyProfit.map(item => {
-    //   sum += item.amount
-    // })
-    // let remaining = 0
     setBuyProfit(buyProfit => buyProfit.map((item, index) => {
       if (index === index_num) {
         item[name] = valueVar
       }
       return item
     }))
-    // if (sum > 100) {
-    //   setBuyProfit(buyProfit => buyProfit.map((item, index) => {
-    //     if (index === index_num) {
-    //       item.amount = Number(profitNumber)
-    //     }
-    //     return item
-    //   }))
-    // }
   }
 
   const handleChangeProfitList = (type) => {
@@ -542,18 +516,17 @@ export const BuySellForm = (props) => {
 
 
   const handleChangeUpdateProfit = (name, value, index_num) => {
-    console.log("handlechangeUpdateprofit: ", name, value, index_num);
-    if (value < 0 || Number.isNaN(value))
-      value = 0
-
-    setUpdateProfit(buyProfit => updateProfit.map((item, index) => {
+    let valueVar = value;
+    if (valueVar !== '' && parseFloat(valueVar) < 0) return;
+    setUpdateProfit(updateProfit => updateProfit.map((item, index) => {
+      let changeItem = {...item}
       if (index === index_num) {
-        item[name] =
-          value
+        changeItem[name] = valueVar
       }
-      return item
+      return changeItem
     }))
   }
+
   const handleChangeUpdateProfitList = (type) => {
     if (type === 'add') {
       if (updateProfit.length < 4) {
@@ -564,6 +537,7 @@ export const BuySellForm = (props) => {
       setUpdateProfit(updateProfit => updateProfit.slice(0, updateProfit.length - 1))
     }
   }
+
   function signalProviderCheckBox() {
     if (type === 'self' || type === 'copyTrader')
       setType('signalProvider')
@@ -598,6 +572,15 @@ export const BuySellForm = (props) => {
     }))
   }
 
+  const handleUpdateOrder = () => {
+    dispatch(AppActions.signalUpdateAction({      
+      id: signal._id,
+      entryPrice: signal.signalType.toLowerCase() === 'spot' ? entryPrice : undefined,
+      stopLoss: 25000,
+      targets: updateProfit
+    }))
+  }
+
   // const options = [
   //   {
   //     key: 'Binance',
@@ -619,6 +602,16 @@ export const BuySellForm = (props) => {
   // }, [])
 
   useEffect(() => {
+    if (signal) {
+      setUpdateProfit(signal.targets.map(({reached, ...item}) => item))
+    }
+  }, [signal])
+
+  useEffect(() => {
+    console.log(signal)
+  }, [signal])
+
+  useEffect(() => {
     setPosition('Spot')
     setLeverage(0)
     setOrder('limit')
@@ -632,6 +625,7 @@ export const BuySellForm = (props) => {
       { price: 0, amount: 0 }
     ])
   }, [signalType])
+
   useEffect(() => {
     if (props.updateState === {}) {
       setType('self')
@@ -1116,61 +1110,7 @@ export const BuySellForm = (props) => {
                   </div>
                 </>
                 :
-                <>
-                  <div className="row">
-                    <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
-                      <div className="input-group">
-                        <input
-                          type="text"
-                          className="form-control form-input"
-                          placeholder="Exchange*"
-                          disabled
-                        />
-                        <span style={{ width: '50%' }}
-                          className="input-group-text p-0 border-0"
-                        >
-                          <select
-                            className="form-select select-left" style={{ borderLeft: 'none' }}
-                            onChange={(e) => props.contractChange(e.target.value)}
-                            value={props.chosenExchange}
-                          >
-                            {props.exchanges.map(item => (
-                              <option key={item.key} value={item.value}>
-                                {item.value === 'testnet-binanceusdm' ? 'Binance' : item.value}
-                              </option>
-                            )
-                            )}
-                            {/* <option defaultValue={""} value="btc-usdt">
-                              BTCUSDT
-                            </option>
-                            {props.chosenExchange !== 'ftx' &&
-                              <option defaultValue={""} value="matic-usdt">
-                                MATICUSDT
-                              </option>
-                            }
-                            <option defaultValue={""} value="eth-usdt">
-                              ETHUSDT
-                            </option>
-                            <option defaultValue={""} value="bnb-usdt">
-                              BNBUSDT
-                            </option> */}
-                          </select>
-
-                          {/* <Dropdown
-                            fluid
-                            selection
-                            options={props.exchanges}
-                            disabled
-                            style={{ backgroundColor: '#e9ecef' }}
-                            onChange={(e, data) => props.contractChange(data)}
-                            value={props.chosenExchange}
-                          // defaultValue={props.exchanges.length > 0 ? props.exchanges[0] : ''}
-                          /> */}
-                        </span>
-
-                      </div>
-                    </div>
-                  </div>
+                <>                  
                   <div className="row mt-3">
                     <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                       <div className="input-group">
@@ -1185,9 +1125,11 @@ export const BuySellForm = (props) => {
                         >
                           <select
                             className="form-select select-left" style={{ borderLeft: 'none' }}
+                            onChange={e => setSignal(e.target.value !== 'none' ? historyById[e.target.value] : null)}
                           >
-                            {historyList.map((history, index) => {
-                              return (<option key={index}>#{history._id}</option>)
+                            <option value="none">Select Order</option>
+                            {historyList.filter(item => item.state.toLowerCase() === 'inposition' || item.state.toLowerCase() === 'ordered').map((history, index) => {
+                              return (<option key={index} value={history._id}>#{history._id}</option>)
                             })}
                           </select>
                         </span>
@@ -1195,342 +1137,310 @@ export const BuySellForm = (props) => {
                       </div>
                     </div>
                   </div>
-                  <div className="row mt-3">
-                    <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
-                      <div className="input-group">
-                        <input
-                          disabled
-                          type="text"
-                          className="form-control form-input"
-                          placeholder="Trading Symbol*"
-                          style={{ backgroundColor: '#e9ecef' }}
-                        />
-                        <span style={{ width: '50%' }}
-                          className="input-group-text p-0 border-0"
-                        >
-                          <select
+                  { signal && (<>                  
+                    {/* Trading Symbol */}
+                    <div className="row mt-3">
+                      <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                        <div className="input-group">
+                          <input
                             disabled
-                            className="form-select select-left" style={{ borderLeft: 'none', backgroundColor: '#e9ecef' }}
-                            value={props.tradingSymbol.tradingSymbol}
+                            type="text"
+                            className="form-control form-input"
+                            placeholder="Trading Symbol"
+                            style={{ backgroundColor: '#e9ecef' }}
+                          />
+                          <span style={{ width: '50%' }}
+                            className="input-group-text p-0 border-1"
                           >
-                            {/* <option defaultValue={""} value="maticusdt">
-                              MATICUSDT
-                            </option>
-                            <option value="market">Market</option> */}
-                          </select>
-                        </span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;{signal.symbol.from + signal.symbol.to}
+                          </span>
 
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="row mt-3 ">
-                    <div className="btn-group terminal-button">
-                      <button type="button" style={{ borderRight: 'none', width: '50%' }} disabled onClick={() => setActiveBtn('spot')} className={`trade-type btn ${signalType === 'spot' ? 'btn-trade' : 'btn-white'}`}>Spot</button>
-                      <button type="button" style={{ borderLeft: 'none', width: '50%' }} disabled onClick={() => setActiveBtn('futures')} className={`trade-type btn ${signalType === 'futures' ? 'btn-trade' : 'btn-white'}`}>Futures</button>
+                    {/* Signal Type */}
+                    <div className="row mt-3 ">
+                      <div className="btn-group terminal-button">
+                        <button type="button" style={{ borderRight: 'none', width: '50%' }} disabled className={`trade-type btn ${signal && signal.signalType === 'spot' ? 'btn-trade' : 'btn-white'}`}>Spot</button>
+                        <button type="button" style={{ borderLeft: 'none', width: '50%' }} disabled className={`trade-type btn ${signal && signal.signalType !== 'futures' ? 'btn-trade' : 'btn-white'}`}>Futures</button>
+                      </div>
                     </div>
-                  </div>
-                  <div className="row mt-3">
-                    <div className="col-sm-6 col-6">
-                      <div className="row">
-                        <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
-                          <div className="input-group">
-                            <input
-                              type="text"
-                              disabled
-                              className="form-control form-input"
-                              placeholder="Position*"
-                              style={{ backgroundColor: '#e9ecef' }}
-                            />
-                            <span style={{ width: '50%', backgroundColor: '#e9ecef' }}
-                              className="input-group-text p-0 border-0 bg-primary"
-                            >
-                              <select
+                    {signal.signalType.toLowerCase() !== 'spot' && <>
+                      <div className="row mt-3">
+                        <div className="col-sm-6 col-6">
+                          <div className="row">
+                            <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                              <div className="input-group">
+                                <input
+                                  type="text"
+                                  className="form-control form-input"
+                                  disabled
+                                  placeholder="Position"
+                                  style={{backgroundColor: '#e9ecef'}} />
+                                
+                                  <span style={{ width: '50%' }}
+                                    className="input-group-text p-0 border-1"
+                                  >
+                                    &nbsp;&nbsp;&nbsp;&nbsp;{signal.signalType}
+                                  </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-sm-6 col-6">
+                        <div className="row">
+                            <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                              <div className="input-group">
+                                <input
+                                  type="text"
+                                  className="form-control form-input"
+                                  disabled
+                                  placeholder="Leverage"
+                                  style={signalType === "spot" ? { backgroundColor: '#e9ecef' } : {}} />                            
+                                  <span style={{ width: '50%' }}
+                                    className="input-group-text p-0 border-1"
+                                  >
+                                    &nbsp;&nbsp;&nbsp;&nbsp;{signal.leverage}X
+                                  </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </>}
+                    <div className="row mt-2">
+                      <div className="col-sm-6 col-6">
+                        <div className="row">
+                          <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                            <label>
+                            </label>
+                            <div className="input-group">
+                              <input
+                                type="text"
+                                className="form-control form-input"
+                                placeholder="Order"
                                 disabled
-                                className="form-select select-left" style={{ borderLeft: 'none' }}
-                                value={position}
-                                onChange={(e) => setPosition(e.target.value)}
+                                style={{backgroundColor: '#e9ecef'}} />
+                              <span style={{ width: '50%' }}
+                                className="input-group-text p-0 border-1"
                               >
-                                <option value="Spot">Spot</option>
-                                <option defaultValue={""} value="Short">
-                                  Short
-                                </option>
-                                <option value="Long">Long</option>
-                              </select>
-                            </span>
-
+                                &nbsp;&nbsp;&nbsp;&nbsp;{signal.hasOwnProperty('entryPrice') ? 'Limit' : 'Market'}                                
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="col-sm-6 col-6">
-                      <div className="row">
-                        <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
-                          <div className="input-group">
-                            <input
-                              id="leverage-input"
-                              type="number"
-                              className="form-control form-input"
-                              disabled
-                              placeholder="Leverage"
-                              style={{ backgroundColor: '#e9ecef' }}
-                              max={20}
-                              min={0}
-                              onChange={(e) => setLeverage(e.target.value)}
-                              value={leverage}
-                            />
-
+                      { signal.hasOwnProperty('entryPrice') && (<>
+                        <div className="col-sm-6 col-6">
+                          <div className="row">
+                            <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                              <label htmlFor="" style={{ color: "#989898" }}>
+                                {/* Update Position Price */}
+                                Price *
+                              </label>
+                              <div className="input-group mb-3">
+                                <div className="input-group-prepend">
+                                  <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => setEntryPrice(parseFloat(entryPrice) - 1 >= 0 ? parseFloat(entryPrice) - 1 : 0)} type="button">-</button>
+                                </div>
+                                <input
+                                  type="text"
+                                  className="form-control price-border"
+                                  onChange={handleChangePrice}
+                                  value={entryPrice}
+                                  defaultValue={signal.entryPrice}
+                                />
+                                <div className="input-group-prepend">
+                                  <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => setEntryPrice(parseFloat(entryPrice) + 1)} type="button">+</button>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      </>) }
                     </div>
-                  </div>
-                  <div className="row mt-2">
-                    <div className="col-sm-6 col-6">
-                      <div className="row">
-                        <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
-                          <label>
-                          </label>
-                          <div className="input-group">
-                            <input
-                              type="text"
-                              className="form-control form-input"
-                              placeholder="Order*"
-                              disabled
-                            />
-                            <span style={{ width: '50%' }}
-                              className="input-group-text p-0 border-0"
-                            >
-                              <select
-                                className="form-select select-left" style={{ borderLeft: 'none' }}
-                              >
-                                <option value="limit">
-                                  Limit
-                                </option>
-                                <option value="market">Market</option>
-                              </select>
-                            </span>
-
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    { order !== 'market' && (<>
+                    {/* <div className="row mt-2">
                       <div className="col-sm-6 col-6">
                         <div className="row">
                           <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                             <label htmlFor="" style={{ color: "#989898" }}>
-                              {/* Update Position Price */}
-                              Price *
+                              Quantity
                             </label>
                             <div className="input-group mb-3">
                               <div className="input-group-prepend">
-                                <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => setEntryPrice(parseFloat(entryPrice) - 1 >= 0 ? parseFloat(entryPrice) - 1 : 0)} type="button">-</button>
+                                <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => setAmount(parseFloat(amount) - 1 >= 0 ? parseFloat(amount) - 1 : 0)} type="button">-</button>
                               </div>
                               <input
                                 type="text"
                                 className="form-control price-border"
-                                onChange={handleChangePrice}
-                                value={entryPrice}
+                                onChange={handleChangeQuantity}
+                                value={amount}
                               />
                               <div className="input-group-prepend">
-                                <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => setEntryPrice(parseFloat(entryPrice) + 1)} type="button">+</button>
+                                <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => setAmount(parseFloat(amount) + 1)} type="button">+</button>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </>) }
-                  </div>
-                  <div className="row mt-2">
-                    <div className="col-sm-6 col-6">
-                      <div className="row">
-                        <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
-                          <label htmlFor="" style={{ color: "#989898" }}>
-                            Quantity
-                          </label>
-                          <div className="input-group mb-3">
-                            <div className="input-group-prepend">
-                              <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => setAmount(parseFloat(amount) - 1 >= 0 ? parseFloat(amount) - 1 : 0)} type="button">-</button>
+                      <div className="col-sm-6 col-6">
+                        <div className="row">
+                          <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                            <label></label>
+                            <div className="input-group mb-3 mt_3" style={{ width: '100%' }}>
+                              <button disabled type="button" style={{ borderRight: 'none', width: '50%', cursor: 'not-allowed' }} onClick={() => setActiveCrypto(props.tradingSymbol.from)} className={`terminal_button trade-type btn ${activeCrypto === props.tradingSymbol.from ? 'btn-trade' : 'btn-white'}`}>{props.tradingSymbol.from}</button>
+                              <button disabled type="button" style={{ borderLeft: 'none', width: '50%', borderRight: '1px solid #ced4da', cursor: 'not-allowed' }} onClick={() => setActiveCrypto(props.tradingSymbol.to)} className={`terminal_button trade-type btn ${activeCrypto === props.tradingSymbol.to ? 'btn-trade' : 'btn-white'}`}>{props.tradingSymbol.to}</button>
                             </div>
-                            {/* <input type="text" className="form-control price-border" onChange={e => setQuantity(parseFloat(e.target.value))} value={quantity} /> */}
-                            <input
-                              type="text"
-                              className="form-control price-border"
-                              onChange={handleChangeQuantity}
-                              value={amount}
-                            />
-                            <div className="input-group-prepend">
-                              <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => setAmount(parseFloat(amount) + 1)} type="button">+</button>
+                          </div></div>
+                      </div>
+                    </div> */}
+                    <hr></hr>
+                    <div className="row">
+                      <span className="trade-subtitle">Stop Loss</span>
+                    </div>
+                    <div className="row mt-2">
+                      <div className="col-sm-12 col-12">
+                        <div className="row">
+                          <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                            <label htmlFor="" style={{ color: "#989898" }}>
+                              Price
+                            </label>
+                            <div className="input-group mb-3">
+                              <div className="input-group-prepend">
+                                <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangePriceStop(stopLoss - 1)} type="button">-</button>
+                              </div>
+                              <input
+                                type="text"
+                                className="form-control price-border"
+                                onChange={e => handleChangePriceStop(parseFloat(e.target.value))}
+                                defaultValue={signal.stopLoss}
+                              />
+                              <div className="input-group-prepend">
+                                <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangePriceStop(stopLoss + 1)} type="button">+</button>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className="col-sm-6 col-6">
-                      <div className="row">
-                        <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
-                          <label></label>
-                          <div className="input-group mb-3 mt_3" style={{ width: '100%' }}>
-                            <button disabled type="button" style={{ borderRight: 'none', width: '50%', cursor: 'not-allowed' }} onClick={() => setActiveCrypto(props.tradingSymbol.from)} className={`terminal_button trade-type btn ${activeCrypto === props.tradingSymbol.from ? 'btn-trade' : 'btn-white'}`}>{props.tradingSymbol.from}</button>
-                            <button disabled type="button" style={{ borderLeft: 'none', width: '50%', borderRight: '1px solid #ced4da', cursor: 'not-allowed' }} onClick={() => setActiveCrypto(props.tradingSymbol.to)} className={`terminal_button trade-type btn ${activeCrypto === props.tradingSymbol.to ? 'btn-trade' : 'btn-white'}`}>{props.tradingSymbol.to}</button>
-                          </div>
-                        </div></div>
+                    <hr></hr>
+                    <div className="row">
+                      <span className="trade-subtitle">Take Profit</span>
                     </div>
+                    {updateProfit && updateProfit.map((item, index) => {
+                      return (
+                        <div className="row mt-2" key={index}>
+                          <div className="col-sm-6 col-6">
+                            <div className="row">
+                              <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                                <label htmlFor="" style={{ color: "#989898" }}>
+                                  Price
+                                </label>
+                                <div className="input-group ">
+                                  <div className="input-group-prepend">
+                                    <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeUpdateProfit("price", item.price - 1, index)} type="button">-</button>
+                                  </div>
+                                  <input
+                                    type="text"
+                                    className="form-control price-border"
+                                    name="price"
+                                    onChange={e => handleChangeUpdateProfit("price", parseFloat(e.target.value), index)}
+                                    value={item.price}
+                                  />
+                                  <div className="input-group-prepend">
+                                    <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeUpdateProfit("price", item.price + 1, index)} type="button">+</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-sm-6 col-6">
+                            <div className="row">
+                              <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                                <label htmlFor="" style={{ color: "#989898" }}>
+                                  Quantity
+                                </label>
+                                <div className="input-group">
+                                  <div className="input-group-prepend">
+                                    <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeUpdateProfit("amount", item.amount - 1, index)} type="button">-</button>
+                                  </div>
+                                  <input
+                                    type="text"
+                                    className="form-control price-border"
+                                    name="quantity"
+                                    onChange={e => handleChangeUpdateProfit("amount", parseFloat(e.target.value), index)}
+                                    value={item.amount}
+                                  />
+                                  <div className="input-group-prepend">
+                                    <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeUpdateProfit("amount", item.amount + 1, index)} type="button">+</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })}
+                    {/* <div className="row mt-2">
+                      <div className="d-flex justify-content-between profit-action mt-3">
+                        <div className="profit-ui" onClick={() => handleChangeUpdateProfitList("add")}>
+                          <img
+                            src="img/uploads/plus.svg"
+                            alt=""
+                            className="img-fluid me-1"
+                            style={{ height: '16px' }}
+                          />
+                          <span style={{ color: '#199B4D', fontWeight: '500', fontSize: "14px" }}>Add Take Profit</span>
+                        </div>
+                        <div className="profit-ui" onClick={() => handleChangeUpdateProfitList("remove")}>
+                          <img
+                            src={icon_modal_minus}
+                            alt=""
+                            className="img-fluid me-1"
+                            style={{ height: '16px' }}
+                          />
+                          <span style={{ color: '#EF3B45', fontWeight: '500', fontSize: "14px" }}>Remove Take Profit</span>
+                        </div>
 
-                  </div>
-                  <hr></hr>
-                  <div className="row">
-                    <span className="trade-subtitle">Stop Loss</span>
-                  </div>
-                  <div className="row mt-2">
-                    <div className="col-sm-12 col-12">
-                      <div className="row">
-                        <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
-                          <label htmlFor="" style={{ color: "#989898" }}>
-                            Price
-                          </label>
-                          <div className="input-group mb-3">
-                            <div className="input-group-prepend">
-                              <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangePriceStop(stopLoss - 1)} type="button">-</button>
-                            </div>
-                            <input
-                              type="text"
-                              className="form-control price-border"
-                              onChange={e => handleChangePriceStop(parseFloat(e.target.value))}
-                              value={stopLoss}
-                            />
-                            <div className="input-group-prepend">
-                              <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangePriceStop(stopLoss + 1)} type="button">+</button>
-                            </div>
-                          </div>
-                        </div>
+
                       </div>
-                    </div>
-                  </div>
-                  <hr></hr>
-                  <div className="row">
-                    <span className="trade-subtitle">Take Profit</span>
-                  </div>
-                  {updateProfit && updateProfit.map((item, index) => {
-                    return (
-                      <div className="row mt-2" key={index}>
-                        <div className="col-sm-6 col-6">
-                          <div className="row">
-                            <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
-                              <label htmlFor="" style={{ color: "#989898" }}>
-                                Price
-                              </label>
-                              <div className="input-group ">
-                                <div className="input-group-prepend">
-                                  <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeUpdateProfit("price", item.price - 1, index)} type="button">-</button>
-                                </div>
-                                <input
-                                  type="text"
-                                  className="form-control price-border"
-                                  name="price"
-                                  onChange={e => {
-                                    if (e.target.value !== '')
-                                      handleChangeUpdateProfit("price", parseFloat(e.target.value), index)
-                                  }}
-                                  value={item.price}
-                                />
-                                <div className="input-group-prepend">
-                                  <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeUpdateProfit("price", item.price + 1, index)} type="button">+</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-sm-6 col-6">
-                          <div className="row">
-                            <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
-                              <label htmlFor="" style={{ color: "#989898" }}>
-                                Quantity
-                              </label>
-                              <div className="input-group">
-                                <div className="input-group-prepend">
-                                  <button className="btn btn-outline-price btn-left change-value-btn" onClick={() => handleChangeUpdateProfit("quantity", item.quantity - 1, index)} type="button">-</button>
-                                </div>
-                                <input
-                                  type="text"
-                                  className="form-control price-border"
-                                  name="quantity"
-                                  onChange={e => {
-                                    if (e.target.value !== '')
-                                      handleChangeUpdateProfit("quantity", parseFloat(e.target.value), index)
-                                  }}
-                                  value={item.quantity}
-                                />
-                                <div className="input-group-prepend">
-                                  <button className="btn btn-outline-price btn-right change-value-btn" onClick={() => handleChangeUpdateProfit("quantity", item.quantity + 1, index)} type="button">+</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+
+                    </div> */}
+                    {/* <div className="row mt-3">
+                      <div className="form-check" style={{ paddingLeft: '2.5em', marginBottom: '10px' }}>
+                        <input type="checkbox" className="form-check-input" id="subscriber"
+                          onChange={(e) => {
+                            copyTraderCheckBox()
+                          }}
+                          checked={type === 'copyTrader'} />
+                        <label className="form-check-label" htmlFor="subscriber">Copy The Order For My Subscribers</label>
                       </div>
-                    )
-                  })}
-                  <div className="row mt-2">
-                    <div className="d-flex justify-content-between profit-action mt-3">
-                      <div className="profit-ui" onClick={() => handleChangeUpdateProfitList("add")}>
-                        <img
-                          src="img/uploads/plus.svg"
-                          alt=""
-                          className="img-fluid me-1"
-                          style={{ height: '16px' }}
+                      <div className="form-check" style={{ paddingLeft: '2.5em' }}>
+                        <input type="checkbox" className="form-check-input" id="sendorder"
+                          onChange={(e) => {
+                            signalProviderCheckBox()
+                          }}
+                          checked={type === 'signalProvider'}
                         />
-                        <span style={{ color: '#199B4D', fontWeight: '500', fontSize: "14px" }}>Add Take Profit</span>
+                        <label className="form-check-label" htmlFor="sendorder">Send The Order As A Signal</label>
                       </div>
-                      <div className="profit-ui" onClick={() => handleChangeUpdateProfitList("remove")}>
-                        <img
-                          src={icon_modal_minus}
-                          alt=""
-                          className="img-fluid me-1"
-                          style={{ height: '16px' }}
-                        />
-                        <span style={{ color: '#EF3B45', fontWeight: '500', fontSize: "14px" }}>Remove Take Profit</span>
-                      </div>
-
-
-                    </div>
-
-                  </div>
-                  <div className="row mt-3">
-                    <div className="form-check" style={{ paddingLeft: '2.5em', marginBottom: '10px' }}>
-                      <input type="checkbox" className="form-check-input" id="subscriber"
-                        onChange={(e) => {
-                          copyTraderCheckBox()
-                        }}
-                        checked={type === 'copyTrader'} />
-                      <label className="form-check-label" htmlFor="subscriber">Copy The Order For My Subscribers</label>
-                    </div>
-                    <div className="form-check" style={{ paddingLeft: '2.5em' }}>
-                      <input type="checkbox" className="form-check-input" id="sendorder"
-                        onChange={(e) => {
-                          signalProviderCheckBox()
-                        }}
-                        checked={type === 'signalProvider'}
-                      />
-                      <label className="form-check-label" htmlFor="sendorder">Send The Order As A Signal</label>
-                    </div>
-                  </div>
-                  <div className="row mt-3 pb-3">
-                    <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
-                      <div className="d-grid gap-2">
-                        {editState ? (
-                          <>
-                            <button className="btn btn-success submit-order">Log In</button>
-                            <button className="btn btn-success submit-order">Register Now</button>
-                          </>
-                        ) : (
-                          <button className="btn btn-success submit-order"
-                          // onClick={(e) => submitOrder()}
-                          >Update Order</button>
-                        )}
+                    </div> */}
+                    <div className="row mt-3 pb-3">
+                      <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                        <div className="d-grid gap-2">
+                          {editState ? (
+                            <>
+                              <button className="btn btn-success submit-order">Log In</button>
+                              <button className="btn btn-success submit-order">Register Now</button>
+                            </>
+                          ) : (
+                            <button className="btn btn-success submit-order"
+                            onClick={handleUpdateOrder}
+                            >Update Order</button>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </>)}
                 </>
               }
             </div>
