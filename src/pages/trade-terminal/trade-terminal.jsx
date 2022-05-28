@@ -536,16 +536,16 @@ export const BuySellForm = (props) => {
     }))
   }
 
-  const handleChangeUpdateProfitList = (type) => {
-    if (type === 'add') {
-      if (updateProfit.length < 4) {
-        let item = { price: 10, quantity: 3000 }
-        setUpdateProfit(updateProfit => [...updateProfit, item])
-      }
-    } else if (type === 'remove') {
-      setUpdateProfit(updateProfit => updateProfit.slice(0, updateProfit.length - 1))
-    }
-  }
+  // const handleChangeUpdateProfitList = (type) => {
+  //   if (type === 'add') {
+  //     if (updateProfit.length < 4) {
+  //       let item = { price: 10, quantity: 3000 }
+  //       setUpdateProfit(updateProfit => [...updateProfit, item])
+  //     }
+  //   } else if (type === 'remove') {
+  //     setUpdateProfit(updateProfit => updateProfit.slice(0, updateProfit.length - 1))
+  //   }
+  // }
 
   function signalProviderCheckBox() {
     if (type === 'self' || type === 'copyTrader')

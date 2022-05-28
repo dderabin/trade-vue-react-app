@@ -177,6 +177,9 @@ const appReducer = createReducer(defaultState, {
         state.failMessage = null
         state.loading = false
     },
+    [AppActions.signalAddSuccessAction]: (state, action) => {
+        state.historyList = [...state.historyList, action.payload.signalObject]
+    },
     [AppActions.userProfileFetchSuccessAction]: (state, action) => {
         state.loading = false
         const { 
