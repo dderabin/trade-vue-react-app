@@ -1,6 +1,7 @@
 import { createAction } from "@reduxjs/toolkit";
 
 export const initAction = createAction('app/init')
+export const loadingAction = createAction('api/loading')
 export const logoutAction = createAction('user/logout');
 export const terminateStatesAction = createAction('terminate/states/action');
 

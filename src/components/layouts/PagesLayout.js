@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks';
 import { AppActions } from '../../store/actions';
 import { Header } from '../Header';
+import Loading from '../Loading';
 import { Sidebar } from '../Sidebar';
 import './../../assets/css/defaults.scss';
 import './../../assets/css/logged-user-styles.scss';
@@ -18,7 +19,7 @@ export const PagesLayout = ({
   const { isAuthenticated } = useAuth();
   const alert = useAlert();
   const dispatch = useDispatch();
-  const { successMessage, failMessage } = useSelector(state => state.appState)
+  const { successMessage, failMessage, loading } = useSelector(state => state.appState)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -55,6 +56,7 @@ export const PagesLayout = ({
   return (
     <>
       <div className="wrapper">
+        {loading && <Loading />}
         <Sidebar collapseSidebar={ collapseSidebar } onOutsideSidebarClickHandler={onOutsideSidebarClickHandler}/>
         <div className="main">
           <Header

@@ -14,7 +14,6 @@ import Axios from "axios"
 import { useDispatch } from "react-redux";
 import { AppActions } from '../../store/actions'
 import useTraderHistory from "../../hooks/useTradeHistory";
-
 // const re = /^[0-9\b]+$/;
 // const positiveFlotReg = /^(?!0\d)\d*(\.\d+)?$/;
 
@@ -599,11 +598,6 @@ export const BuySellForm = (props) => {
     }))
   }
 
-  // const handleChangeBuyForm = (event) => {
-  //   const { namve, value } = event.target
-
-  // }
-
   // const options = [
   //   {
   //     key: 'Binance',
@@ -623,6 +617,7 @@ export const BuySellForm = (props) => {
   // useEffect(() => {
   //   props.getExchanges()
   // }, [])
+
   useEffect(() => {
     setPosition('Spot')
     setLeverage(0)
@@ -678,7 +673,6 @@ export const BuySellForm = (props) => {
   }, [props.tradingSymbol])
   return (
     <div className="tab-content" id="myTabContent">
-
       <div
         className="tab-pane fade show active"
         id="frontend"
@@ -1144,7 +1138,6 @@ export const BuySellForm = (props) => {
                               <option key={item.key} value={item.value}>
                                 {item.value === 'testnet-binanceusdm' ? 'Binance' : item.value}
                               </option>
-
                             )
                             )}
                             {/* <option defaultValue={""} value="btc-usdt">
@@ -1182,18 +1175,15 @@ export const BuySellForm = (props) => {
                     <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                       <div className="input-group">
                         <input
-                          disabled
                           type="text"
                           className="form-control form-input"
                           placeholder="Order ID*"
-                          style={{ backgroundColor: '#e9ecef' }}
+                          disabled
                         />
                         <span style={{ width: '50%' }}
                           className="input-group-text p-0 border-0 bg-primary"
-
                         >
                           <select
-                            disabled
                             className="form-select select-left" style={{ borderLeft: 'none' }}
                           >
                             {historyList.map((history, index) => {

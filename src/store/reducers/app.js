@@ -52,7 +52,11 @@ const appReducer = createReducer(defaultState, {
         state.avgLoss = 0;
         state.monthlyScorecard = [];
     },
+    [AppActions.loadingAction]: (state) => {
+        state.loading = true;
+    },
     [AppActions.userSubscribeSuccessAction]: (state, action) => {
+        state.loading = false
         const { type, userId, exchange, capitalPercent } = action.payload
         let { 
             copyTrader: { subscriptedTo: copySubscriptedTo },
@@ -69,9 +73,11 @@ const appReducer = createReducer(defaultState, {
         }
     },
     [AppActions.monthlyScorecardFetchSuccessAction]: (state, action) => {
+        state.loading = false
         state.monthlyScorecard = action.payload
     },
     [AppActions.portfolioValueFetchSuccessAction]: (state, action) => {
+        state.loading = false
         state.totalTrades = action.payload.totalTrades
         state.totalInvestment = action.payload.totalInvestment
         state.profit = action.payload.profit
@@ -80,12 +86,15 @@ const appReducer = createReducer(defaultState, {
         state.avgLoss = action.payload.avgLoss
     },
     [AppActions.userUploadDocumentsSuccessAction]: (state, action) => {
+        state.loading = false
         state.userInfo.files = action.payload
     },
     [AppActions.signalHistoryFetchSuccessAction]: (state, action) => {
+        state.loading = false
         state.historyList = action.payload
     },
     [AppActions.updateFAQSuccessAction]: (state, action) => {
+        state.loading = false
         const {faqId, ...faq} = action.payload
         let removedOld = [];
         if (faq.type === 'copyTrader') {
@@ -97,6 +106,7 @@ const appReducer = createReducer(defaultState, {
         }
     },
     [AppActions.deleteFAQSuccessAction]: (state, action) => {
+        state.loading = false
         const { type, faqId } = action.payload
         if (type === 'copyTrader') {
             state.copyTrader.FAQs = state.copyTrader.FAQs.filter(({_id}) => _id !== faqId)
@@ -105,6 +115,7 @@ const appReducer = createReducer(defaultState, {
         }
     },
     [AppActions.addFAQSuccessAction]: (state, action) => {
+        state.loading = false
         const { type } = action.payload
         if (type === 'copyTrader') {
             state.copyTrader.FAQs = [...state.copyTrader.FAQs, action.payload]
@@ -113,48 +124,61 @@ const appReducer = createReducer(defaultState, {
         }       
     },
     [AppActions.userInfoUpdateSuccessAction]: (state, action) => {
+        state.loading = false
         const { userName } = action.payload;
         state.userInfo = {...state.userInfo, ...action.payload}
         state.userName = userName;
     },
     [AppActions.apiFecthingAction]: (state, action) => {
+        state.loading = false
         state.loading = true;
     },
     [AppActions.deleteDocumentSuccessAction]: (state, action) => {
+        state.loading = false
         delete state.userInfo.files[action.payload];
         state.successMessage = "Success";
     },
     [AppActions.exchangePlatformCUSuccessAction]: (state, action) => {
+        state.loading = false
         const { msg = "Performed successfully" } = action.payload;
         state.successMessage = msg;
     },
     [AppActions.sagaSuccessAction]: (state, action) => {
+        state.loading = false
         const { msg = null } = action.payload;
         const { message = null } = action.payload;
         state.successMessage = msg || message || "Performed successfully";
     },
     [AppActions.sagaFailAction]: (state, action) => {
+        state.loading = false
         const { error = null } = action.payload;
         const { msg = null } = error;
         state.failMessage = msg || error || "Something went wrong";
     },
     [AppActions.exchangePlatformsFetchSuccessAction]: (state, action) => {
+        state.loading = false
         state.exchangePlatforms = action.payload;
     },
     [AppActions.copyTradersFetchSuccessAction]: (state, action) => {
+        state.loading = false
         state.copyTraders = action.payload
     },
     [AppActions.signalProvidersFetchSuccessAction]: (state, action) => {
+        state.loading = false
         state.signalProviders = action.payload
     },
     [AppActions.exchangeComparisonFetchSuccessAction]: (state, action) => {
+        state.loading = false
         state.coinList = action.payload
     },
     [AppActions.messageConsumedAction]: (state) => {
+        state.loading = false
         state.successMessage = null
         state.failMessage = null
+        state.loading = false
     },
     [AppActions.userProfileFetchSuccessAction]: (state, action) => {
+        state.loading = false
         const { 
             userInfo, 
             copyTrader,
