@@ -42,20 +42,7 @@ const SubscriberList = ({ subscriberList }) => {
           </td>
           <td className="cubscriber" style={{textAlign: 'left'}}>{trader.email}</td>
           <td className="text-center">{trader.signalssent}</td>
-          <td className="text-center fw-bold">{trader.suscribersince}</td>
-         
-          
-         <td className="text-center">
-            {trader.suscribed ? (
-              <Link to={`/trade-configuration/${trader.id}`}>
-                <button onClick={goConfig} className="btn btn-danger">
-                  {trader.remove}
-                </button>
-              </Link>
-            ) : (
-              ""
-            )}
-          </td>
+          <td className="text-center fw-bold">{trader.suscribersince}</td>         
         </tr>
       ))}
     </>

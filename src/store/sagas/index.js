@@ -1,6 +1,8 @@
 import { all, call, put, takeLatest, takeLeading } from 'redux-saga/effects';
+import AxiosInstance from '../../axiosClient';
 import { AppActions } from '../actions'
 import * as Api from '../api'
+import localStorageHelper from '../localstorageHelper';
 
 function* performFetchExchangePlatforms(action) {
     try {
@@ -265,11 +267,14 @@ function* deleteFAQSaga() {
 
 function* performRefreshToken(action) {
     try {
-        yield put(AppActions.loadingAction())
         const response = yield call(Api.REFRESH_TOKEN, action.payload)
-        yield put(AppActions.refreshTokenSuccessAction(response.data))
+        const { token, refreshToken } = response.data
+        localStorageHelper.accessToken = token
+        localStorageHelper.refreshToken = refreshToken
+        AxiosInstance.defaults.headers.common.Authorization = token
     } catch (e) {
         yield put(AppActions.sagaFailAction(e))
+        yield put(AppActions.logoutAction())
     }
 }
 
