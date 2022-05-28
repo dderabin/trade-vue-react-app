@@ -180,6 +180,13 @@ const appReducer = createReducer(defaultState, {
     [AppActions.signalAddSuccessAction]: (state, action) => {
         state.historyList = [...state.historyList, action.payload.signalObject]
     },
+    [AppActions.signalUpdateSuccessAction]: (state, action) => {
+        const { id, entryPrice, stopLoss, targets } = action.payload;
+        let updateItem = state.historyList.find(item => item._id === id)
+        const restOrders = state.historyList.filter((item => item._id !== id))
+        updateItem = {...updateItem, entryPrice, stopLoss, targets}
+        state.historyList = [...restOrders, updateItem]
+    },
     [AppActions.userProfileFetchSuccessAction]: (state, action) => {
         state.loading = false
         const { 
