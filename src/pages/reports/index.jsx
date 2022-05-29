@@ -1,8 +1,9 @@
 import tableArrow_icon from "./../../assets/img/icons/table-arrow.svg";
 import OutsideClickHandler from "react-outside-click-handler";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useTraderHistory } from "../../hooks";
+import { EXCHANGE_MAP } from "../../store/consts";
 
 export const TradeReportPage = () => {
   const [toogle, setToogle] = useState(0);
@@ -148,307 +149,42 @@ export const TradeReportPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="small" onClick={() => showToogle(1)}>
-                      <img
-                        src="/img/uploads/plus.svg"
-                        alt=""
-                        className="img-fluid text-center cursor-pointer"
-                      />
-                    </td>
-                    <td className="text-center">4/4/2021</td>
-                    <td className="text-center">Papad Wala</td>
-                    <td className="text-center">universal</td>
-                    <td className="text-center">Spot</td>
-                    <td className="text-center">Market</td>
-                    <td className="text-center">TRXUSDT</td>
-                    <td className="text-center">1899.00</td>
-                    <td className="text-center">1850.00</td>
-                  </tr>
-                  {toogle === 1 && (
-                    <div className="toggle">
-                      <p>
-                        <strong>Take Profit 1:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 2:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 3:</strong> 0.00
-                      </p>
-                      <p class="mb-0">
-                        <strong>Take Profit 4:</strong> 0.00
-                      </p>
-                    </div>
-                  )}
-                  <tr>
-                    <td className="small" onClick={() => showToogle(2)}>
-                      <img
-                        src="/img/uploads/plus.svg"
-                        alt=""
-                        className="img-fluid text-center cursor-pointer"
-                      />
-                    </td>
-                    <td className="text-center">4/4/2021</td>
-                    <td className="text-center">Papad Wala</td>
-                    <td className="text-center">universal</td>
-                    <td className="text-center">Spot</td>
-                    <td className="text-center">Market</td>
-                    <td className="text-center">TRXUSDT</td>
-                    <td className="text-center">1899.00</td>
-                    <td className="text-center">1850.00</td>
-                  </tr>
-                  {toogle === 2 && (
-                    <div className="toggle">
-                      <p>
-                        <strong>Take Profit 1:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 2:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 3:</strong> 0.00
-                      </p>
-                      <p class="mb-0">
-                        <strong>Take Profit 4:</strong> 0.00
-                      </p>
-                    </div>
-                  )}
-                  <tr>
-                    <td className="small" onClick={() => showToogle(3)}>
-                      <img
-                        src="/img/uploads/plus.svg"
-                        alt=""
-                        className="img-fluid text-center cursor-pointer"
-                      />
-                    </td>
-                    <td className="font">4/4/2021</td>
-                    <td className="text-center">Papad Wala</td>
-                    <td className="text-center">universal</td>
-                    <td className="text-center">Spot</td>
-                    <td className="text-center">Market</td>
-                    <td className="text-center">TRXUSDT</td>
-                    <td className="text-center">1899.00</td>
-                    <td className="text-center">1850.00</td>
-                  </tr>
-                  {toogle === 3 && (
-                    <div className="toggle">
-                      <p>
-                        <strong>Take Profit 1:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 2:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 3:</strong> 0.00
-                      </p>
-                      <p class="mb-0">
-                        <strong>Take Profit 4:</strong> 0.00
-                      </p>
-                    </div>
-                  )}
-                  <tr>
-                    <td className="small" onClick={() => showToogle(4)}>
-                      <img
-                        src="/img/uploads/plus.svg"
-                        alt=""
-                        className="img-fluid text-center cursor-pointer"
-                      />
-                    </td>
-                    <td className="font">4/4/2021</td>
-                    <td className="text-center">Papad Wala</td>
-                    <td className="text-center">universal</td>
-                    <td className="text-center">Spot</td>
-                    <td className="text-center">Market</td>
-                    <td className="text-center">TRXUSDT</td>
-                    <td className="text-center">1899.00</td>
-                    <td className="text-center">1850.00</td>
-                  </tr>
-                  {toogle === 4 && (
-                    <div className="toggle">
-                      <p>
-                        <strong>Take Profit 1:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 2:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 3:</strong> 0.00
-                      </p>
-                      <p class="mb-0">
-                        <strong>Take Profit 4:</strong> 0.00
-                      </p>
-                    </div>
-                  )}
-                  <tr>
-                    <td className="small" onClick={() => showToogle(5)}>
-                      <img
-                        src="/img/uploads/plus.svg"
-                        alt=""
-                        className="img-fluid text-center cursor-pointer"
-                      />
-                    </td>
-                    <td className="font">4/4/2021</td>
-                    <td className="text-center">Papad Wala</td>
-                    <td className="text-center">universal</td>
-                    <td className="text-center">Spot</td>
-                    <td className="text-center">Market</td>
-                    <td className="text-center">TRXUSDT</td>
-                    <td className="text-center">1899.00</td>
-                    <td className="text-center">1850.00</td>
-                  </tr>
-                  {toogle === 5 && (
-                    <div className="toggle">
-                      <p>
-                        <strong>Take Profit 1:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 2:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 3:</strong> 0.00
-                      </p>
-                      <p class="mb-0">
-                        <strong>Take Profit 4:</strong> 0.00
-                      </p>
-                    </div>
-                  )}
-                  <tr>
-                    <td className="small" onClick={() => showToogle(6)}>
-                      <img
-                        src="/img/uploads/plus.svg"
-                        alt=""
-                        className="img-fluid text-center cursor-pointer"
-                      />
-                    </td>
-                    <td className="font">4/4/2021</td>
-                    <td className="text-center">Papad Wala</td>
-                    <td className="text-center">universal</td>
-                    <td className="text-center">Spot</td>
-                    <td className="text-center">Market</td>
-                    <td className="text-center">TRXUSDT</td>
-                    <td className="text-center">1899.00</td>
-                    <td className="text-center">1850.00</td>
-                  </tr>
-                  {toogle === 6 && (
-                    <div className="toggle">
-                      <p>
-                        <strong>Take Profit 1:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 2:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 3:</strong> 0.00
-                      </p>
-                      <p class="mb-0">
-                        <strong>Take Profit 4:</strong> 0.00
-                      </p>
-                    </div>
-                  )}
-                  <tr>
-                    <td className="small" onClick={() => showToogle(7)}>
-                      <img
-                        src="/img/uploads/plus.svg"
-                        alt=""
-                        className="img-fluid text-center cursor-pointer"
-                      />
-                    </td>
-                    <td className="font">4/4/2021</td>
-                    <td className="text-center">Papad Wala</td>
-                    <td className="text-center">universal</td>
-                    <td className="text-center">Spot</td>
-                    <td className="text-center">Market</td>
-                    <td className="text-center">TRXUSDT</td>
-                    <td className="text-center">1899.00</td>
-                    <td className="text-center">1850.00</td>
-                  </tr>
-                  {toogle === 7 && (
-                    <div className="toggle">
-                      <p>
-                        <strong>Take Profit 1:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 2:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 3:</strong> 0.00
-                      </p>
-                      <p class="mb-0">
-                        <strong>Take Profit 4:</strong> 0.00
-                      </p>
-                    </div>
-                  )}
-                  <tr>
-                    <td className="small" onClick={() => showToogle(8)}>
-                      <img
-                        src="/img/uploads/plus.svg"
-                        alt=""
-                        className="img-fluid text-center cursor-pointer"
-                      />
-                    </td>
-                    <td className="font">4/4/2021</td>
-                    <td className="text-center">Papad Wala</td>
-                    <td className="text-center">universal</td>
-                    <td className="text-center">Spot</td>
-                    <td className="text-center">Market</td>
-                    <td className="text-center">TRXUSDT</td>
-                    <td className="text-center">1899.00</td>
-                    <td className="text-center">1850.00</td>
-                  </tr>
-                  {toogle === 8 && (
-                    <div className="toggle">
-                      <p>
-                        <strong>Take Profit 1:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 2:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 3:</strong> 0.00
-                      </p>
-                      <p class="mb-0">
-                        <strong>Take Profit 4:</strong> 0.00
-                      </p>
-                    </div>
-                  )}
-                  <tr>
-                    <td className="small" onClick={() => showToogle(9)}>
-                      <img
-                        src="/img/uploads/plus.svg"
-                        alt=""
-                        className="img-fluid text-center cursor-pointer"
-                      />
-                    </td>
-                    <td className="font">4/4/2021</td>
-                    <td className="text-center">Papad Wala</td>
-                    <td className="text-center">universal</td>
-                    <td className="text-center">Spot</td>
-                    <td className="text-center">Market</td>
-                    <td className="text-center">TRXUSDT</td>
-                    <td className="text-center">1899.00</td>
-                    <td className="text-center">1850.00</td>
-                  </tr>
-                  {toogle === 9 && (
-                    <div className="toggle">
-                      <p>
-                        <strong>Take Profit 1:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 2:</strong> 0.00
-                      </p>
-                      <p>
-                        <strong>Take Profit 3:</strong> 0.00
-                      </p>
-                      <p class="mb-0">
-                        <strong>Take Profit 4:</strong> 0.00
-                      </p>
-                    </div>
-                  )}
+                  { historyList.map((item, index) => {
+                    return (<React.Fragment key={index}>
+                      <tr>
+                        <td className="small" onClick={() => showToogle(index + 1)}>
+                          <img
+                            src="/img/uploads/plus.svg"
+                            alt=""
+                            className="img-fluid text-center cursor-pointer"
+                          />
+                        </td>
+                        <td className="text-center">{item.signalTime.split('T')[0]}</td>
+                        <td className="text-center">{}</td>
+                        <td className="text-center">{EXCHANGE_MAP[item.exchangePlatform]}</td>
+                        <td className="text-center">{item.signalType}</td>
+                        <td className="text-center">Market</td>
+                        <td className="text-center">{item.symbol.from + item.symbol.to}</td>
+                        <td className="text-center">{item?.entryPrice || ''}</td>
+                        <td className="text-center">{item.stopLoss}</td>
+                      </tr>
+                      {toogle === index + 1 && (
+                        <div className="toggle">
+                          { item.targets.map((target, index) => {
+                            return (
+                              <p key={index} className={item.targets.length === index + 1 ? "mb-0" : ""}>
+                                <strong>Take Profit {index + 1}:</strong> {parseFloat(target.amount).toFixed(2)}
+                              </p>
+                            )
+                          })}
+                        </div>
+                      )}
+                    </React.Fragment>)
+                  })}
                 </tbody>
               </table>
             </div>
-            <div className="row mt-4">
+            {/* <div className="row mt-4">
               <div className="col-xl-3 col-lg-3 col-12 my-auto">
                 <p className="mb-0 d-none d-sm-block">
                   Showing 1 to 10 of 57 entries
@@ -479,7 +215,7 @@ export const TradeReportPage = () => {
                   </a>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
