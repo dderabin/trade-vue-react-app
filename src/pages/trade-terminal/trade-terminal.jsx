@@ -514,6 +514,17 @@ export const BuySellForm = (props) => {
     }))
   }
 
+  const handleChangeUpdateProfitList = (type) => {
+    if (type === 'add') {
+      if (updateProfit.length < 4) {
+        let item = { price: 0, amount: 0 }
+        setUpdateProfit(updateProfit => [...updateProfit, item])
+      }
+    } else if (type === 'remove') {
+      setUpdateProfit(updateProfit => updateProfit.slice(0, updateProfit.length - 1))
+    }
+  }
+
   function signalProviderCheckBox() {
     if (type === 'self' || type === 'copyTrader')
       setType('signalProvider')
@@ -1275,6 +1286,28 @@ export const BuySellForm = (props) => {
                       </div>
                     )
                   })}
+                  { signal && <div className="row mt-2">
+                    <div className="d-flex justify-content-between profit-action mt-3">
+                      <div className="profit-ui" onClick={() => handleChangeUpdateProfitList("add")}>
+                        <img
+                          src="img/uploads/plus.svg"
+                          alt=""
+                          className="img-fluid me-1"
+                          style={{ height: '16px' }}
+                        />
+                        <span style={{ color: '#199B4D', fontWeight: '500', fontSize: "14px" }}>Add Take Profit</span>
+                      </div>
+                      <div className="profit-ui" onClick={() => handleChangeUpdateProfitList("remove")}>
+                        <img
+                          src={icon_modal_minus}
+                          alt=""
+                          className="img-fluid me-1"
+                          style={{ height: '16px' }}
+                        />
+                        <span style={{ color: '#EF3B45', fontWeight: '500', fontSize: "14px" }}>Remove Take Profit</span>
+                      </div>
+                    </div>
+                  </div>}
                   <div className="row mt-3 pb-3">
                     <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                       <div className="d-grid gap-2">
