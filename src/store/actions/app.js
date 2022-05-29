@@ -119,3 +119,7 @@ export const monthlyScorecardFetchFailAction = createAction('monthly/scorecard/f
 export const changePasswordAction = createAction('change/password')
 export const changePasswordSuccessAction = createAction('change/password/success')
 export const changePasswordFailAction = createAction('change/password/fail')
+
+export const subscribersFetchAction = createAction('subscribers/fetch')
+export const subscribersFetchSuccessAction = createAction('subscribers/fetch/success')
+export const subscribersFetchFailAction = createAction('subscribers/fetch/fail')

@@ -50,7 +50,7 @@ export const TradeConfigurationPage = () => {
   return (
     <>
       <Helmet>
-        <title>{id}: Trade Configuration · Traderpro</title>
+        <title>Trade Configuration · Traderpro</title>
       </Helmet>
       <div className="container-fluid p-0">
         <div className="card mb-0 d-xl-block d-none">

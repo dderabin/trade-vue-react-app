@@ -5,6 +5,8 @@ import useSignalProviders from "./useSignalProviders";
 import useCoinList from "./useCoinList";
 import useTraderHistory from "./useTradeHistory";
 import usePortfolioValues from "./usePortfolioValues";
+import useSubscribersForCopyTraders from "./useSubscribersForCopyTraders";
+import useSubscribersForSignalProviders from "./useSubscribersForSignalProviders";
 
 export {
   useExchanges,
@@ -14,4 +16,6 @@ export {
   useCoinList,
   useTraderHistory,
   usePortfolioValues,
+  useSubscribersForCopyTraders,
+  useSubscribersForSignalProviders,
 }

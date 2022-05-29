@@ -4,7 +4,7 @@ import { AppActions } from '../store/actions';
 
 const useSignalProviders = () => {
   const dispatch = useDispatch();
-  const signalProviders = useSelector(state => state.appState.signalProviders);
+  const { signalProviders } = useSelector(state => state.appState);
 
   useEffect(() => {
     dispatch(AppActions.signalProvidersFetchAction())

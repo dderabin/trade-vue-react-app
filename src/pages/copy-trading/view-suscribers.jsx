@@ -4,10 +4,10 @@ import arrowicon from "../../assets/img/table-arrow.svg";
 
 import useDraggableScroll from "use-draggable-scroll";
 import { Helmet } from "react-helmet";
-import { useSelector } from "react-redux";
+import { useSubscribersForCopyTraders } from "../../hooks";
 
 export const ViewSubscribersPage = () => {
-  const { subscribers = [] } = useSelector(state => state.appState.copyTrader) 
+  const { subscribersForCopyTraders: subscribers } = useSubscribersForCopyTraders()
   const ref = useRef(null);
   const { onMouseDown } = useDraggableScroll(ref);
   

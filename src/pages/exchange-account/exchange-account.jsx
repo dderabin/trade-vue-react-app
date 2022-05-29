@@ -111,6 +111,7 @@ export const ExchangeAccountPage = () => {
                           aria-describedby="api-key"
                           value={apiKey}
                           onChange={(event) => setApiKey(event.target.value)}
+                          autoComplete="false"
                           required
                         />
                         <button 
@@ -135,6 +136,7 @@ export const ExchangeAccountPage = () => {
                           aria-describedby="secret-key"
                           value={apiSecret}
                           onChange={(event) => setApiSecret(event.target.value)}
+                          autoComplete="false"
                           required
                         />
                         <button

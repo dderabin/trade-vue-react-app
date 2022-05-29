@@ -1,5 +1,4 @@
 import TraderList from "../../components/copy-trader/traders";
-import GridTraderList from "../../components/copy-trader/grid-trader";
 import arrowicon from "../../assets/img/table-arrow.svg";
 import React, { useRef } from "react";
 import useDraggableScroll from "use-draggable-scroll";
@@ -23,132 +22,82 @@ export const ViewCopyTraderListPage = () => {
             <span>View Top Traders</span>
           </div>
         </div>
+        <div className="card mb-0 card-light-grey mt-3">
+          <div id="myData"></div>
+          <script type="text/javascript"></script>
 
-        {/* <div className="card grey-card mb-0">
-          <div className="card-body">
-            <div className="row">
-              <div className="col-xl-3 col-lg-3 col-7">
-                <div className="form-group has-search">
-                  <span className="form-control-feedback">
-                    <img src={searchicon} alt="" className="img-fluid" />
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Search..."
-                    onKeyUp={(e) => searchTrader(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="col-xl-9 col-lg-9 col-5 buttonviews d-flex">
-                <div className="ms-auto">
-                  <img
-                    src={viewtype ? listview : listwhiteview}
-                    alt=""
-                    className="img-fluid me-2"
-                    onClick={() => setViewType(true)}
-                  />
-                 <img
-                    src={viewtype ? gridview : gridfilledview}
-                    alt=""
-                    className="img-fluid"
-                    onClick={() => setViewType(false)}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
-        {appliedCopyTraders.length > 0 ? (
-          <div className="card mb-0 card-light-grey mt-3">
-            <div id="myData"></div>
-            <script type="text/javascript"></script>
-
-            <div className="card-body mob-pad-0">
-              <div
-                className="table-responsive"
-                ref={ref}
-                onMouseDown={onMouseDown}
-              >
-                <table className="table table-striped">
-                  <thead className="bg-white">
-                    <tr className="header">
-                      <th scope="col">
-                        Name
-                        <img
-                          src={arrowicon}
-                          alt=""
-                          className="img-fluid ps-1"
-                        />
-                      </th>
-                      <th scope="col" className="text-center">
-                        Subscribers
-                        <img
-                          src={arrowicon}
-                          alt=""
-                          className="img-fluid ps-1"
-                        />
-                      </th>
-                      <th scope="col" className="text-center">
-                        Membership
-                        <img
-                          src={arrowicon}
-                          alt=""
-                          className="img-fluid ps-1"
-                        />
-                      </th>
-                      <th scope="col" className="text-center">
-                        Signals Sent
-                        <img
-                          src={arrowicon}
-                          alt=""
-                          className="img-fluid ps-1"
-                        />
-                      </th>
-                      <th scope="col" className="text-center">
-                        Copy Trades
-                        <img
-                          src={arrowicon}
-                          alt=""
-                          className="img-fluid ps-1"
-                        />
-                      </th>
-                      <th scope="col" className="text-center">
-                        Profit
-                        <img
-                          src={arrowicon}
-                          alt=""
-                          className="img-fluid ps-1"
-                        />
-                      </th>
-                      <th scope="col" className="text-center">
-                        Action
-                        {/* <img
-                          src={arrowicon}
-                          alt=""
-                          className="img-fluid ps-1"
-                        /> */}
-                      </th>
-                      <th scope="col" className="text-center">
-                      Configure
-                      {/* <img
+          <div className="card-body mob-pad-0">
+            <div
+              className="table-responsive"
+              ref={ref}
+              onMouseDown={onMouseDown}
+            >
+              <table className="table table-striped">
+                <thead className="bg-white">
+                  <tr className="header">
+                    <th scope="col">
+                      Name
+                      <img
                         src={arrowicon}
                         alt=""
                         className="img-fluid ps-1"
-                      /> */}
+                      />
+                    </th>
+                    <th scope="col" className="text-center">
+                      Subscribers
+                      <img
+                        src={arrowicon}
+                        alt=""
+                        className="img-fluid ps-1"
+                      />
+                    </th>
+                    <th scope="col" className="text-center">
+                      Membership
+                      <img
+                        src={arrowicon}
+                        alt=""
+                        className="img-fluid ps-1"
+                      />
+                    </th>
+                    <th scope="col" className="text-center">
+                      Signals Sent
+                      <img
+                        src={arrowicon}
+                        alt=""
+                        className="img-fluid ps-1"
+                      />
+                    </th>
+                    <th scope="col" className="text-center">
+                      Copy Trades
+                      <img
+                        src={arrowicon}
+                        alt=""
+                        className="img-fluid ps-1"
+                      />
+                    </th>
+                    <th scope="col" className="text-center">
+                      Profit
+                      <img
+                        src={arrowicon}
+                        alt=""
+                        className="img-fluid ps-1"
+                      />
+                    </th>
+                    <th scope="col" className="text-center">
+                      Action
+                    </th>
+                    <th scope="col" className="text-center">
+                      Configuration
                     </th> 
-                    </tr>
-                  </thead>
-                  <tbody id="myTabledata">
-                    <TraderList traderList={appliedCopyTraders} />
-                  </tbody>
-                </table>
-              </div>
+                  </tr>
+                </thead>
+                <tbody id="myTabledata">
+                  <TraderList traderList={appliedCopyTraders} />
+                </tbody>
+              </table>
             </div>
           </div>
-         ) : (
-         <GridTraderList traderList={appliedCopyTraders} />
-        )}
+        </div>
       </div>
     </>
   );

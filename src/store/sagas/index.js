@@ -395,6 +395,19 @@ function* changePasswordSaga() {
     yield takeLatest(AppActions.changePasswordAction.toString(), performChangePassword)
 }
 
+function* performFetchSubscribers(action) {
+    try {
+        yield put(AppActions.loadingAction())
+        const response = yield call(Api.GET_SUBSCRIBERS, action.payload)
+        yield put(AppActions.subscribersFetchSuccessAction({subscribers: response.data, ...action.payload}))
+    } catch(e) {
+        yield put(AppActions.sagaFailAction(e))
+    }
+}
+
+function* fetchSubscribersSaga() {
+    yield takeLatest(AppActions.subscribersFetchAction.toString(), performFetchSubscribers)
+}
 
 export default function* rootSaga() {
     yield all([
@@ -425,5 +438,6 @@ export default function* rootSaga() {
         fetchPortfolioValuesSaga(),
         fetchMonthlyScorecardSaga(),
         changePasswordSaga(),
+        fetchSubscribersSaga(),
     ])
 }

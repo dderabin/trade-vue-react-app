@@ -25,6 +25,8 @@ const defaultState = {
     avgProfit: 0,
     avgLoss: 0,
     monthlyScorecard: [],
+    subscribersForCopyTraders: [],
+    subscribersForSignalProviders: [],
 }
 
 const appReducer = createReducer(defaultState, {
@@ -51,9 +53,17 @@ const appReducer = createReducer(defaultState, {
         state.avgProfit = 0;
         state.avgLoss = 0;
         state.monthlyScorecard = [];
+        state.subscribersForCopyTraders = [];
+        state.subscribersForSignalProviders = [];
     },
     [AppActions.loadingAction]: (state) => {
         state.loading = true;
+    },
+    [AppActions.subscribersFetchSuccessAction]: (state, action) => {
+        state.loading = false
+        const { subscribers, type } = action.payload;
+        if (type === 'copyTrader') state.subscribersForCopyTraders = subscribers;
+        else state.subscribersForSignalProviders = subscribers;
     },
     [AppActions.userSubscribeSuccessAction]: (state, action) => {
         state.loading = false

@@ -3,7 +3,6 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import React, { useState } from "react";
 
 export const ViewCopyTrader = () => {
-  // const [listView, setListView] = useState("list");
   const [listView] = useState("list");
   const [open, setOpen] = useState(false);
 
@@ -53,7 +52,6 @@ export const ViewCopyTrader = () => {
                   id="dropdownMenuButton1"
                   data-bs-toggle="dropdown"
                   onClick={() => openMenu()}
-                  // aria-expanded="true"
                 >
                   Export Data
                 </button>

@@ -68,7 +68,7 @@ const TraderList = ({ traderList }) => {
             {trader.subscribed ? (
               <Link to={`/trade-configuration/${trader._id}`}>
                 <button className="btn btn-success">
-                  Trade Configuration
+                  Configure
                 </button>
               </Link>
             ) : (

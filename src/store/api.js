@@ -1,19 +1,19 @@
 import AxiosInstance from '../axiosClient';
 
-export const ADD_NEW_SIGNAL = (data) => {
+export const ADD_NEW_SIGNAL = (data = {}) => {
     return AxiosInstance.put(`/user/trade/signal`, data)
 }
 
-export const UPDATE_SIGNAL = (data) => {    
+export const UPDATE_SIGNAL = (data = {}) => {    
     return AxiosInstance.post(`/user/trade/signal`, data)
 }
 
-export const SIGNUP_USER = (data) => {
+export const SIGNUP_USER = (data = {}) => {
     // form data data
     return AxiosInstance.post(`/user/new`, data)
 }
 
-export const LOGIN_USER = (data) => {
+export const LOGIN_USER = (data = {}) => {
     // raw json data
     return AxiosInstance.post(`/user/login`, data);
 }
@@ -22,12 +22,12 @@ export const GET_PROFILE = () => {
     return AxiosInstance.get(`/user/profile`);
 }
 
-export const ADD_UPDATE_EXCHANGE = (data) => {
+export const ADD_UPDATE_EXCHANGE = (data = {}) => {
     // raw json data
     return AxiosInstance.put(`/user/exchanges`, data)
 }
 
-export const REMOVE_EXCHANGE = (data) => {
+export const REMOVE_EXCHANGE = (data = {}) => {
     // raw json data
     // const data = {
     //     "exchangePlatform": "testnet-binanceusdm"
@@ -35,7 +35,7 @@ export const REMOVE_EXCHANGE = (data) => {
     return AxiosInstance.delete(`/user/exchanges`, data)
 }
 
-export const ADD_USER_INFO = (data) => {
+export const ADD_USER_INFO = (data = {}) => {
     // raw json data
     return AxiosInstance.put(`/user/user-info`, data)
 }
@@ -45,7 +45,7 @@ export const ENABLE_COPYTRADER = () => {
     return AxiosInstance.post(`/user/enable-copy-trader`)
 }
 
-export const SUBSCRIBE_TO_COPYTRADER_OR_SIGNALPROVIDER = (data) => {
+export const SUBSCRIBE_TO_COPYTRADER_OR_SIGNALPROVIDER = (data = {}) => {
     // raw json data
     // const data = {
     //     "userId": "6201272e317b3c88d760a64d",
@@ -56,14 +56,14 @@ export const SUBSCRIBE_TO_COPYTRADER_OR_SIGNALPROVIDER = (data) => {
     return AxiosInstance.post(`/user/subscribe`, data)
 }
 
-export const ENABLE_SIGNALPROVIDER = (data) => {
+export const ENABLE_SIGNALPROVIDER = (data = {}) => {
     // no data
     // const data = {        
     // }
     return AxiosInstance.post(`/user/enable-signal-provider`, data)
 }
 
-export const UPLOAD_DOCUMENTS = (data) => {
+export const UPLOAD_DOCUMENTS = (data = {}) => {
     // form-data data
     const { passport, drivingLicense, nationalId } = data;
     const formData = new FormData();
@@ -73,12 +73,12 @@ export const UPLOAD_DOCUMENTS = (data) => {
     return AxiosInstance.put(`/user/upload-documents`, formData)
 }
 
-export const DELETE_DOCUMENT = (data) => {
+export const DELETE_DOCUMENT = (data = {}) => {
     // raw json data
     return AxiosInstance.delete(`/user/upload-documents`, {data})
 }
 
-export const CONFIGURE_SUBSCRIPTION_STATUS = (data) => {
+export const CONFIGURE_SUBSCRIPTION_STATUS = (data = {}) => {
     // raw json data
     // const data = {
     //     "userId": "6201272e317b3c88d760a64d",
@@ -89,12 +89,12 @@ export const CONFIGURE_SUBSCRIPTION_STATUS = (data) => {
     return AxiosInstance.post(`/user/configure-subscription`, data)
 }
 
-export const NEW_FAQ = (data) => {
+export const NEW_FAQ = (data = {}) => {
     // raw json data
     return AxiosInstance.put(`/user/faq`, data)
 }
 
-export const UPDATE_FAQ = (data) => {
+export const UPDATE_FAQ = (data = {}) => {
     // raw json data
     // const data = {
     //     "type": "copyTrader",
@@ -105,7 +105,7 @@ export const UPDATE_FAQ = (data) => {
     return AxiosInstance.post(`/user/faq`, data)
 }
 
-export const DELETE_FAQ = (data) => {
+export const DELETE_FAQ = (data = {}) => {
     // raw json data
     // const data = {
     //     "type": "copyTrader",
@@ -114,31 +114,22 @@ export const DELETE_FAQ = (data) => {
     return AxiosInstance.delete(`/user/faq`, {data})
 }
 
-export const REFRESH_TOKEN = (data) => {
+export const REFRESH_TOKEN = (data = {}) => {
     // raw json data
-    // const data = {
-    //     "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjVkMjY0ZGUzNmQ2ZmEyY2M5MDRlNWMiLCJpYXQiOjE2NTAyNzE4MjF9.7oa1IXb2WEZCgmyADF2DKCweYFvgTkSwEezR0rAtm2A"
-    // }
     return AxiosInstance.post(`/user/refresh-token`, data)
 }
 
-export const GET_EXCHANGE_LIST = (data) => {
+export const GET_EXCHANGE_LIST = () => {
     return AxiosInstance.get(`/exchanges/list`)
 }
 
-export const GET_COPYTRADERS = (data) => {
-    const page = 0
-    const pagination = 5
-    const orderBy = "lname"
-    const type = "highToLow"
+export const GET_COPYTRADERS = (data = {}) => {
+    const { page = 0, pagination = 5, orderBy = "lname", type = "highToLow" } = data
     return AxiosInstance.get(`/users/copy-traders?page=${page}&pagination=${pagination}&orderBy=${orderBy}&type=${type}`)
 }
 
-export const GET_SIGNALPROVIDERS = (data) => {
-    const page = 0
-    const pagination = 5
-    const orderBy = "lname"
-    const type = "highToLow"
+export const GET_SIGNALPROVIDERS = (data = {}) => {
+    const { page = 0, pagination = 5, orderBy = "lname", type = "highToLow" } = data
     return AxiosInstance.get(`/users/signal-providers?page=${page}&pagination=${pagination}&orderBy=${orderBy}&type=${type}`)
 }
 
@@ -146,16 +137,16 @@ export const GET_COMPARISON_PAGE_COINS = () => {
     return AxiosInstance.get(`/exchanges/comparison-page-coins`)   
 }
 
-export const UPLOAD_AVATAR = (data) => {
+export const UPLOAD_AVATAR = (data = {}) => {
     const { avatar } = data
     const formData = new FormData();
     formData.append("avatar", avatar)
     return AxiosInstance.put(`/user/upload-avatar`, formData)
 }
 
-export const GET_SIGNAL_HISTORY = (data) => {
-    const page = 0, count = 5;
-    return AxiosInstance.get(`/user/signal-history?page=${page}&pagination=${count}`)
+export const GET_SIGNAL_HISTORY = (data = {}) => {
+    const { page = 0, pagination = 5 } = data;
+    return AxiosInstance.get(`/user/signal-history?page=${page}&pagination=${pagination}`)
 }
 
 export const GET_PORTFOLIO_VALUES = () => {
@@ -182,8 +173,13 @@ export const GET_MONTHLY_COPYTRADER_SUBSCRIBERS_COUNT = () => {
     return AxiosInstance.get(`/user/portfolio/monthly-copytrader-subscribers-count`)
 }
 
-export const CHANGE_PASSWORD = (data) => {
+export const CHANGE_PASSWORD = (data = {}) => {
     return AxiosInstance.post(`/user/change-password`, data)
+}
+
+export const GET_SUBSCRIBERS = (data = {}) => {
+    const { page = 0, pagination = 5, type } = data;
+    return AxiosInstance.get(`/user/subscribers-list?page=${page}&pagination=${pagination}&type=${type}`)
 }
 
 export const TEST_SERVER = () => {
