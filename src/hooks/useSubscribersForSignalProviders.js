@@ -8,6 +8,7 @@ const useSubscribersForSignalProviders = () => {
 
   useEffect(() => {
     dispatch(AppActions.subscribersFetchAction({type: 'signalProvider'}))
+    // eslint-disable-next-line
   }, [])
 
   return { subscribersForSignalProviders }

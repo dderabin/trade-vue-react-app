@@ -1,14 +1,7 @@
-import search_icon from "./../../assets/img/icons/search-icon.svg";
-import listView_icon from "./../../assets/img/icons/list-view.svg";
-import gridView_icon from "./../../assets/img/icons/grid-view.svg";
-import tableArrow_icon from "./../../assets/img/icons/table-arrow.svg";
 import useDraggableScroll from "use-draggable-scroll";
-
-import user_icon_1 from "./../../assets/img/user-icon/user-1.svg";
 import React, { useRef, useState } from "react";
 import { ShowBreadcrumbs } from "../../components/ShowBreadcrumbs";
 
-import traders from "./../copy-trading/data/trader-data";
 import TraderList from "../../components/copy-trader/traders";
 import GridTraderList from "../../components/copy-trader/grid-trader";
 import listview from "../../assets/img/uploads/list-view.svg";
@@ -17,26 +10,13 @@ import gridview from "../../assets/img/uploads/grid-view.svg";
 import gridfilledview from "../../assets/img/uploads/grid-filled.svg";
 import searchicon from "../../assets/img/uploads/search-icon.svg";
 import arrowicon from "../../assets/img/table-arrow.svg";
-import { useAlert } from "react-alert";
 import { Helmet } from "react-helmet";
 
 export const FavouritesPages = () => {
   const ref = useRef(null);
-  const alert = useAlert();
-
-  const { onMouseDown } = useDraggableScroll(ref);
-
-  const [traderList, setTraderList] = useState([]);
+  const { onMouseDown } = useDraggableScroll(ref);  
   const [viewtype, setViewType] = useState(true);
-  var searchTraderList;
-  const searchTrader = (value) => {
-    if (value !== "") {
-      searchTraderList = traders.filter((trader) => trader.firstname === value);
-    } else {
-      searchTraderList = traders;
-    }
-    setTraderList(searchTraderList);
-  };
+  const traderList = [];
   return (
     <>
       <Helmet>
@@ -67,7 +47,7 @@ export const FavouritesPages = () => {
                     type="text"
                     className="form-control"
                     placeholder="Search..."
-                    onKeyUp={(e) => searchTrader(e.target.value)}
+                    onKeyUp={(e) => console.loe(e.target.value)}
                   />
                 </div>
               </div>

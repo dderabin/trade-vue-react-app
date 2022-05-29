@@ -4,7 +4,6 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import { useState } from "react";
 
 export const AdminViewSignalProviderPage = () => {
-  // const [listView, setListView] = useState("list");
   const [listView] = useState("list");
   const [open, setOpen] = useState(false);
   

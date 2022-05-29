@@ -9,13 +9,8 @@ import { useSelector } from "react-redux";
 import { enableStatus } from "../../store/consts";
 const JoinCopyTraderPage = () => {
   const { 
-    FAQs = [], 
-    profitRate = 0,
-    signals = [], 
+    FAQs = [],
     state = "disabled",
-    subscribeFee = 0,
-    subscribers = [], 
-    subscriptedTo = [],
   } = useSelector(state => state.appState.copyTrader)
   const { files = {}, ...profile } = useSelector(state => state.appState.userInfo)
   const [activetab, setActiveTab] = useState("profile");

@@ -3,7 +3,6 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import React, { useState } from "react";
 
 const ActivateSignalProviderPage = () => {
-  // const [listView, setListView] = useState("list");
   const [listView] = useState("list");
   const [open, setOpen] = useState(false);
 

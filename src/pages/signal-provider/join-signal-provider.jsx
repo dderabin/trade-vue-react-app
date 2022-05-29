@@ -11,12 +11,7 @@ import { enableStatus } from "../../store/consts";
 const JoinSignalProviderPage = () => {
   const { 
     FAQs = [], 
-    profitRate = 0,
-    signals = [], 
     state = "disabled",
-    subscribeFee = 0,
-    subscribers = [], 
-    subscriptedTo = [],
   } = useSelector(state => state.appState.signalProvider)
   const { files = {}, ...profile } = useSelector(state => state.appState.userInfo)
   const [activetab, setActiveTab] = useState("profile");

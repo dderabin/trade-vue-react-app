@@ -28,9 +28,6 @@ var bitmexwebsocket = null;
 var krakenwebsocket = null;
 var coinbasewebsocket = null;
 var Ftxwebsocket = null;
-
-var pageOpened = false
-
 var mainMarkList = []
 
 const PriceComparisonPage = () => {
@@ -39,13 +36,11 @@ const PriceComparisonPage = () => {
   const { onMouseDown } = useDraggableScroll(ref);
   const [loading, setLoading] = useState(true);
   const [pricedata, setPriceData] = useState([]);
-  const [pagesize, setPageSize] = useState(20);
+  const pagesize = 20;
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [isFirstLoading, setIsFirstLoading] = useState(true);
   var id;
   var allcoin;
-  var ping;
   var lastCol = document.getElementById("last-col");
   var firstCol = document.getElementById("first-col");
 
@@ -638,7 +633,7 @@ const PriceComparisonPage = () => {
         if (document.getElementById(id + "b")) {
           document.getElementById(id + "b").innerText = priceb;
         }
-      } else if (payload.type === "pong") ping = "done";
+      }
     }
   };
   const handleClick = (number) => {
@@ -661,7 +656,6 @@ const PriceComparisonPage = () => {
 
     if (marklist.length > 0) {
       mainMarkList = marklist;
-      pageOpened = true
     }
 
     console.log('request to connect ');
@@ -738,41 +732,43 @@ const PriceComparisonPage = () => {
       // setTimeout(CurrencyTable, 3000);
     };
   };
-  const refresgWebSocket = () => {
-    if (wsbn !== null) {
-      wsbn.close();
-    }
-    if (huobiwebsocket !== null) {
-      huobiwebsocket.close();
-    }
-    if (bitmexwebsocket !== null) {
-      bitmexwebsocket.close();
-    }
-    if (krakenwebsocket !== null) {
-      krakenwebsocket.close();
-    }
-    if (coinbasewebsocket !== null) {
-      coinbasewebsocket.close();
-    }
-    if (Ftxwebsocket !== null) {
-      Ftxwebsocket.close();
-    }
-  };
-  const pageChange = (option) => {
-    setLoading(false);
-    setPage(1);
-    setPageSize(option);
-  };
+  // const refresgWebSocket = () => {
+  //   if (wsbn !== null) {
+  //     wsbn.close();
+  //   }
+  //   if (huobiwebsocket !== null) {
+  //     huobiwebsocket.close();
+  //   }
+  //   if (bitmexwebsocket !== null) {
+  //     bitmexwebsocket.close();
+  //   }
+  //   if (krakenwebsocket !== null) {
+  //     krakenwebsocket.close();
+  //   }
+  //   if (coinbasewebsocket !== null) {
+  //     coinbasewebsocket.close();
+  //   }
+  //   if (Ftxwebsocket !== null) {
+  //     Ftxwebsocket.close();
+  //   }
+  // };
+  // const pageChange = (option) => {
+  //   setLoading(false);
+  //   setPage(1);
+  //   setPageSize(option);
+  // };
   useEffect(() => {
     FtxWebSocketGet();
     coinbaseWebSocketGet();
     huobiWebSocketGet();
     bitmexWebSocketGet();
     krakenWebSocketGet();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     CurrencyTable();
+    // eslint-disable-next-line
   }, [page, pagesize, coinList]);
 
   return (

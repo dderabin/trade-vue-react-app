@@ -3,7 +3,6 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import React, { useState } from "react";
 
 export const ExecutedSignalProviderPage = () => {
-  // const [listView, setListView] = useState("list");
   const [listView] = useState("list");
   const [toogle, setToogle] = useState(0);
   const [open, setOpen] = useState(false);

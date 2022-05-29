@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import icon_up from "./../../assets/img/icons/dir_up_green.svg";
 import icon_down from "./../../assets/img/icons/dir_down_red.svg";
-import usePortfolioValues from '../../hooks/usePortfolioValues';
 import { GET_PORTFOLIO_VALUES } from '../../store/api';
 
 const Profitability = () => {
@@ -51,7 +50,7 @@ const Profitability = () => {
           <div className='avg-loss'>
             <div className='avg-content'>
               <img src={icon_down} alt="icon_down" />
-              <span>${parseFloat(portfolioValues.avgLoss).toFixed(2)}</span>
+              <span>${parseFloat(portfolioValues?.avgLoss || 0).toFixed(2)}</span>
             </div>
             <div>
               <span>Avg. Loss</span>
@@ -63,7 +62,7 @@ const Profitability = () => {
       <div className='col-md-3 col-6'>
         <div className='profit-card bg-white content-item'>
           <span>Profitable</span>
-          <span>{parseFloat(portfolioValues.profit).toFixed(2)}%</span>
+          <span>{parseFloat(portfolioValues?.profit || 0).toFixed(2)}%</span>
         </div>
       </div>
     </div>

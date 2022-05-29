@@ -1,75 +1,21 @@
-import search_icon from "./../../assets/img/icons/search-icon.svg";
-import listView_icon from "./../../assets/img/icons/list-view.svg";
-import gridView_icon from "./../../assets/img/icons/grid-view.svg";
-import tableArrow_icon from "./../../assets/img/icons/table-arrow.svg";
-import plus_icon from "./../../assets/img/icons/plus.svg";
-import equal_icon from "./../../assets/img/icons/equal.svg";
 import open_dir_icon from "./../../assets/img/icons/open_dir.svg";
 import dash_portfolio_icon from "./../../assets/img/icons/case_active.svg";
 import dash_portfolio_icon_deactive from "./../../assets/img/icons/case_deactive.svg";
-import dash_profitability_icon from "./../../assets/img/icons/dash_profitability.svg";
 import dash_scorecard_icon from "./../../assets/img/icons/dash_scorecard.svg";
 import dash_subscription_icon from "./../../assets/img/icons/dash_subscription.svg";
-import useDraggableScroll from "use-draggable-scroll";
 import { Link } from "react-router-dom";
-
-import user_icon_1 from "./../../assets/img/user-icon/user-1.svg";
-import React, { useRef, useState } from "react";
-import { ShowBreadcrumbs } from "../../components/ShowBreadcrumbs";
-
-import traders from "./../copy-trading/data/trader-data";
-import TraderList from "../../components/copy-trader/traders";
-import GridTraderList from "../../components/copy-trader/grid-trader";
-import listview from "../../assets/img/uploads/list-view.svg";
-import listwhiteview from "../../assets/img/uploads/list-white.svg";
-import gridview from "../../assets/img/uploads/grid-view.svg";
-import gridfilledview from "../../assets/img/uploads/grid-filled.svg";
-import searchicon from "../../assets/img/uploads/search-icon.svg";
-import arrowicon from "../../assets/img/table-arrow.svg";
+import React, { useState } from "react";
 import icon_setting from "../../assets/img/icons/setting-mobile.svg";
 import icon_dir_down from "../../assets/img/icons/dir_down.svg";
-import { useAlert } from "react-alert";
-import { Helmet } from "react-helmet";
-
-import PortfolioEmpty from '../../components/user-dashboard/PortfolioEmpty'
 import Portfolio from '../../components/user-dashboard/Portfolio'
 import Profitability from '../../components/user-dashboard/Profitability'
 import MonthlyScorecard from '../../components/user-dashboard/MonthlyScorecard'
 import Subscription from '../../components/user-dashboard/Subscription'
 
-const distributionList = [
-  { coin: 'ETHUSDT', total: 'Universal', avgProfit: 'Signal Provide', avgLoss: '22-Feb-2022', netProfit: '22-Feb-2022'},
-  { coin: 'ETHUSDT', total: 'Universal', avgProfit: 'Signal Provide', avgLoss: '22-Feb-2022', netProfit: '22-Feb-2022'},
-  { coin: 'ETHUSDT', total: 'Universal', avgProfit: 'Signal Provide', avgLoss: '22-Feb-2022', netProfit: '22-Feb-2022'},
-  { coin: 'ETHUSDT', total: 'Universal', avgProfit: 'Signal Provide', avgLoss: '22-Feb-2022', netProfit: '22-Feb-2022'},
-  { coin: 'ETHUSDT', total: 'Universal', avgProfit: 'Signal Provide', avgLoss: '22-Feb-2022', netProfit: '22-Feb-2022'},
-  { coin: 'ETHUSDT', total: 'Universal', avgProfit: 'Signal Provide', avgLoss: '22-Feb-2022', netProfit: '22-Feb-2022'},
-  { coin: 'ETHUSDT', total: 'Universal', avgProfit: 'Signal Provide', avgLoss: '22-Feb-2022', netProfit: '22-Feb-2022'},
-  { coin: 'ETHUSDT', total: 'Universal', avgProfit: 'Signal Provide', avgLoss: '22-Feb-2022', netProfit: '22-Feb-2022'},
-  { coin: 'ETHUSDT', total: 'Universal', avgProfit: 'Signal Provide', avgLoss: '22-Feb-2022', netProfit: '22-Feb-2022'},
-  { coin: 'ETHUSDT', total: 'Universal', avgProfit: 'Signal Provide', avgLoss: '22-Feb-2022', netProfit: '22-Feb-2022'},
-]
-
 export const DashboardPage = () => {
-  const ref = useRef(null);
-  const alert = useAlert();
-
-  const { onMouseDown } = useDraggableScroll(ref);
-
-  const [traderList, setTraderList] = useState(traders);
-  const [viewtype, setViewType] = useState(true);
   const [activeTab, setActiveTab] = useState('Portfolio');
   const [visibleOption, setVisibleOption] = useState(false);
 
-  var searchTraderList;
-  const searchTrader = (value) => {
-    if (value !== "") {
-      searchTraderList = traders.filter((trader) => trader.firstname === value);
-    } else {
-      searchTraderList = traders;
-    }
-    setTraderList(searchTraderList);
-  };
   return (
     <div className="dash-page" onClick={() => {if(visibleOption === true)setVisibleOption(false)}}>
       {/* <div className="container-fluid p-0"> */}
