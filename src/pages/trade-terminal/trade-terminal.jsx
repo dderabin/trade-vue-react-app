@@ -994,26 +994,27 @@ export const BuySellForm = (props) => {
                   <div className="row mt-2">
                     <div className="d-flex justify-content-between profit-action mt-3">
                       <div className="profit-ui" onClick={() => handleChangeProfitList("add")}>
-                        <img
-                          src="img/uploads/plus.svg"
-                          alt=""
-                          className="img-fluid me-1"
-                          style={{ height: '16px' }}
-                        />
-                        <span style={{ color: '#199B4D', fontWeight: '500', fontSize: "14px" }}>Add Take Profit</span>
+                        { buyProfit.length < 4 && (<>
+                          <img
+                            src="img/uploads/plus.svg"
+                            alt=""
+                            className="img-fluid me-1"
+                            style={{ height: '16px' }}
+                          />
+                          <span style={{ color: '#199B4D', fontWeight: '500', fontSize: "14px" }}>Add Take Profit</span>
+                        </>)}
                       </div>
-                      <div className="profit-ui" onClick={() => handleChangeProfitList("remove")}>
-                        <img
-                          src={icon_modal_minus}
-                          alt=""
-                          className="img-fluid me-1"
-                        />
-                        <span style={{ color: '#EF3B45', fontWeight: '500', fontSize: "14px" }}>Remove Take Profit</span>
-                      </div>
-
-
+                      { buyProfit.length > 1 && (<>
+                        <div className="profit-ui" onClick={() => handleChangeProfitList("remove")}>
+                          <img
+                            src={icon_modal_minus}
+                            alt=""
+                            className="img-fluid me-1"
+                          />
+                          <span style={{ color: '#EF3B45', fontWeight: '500', fontSize: "14px" }}>Remove Take Profit</span>
+                        </div>
+                      </>)}
                     </div>
-
                   </div>
                   <div className="row mt-3">
                     <div className="form-check" style={{ paddingLeft: '2.5em', marginBottom: '10px' }}>
@@ -1289,23 +1290,27 @@ export const BuySellForm = (props) => {
                   { signal && <div className="row mt-2">
                     <div className="d-flex justify-content-between profit-action mt-3">
                       <div className="profit-ui" onClick={() => handleChangeUpdateProfitList("add")}>
-                        <img
-                          src="img/uploads/plus.svg"
-                          alt=""
-                          className="img-fluid me-1"
-                          style={{ height: '16px' }}
-                        />
-                        <span style={{ color: '#199B4D', fontWeight: '500', fontSize: "14px" }}>Add Take Profit</span>
+                        { updateProfit.length < 4 && (<>
+                          <img
+                            src="img/uploads/plus.svg"
+                            alt=""
+                            className="img-fluid me-1"
+                            style={{ height: '16px' }}
+                          />
+                          <span style={{ color: '#199B4D', fontWeight: '500', fontSize: "14px" }}>Add Take Profit</span>
+                        </>)}
                       </div>
-                      <div className="profit-ui" onClick={() => handleChangeUpdateProfitList("remove")}>
-                        <img
-                          src={icon_modal_minus}
-                          alt=""
-                          className="img-fluid me-1"
-                          style={{ height: '16px' }}
-                        />
-                        <span style={{ color: '#EF3B45', fontWeight: '500', fontSize: "14px" }}>Remove Take Profit</span>
-                      </div>
+                      { updateProfit.length > 1 && (<>
+                        <div className="profit-ui" onClick={() => handleChangeUpdateProfitList("remove")}>
+                          <img
+                            src={icon_modal_minus}
+                            alt=""
+                            className="img-fluid me-1"
+                            style={{ height: '16px' }}
+                          />
+                          <span style={{ color: '#EF3B45', fontWeight: '500', fontSize: "14px" }}>Remove Take Profit</span>
+                        </div>
+                      </>)}
                     </div>
                   </div>}
                   <div className="row mt-3 pb-3">
