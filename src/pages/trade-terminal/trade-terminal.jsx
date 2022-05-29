@@ -12,7 +12,7 @@ import axios from "../../axiosClient";
 import Axios from "axios"
 import { useDispatch } from "react-redux";
 import { AppActions } from '../../store/actions'
-import useTraderHistory from "../../hooks/useTradeHistory";
+import { useTraderHistory } from "../../hooks";
 import { EXCHANGE_MAP } from "../../store/consts";
 import "font-awesome/css/font-awesome.css";
 

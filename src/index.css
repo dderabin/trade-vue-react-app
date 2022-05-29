@@ -168,7 +168,7 @@ span.font-11.fw-bolder.ms-1 {
   height: 30px;
   line-height: 40px;
   vertical-align: middle;
-  width: 50%;
+  /* width: 50%; */
   font-weight: 400 !important;
   font-size: medium !important;
 }

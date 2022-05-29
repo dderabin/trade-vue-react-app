@@ -2,10 +2,12 @@ import tableArrow_icon from "./../../assets/img/icons/table-arrow.svg";
 import OutsideClickHandler from "react-outside-click-handler";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
+import { useTraderHistory } from "../../hooks";
 
 export const TradeReportPage = () => {
   const [toogle, setToogle] = useState(0);
   const [open, setOpen] = useState(false);
+  const { historyList } = useTraderHistory();
 
   const showToogle = (i) => {
     if (i === toogle) {
@@ -68,20 +70,6 @@ export const TradeReportPage = () => {
                     </OutsideClickHandler>
                   )}
                 </div>
-                {/* <a href="viewcopy-trader-list.html">
-                  <img
-                    src="img/uploads/list-view.svg"
-                    alt=""
-                    className="img-fluid px-2"
-                  />
-                </a>
-                <a href="viewcopy-trader-grid.html">
-                  <img
-                    src="img/uploads/grid-view.svg"
-                    alt=""
-                    className="img-fluid"
-                  />
-                </a> */}
               </div>
             </div>
           </div>

@@ -147,7 +147,7 @@ export const TradeConfigurationPage = () => {
                       onChange={(e) => re.test(e.target.value) && setCapitalPercent(e.target.value)}
                     />
                     <div id="emailHelp" className="form-text text-danger">
-                      Minimum trade size should be $5 *
+                      Minimum trade size should be 5% *
                     </div>
                   </div>
                   <div className="col-xl-3 col-lg-3 col-8 mob-mt-3">
