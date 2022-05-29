@@ -679,7 +679,7 @@ export const BuySellForm = (props) => {
                           placeholder="Exchange*"
                           disabled
                         />
-                        <span style={{ width: '50%' }}
+                        <span style={{ width: '65%' }}
                           className="input-group-text p-0 border-0"
                         >
                           <select
@@ -782,9 +782,9 @@ export const BuySellForm = (props) => {
                                 type="text"
                                 className="form-control form-input"
                                 disabled
-                                placeholder="leverage"
+                                placeholder="Leverage"
                                 style={signalType === "spot" ? { backgroundColor: '#e9ecef' } : {}} />                            
-                                <span style={{ width: '50%' }}
+                                <span style={{ width: '45%' }}
                                   className="input-group-text p-0 border-0"
                                 >
                                   <select
@@ -1059,10 +1059,10 @@ export const BuySellForm = (props) => {
                         <input
                           type="text"
                           className="form-control form-input"
-                          placeholder="Order ID*"
+                          placeholder="Order ID"
                           disabled
                         />
-                        <span style={{ width: '80%' }}
+                        <span style={{ width: '65%' }}
                           className="input-group-text p-0 border-0 bg-primary"
                         >
                           <select

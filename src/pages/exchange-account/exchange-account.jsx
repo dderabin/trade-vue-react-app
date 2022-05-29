@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppActions } from "../../store/actions";
 import { useExchanges } from "../../hooks";
+import { EXCHANGE_MAP } from "../../store/consts";
 
 export const ExchangeAccountPage = () => {
   const dispatch = useDispatch()
@@ -92,7 +93,7 @@ export const ExchangeAccountPage = () => {
                       value={exchangePlatform}
                       onChange={(event) => {setExchangePlatform(event.target.value); setApiKey(''); setApiSecret('')}}
                     >
-                      { exchangePlatforms.map((item, index) => <option key={index} value={item}>{item}</option> ) }
+                      { exchangePlatforms.map((item, index) => <option key={index} value={item}>{EXCHANGE_MAP[item]}</option> ) }
                     </select>
                   </div>
                 </div>
