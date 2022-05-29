@@ -1059,10 +1059,11 @@ export const BuySellForm = (props) => {
                         <input
                           type="text"
                           className="form-control form-input"
-                          placeholder="Order ID"
+                          placeholder="Order ID*"
+                          style={{ textAlign: 'center' }}
                           disabled
                         />
-                        <span style={{ width: '65%' }}
+                        <span style={{ width: '70%' }}
                           className="input-group-text p-0 border-0 bg-primary"
                         >
                           <select
@@ -1136,7 +1137,7 @@ export const BuySellForm = (props) => {
                                 className="form-control form-input"
                                 disabled
                                 placeholder="Leverage"/>                            
-                                <span style={{ width: '50%' }}
+                                <span style={{ width: '45%' }}
                                   className="input-group-text p-0 border-1"
                                 >
                                   &nbsp;&nbsp;&nbsp;&nbsp;{signal.leverage}X

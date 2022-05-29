@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.0fae4d2d.css",
-    "main.js": "/static/js/main.d483326a.js",
+    "main.js": "/static/js/main.c0e56456.js",
     "static/js/787.55c8f489.chunk.js": "/static/js/787.55c8f489.chunk.js",
     "static/media/selection-banner-img.jpg": "/static/media/selection-banner-img.22b670f9eafd001b7a22.jpg",
     "static/media/fontawesome-webfont.svg?v=4.7.0": "/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
@@ -95,11 +95,11 @@
     "static/media/right-arrow.svg": "/static/media/right-arrow.2d9e037d76fb1b767bb3ff7a0e256efb.svg",
     "static/media/left-arrow.svg": "/static/media/left-arrow.89879f66475909b0035d1385d0bcd6e2.svg",
     "main.0fae4d2d.css.map": "/static/css/main.0fae4d2d.css.map",
-    "main.d483326a.js.map": "/static/js/main.d483326a.js.map",
+    "main.c0e56456.js.map": "/static/js/main.c0e56456.js.map",
     "787.55c8f489.chunk.js.map": "/static/js/787.55c8f489.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0fae4d2d.css",
-    "static/js/main.d483326a.js"
+    "static/js/main.c0e56456.js"
   ]
 }
