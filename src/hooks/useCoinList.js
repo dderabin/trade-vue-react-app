@@ -8,6 +8,7 @@ const useCoinList = () => {
 
   useEffect(() => {
     dispatch(AppActions.exchangeComparisonFetchAction())
+    // eslint-disable-next-line
   }, [])
 
   return { coinList }

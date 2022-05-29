@@ -4,7 +4,7 @@ import logger from 'redux-logger';
 
 import rootReducer from './reducers';
 import rootSaga from './sagas';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware();
 // mount it on the store

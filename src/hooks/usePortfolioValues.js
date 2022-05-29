@@ -15,6 +15,7 @@ const usePortfolioValues = () => {
 
   useEffect(() => {
     dispatch(AppActions.portfolioValueFetchAction())
+    // eslint-disable-next-line
   }, [])
 
   return { 

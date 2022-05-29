@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 
 export const MyTradesPage = () => {
-  const [listView, setListView] = useState("list");
   const [toogle, setToogle] = useState(0);
   const [open, setOpen] = useState(false);
 
@@ -87,667 +86,378 @@ export const MyTradesPage = () => {
         </div>
         <div className="card mb-0 card-light-grey">
           <div className="card-body mob-pad-0">
-            {listView === "list" ? (
-              <div className="table-responsive">
-                <table className="table table-striped">
-                  <thead className="bg-white">
-                    <tr>
-                      <th className="thincell"> </th>
-                      <th scope="col" className="text-center">
-                        Date
-                        <img
-                          src={tableArrow_icon}
-                          alt=""
-                          className="img-fluid margin"
-                        />
-                      </th>
-                      <th scope="col" className="text-center font ps-4">
-                        Signal From
-                        <img
-                          src={tableArrow_icon}
-                          alt=""
-                          className="img-fluid margin"
-                        />
-                      </th>
-                      <th scope="col" className="text-center font">
-                        Exchange
-                        <img
-                          src={tableArrow_icon}
-                          alt=""
-                          className="img-fluid margin"
-                        />
-                      </th>
-                      <th scope="col" className="text-center font">
-                        Market
-                        <img
-                          src={tableArrow_icon}
-                          alt=""
-                          className="img-fluid margin"
-                        />
-                      </th>
-                      <th scope="col" className="text-center font">
-                        Excution
-                        <img
-                          src={tableArrow_icon}
-                          alt=""
-                          className="img-fluid margin"
-                        />
-                      </th>
-                      <th scope="col" className="text-center font">
-                        Ticker
-                        <img
-                          src={tableArrow_icon}
-                          alt=""
-                          className="img-fluid margin"
-                        />
-                      </th>
-                      <th scope="col" className="text-center font">
-                        Open Price
-                        <img
-                          src={tableArrow_icon}
-                          alt=""
-                          className="img-fluid margin"
-                        />
-                      </th>
-                      <th scope="col" className="text-center font">
-                        Stop Loss
-                        <img
-                          src={tableArrow_icon}
-                          alt=""
-                          className="img-fluid margin"
-                        />
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="small" onClick={() => showToogle(1)}>
-                        <img
-                          src="/img/uploads/plus.svg"
-                          alt=""
-                          className="img-fluid text-center cursor-pointer"
-                        />
-                      </td>
-                      <td className="text-center">4/4/2021</td>
-                      <td className="text-center">Signal Provider</td>
-                      <td className="text-center">universal</td>
-                      <td className="text-center">Spot</td>
-                      <td className="text-center">Market</td>
-                      <td className="text-center">TRXUSDT</td>
-                      <td className="text-center">1899.00</td>
-                      <td className="text-center">1850.00</td>
-                    </tr>
-                    {toogle === 1 && (
-                      <div className="toggle">
-                        <p>
-                          <strong>Take Profit 1:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 2:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 3:</strong> 0.00
-                        </p>
-                        <p class="mb-0">
-                          <strong>Take Profit 4:</strong> 0.00
-                        </p>
-                      </div>
-                    )}
-                    <tr>
-                      <td className="small" onClick={() => showToogle(2)}>
-                        <img
-                          src="/img/uploads/plus.svg"
-                          alt=""
-                          className="img-fluid text-center cursor-pointer"
-                        />
-                      </td>
-                      <td className="text-center">4/4/2021</td>
-                      <td className="text-center">Signal Provider</td>
-                      <td className="text-center">universal</td>
-                      <td className="text-center">Spot</td>
-                      <td className="text-center">Market</td>
-                      <td className="text-center">TRXUSDT</td>
-                      <td className="text-center">1899.00</td>
-                      <td className="text-center">1850.00</td>
-                    </tr>
-                    {toogle === 2 && (
-                      <div className="toggle">
-                        <p>
-                          <strong>Take Profit 1:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 2:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 3:</strong> 0.00
-                        </p>
-                        <p class="mb-0">
-                          <strong>Take Profit 4:</strong> 0.00
-                        </p>
-                      </div>
-                    )}
-                    <tr>
-                      <td className="small" onClick={() => showToogle(3)}>
-                        <img
-                          src="/img/uploads/plus.svg"
-                          alt=""
-                          className="img-fluid text-center cursor-pointer"
-                        />
-                      </td>
-                      <td className="font">4/4/2021</td>
-                      <td className="text-center">Signal Provider</td>
-                      <td className="text-center">universal</td>
-                      <td className="text-center">Spot</td>
-                      <td className="text-center">Market</td>
-                      <td className="text-center">TRXUSDT</td>
-                      <td className="text-center">1899.00</td>
-                      <td className="text-center">1850.00</td>
-                    </tr>
-                    {toogle === 3 && (
-                      <div className="toggle">
-                        <p>
-                          <strong>Take Profit 1:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 2:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 3:</strong> 0.00
-                        </p>
-                        <p class="mb-0">
-                          <strong>Take Profit 4:</strong> 0.00
-                        </p>
-                      </div>
-                    )}
-                    <tr>
-                      <td className="small" onClick={() => showToogle(4)}>
-                        <img
-                          src="/img/uploads/plus.svg"
-                          alt=""
-                          className="img-fluid text-center cursor-pointer"
-                        />
-                      </td>
-                      <td className="font">4/4/2021</td>
-                      <td className="text-center">Signal Provider</td>
-                      <td className="text-center">universal</td>
-                      <td className="text-center">Spot</td>
-                      <td className="text-center">Market</td>
-                      <td className="text-center">TRXUSDT</td>
-                      <td className="text-center">1899.00</td>
-                      <td className="text-center">1850.00</td>
-                    </tr>
-                    {toogle === 4 && (
-                      <div className="toggle">
-                        <p>
-                          <strong>Take Profit 1:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 2:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 3:</strong> 0.00
-                        </p>
-                        <p class="mb-0">
-                          <strong>Take Profit 4:</strong> 0.00
-                        </p>
-                      </div>
-                    )}
-                    <tr>
-                      <td className="small" onClick={() => showToogle(5)}>
-                        <img
-                          src="/img/uploads/plus.svg"
-                          alt=""
-                          className="img-fluid text-center cursor-pointer"
-                        />
-                      </td>
-                      <td className="font">4/4/2021</td>
-                      <td className="text-center">Signal Provider</td>
-                      <td className="text-center">universal</td>
-                      <td className="text-center">Spot</td>
-                      <td className="text-center">Market</td>
-                      <td className="text-center">TRXUSDT</td>
-                      <td className="text-center">1899.00</td>
-                      <td className="text-center">1850.00</td>
-                    </tr>
-                    {toogle === 5 && (
-                      <div className="toggle">
-                        <p>
-                          <strong>Take Profit 1:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 2:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 3:</strong> 0.00
-                        </p>
-                        <p class="mb-0">
-                          <strong>Take Profit 4:</strong> 0.00
-                        </p>
-                      </div>
-                    )}
-                    <tr>
-                      <td className="small" onClick={() => showToogle(6)}>
-                        <img
-                          src="/img/uploads/plus.svg"
-                          alt=""
-                          className="img-fluid text-center cursor-pointer"
-                        />
-                      </td>
-                      <td className="font">4/4/2021</td>
-                      <td className="text-center">Signal Provider</td>
-                      <td className="text-center">universal</td>
-                      <td className="text-center">Spot</td>
-                      <td className="text-center">Market</td>
-                      <td className="text-center">TRXUSDT</td>
-                      <td className="text-center">1899.00</td>
-                      <td className="text-center">1850.00</td>
-                    </tr>
-                    {toogle === 6 && (
-                      <div className="toggle">
-                        <p>
-                          <strong>Take Profit 1:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 2:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 3:</strong> 0.00
-                        </p>
-                        <p class="mb-0">
-                          <strong>Take Profit 4:</strong> 0.00
-                        </p>
-                      </div>
-                    )}
-                    <tr>
-                      <td className="small" onClick={() => showToogle(7)}>
-                        <img
-                          src="/img/uploads/plus.svg"
-                          alt=""
-                          className="img-fluid text-center cursor-pointer"
-                        />
-                      </td>
-                      <td className="font">4/4/2021</td>
-                      <td className="text-center">Signal Provider</td>
-                      <td className="text-center">universal</td>
-                      <td className="text-center">Spot</td>
-                      <td className="text-center">Market</td>
-                      <td className="text-center">TRXUSDT</td>
-                      <td className="text-center">1899.00</td>
-                      <td className="text-center">1850.00</td>
-                    </tr>
-                    {toogle === 7 && (
-                      <div className="toggle">
-                        <p>
-                          <strong>Take Profit 1:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 2:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 3:</strong> 0.00
-                        </p>
-                        <p class="mb-0">
-                          <strong>Take Profit 4:</strong> 0.00
-                        </p>
-                      </div>
-                    )}
-                    <tr>
-                      <td className="small" onClick={() => showToogle(8)}>
-                        <img
-                          src="/img/uploads/plus.svg"
-                          alt=""
-                          className="img-fluid text-center cursor-pointer"
-                        />
-                      </td>
-                      <td className="font">4/4/2021</td>
-                      <td className="text-center">Signal Provider</td>
-                      <td className="text-center">universal</td>
-                      <td className="text-center">Spot</td>
-                      <td className="text-center">Market</td>
-                      <td className="text-center">TRXUSDT</td>
-                      <td className="text-center">1899.00</td>
-                      <td className="text-center">1850.00</td>
-                    </tr>
-                    {toogle === 8 && (
-                      <div className="toggle">
-                        <p>
-                          <strong>Take Profit 1:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 2:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 3:</strong> 0.00
-                        </p>
-                        <p class="mb-0">
-                          <strong>Take Profit 4:</strong> 0.00
-                        </p>
-                      </div>
-                    )}
-                    <tr>
-                      <td className="small" onClick={() => showToogle(9)}>
-                        <img
-                          src="/img/uploads/plus.svg"
-                          alt=""
-                          className="img-fluid text-center cursor-pointer"
-                        />
-                      </td>
-                      <td className="font">4/4/2021</td>
-                      <td className="text-center">Signal Provider</td>
-                      <td className="text-center">universal</td>
-                      <td className="text-center">Spot</td>
-                      <td className="text-center">Market</td>
-                      <td className="text-center">TRXUSDT</td>
-                      <td className="text-center">1899.00</td>
-                      <td className="text-center">1850.00</td>
-                    </tr>
-                    {toogle === 9 && (
-                      <div className="toggle">
-                        <p>
-                          <strong>Take Profit 1:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 2:</strong> 0.00
-                        </p>
-                        <p>
-                          <strong>Take Profit 3:</strong> 0.00
-                        </p>
-                        <p class="mb-0">
-                          <strong>Take Profit 4:</strong> 0.00
-                        </p>
-                      </div>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <>
-                <div className="row gx-3">
-                  <div className="col-xl-6 col-lg-6 col-12">
-                    <div className="card mb-0 special-card-body">
+            <div className="table-responsive">
+              <table className="table table-striped">
+                <thead className="bg-white">
+                  <tr>
+                    <th className="thincell"> </th>
+                    <th scope="col" className="text-center">
+                      Date
                       <img
-                        src="img/uploads/card/1.jpg"
-                        className="card-img-top"
-                        alt="..."
+                        src={tableArrow_icon}
+                        alt=""
+                        className="img-fluid margin"
                       />
-                      <div className="card-body">
-                        <div className="row gx-2 pt-2">
-                          <div className="col-xl-6 col-lg-6 col-6">
-                            <p className="font-16 font-bold text-dark mb-2">
-                              Micheal |
-                              <span className="font-regular font-12">
-                                Micheal Crist
-                              </span>
-                            </p>
-                            <p className="card-text font-12 mb-0">
-                              India
-                              <img
-                                src="img/uploads/india.svg"
-                                alt=""
-                                className="img-fluid"
-                              />
-                            </p>
-                          </div>
-                          <div className="col-xl-6 col-lg-6 col-6 text-end my-auto">
-                            <a
-                              href="#0"
-                              className="btn btn-primary font-12 border-radius-none"
-                            >
-                              Subscribe
-                            </a>
-                            <a
-                              href="trade-configuration.html"
-                              className="btn btn-success font-12 border-radius-none"
-                            >
-                              Configure
-                            </a>
-                          </div>
-                        </div>
-                        <hr className="my-2" />
-                        <div className="row gx-4 pb-2">
-                          <div className="col-xl-3 col-lg-3 col-3 border-right">
-                            <div className="text-center">
-                              <h5 className="mb-0 font-24">2250</h5>
-                              <p className="font-12 mb-0">Subscriber</p>
-                            </div>
-                          </div>
-                          <div className="col-xl-3 col-lg-3 col-3 border-right">
-                            <div className="text-center">
-                              <h5 className="mb-0 font-24">7109</h5>
-                              <p className="font-12 mb-0">Copies</p>
-                            </div>
-                          </div>
-                          <div className="col-xl-3 col-lg-3 col-3 border-right">
-                            <div className="text-center">
-                              <h5 className="mb-0 font-24">2389</h5>
-                              <p className="font-12 mb-0">Signals</p>
-                            </div>
-                          </div>
-                          <div className="col-xl-3 col-lg-3 col-3">
-                            <div className="text-center">
-                              <h5 className="mb-0 font-24 text-green">89%</h5>
-                              <p className="font-12 mb-0">Profit (12m)</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-lg-6 col-12">
-                    <div className="card mb-0 special-card-body">
+                    </th>
+                    <th scope="col" className="text-center font ps-4">
+                      Signal From
                       <img
-                        src="img/uploads/card/2.jpg"
-                        className="card-img-top"
-                        alt="..."
+                        src={tableArrow_icon}
+                        alt=""
+                        className="img-fluid margin"
                       />
-                      <div className="card-body">
-                        <div className="row gx-2 pt-2">
-                          <div className="col-xl-6 col-lg-6 col-6">
-                            <p className="font-16 font-bold text-dark mb-2">
-                              Micheal |
-                              <span className="font-regular font-12">
-                                Micheal Crist
-                              </span>
-                            </p>
-                            <p className="card-text font-12 mb-0">
-                              India
-                              <img
-                                src="img/uploads/india.svg"
-                                alt=""
-                                className="img-fluid"
-                              />
-                            </p>
-                          </div>
-                          <div className="col-xl-6 col-lg-6 col-6 text-end my-auto">
-                            <a
-                              href="#0"
-                              className="btn btn-primary font-12 border-radius-none"
-                            >
-                              Subscribe
-                            </a>
-                            <a
-                              href="trade-configuration.html"
-                              className="btn btn-success font-12 border-radius-none"
-                            >
-                              Configure
-                            </a>
-                          </div>
-                        </div>
-                        <hr className="my-2" />
-                        <div className="row gx-4 pb-2">
-                          <div className="col-xl-3 col-lg-3 col-3 border-right">
-                            <div className="text-center">
-                              <h5 className="mb-0 font-24">2250</h5>
-                              <p className="font-12 mb-0">Subscriber</p>
-                            </div>
-                          </div>
-                          <div className="col-xl-3 col-lg-3 col-3 border-right">
-                            <div className="text-center">
-                              <h5 className="mb-0 font-24">7109</h5>
-                              <p className="font-12 mb-0">Copies</p>
-                            </div>
-                          </div>
-                          <div className="col-xl-3 col-lg-3 col-3 border-right">
-                            <div className="text-center">
-                              <h5 className="mb-0 font-24">2389</h5>
-                              <p className="font-12 mb-0">Signals</p>
-                            </div>
-                          </div>
-                          <div className="col-xl-3 col-lg-3 col-3">
-                            <div className="text-center">
-                              <h5 className="mb-0 font-24 text-green">89%</h5>
-                              <p className="font-12 mb-0">Profit (12m)</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row gx-3 mt-3">
-                  <div className="col-xl-6 col-lg-6 col-12">
-                    <div className="card mb-0 special-card-body">
+                    </th>
+                    <th scope="col" className="text-center font">
+                      Exchange
                       <img
-                        src="img/uploads/card/3.jpg"
-                        className="card-img-top"
-                        alt="..."
+                        src={tableArrow_icon}
+                        alt=""
+                        className="img-fluid margin"
                       />
-                      <div className="card-body">
-                        <div className="row gx-2 pt-2">
-                          <div className="col-xl-6 col-lg-6 col-6">
-                            <p className="font-16 font-bold text-dark mb-2">
-                              Micheal |
-                              <span className="font-regular font-12">
-                                Micheal Crist
-                              </span>
-                            </p>
-                            <p className="card-text font-12 mb-0">
-                              India
-                              <img
-                                src="img/uploads/india.svg"
-                                alt=""
-                                className="img-fluid"
-                              />
-                            </p>
-                          </div>
-                          <div className="col-xl-6 col-lg-6 col-6 text-end my-auto">
-                            <a
-                              href="#0"
-                              className="btn btn-primary font-12 border-radius-none"
-                            >
-                              Subscribe
-                            </a>
-                            <a
-                              href="trade-configuration.html"
-                              className="btn btn-success font-12 border-radius-none"
-                            >
-                              Configure
-                            </a>
-                          </div>
-                        </div>
-                        <hr className="my-2" />
-                        <div className="row gx-4 pb-2">
-                          <div className="col-xl-3 col-lg-3 col-3 border-right">
-                            <div className="text-center">
-                              <h5 className="mb-0 font-24">2250</h5>
-                              <p className="font-12 mb-0">Subscriber</p>
-                            </div>
-                          </div>
-                          <div className="col-xl-3 col-lg-3 col-3 border-right">
-                            <div className="text-center">
-                              <h5 className="mb-0 font-24">7109</h5>
-                              <p className="font-12 mb-0">Copies</p>
-                            </div>
-                          </div>
-                          <div className="col-xl-3 col-lg-3 col-3 border-right">
-                            <div className="text-center">
-                              <h5 className="mb-0 font-24">2389</h5>
-                              <p className="font-12 mb-0">Signals</p>
-                            </div>
-                          </div>
-                          <div className="col-xl-3 col-lg-3 col-3">
-                            <div className="text-center">
-                              <h5 className="mb-0 font-24 text-green">89%</h5>
-                              <p className="font-12 mb-0">Profit (12m)</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-lg-6 col-12">
-                    <div className="card mb-0 special-card-body">
+                    </th>
+                    <th scope="col" className="text-center font">
+                      Market
                       <img
-                        src="img/uploads/card/4.jpg"
-                        className="card-img-top"
-                        alt="..."
+                        src={tableArrow_icon}
+                        alt=""
+                        className="img-fluid margin"
                       />
-                      <div className="card-body">
-                        <div className="row gx-2 pt-2">
-                          <div className="col-xl-6 col-lg-6 col-6">
-                            <p className="font-16 font-bold text-dark mb-2">
-                              Micheal |
-                              <span className="font-regular font-12">
-                                Micheal Crist
-                              </span>
-                            </p>
-                            <p className="card-text font-12 mb-0">
-                              India
-                              <img
-                                src="img/uploads/india.svg"
-                                alt=""
-                                className="img-fluid"
-                              />
-                            </p>
-                          </div>
-                          <div className="col-xl-6 col-lg-6 col-6 text-end my-auto">
-                            <a
-                              href="#0"
-                              className="btn btn-primary font-12 border-radius-none"
-                            >
-                              Subscribe
-                            </a>
-                            <a
-                              href="trade-configuration.html"
-                              className="btn btn-success font-12 border-radius-none"
-                            >
-                              Configure
-                            </a>
-                          </div>
-                        </div>
-                        <hr className="my-2" />
-                        <div className="row gx-4 pb-2">
-                          <div className="col-xl-3 col-lg-3 col-3 border-right">
-                            <div className="text-center">
-                              <h5 className="mb-0 font-24">2250</h5>
-                              <p className="font-12 mb-0">Subscriber</p>
-                            </div>
-                          </div>
-                          <div className="col-xl-3 col-lg-3 col-3 border-right">
-                            <div className="text-center">
-                              <h5 className="mb-0 font-24">7109</h5>
-                              <p className="font-12 mb-0">Copies</p>
-                            </div>
-                          </div>
-                          <div className="col-xl-3 col-lg-3 col-3 border-right">
-                            <div className="text-center">
-                              <h5 className="mb-0 font-24">2389</h5>
-                              <p className="font-12 mb-0">Signals</p>
-                            </div>
-                          </div>
-                          <div className="col-xl-3 col-lg-3 col-3">
-                            <div className="text-center">
-                              <h5 className="mb-0 font-24 text-green">89%</h5>
-                              <p className="font-12 mb-0">Profit (12m)</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                    </th>
+                    <th scope="col" className="text-center font">
+                      Excution
+                      <img
+                        src={tableArrow_icon}
+                        alt=""
+                        className="img-fluid margin"
+                      />
+                    </th>
+                    <th scope="col" className="text-center font">
+                      Ticker
+                      <img
+                        src={tableArrow_icon}
+                        alt=""
+                        className="img-fluid margin"
+                      />
+                    </th>
+                    <th scope="col" className="text-center font">
+                      Open Price
+                      <img
+                        src={tableArrow_icon}
+                        alt=""
+                        className="img-fluid margin"
+                      />
+                    </th>
+                    <th scope="col" className="text-center font">
+                      Stop Loss
+                      <img
+                        src={tableArrow_icon}
+                        alt=""
+                        className="img-fluid margin"
+                      />
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="small" onClick={() => showToogle(1)}>
+                      <img
+                        src="/img/uploads/plus.svg"
+                        alt=""
+                        className="img-fluid text-center cursor-pointer"
+                      />
+                    </td>
+                    <td className="text-center">4/4/2021</td>
+                    <td className="text-center">Signal Provider</td>
+                    <td className="text-center">universal</td>
+                    <td className="text-center">Spot</td>
+                    <td className="text-center">Market</td>
+                    <td className="text-center">TRXUSDT</td>
+                    <td className="text-center">1899.00</td>
+                    <td className="text-center">1850.00</td>
+                  </tr>
+                  {toogle === 1 && (
+                    <div className="toggle">
+                      <p>
+                        <strong>Take Profit 1:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 2:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 3:</strong> 0.00
+                      </p>
+                      <p class="mb-0">
+                        <strong>Take Profit 4:</strong> 0.00
+                      </p>
                     </div>
-                  </div>
-                </div>
-              </>
-            )}
+                  )}
+                  <tr>
+                    <td className="small" onClick={() => showToogle(2)}>
+                      <img
+                        src="/img/uploads/plus.svg"
+                        alt=""
+                        className="img-fluid text-center cursor-pointer"
+                      />
+                    </td>
+                    <td className="text-center">4/4/2021</td>
+                    <td className="text-center">Signal Provider</td>
+                    <td className="text-center">universal</td>
+                    <td className="text-center">Spot</td>
+                    <td className="text-center">Market</td>
+                    <td className="text-center">TRXUSDT</td>
+                    <td className="text-center">1899.00</td>
+                    <td className="text-center">1850.00</td>
+                  </tr>
+                  {toogle === 2 && (
+                    <div className="toggle">
+                      <p>
+                        <strong>Take Profit 1:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 2:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 3:</strong> 0.00
+                      </p>
+                      <p class="mb-0">
+                        <strong>Take Profit 4:</strong> 0.00
+                      </p>
+                    </div>
+                  )}
+                  <tr>
+                    <td className="small" onClick={() => showToogle(3)}>
+                      <img
+                        src="/img/uploads/plus.svg"
+                        alt=""
+                        className="img-fluid text-center cursor-pointer"
+                      />
+                    </td>
+                    <td className="font">4/4/2021</td>
+                    <td className="text-center">Signal Provider</td>
+                    <td className="text-center">universal</td>
+                    <td className="text-center">Spot</td>
+                    <td className="text-center">Market</td>
+                    <td className="text-center">TRXUSDT</td>
+                    <td className="text-center">1899.00</td>
+                    <td className="text-center">1850.00</td>
+                  </tr>
+                  {toogle === 3 && (
+                    <div className="toggle">
+                      <p>
+                        <strong>Take Profit 1:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 2:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 3:</strong> 0.00
+                      </p>
+                      <p class="mb-0">
+                        <strong>Take Profit 4:</strong> 0.00
+                      </p>
+                    </div>
+                  )}
+                  <tr>
+                    <td className="small" onClick={() => showToogle(4)}>
+                      <img
+                        src="/img/uploads/plus.svg"
+                        alt=""
+                        className="img-fluid text-center cursor-pointer"
+                      />
+                    </td>
+                    <td className="font">4/4/2021</td>
+                    <td className="text-center">Signal Provider</td>
+                    <td className="text-center">universal</td>
+                    <td className="text-center">Spot</td>
+                    <td className="text-center">Market</td>
+                    <td className="text-center">TRXUSDT</td>
+                    <td className="text-center">1899.00</td>
+                    <td className="text-center">1850.00</td>
+                  </tr>
+                  {toogle === 4 && (
+                    <div className="toggle">
+                      <p>
+                        <strong>Take Profit 1:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 2:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 3:</strong> 0.00
+                      </p>
+                      <p class="mb-0">
+                        <strong>Take Profit 4:</strong> 0.00
+                      </p>
+                    </div>
+                  )}
+                  <tr>
+                    <td className="small" onClick={() => showToogle(5)}>
+                      <img
+                        src="/img/uploads/plus.svg"
+                        alt=""
+                        className="img-fluid text-center cursor-pointer"
+                      />
+                    </td>
+                    <td className="font">4/4/2021</td>
+                    <td className="text-center">Signal Provider</td>
+                    <td className="text-center">universal</td>
+                    <td className="text-center">Spot</td>
+                    <td className="text-center">Market</td>
+                    <td className="text-center">TRXUSDT</td>
+                    <td className="text-center">1899.00</td>
+                    <td className="text-center">1850.00</td>
+                  </tr>
+                  {toogle === 5 && (
+                    <div className="toggle">
+                      <p>
+                        <strong>Take Profit 1:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 2:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 3:</strong> 0.00
+                      </p>
+                      <p class="mb-0">
+                        <strong>Take Profit 4:</strong> 0.00
+                      </p>
+                    </div>
+                  )}
+                  <tr>
+                    <td className="small" onClick={() => showToogle(6)}>
+                      <img
+                        src="/img/uploads/plus.svg"
+                        alt=""
+                        className="img-fluid text-center cursor-pointer"
+                      />
+                    </td>
+                    <td className="font">4/4/2021</td>
+                    <td className="text-center">Signal Provider</td>
+                    <td className="text-center">universal</td>
+                    <td className="text-center">Spot</td>
+                    <td className="text-center">Market</td>
+                    <td className="text-center">TRXUSDT</td>
+                    <td className="text-center">1899.00</td>
+                    <td className="text-center">1850.00</td>
+                  </tr>
+                  {toogle === 6 && (
+                    <div className="toggle">
+                      <p>
+                        <strong>Take Profit 1:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 2:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 3:</strong> 0.00
+                      </p>
+                      <p class="mb-0">
+                        <strong>Take Profit 4:</strong> 0.00
+                      </p>
+                    </div>
+                  )}
+                  <tr>
+                    <td className="small" onClick={() => showToogle(7)}>
+                      <img
+                        src="/img/uploads/plus.svg"
+                        alt=""
+                        className="img-fluid text-center cursor-pointer"
+                      />
+                    </td>
+                    <td className="font">4/4/2021</td>
+                    <td className="text-center">Signal Provider</td>
+                    <td className="text-center">universal</td>
+                    <td className="text-center">Spot</td>
+                    <td className="text-center">Market</td>
+                    <td className="text-center">TRXUSDT</td>
+                    <td className="text-center">1899.00</td>
+                    <td className="text-center">1850.00</td>
+                  </tr>
+                  {toogle === 7 && (
+                    <div className="toggle">
+                      <p>
+                        <strong>Take Profit 1:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 2:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 3:</strong> 0.00
+                      </p>
+                      <p class="mb-0">
+                        <strong>Take Profit 4:</strong> 0.00
+                      </p>
+                    </div>
+                  )}
+                  <tr>
+                    <td className="small" onClick={() => showToogle(8)}>
+                      <img
+                        src="/img/uploads/plus.svg"
+                        alt=""
+                        className="img-fluid text-center cursor-pointer"
+                      />
+                    </td>
+                    <td className="font">4/4/2021</td>
+                    <td className="text-center">Signal Provider</td>
+                    <td className="text-center">universal</td>
+                    <td className="text-center">Spot</td>
+                    <td className="text-center">Market</td>
+                    <td className="text-center">TRXUSDT</td>
+                    <td className="text-center">1899.00</td>
+                    <td className="text-center">1850.00</td>
+                  </tr>
+                  {toogle === 8 && (
+                    <div className="toggle">
+                      <p>
+                        <strong>Take Profit 1:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 2:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 3:</strong> 0.00
+                      </p>
+                      <p class="mb-0">
+                        <strong>Take Profit 4:</strong> 0.00
+                      </p>
+                    </div>
+                  )}
+                  <tr>
+                    <td className="small" onClick={() => showToogle(9)}>
+                      <img
+                        src="/img/uploads/plus.svg"
+                        alt=""
+                        className="img-fluid text-center cursor-pointer"
+                      />
+                    </td>
+                    <td className="font">4/4/2021</td>
+                    <td className="text-center">Signal Provider</td>
+                    <td className="text-center">universal</td>
+                    <td className="text-center">Spot</td>
+                    <td className="text-center">Market</td>
+                    <td className="text-center">TRXUSDT</td>
+                    <td className="text-center">1899.00</td>
+                    <td className="text-center">1850.00</td>
+                  </tr>
+                  {toogle === 9 && (
+                    <div className="toggle">
+                      <p>
+                        <strong>Take Profit 1:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 2:</strong> 0.00
+                      </p>
+                      <p>
+                        <strong>Take Profit 3:</strong> 0.00
+                      </p>
+                      <p class="mb-0">
+                        <strong>Take Profit 4:</strong> 0.00
+                      </p>
+                    </div>
+                  )}
+                </tbody>
+              </table>
+            </div>
             <div className="row mt-4">
               <div className="col-xl-3 col-lg-3 col-12 my-auto">
                 <p className="mb-0 d-none d-sm-block">

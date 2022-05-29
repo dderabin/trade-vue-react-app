@@ -10,7 +10,7 @@ const SelectCountry = ({list, onSelected, countryIndex}) => {
   }, [list])
 
   const handleChange = (e) => {
-    setDatas(datas => list.filter(item => item.name.toUpperCase().indexOf(e.target.value.toUpperCase()) > -1))
+    setDatas(list.filter(item => item.name.toUpperCase().indexOf(e.target.value.toUpperCase()) > -1))
   }
 
   const handleSelect = (index) => {
@@ -32,6 +32,7 @@ const SelectCountry = ({list, onSelected, countryIndex}) => {
 
   useEffect(() => {
     setDatas(list)
+    // eslint-disable-next-line
   }, [visible])
 
   useEffect(() => {

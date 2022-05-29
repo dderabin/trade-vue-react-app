@@ -17,14 +17,10 @@ import { Logo } from "./Logo";
 export const Sidebar = ({ collapseSidebar, onOutsideSidebarClickHandler }) => {
   const [showCopyTraderScroll, setShowCopyTraderScroll] = useState(false);
   const [showSignalTradingScroll, setShowSignalTradingScroll] = useState(false);
-  const [showReportsScroll, setShowReportsScroll] = useState(false);
-  const [showExchangeScroll, setShowExchangeScroll] = useState(false);
 
   const closeCollapse = () => {
     setShowCopyTraderScroll(false)
     setShowSignalTradingScroll(false)
-    setShowReportsScroll(false)
-    setShowExchangeScroll(false)
   }
 
   const location = useLocation();

@@ -8,6 +8,7 @@ const useExchanges = () => {
 
   useEffect(() => {
     dispatch(AppActions.exchangePlatformsFetchAction())
+    // eslint-disable-next-line
   }, [])
 
   return { exchangePlatforms }

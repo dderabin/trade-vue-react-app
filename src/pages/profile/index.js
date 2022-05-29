@@ -6,15 +6,7 @@ import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
 
 export const ProfilePage = () => {
-  const { 
-  FAQs = [],
-  profitRate = 0,
-  signals = [],
-  state = "disabled",
-  subscribeFee = 0,
-  subscribers = [],
-  subscriptedTo = [],
-} = useSelector(state => state.appState.copyTrader)
+  const { FAQs = [] } = useSelector(state => state.appState.copyTrader)
 const { files = {}, ...profile } = useSelector(state => state.appState.userInfo)
   const [activetab, setActiveTab] = useState("profile");
   const handleProfile = () => {

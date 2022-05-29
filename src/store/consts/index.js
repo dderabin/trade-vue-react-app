@@ -7,7 +7,7 @@ export const enableStatus = {
 export const COPY_TRADER = 'copyTrader'
 export const SIGNAL_PROVIDER = 'signalProvider'
 
-export const COUNTRY_NAMES = {
+export const COUNTRY_MAP = {
   "AF": "Afghanistan",
   "AX": "Aland Islands",
   "AL": "Albania",
@@ -254,4 +254,11 @@ export const COUNTRY_NAMES = {
   "YE": "Yemen",
   "ZM": "Zambia",
   "ZW": "Zimbabwe"
+}
+
+export const EXCHANGE_MAP = {
+  "testnet-binanceusdm": "Binance - Futures Testnet",
+  "ftx": "FTX",
+  "binance": "Binance - Spot",
+  "binanceusdm": "Binance - Futures",
 }

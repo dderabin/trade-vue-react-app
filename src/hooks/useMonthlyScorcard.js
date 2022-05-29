@@ -10,6 +10,7 @@ const useMonthlyScorecard = () => {
 
   useEffect(() => {
     dispatch(AppActions.monthlyScorecardFetchAction())
+    // eslint-disable-next-line
   }, [])
 
   const dataList = useMemo(() => {
@@ -20,11 +21,8 @@ const useMonthlyScorecard = () => {
         profitArray[month] = profit;
         return {...previousValue, [year]: [...profitArray]}
       }, {})
+      // eslint-disable-next-line
   }, [monthlyScorecard])
-
-  useEffect(() => {
-    console.log(dataList)
-  }, [dataList])
 
   return { monthlyScorecard, dataList, currentYear }
 }

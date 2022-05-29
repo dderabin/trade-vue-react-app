@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { RealTimeChartWidget } from "react-tradingview-widgets";
-import "font-awesome/css/font-awesome.css";
 import {
   Modal,
   ModalBody,
@@ -14,6 +13,8 @@ import Axios from "axios"
 import { useDispatch } from "react-redux";
 import { AppActions } from '../../store/actions'
 import useTraderHistory from "../../hooks/useTradeHistory";
+import { EXCHANGE_MAP } from "../../store/consts";
+import "font-awesome/css/font-awesome.css";
 
 export const TradeTerminalPage = () => {
   return (
@@ -688,7 +689,7 @@ export const BuySellForm = (props) => {
                           >
                             {props.exchanges.map(item => (
                               <option key={item.key} value={item.value}>
-                                {item.value === 'testnet-binanceusdm' ? 'Binance' : item.value}
+                                {EXCHANGE_MAP[item.value]}
                               </option>
                             )
                             )}

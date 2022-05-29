@@ -8,6 +8,7 @@ const useSubscribersForCopyTraders = () => {
 
   useEffect(() => {
     dispatch(AppActions.subscribersFetchAction({type: 'copyTrader'}))
+    // eslint-disable-next-line
   }, [])
 
   return { subscribersForCopyTraders }

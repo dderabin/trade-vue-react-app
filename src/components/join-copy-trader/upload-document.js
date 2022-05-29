@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 // import passport from "../../assets/img/passport.svg";
 // import aadhaar from "../../assets/img/aadhaar.svg";
 // import drivinglicence from "../../assets/img/license.svg";

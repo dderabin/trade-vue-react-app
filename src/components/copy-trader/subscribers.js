@@ -1,5 +1,5 @@
 import React from "react";
-import { COUNTRY_NAMES } from "../../store/consts";
+import { COUNTRY_MAP } from "../../store/consts";
 import moment from "moment";
 import { generateHSL } from "../../helper";
 import AxiosInstance from "../../axiosClient";
@@ -44,7 +44,7 @@ const SubscriberList = ({subscriberList}) => {
               width={40}
               height={40}
             />
-            &nbsp;&nbsp;{COUNTRY_NAMES[trader.userInfo.country]}
+            &nbsp;&nbsp;{COUNTRY_MAP[trader.userInfo.country]}
           </td>
           <td className="cubscriber">{trader.email}</td>
           <td className="text-center" style={{color: status ? 'green' : 'red'}}>{status ? 'Active' : 'Expired'}</td>

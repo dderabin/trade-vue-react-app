@@ -8,6 +8,7 @@ const useTraderHistory = () => {
 
   useEffect(() => {
     dispatch(AppActions.signalHistoryFetchAction())
+    // eslint-disable-next-line
   }, [])
 
   const historyById = useMemo(() => {

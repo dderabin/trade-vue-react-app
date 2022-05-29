@@ -1,5 +1,3 @@
-import googleplus from "../assets/uploads/google-plus.svg";
-import apple from "../assets/uploads/apple.svg";
 import { Logo } from "../components/Logo";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
@@ -7,8 +5,6 @@ import { Helmet } from "react-helmet";
 import { useAuth } from "../hooks";
 import { Button, Col, Divider, Input, Row } from "antd";
 import { MailFilled, LockFilled, EyeTwoTone, EyeInvisibleOutlined, AppleFilled, GoogleOutlined, UserOutlined } from '@ant-design/icons';
-import { useGoogleLogin } from '@react-oauth/google';
-import AxiosInstance from "../axiosClient";
 
 const Login = (props) => {
   const { login, register } = useAuth();
@@ -22,7 +18,7 @@ const Login = (props) => {
 
   const [resetEmail, setResetEmail] = useState('')
 
-  const clientId = "278315676653-p894mp7jnnavs0oim2si23nfc2966v5a.apps.googleusercontent.com"
+  // const clientId = "278315676653-p894mp7jnnavs0oim2si23nfc2966v5a.apps.googleusercontent.com"
 
   // const googleLogin = useGoogleLogin({
   //   onSuccess: async tokenResponse => {
@@ -410,8 +406,8 @@ const Login = (props) => {
                             htmlFor="exampleCheck1"
                             style={{ fontSize: '0.8rem' }}
                           >
-                            By proceeding I agree to TraderPro <a style={{ color: '#74a2b8' }}>Terms and
-                              Conditions</a> and <a style={{ color: '#74a2b8' }}>Privacy Policy</a>.
+                            By proceeding I agree to TraderPro <button style={{ color: '#74a2b8', border: 'none', background: 'none' }}>Terms and
+                              Conditions</button> and <button style={{ color: '#74a2b8', border: 'none', background: 'none' }}>Privacy Policy</button>.
                           </label>
                         </div>
                       </div>

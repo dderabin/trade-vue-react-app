@@ -21,12 +21,14 @@ export const DefaultLayout = ({ children }) => {
     if (successMessage) {
       alert.success(successMessage)
     }
+    // eslint-disable-next-line
   }, [successMessage])
 
   useEffect(() => {
     if (failMessage) {
       alert.error(failMessage)
     }
+    // eslint-disable-next-line
   }, [failMessage])
 
   return <>{children}</>;

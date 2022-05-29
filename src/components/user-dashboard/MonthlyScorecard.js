@@ -10,7 +10,7 @@ import useMonthlyScorecard from '../../hooks/useMonthlyScorcard';
 //   2019: [-7.70, -11.22, 8.02, 29.08, 62.42, 25.46, -6.33, -4.81, -13.56, 10.29, -17.55, -5.10],// 69.00],
 //   2018: [-27.99, 1.60, -32.67, 33.71, -19.07, -14.79, 21.06, -9.30, -5.93, -4.47, -37.24, -7.09],// 102.18],
 // }
-const mobile_data = [115.91, 10.00, 20.00, 28.7, -7.75, 2.7, 24.63, -3.12, 9.42, 34.46, -24.87, -8.59, 30.33]
+// const mobile_data = [115.91, 10.00, 20.00, 28.7, -7.75, 2.7, 24.63, -3.12, 9.42, 34.46, -24.87, -8.59, 30.33]
 const MonthlyScorecard = () => {
   const [data, setData] = useState({
     series: [{
@@ -200,6 +200,7 @@ const MonthlyScorecard = () => {
       }]
     })
     // selected.reverse();
+    // eslint-disable-next-line
   }, [selected])
 
   useEffect(()=> {

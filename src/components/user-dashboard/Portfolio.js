@@ -1,27 +1,5 @@
 import React, { useState } from 'react';
-
 import tableArrow_icon from "./../../assets/img/icons/table-arrow.svg";
-
-const options = [
-  {
-    key: 'User',
-    name: 'Catalina R. Lee',
-    userid: '@Catalina007',
-    image: { avatar: true, src: 'img/avatars/avatar.jpg' },
-    date: '6:33 AM   02 Mar 22',
-    toReply: "",
-    content: "Could my lines be more precise?  Like I said, buy dips..."
-  },
-  {
-    key: 'User2',
-    name: 'Justin T. David',
-    userid: '@JustinT',
-    image: { avatar: true, src: 'img/avatars/avatar-2.jpg' },
-    date: '5d',
-    toReply: "@Catalina007",
-    content: ""
-  }
-];
 
 const Portfolio = () => {
   const [toogle, setToogle] = useState(0);

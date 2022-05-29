@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 
@@ -8,9 +8,6 @@ const ProviderList = ({ providerList }) => {
 
   }
 
-  useEffect(() => {
-    console.log('providerList =>', providerList)
-  }, [])
   return (
     <>
       {providerList.map((provider, index) => (
