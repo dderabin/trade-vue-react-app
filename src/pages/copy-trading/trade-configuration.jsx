@@ -5,6 +5,7 @@ import moment from 'moment'
 import { useCopyTraders, useExchanges } from "../../hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { AppActions } from "../../store/actions";
+import { EXCHANGE_MAP } from "../../store/consts";
 
 export const TradeConfigurationPage = () => {
   const navigate = useNavigate()
@@ -127,7 +128,7 @@ export const TradeConfigurationPage = () => {
                       {
                         exchangePlatforms.length > 0 &&
                         exchangePlatforms.map((item, index) => (
-                          <option key={index} value={item}>{item === 'testnet-binanceusdm' ? 'Binance' : item}</option>
+                          <option key={index} value={item}>{EXCHANGE_MAP[item]}</option>
                         ))
                       }
                     </select>
