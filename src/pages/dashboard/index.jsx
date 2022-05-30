@@ -154,7 +154,7 @@ export const DashboardPage = () => {
                 }
               </div>
             </div>
-              {/* {activeTab === 'Portfolio' && <Portfolio />} */}
+            {/* {activeTab === 'Portfolio' && <Portfolio />} */}
             {activeTab === 'Portfolio' && <><Profitability /><br /><Portfolio /></>}
             {/* {activeTab === 'Profitability' && <Profitability />} */}
             {activeTab === 'Monthly Scorecard' && <MonthlyScorecard />}

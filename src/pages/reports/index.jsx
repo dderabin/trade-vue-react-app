@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useTraderHistory } from "../../hooks";
 import { EXCHANGE_MAP } from "../../store/consts";
+import icon_setting from "../../assets/img/icons/setting-mobile.svg";
+import icon_dir_down from "../../assets/img/icons/dir_down.svg";
 
 export const TradeReportPage = () => {
   const [toogle, setToogle] = useState(0);
@@ -25,54 +27,61 @@ export const TradeReportPage = () => {
       setOpen(true);
     }
   };
+
+  const handleExportClick = (type) => {
+    setOpen(false);
+    switch (type) {
+      case 'PDF':
+        break;
+      case 'Excel':
+        break;
+      case 'CSV':
+        break;
+      default:
+        break;
+    }
+  }
+
   return (
     <>
       <Helmet>
         <title>Trade Report · TraderPro</title>
       </Helmet>
-      <div className="container-fluid p-0">
-        
-        <div className="card grey-card mb-0">
-          <div className="card-body export-card">
-            <div className="row">
-              <div className="col-xl-12 col-lg-12 col-12 text-end export-data">
-                
-                <span>View Trade Report</span>
-
-                <div className="dropdown d-xl-inline drop-btn export-data-button">
-                  <button
-                    className="btn btn-white dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    onClick={() => openMenu()}
-                    // aria-expanded="true"
-                  >
-                    Export Data
-                  </button>
-                  {open === true && (
-                    <OutsideClickHandler
-                      onOutsideClick={() => {
-                        setOpen(false);
-                      }}
-                    >
-                      <ul className="menu-dropdown-toggle">
-                        <li onClick={() => openMenu()}>
-                          <a className="dropdown-item" href="#0">
-                            PDF
-                          </a>
-                        </li>
-                        <li onClick={() => openMenu()}>
-                          <a className="dropdown-item" href="#0">
-                            XLS
-                          </a>
-                        </li>
-                      </ul>
-                    </OutsideClickHandler>
-                  )}
-                </div>
+      <div className="container-fluid p-0 dash-page">        
+        <div className="card grey-card mb-0 dash-content">
+          <div className="card-body tab-content">
+            <div className="tab-content-title">
+              <div className="tab-title">
+                View Trade Report
               </div>
-            </div>
+              <div className="plus-option">
+                <div className="option-btn" onClick={() => openMenu()}>
+                  <img src={icon_setting} alt="settomg icon" className="option-icon" />
+                  <img src={icon_dir_down} alt="drowdown icon" className="option-dropdown-icon"/>
+                </div>
+                {open === true && (
+                  <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
+                    <ul className="option-content">
+                      <li onClick={() => handleExportClick('PDF')}>
+                        <a className="dropdown-item" href="#0">
+                          Export to PDF
+                        </a>
+                      </li>
+                      <li onClick={() => handleExportClick('Excel')}>
+                        <a className="dropdown-item" href="#0">
+                          Export to Excel
+                        </a>
+                      </li>
+                      <li onClick={() => handleExportClick('CSV')}>
+                        <a className="dropdown-item" href="#0">
+                          Export to CSV
+                        </a>
+                      </li>
+                    </ul>
+                  </OutsideClickHandler>
+                )}                
+              </div>
+            </div>            
           </div>
         </div>
         <div className="card mb-0 card-light-grey">
@@ -222,5 +231,3 @@ export const TradeReportPage = () => {
     </>
   );
 };
-
-// export default FromSignalProviderPage;
