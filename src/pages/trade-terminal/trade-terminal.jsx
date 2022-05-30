@@ -14,6 +14,9 @@ import { useDispatch } from "react-redux";
 import { AppActions } from '../../store/actions'
 import { useTraderHistory } from "../../hooks";
 import { EXCHANGE_MAP } from "../../store/consts";
+import OutsideClickHandler from "react-outside-click-handler";
+import icon_setting from "../../assets/img/icons/setting-mobile.svg";
+import icon_dir_down from "../../assets/img/icons/dir_down.svg";
 import "font-awesome/css/font-awesome.css";
 
 export const TradeTerminalPage = () => {
@@ -32,6 +35,7 @@ export const GraphicalChartArea = () => {
   const [active, setActive] = useState('buy');
   const [exchanges, setExchanges] = useState([])
   const [chosenExchange, setChosenExchange] = useState('')
+  const [open, openMenu] = useState(false)
   const [tradingSymbol, setTradingSymbol] = useState({
     tradingSymbol: 'BTCUSDT',
     from: 'BTC',
@@ -49,8 +53,19 @@ export const GraphicalChartArea = () => {
     setChosenExchange(data)
     console.log(chosenExchange)
   };
-
-
+  const handleExportClick = (type) => {
+    openMenu(false)
+    switch (type) {
+      case 'PDF':
+        break;
+      case 'Excel':
+        break;
+      case 'CSV':
+        break;
+      default:
+        break;
+    }
+  }
   function setCryptos(coins) {
     let tradingSymbol = coins
     let cryptosArr = tradingSymbol.split('U')
@@ -202,11 +217,40 @@ export const GraphicalChartArea = () => {
               autosize="true"
             />
           </div>
-          <div className="tt-history" style={{ marginTop: "10px" }}>
-            <div className="card pt-3" style={{ height: "300px" }}>
-              <h3 className="ps-3 mb-3 trade-title">Trade History</h3>
+          <div className="tt-history dash-page" style={{ marginTop: "10px" }}>
+            <div className="card pt-3  dash-content" style={{ height: "300px" }}>
+              <div className="tab-content-title tab-content" style={{display: 'flex', justifyContent: 'space-between', padding: '0 20px 0 15px'}}>                
+                <div className="trade-title">Trade History</div>
+                <div className="plus-option">
+                  <div className="option-btn" onClick={() => openMenu(true)}>
+                    <img src={icon_setting} alt="settomg icon" className="option-icon" />&nbsp;
+                    <img src={icon_dir_down} alt="drowdown icon" className="option-dropdown-icon"/>
+                  </div>
+                  {open === true && (
+                    <OutsideClickHandler onOutsideClick={() => openMenu(false)}>
+                      <ul className="option-content">
+                        <li onClick={() => handleExportClick('PDF')}>
+                          <a className="dropdown-item" href="#0">
+                            Export to PDF
+                          </a>
+                        </li>
+                        <li onClick={() => handleExportClick('Excel')}>
+                          <a className="dropdown-item" href="#0">
+                            Export to Excel
+                          </a>
+                        </li>
+                        <li onClick={() => handleExportClick('CSV')}>
+                          <a className="dropdown-item" href="#0">
+                            Export to CSV
+                          </a>
+                        </li>
+                      </ul>
+                    </OutsideClickHandler>
+                  )}                
+                </div>
+              </div>
               <div className="trade-history">
-                <div className="card-body pt-0">
+                <div className="card-body pt-0" style={{backgroundColor: 'white', border: 'none'}}>
                   <div className="table-responsive">
                     <table className="w-100 main_table">
                       <thead className="rounded" style={{ backgroundColor: "#F2F4F5" }}>
@@ -215,7 +259,7 @@ export const GraphicalChartArea = () => {
                             Order Id
                           </th>
                           <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
-                            Market Type
+                            Exchange
                           </th>
                           <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
                             From
