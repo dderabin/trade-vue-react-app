@@ -64,9 +64,11 @@ const appReducer = createReducer(defaultState, {
         state.loading = true;
     },
     [AppActions.traderSubscriptionFetchSuccessAction]: (state, action) => {
+        state.loading = false;
         state.traderSubscription = action.payload
     },
     [AppActions.signalSubscriptionFetchSuccessAction]: (state, action) => {
+        state.loading = false;
         state.signalSubscription = action.payload
     },
     [AppActions.subscribersFetchSuccessAction]: (state, action) => {

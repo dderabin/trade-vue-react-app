@@ -144,7 +144,7 @@ export const DashboardPage = () => {
                   <img src={icon_dir_down} alt="drowdown icon" className="option-dropdown-icon"/>
                 </div>
                 { visibleOption && 
-                  <div class="option-content">
+                  <div className="option-content">
                     <Link to="/trade-terminal"><span onClick={() => setVisibleOption(false)}>Create New Trade</span></Link>
                     <Link to="/copy-trading/view-copy-trader-list"><span onClick={() => setVisibleOption(false)}>View Copy Traders</span></Link>
                     <Link to="/signal-provider/view-signal-provider"><span onClick={() => setVisibleOption(false)}>View Signal Providers</span></Link>

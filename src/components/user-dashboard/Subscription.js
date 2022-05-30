@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
+import useSubscriptions from '../../hooks/useSubscriptions';
 
 import icon_up from "./../../assets/img/icons/dir_up_green.svg";
 
 const Subscription = () => {
+  const { traderSubscription, signalSubscription } = useSubscriptions();
   const [signalData] = useState({
     series: [{
       name: 'series1',
@@ -86,6 +88,13 @@ const Subscription = () => {
       // },
     },
   })
+
+  useEffect(() => {
+  
+    return () => {
+    }
+  }, [traderSubscription, signalSubscription])
+  
 
   return (
     <div className='row subscriber-page'>
