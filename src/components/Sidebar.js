@@ -6,7 +6,6 @@ import sb_signaltrading from "./../assets/img/icons/signalprovider-icon-dark.svg
 import sb_pricecomparison from "./../assets/img/icons/pricecomparison-icon-dark.svg";
 import sb_tradeterminal from "./../assets/img/icons/tradeterminal-icon-dark.svg";
 import sb_portolioperformance from "./../assets/img/icons/portfolioperformance-icon-dark.svg";
-import sb_reports from "./../assets/img/icons/reports-icon-dark.svg";
 import sb_exchangeaccount from "./../assets/img/icons/exchangeaccount-icon-dark.svg";
 import sb_arrowdown from "./../assets/img/icons/arrow-down.svg";
 import { Link, useLocation } from "react-router-dom";
@@ -285,69 +284,6 @@ export const Sidebar = ({ collapseSidebar, onOutsideSidebarClickHandler }) => {
                               />
                               Portfolio Performance
                             </Link>
-                          </li>
-                          {/* <li className="sub-menu" onClick={() => {
-                                closeCollapse()
-                                setShowReportsScroll(!showReportsScroll)
-                              }}> */}
-                          <li> 
-                            <Link
-                              onClick={() => closeCollapse()}
-                              to="/reports"
-                              className={`${
-                                location.pathname === "/reports"
-                                  ? "active"
-                                  : ""
-                              } `}
-                            >
-                              <img
-                                src={sb_reports}
-                                alt=""
-                                className="img-fluid menu-icon"
-                              />
-                              Trade Report
-                              {/* <span className="float-right">
-                                <img
-                                  src={sb_arrowdown}
-                                  alt=""
-                                  className="img-fluid"
-                                />
-                              </span> */}
-                            </Link>
-                            {/* <ul
-                              className={`${
-                                location.pathname.includes("/reports") ||
-                                showReportsScroll
-                                  ? "showScrollMenu"
-                                  : ""
-                              }`}
-                            >
-                              <li>
-                                <Link
-                                  to="/reports/trade-signals"
-                                  className={`${
-                                    location.pathname ===
-                                    "/reports/trade-signals"
-                                      ? "active"
-                                      : ""
-                                  } `}
-                                >
-                                  Trade Signals
-                                </Link>
-                              </li>
-                              <li>
-                                <Link
-                                  to="/reports/my-trades"
-                                  className={`${
-                                    location.pathname === "/reports/my-trades"
-                                      ? "active"
-                                      : ""
-                                  } `}
-                                >
-                                  My Trades
-                                </Link>
-                              </li>
-                            </ul> */}
                           </li>
                           <li>
                             <Link

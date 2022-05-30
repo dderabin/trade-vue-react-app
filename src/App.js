@@ -49,7 +49,7 @@ import ViewSubscribersPage from "./pages/copy-trading/view-suscribers";
 import { Provider } from "react-redux";
 import store from './store';
 import { AuthProvider } from "./store/contexts/JWTAuthContext";
-import { TradeReportPage } from "./pages/reports";
+// import { TradeReportPage } from "./pages/reports";
 // require('react-date-picker/dist/DatePicker.css');
 
 const options = {
@@ -293,7 +293,7 @@ function App() {
               />
               {/*  */}
               {/* Reports */}
-              <Route
+              {/* <Route
                 path="/reports"
                 element={
                   <PagesLayout
@@ -306,7 +306,7 @@ function App() {
                     <TradeReportPage/>
                   </PagesLayout>
                 }
-              />
+              /> */}
               {/*  */}
               <Route
                 path="/reports/trade-signals"
