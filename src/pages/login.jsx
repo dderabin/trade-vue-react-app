@@ -4,7 +4,10 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useAuth } from "../hooks";
 import { Button, Col, Divider, Input, Row } from "antd";
-import { MailFilled, LockFilled, EyeTwoTone, EyeInvisibleOutlined, AppleFilled, GoogleOutlined, UserOutlined } from '@ant-design/icons';
+import { MailFilled, LockFilled, EyeTwoTone, EyeInvisibleOutlined, AppleFilled, GoogleOutlined } from '@ant-design/icons';
+import user_icon from "../assets/img/user.svg";
+import lock_icon from "../assets/img/lock.svg";
+import email_icon from "../assets/img/email.svg";
 
 const Login = (props) => {
   const { login, register } = useAuth();
@@ -95,7 +98,7 @@ const Login = (props) => {
                         <div>
                           <label className="form-label login">Email Address*</label>
                           <Input
-                            prefix={<MailFilled style={{ paddingRight: 5, color: 'gray' }} />}
+                            prefix={<><img src={email_icon} alt=''/>&nbsp;</>}
                             type="email"
                             name="email"
                             className="form-control"
@@ -114,7 +117,7 @@ const Login = (props) => {
                         <div>
                           <label className="form-label login" style={{ fontWeight: 'bold' }}>Password*</label>
                           <Input.Password
-                            prefix={<LockFilled style={{ paddingRight: 5, color: 'gray' }} />}
+                            prefix={<><img src={lock_icon} alt=''/>&nbsp;</>}
                             type="password"
                             name="password"
                             className="form-control"
@@ -226,7 +229,7 @@ const Login = (props) => {
                         <div>
                           <label className="form-label" style={{ marginTop: 10 }}>Email Address *</label>
                           <Input
-                            prefix={<MailFilled style={{ marginRight: 5 }} />}
+                            prefix={<><img src={email_icon} alt=''/>&nbsp;</>}
                             type="email"
                             name="email"
                             className="form-control"
@@ -301,7 +304,7 @@ const Login = (props) => {
                         <div>
                           <label className="form-label" style={{ marginTop: 10 }} >User Name*</label>
                           <Input
-                            prefix={<UserOutlined style={{ color: '#9a9a9a', marginRight: 5 }} />}
+                            prefix={<><img src={user_icon} alt=''/>&nbsp;</>}
                             type="text"
                             name="username"
                             className="form-control"
@@ -318,7 +321,7 @@ const Login = (props) => {
                         <div>
                           <label className="form-label" style={{ marginTop: 10 }}>Email Address *</label>
                           <Input
-                            prefix={<MailFilled style={{ color: '#9a9a9a', marginRight: 5 }} />}
+                            prefix={<><img src={email_icon} alt=''/>&nbsp;</>}
                             type="email"
                             name="email"
                             className="form-control"
@@ -354,7 +357,7 @@ const Login = (props) => {
                         <div>
                           <label className="form-label" >Password *</label>
                           <Input
-                            prefix={<LockFilled style={{ color: '#9a9a9a', marginRight: 5 }} />}
+                            prefix={<><img src={lock_icon} alt=''/>&nbsp;</>}
                             type="password"
                             name="password"
                             className="form-control"
@@ -377,7 +380,7 @@ const Login = (props) => {
                             Confirm Password *
                           </label>
                           <Input
-                            prefix={<LockFilled style={{ color: '#9a9a9a', marginRight: 5 }} />}
+                            prefix={<><img src={lock_icon} alt=''/>&nbsp;</>}
                             type="password"
                             name="confirmPassword"
                             className="form-control"
