@@ -4801,6 +4801,10 @@ div.modal-content {
         padding: 0 10px;
         margin: 5px 0px;
         align-items: center;
+        &.other {
+          background-color: transparent;
+          width: 40px;
+        }
         .option-btn {
           display: flex;
           flex-direction: row;
@@ -4825,7 +4829,9 @@ div.modal-content {
           z-index: 1;
           left: -135px;
           top: 44px;
-          // padding: 0 10px;
+          &.other {
+            left: -160px;
+          }
           a {
             color: black;
             padding: 12px 16px;

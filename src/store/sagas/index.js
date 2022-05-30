@@ -409,6 +409,34 @@ function* fetchSubscribersSaga() {
     yield takeLatest(AppActions.subscribersFetchAction.toString(), performFetchSubscribers)
 }
 
+function* performFetchTraderSubscriptions() {
+    try {
+        yield put(AppActions.loadingAction())
+        const response = yield call(Api.GET_MONTHLY_COPYTRADER_SUBSCRIBERS_COUNT)
+        yield put(AppActions.traderSubscriptionFetchSuccessAction(response.data))
+    } catch(e) {
+        yield put(AppActions.sagaFailAction(e))
+    }
+}
+
+function* fetchTraderSubscriptionSaga() {
+    yield takeLatest(AppActions.traderSubscriptionFetchAction.toString(), performFetchTraderSubscriptions)
+}
+
+function* performFetchSignalSubscriptions() {
+    try {
+        yield put(AppActions.loadingAction())
+        const response = yield call(Api.GET_MONTHLY_SIGNAL_SUBSCRIBERS_COUNT)
+        yield put(AppActions.signalSubscriptionFetchSuccessAction(response.data))
+    } catch(e) {
+        yield put(AppActions.sagaFailAction(e))
+    }
+}
+
+function* fetchSignalSubscriptionSaga() {
+    yield takeLatest(AppActions.signalSubscriptionFetchAction.toString(), performFetchSignalSubscriptions)
+}
+
 export default function* rootSaga() {
     yield all([
         logInSaga(),
@@ -439,5 +467,7 @@ export default function* rootSaga() {
         fetchMonthlyScorecardSaga(),
         changePasswordSaga(),
         fetchSubscribersSaga(),
+        fetchTraderSubscriptionSaga(),
+        fetchSignalSubscriptionSaga(),
     ])
 }

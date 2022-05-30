@@ -123,3 +123,11 @@ export const changePasswordFailAction = createAction('change/password/fail')
 export const subscribersFetchAction = createAction('subscribers/fetch')
 export const subscribersFetchSuccessAction = createAction('subscribers/fetch/success')
 export const subscribersFetchFailAction = createAction('subscribers/fetch/fail')
+
+export const traderSubscriptionFetchAction = createAction('trade/subscription/fetch')
+export const traderSubscriptionFetchSuccessAction = createAction('trade/subscription/fetch/success')
+export const traderSubscriptionFetchFailAction = createAction('trade/subscription/fetch/fail')
+
+export const signalSubscriptionFetchAction = createAction('signal/subscription/fetch')
+export const signalSubscriptionFetchSuccessAction = createAction('signal/subscription/fetch/success')
+export const signalSubscriptionFetchFailAction = createAction('signal/subscription/fetch/fail')

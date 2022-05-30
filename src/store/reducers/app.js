@@ -27,6 +27,8 @@ const defaultState = {
     monthlyScorecard: [],
     subscribersForCopyTraders: [],
     subscribersForSignalProviders: [],
+    traderSubscription: [],
+    signalSubscription: [],
 }
 
 const appReducer = createReducer(defaultState, {
@@ -55,9 +57,17 @@ const appReducer = createReducer(defaultState, {
         state.monthlyScorecard = [];
         state.subscribersForCopyTraders = [];
         state.subscribersForSignalProviders = [];
+        state.traderSubscription = [];
+        state.signalSubscription = [];
     },
     [AppActions.loadingAction]: (state) => {
         state.loading = true;
+    },
+    [AppActions.traderSubscriptionFetchSuccessAction]: (state, action) => {
+        state.traderSubscription = action.payload
+    },
+    [AppActions.signalSubscriptionFetchSuccessAction]: (state, action) => {
+        state.signalSubscription = action.payload
     },
     [AppActions.subscribersFetchSuccessAction]: (state, action) => {
         state.loading = false

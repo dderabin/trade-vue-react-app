@@ -16,7 +16,6 @@ import { useTraderHistory } from "../../hooks";
 import { EXCHANGE_MAP } from "../../store/consts";
 import OutsideClickHandler from "react-outside-click-handler";
 import icon_setting from "../../assets/img/icons/setting-mobile.svg";
-import icon_dir_down from "../../assets/img/icons/dir_down.svg";
 import "font-awesome/css/font-awesome.css";
 
 export const TradeTerminalPage = () => {
@@ -219,16 +218,15 @@ export const GraphicalChartArea = () => {
           </div>
           <div className="tt-history dash-page" style={{ marginTop: "10px" }}>
             <div className="card pt-3  dash-content" style={{ height: "300px" }}>
-              <div className="tab-content-title tab-content" style={{display: 'flex', justifyContent: 'space-between', padding: '0 20px 0 15px'}}>                
+              <div className="tab-content-title tab-content" style={{display: 'flex', justifyContent: 'space-between', padding: '0 20px 0 15px', alignItems: 'center'}}>                
                 <div className="trade-title">Trade History</div>
-                <div className="plus-option">
+                <div className="plus-option other">
                   <div className="option-btn" onClick={() => openMenu(true)}>
-                    <img src={icon_setting} alt="settomg icon" className="option-icon" />&nbsp;
-                    <img src={icon_dir_down} alt="drowdown icon" className="option-dropdown-icon"/>
+                    <img src={icon_setting} alt="settomg icon" className="option-icon" />
                   </div>
                   {open === true && (
                     <OutsideClickHandler onOutsideClick={() => openMenu(false)}>
-                      <ul className="option-content">
+                      <ul className="option-content other">
                         <li onClick={() => handleExportClick('PDF')}>
                           <a className="dropdown-item" href="#0">
                             Export to PDF
@@ -282,8 +280,8 @@ export const GraphicalChartArea = () => {
                         {/* <TraderHistoryList traderHistoryList={historyList} onEditOpen={setEditOpen} /> */}
                         {historyList.map((history, index) => (
                           <tr style={{ fontWeight: 'bold', textAlign: 'center', cursor: (history.state === 'ordered' || history.state === 'preOrder' || history.state === 'position') && 'pointer' }} key={index} onClick={() => updateStateMaking(history)}>
-                            <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>{history._id}</td>
-                            <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>{history.exchangePlatform}</td>
+                            <td style={{ height: '38px', fontSize: '0.7rem' }}>{history._id}</td>
+                            <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>{EXCHANGE_MAP[history.exchangePlatform]}</td>
                             <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>{history.symbol.from}</td>
                             <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>{history.symbol.to}</td>
                             <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>{history.entryPrice}</td>
