@@ -2049,6 +2049,9 @@ img.ui.avatar.image {
 
   .card-body {
     padding: 1rem;
+    &.login {
+      padding: 0.2rem 1.2rem;
+    }
   }
 
   .font-13 {
@@ -2142,6 +2145,12 @@ img.ui.avatar.image {
 
   .form-label {
     margin-top: 1rem;
+    &.login {
+      margin-top: 0;
+      font-size: 0.8rem !important;
+      font-weight: 600 !important;
+      color: #505960 !important;
+    }
   }
 
   form .row {

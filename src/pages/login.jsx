@@ -71,31 +71,31 @@ const Login = (props) => {
       </Helmet>
       <div className="auth-bg" >
         <div className="pt-md-1">
-          <div className="logo-container" style={{ marginTop: "25px" }}>
+          <div className="logo-container" style={{ marginTop: "50px" }}>
             <Link to="/">
               <Logo />
             </Link>
           </div>
           <div
-            className="card mx-4 px-4 auth-card"
+            className="card auth-card"
             style={{ marginTop: "2rem", paddingTop: ".5rem", paddingBottom: 0 }}
           >
-            <div className="card-body" style={{ margin: 0, paddingTop: 20, paddingBottom: 20 }}>
+            <div className="card-body login" style={{ margin: 0, paddingTop: 20 }}>
               {currentFormType === "login" ? (
                 <form onSubmit={loginClick}>
                   <div className="row">
                     <div className="col-xl-12 col-lg-12 col-12">
                       <h2 className="auth-title">Login Into Trader Pro</h2>
                     </div>
-                    <Divider style={{ margin: 0 }}></Divider>
+                    <Divider style={{ margin: '5px 0' }}></Divider>
                   </div>
                   <div>
                     <div className="row">
-                      <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                      <div className="col-xl-12 col-lg-12 col-12 mob-mt-1">
                         <div>
-                          <label className="form-label" style={{ fontWeight: 'bold', marginTop: 10 }}>Email Address*</label>
+                          <label className="form-label login">Email Address*</label>
                           <Input
-                            prefix={<MailFilled style={{ paddingRight: 5 }} />}
+                            prefix={<MailFilled style={{ paddingRight: 5, color: 'gray' }} />}
                             type="email"
                             name="email"
                             className="form-control"
@@ -110,11 +110,11 @@ const Login = (props) => {
                       </div>
                     </div>
                     <div className="row mt-3">
-                      <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                      <div className="col-xl-12 col-lg-12 col-12 mob-mt-1">
                         <div>
-                          <label className="form-label" style={{ fontWeight: 'bold' }}>Password*</label>
+                          <label className="form-label login" style={{ fontWeight: 'bold' }}>Password*</label>
                           <Input.Password
-                            prefix={<LockFilled style={{ paddingRight: 5 }} />}
+                            prefix={<LockFilled style={{ paddingRight: 5, color: 'gray' }} />}
                             type="password"
                             name="password"
                             className="form-control"
@@ -170,7 +170,7 @@ const Login = (props) => {
                         </div>
                       </div>
                     </div>
-                    <Divider plain>Or</Divider>
+                    <Divider plain><sapn style={{color: '#999'}}>Or</sapn></Divider>
                     {/* <div className="row mb-1 mt-3">
                       <div className="col-xl-12 col-lg-12 col-12">
                         <p className="text-center mb-4 mob-mt-3">or</p>
@@ -195,7 +195,7 @@ const Login = (props) => {
                       </Col>
                     </Row>
                     <div className="row mt-4" style={{ margin: 0 }}>
-                      <p style={{ margin: 0 }} className="text-center font-12 mob-mt-3">
+                      <p style={{ margin: 0 }} className="text-center font-12 mob-mt-1">
                         Don't have an account ?{" "}
                         <button
                           onClick={() => setCurrentFormType("sign-up")}
@@ -252,7 +252,7 @@ const Login = (props) => {
                         </div>
                       </div>
                     </div>
-                    <Divider plain>Or</Divider>
+                    <Divider plain><sapn style={{color: '#999'}}>Or</sapn></Divider>
                     <Row gutter={12} justify="space-between" align="middle">
                       <Col span={12}>
                         <Button style={{ fontSize: '0.5rem', width: '100%', backgroundColor: '#e7e7e7' }}>
@@ -425,7 +425,7 @@ const Login = (props) => {
                         </div>
                       </div>
                     </div>
-                    <Divider plain>Or</Divider>
+                    <Divider plain><sapn style={{color: '#999'}}>Or</sapn></Divider>
                     <Row gutter={12} justify="space-between" align="middle">
                       <Col span={12}>
                         <Button style={{ fontSize: '0.5rem', width: '100%', backgroundColor: '#e7e7e7' }}>
