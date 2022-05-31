@@ -13,7 +13,7 @@ export const DefaultLayout = ({ children }) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/favourites')
+      navigate('/trade-terminal')
     }
   }, [isAuthenticated, navigate])
 

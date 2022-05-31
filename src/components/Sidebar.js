@@ -1,6 +1,6 @@
 // sidebar icons
 
-import sb_fav from "./../assets/img/icons/favourite-icon-dark.svg";
+// import sb_fav from "./../assets/img/icons/favourite-icon-dark.svg";
 import sb_copytrading from "./../assets/img/icons/conpytrading-icon-dark.svg";
 import sb_signaltrading from "./../assets/img/icons/signalprovider-icon-dark.svg";
 import sb_pricecomparison from "./../assets/img/icons/pricecomparison-icon-dark.svg";
@@ -56,7 +56,7 @@ export const Sidebar = ({ collapseSidebar, onOutsideSidebarClickHandler }) => {
                     <div className="scrollBox">
                       <nav>
                         <ul className="mt-5">
-                          <li>
+                          {/* <li>
                             <Link
                               onClick={() => closeCollapse()}
                               to="/favourites"
@@ -72,6 +72,24 @@ export const Sidebar = ({ collapseSidebar, onOutsideSidebarClickHandler }) => {
                                 className="img-fluid menu-icon"
                               />
                               Favourites
+                            </Link>
+                          </li> */}
+                          <li>
+                            <Link
+                            onClick={() => closeCollapse()}
+                              to="/trade-terminal"
+                              className={`${
+                                location.pathname === "/trade-terminal"
+                                  ? "active"
+                                  : ""
+                              } `}
+                            >
+                              <img
+                                src={sb_tradeterminal}
+                                alt=""
+                                className="img-fluid menu-icon"
+                              />
+                              Trade Terminal
                             </Link>
                           </li>
                           <li className="sub-menu">
@@ -247,24 +265,6 @@ export const Sidebar = ({ collapseSidebar, onOutsideSidebarClickHandler }) => {
                                 className="img-fluid menu-icon"
                               />
                               Price Comparison
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                            onClick={() => closeCollapse()}
-                              to="/trade-terminal"
-                              className={`${
-                                location.pathname === "/trade-terminal"
-                                  ? "active"
-                                  : ""
-                              } `}
-                            >
-                              <img
-                                src={sb_tradeterminal}
-                                alt=""
-                                className="img-fluid menu-icon"
-                              />
-                              Trade Terminal
                             </Link>
                           </li>
                           <li>

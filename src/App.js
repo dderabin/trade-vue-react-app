@@ -14,7 +14,7 @@ import {TradeConfigurationPage} from "./pages/copy-trading/trade-configuration";
 import PriceComparisonPage from "./pages/price-comparison";
 import {PortfolioPerformancePage} from "./pages/portfolio-performance";
 import {ExchangeAccountPage} from "./pages/exchange-account/exchange-account";
-import {FavouritesPages} from "./pages/favourites";
+// import {FavouritesPages} from "./pages/favourites";
 import {DashboardPage} from "./pages/dashboard";
 
 import {TradeTerminalPage} from "./pages/trade-terminal/trade-terminal";
@@ -124,7 +124,7 @@ function App() {
                   </PagesLayout>
                 }
               />
-              <Route
+              {/* <Route
                 path="/favourites"
                 element={
                   <PagesLayout
@@ -137,7 +137,7 @@ function App() {
                     <FavouritesPages/>
                   </PagesLayout>
                 }
-              />
+              /> */}
               {/* copy trading */}
               <Route
                 path="/copy-trading/join-copy-trader"
