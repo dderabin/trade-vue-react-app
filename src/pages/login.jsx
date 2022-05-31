@@ -83,7 +83,7 @@ const Login = (props) => {
             className="card auth-card"
             style={{ marginTop: "2rem", paddingTop: ".5rem", paddingBottom: 0 }}
           >
-            <div className="card-body login" style={{ margin: 0, paddingTop: 20 }}>
+            <div className="card-body login" style={{ margin: 0, paddingTop: 20, boxShadow: '0 4px 8px 0 rgb(0 0 0 / 20%)', borderRadius: '18px' }}>
               {currentFormType === "login" ? (
                 <form onSubmit={loginClick}>
                   <div className="row">
