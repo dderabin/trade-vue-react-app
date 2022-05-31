@@ -650,7 +650,7 @@ export const BuySellForm = (props) => {
       amount: activeCrypto === props.tradingSymbol.from ? parseFloat(amount) : parseFloat(amount) / props.chartInfo.price,
       stopLoss: parseFloat(stopLoss),
       leverage: signalType.toLowerCase() !== 'spot' ? parseInt(leverage) : undefined,
-      targets: buyProfit.map(item => ({price: parseFloat(item.price), amount: parseFloat(item.amount)}))
+      targets: buyProfit.map(item => ({price: parseFloat(item.price) || 0, amount: parseFloat(item.amount) || 0}))
     }))
   }
 
@@ -659,7 +659,7 @@ export const BuySellForm = (props) => {
       id: signal._id,
       entryPrice: signal.signalType.toLowerCase() === 'spot' ? entryPrice : undefined,
       stopLoss: parseFloat(stopLoss),
-      targets: updateProfit.map(item => ({price: parseFloat(item.price), amount: parseFloat(item.amount)}))
+      targets: updateProfit.map(item => ({price: parseFloat(item.price) || 0, amount: parseFloat(item.amount) || 0}))
     }))
   }
 
