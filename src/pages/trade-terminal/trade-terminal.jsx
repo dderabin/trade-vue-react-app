@@ -679,7 +679,7 @@ export const BuySellForm = (props) => {
 
   useEffect(() => {
     setPosition('Spot')
-    setLeverage(0)
+    setLeverage('5')
     setOrder('limit')
     setEntryPrice(0)
     setAmount(0)
@@ -699,7 +699,7 @@ export const BuySellForm = (props) => {
       setActiveCrypto(props.tradingSymbol.from)
       setOrder('limit')
       setPosition('Spot')
-      setLeverage(0)
+      setLeverage('5')
       setEntryPrice(0)
       setPriceStop(0)
       setAmount(0)

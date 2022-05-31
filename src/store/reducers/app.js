@@ -200,6 +200,7 @@ const appReducer = createReducer(defaultState, {
         state.loading = false
     },
     [AppActions.signalAddSuccessAction]: (state, action) => {
+        state.loading = false
         state.historyList = [...state.historyList, action.payload.signalObject]
     },
     [AppActions.signalUpdateSuccessAction]: (state, action) => {
