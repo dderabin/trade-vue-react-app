@@ -142,7 +142,7 @@ const Login = (props) => {
                             checked={loginForm.remember ? true : false}
                           />
                           <label
-                            className="form-check-label"
+                            className="form-check-label font-13"
                             htmlFor="exampleCheck1"
                           >
                             Remember me
@@ -202,7 +202,7 @@ const Login = (props) => {
                         Don't have an account ?{" "}
                         <button
                           onClick={() => setCurrentFormType("sign-up")}
-                          className="color-green ms-2 btn"
+                          className="color-green ms-2 btn font-12"
                         >
                           Sign up
                         </button>
@@ -276,7 +276,7 @@ const Login = (props) => {
                       <p className="text-center font-12 mob-mt-3" style={{ margin: 0 }}>
                         Don't have an account ?{" "}
                         <button
-                          className="color-green ms-2 btn"
+                          className="color-green ms-2 btn font-12"
                           onClick={() => setCurrentFormType('sign-up')}
                         >
                           Sign up
@@ -407,10 +407,10 @@ const Login = (props) => {
                           <label
                             className="form-check-label"
                             htmlFor="exampleCheck1"
-                            style={{ fontSize: '0.6rem' }}
+                            style={{ fontSize: '0.55rem' }}
                           >
-                            By proceeding I agree to TraderPro <button style={{ color: '#74a2b8', border: 'none', background: 'none' }}>Terms and
-                              Conditions</button> and <button style={{ color: '#74a2b8', border: 'none', background: 'none' }}>Privacy Policy</button>.
+                            By proceeding I agree to TraderPro <a style={{ color: '#74a2b8', border: 'none', background: 'none' }}>Terms and
+                              Conditions, Risk Disclosure, Privacy Policy</a> and <a style={{ color: '#74a2b8', border: 'none', background: 'none' }}>Cookie Policy.</a>
                           </label>
                         </div>
                       </div>
@@ -445,13 +445,13 @@ const Login = (props) => {
                         </Button>
                       </Col>
                     </Row>
-                    <div className="row mt-4">
-                      <p className="text-center font-12 mob-mt-3">
+                    <div className="row">
+                      <p className="text-center font-12 mob-mt-1 mb-0">
                         Already have an account ?{" "}
                         <button
                           onClick={() => setCurrentFormType("login")}
                           href="signup.html"
-                          className="color-green ms-2 btn"
+                          className="color-green ms-2 btn font-12"
                         >
                           Sign In
                         </button>
