@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useAlert } from 'react-alert';
+import { useAlert, positions } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks';
@@ -25,7 +25,7 @@ export const PagesLayout = ({
 
   useEffect(() => {
     if (successMessage) {
-      alert.success(successMessage);
+      alert.success(successMessage, { position: positions.MIDDLE });
       dispatch(AppActions.messageConsumedAction())
     } 
     // eslint-disable-next-line
@@ -36,7 +36,7 @@ export const PagesLayout = ({
       if (failMessage.toLowerCase() === "Authorization failed: jwt expired".toLowerCase()) {
         dispatch(AppActions.refreshTokenAction({refreshToken: localStorageHelper.refreshToken}))
       } else {
-        alert.error(failMessage);
+        alert.error(failMessage, { position: positions.MIDDLE });
       }
       dispatch(AppActions.messageConsumedAction())
     } 

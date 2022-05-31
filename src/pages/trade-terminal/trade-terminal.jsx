@@ -639,6 +639,7 @@ export const BuySellForm = (props) => {
   }
 
   const handleSubmitOrder = () => {
+    const targets = buyProfit.map(item => ({price: parseFloat(item.price) || 0, amount: parseFloat(item.amount) || 0}));
     const signalTypeStr = signalType.toLowerCase() === 'spot' ? (order.toLowerCase() === 'limit' ? 'Spot' : position) : position;
     dispatch(AppActions.signalAddAction({
       type,
@@ -650,7 +651,7 @@ export const BuySellForm = (props) => {
       amount: activeCrypto === props.tradingSymbol.from ? parseFloat(amount) : parseFloat(amount) / props.chartInfo.price,
       stopLoss: parseFloat(stopLoss),
       leverage: signalType.toLowerCase() !== 'spot' ? parseInt(leverage) : undefined,
-      targets: buyProfit.map(item => ({price: parseFloat(item.price) || 0, amount: parseFloat(item.amount) || 0}))
+      targets
     }))
   }
 
