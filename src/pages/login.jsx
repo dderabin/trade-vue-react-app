@@ -112,7 +112,7 @@ const Login = (props) => {
                         </div>
                       </div>
                     </div>
-                    <div className="row mt-3">
+                    <div className="row">
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-1">
                         <div>
                           <label className="form-label login" style={{ fontWeight: 'bold' }}>Password*</label>
@@ -198,7 +198,7 @@ const Login = (props) => {
                       </Col>
                     </Row>
                     <div className="row">
-                      <p className="text-center font-12 mob-mt-3">
+                      <p className="text-center font-12 mt-3">
                         Don't have an account ?{" "}
                         <button
                           onClick={() => setCurrentFormType("sign-up")}
@@ -352,7 +352,7 @@ const Login = (props) => {
                         </div>
                       </div>
                     </div> */}
-                    <div className="row mt-3">
+                    <div className="row">
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-1">
                         <div>
                           <label className="form-label login" >Password *</label>
@@ -373,7 +373,7 @@ const Login = (props) => {
                         </div>
                       </div>
                     </div>
-                    <div className="row mt-3">
+                    <div className="row">
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-1">
                         <div>
                           <label className="form-label login">
@@ -446,7 +446,7 @@ const Login = (props) => {
                       </Col>
                     </Row>
                     <div className="row">
-                      <p className="text-center font-12 mob-mt-3">
+                      <p className="text-center font-12 mt-3">
                         Already have an account ?{" "}
                         <button
                           onClick={() => setCurrentFormType("login")}
