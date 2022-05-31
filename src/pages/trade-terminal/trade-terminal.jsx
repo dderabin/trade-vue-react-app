@@ -140,13 +140,13 @@ export const GraphicalChartArea = () => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  function updateStateMaking(history) {
-    if (history.state === 'ordered' || history.state === 'preOrder' || history.state === 'position') {
-      setEditOpen(true)
-      setUpdateState(history)
-      setActive('update')
-    }
-  }
+  // function updateStateMaking(history) {
+  //   if (history.state === 'ordered' || history.state === 'preOrder' || history.state === 'position') {
+  //     setEditOpen(true)
+  //     setUpdateState(history)
+  //     setActive('update')
+  //   }
+  // }
 
   useEffect(() => {
     getExchanges()
@@ -250,46 +250,43 @@ export const GraphicalChartArea = () => {
               <div className="trade-history">
                 <div className="card-body pt-0" style={{backgroundColor: 'white', border: 'none'}}>
                   <div className="table-responsive">
-                    <table className="w-100 main_table">
-                      <thead className="rounded" style={{ backgroundColor: "#F2F4F5" }}>
+                    <table className="main_table history">
+                      <thead className="rounded" style={{backgroundColor: "#F2F4F5"}}>
                         <tr >
-                        <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                          <th scope="col" style={{width: '10%', textAlign: 'center'}}>
                             Date
                           </th>
-                          <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                          <th scope="col" style={{width: '10%', textAlign: 'center'}}>
                             Source
                           </th>
-                          <th scope="col" className="fw-bold" style={{ color: "#264655", paddingLeft: "10px", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                          <th scope="col" style={{width: '23%', textAlign: 'center'}}>
                             Order Id
                           </th>
-                          <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                          <th scope="col" style={{width: '22%', textAlign: 'center'}}>
                             Exchange
                           </th>
-                          <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                          <th scope="col" style={{width: '8%', textAlign: 'center'}}>
                             Trading Symbol
                           </th>
-                          <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
-                            Market Type
-                          </th>
-                          <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                          <th scope="col" style={{width: '8%', textAlign: 'center'}}>
                             Position
                           </th>
-                          <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                          <th scope="col" style={{width: '8%', textAlign: 'center'}}>
                             Leverage
                           </th>
-                          <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                          <th scope="col" style={{width: '8%', textAlign: 'center'}}>
                             Buy Price
                           </th>
-                          <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                          <th scope="col" style={{width: '8%', textAlign: 'center'}}>
                             Quantity
                           </th>
-                          <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                          <th scope="col" style={{width: '8%', whiteSpace:'pre-wrap', textAlign: 'center'}}>
                             Stop Loss Price
                           </th>
-                          <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                          <th scope="col" style={{width: '8%', whiteSpace:'pre-wrap', textAlign: 'center'}}>
                             Stop Loss Quantity
                           </th>
-                          <th scope="col" className="fw-bold" style={{ color: "#264655", textAlign: 'center', fontSize: '0.9rem', fontWeight: 'bolder' }}>
+                          <th scope="col" style={{width: '8%', textAlign: 'center'}}>
                             State
                           </th>
                         </tr>
@@ -297,51 +294,54 @@ export const GraphicalChartArea = () => {
                       <tbody>
                         {/* <TraderHistoryList traderHistoryList={historyList} onEditOpen={setEditOpen} /> */}
                         {historyList.map((history, index) => (
-                          <tr style={{ fontWeight: 'bold', textAlign: 'center', cursor: (history.state === 'ordered' || history.state === 'preOrder' || history.state === 'position') && 'pointer' }} key={index} onClick={() => updateStateMaking(history)}>
+                          <tr key={index}>
                             {/* Date */}
-                            <td style={{ height: '38px', fontSize: '0.7rem' }}>
+                            <td style={{width: '10%', textAlign: 'center'}}>
                               {history.signalTime.split('T')[0]}
                             </td>
                             {/* Source */}
-                            <td style={{ height: '38px', fontSize: '0.7rem' }}>
+                            <td style={{width: '10%', textAlign: 'center'}}>
                               {history.createdBy.userName}
                             </td>
                             {/* Order Id */}
-                            <td style={{ height: '38px', fontSize: '0.7rem' }}>
+                            <td style={{width: '23%', textAlign: 'center'}}>
                               {history._id}
                             </td>
                             {/* Exchange Platform */}
-                            <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>
+                            <td style={{width: '22%', textAlign: 'center'}}>
                               {EXCHANGE_MAP[history.exchangePlatform]}
                             </td>
                             {/* Trading Symbol */}
-                            <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>
+                            <td style={{width: '8%', textAlign: 'center'}}>
                               {history.symbol.from + history.symbol.to}
                             </td>
-                            {/* Market Type */}
-                            <td></td>
                             {/* Position */}
-                            <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>
+                            <td style={{width: '8%', textAlign: 'center'}}>
                               {(history.signalType.toLowerCase() === 'long' || history.signalType.toLowerCase() === 'short') && history.signalType}
                             </td>
                             {/* Leverage */}
-                            <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>
+                            <td style={{width: '8%', textAlign: 'center'}}>
                               {history?.leverage || ''}
                             </td>
                             {/* Buy Price */}
-                            <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>{history.entryPrice}</td>
+                            <td style={{width: '8%', textAlign: "center"}}>
+                              {history.entryPrice}
+                            </td>
                             {/* Quantity */}
-                            <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>
+                            <td style={{width: '8%', textAlign: "center"}}>
                               {history.amount}
                             </td>
                             {/* Stop Loss Price */}
-                            <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>{history.stopLoss}</td>
+                            <td style={{width: '8%', textAlign: "center"}}>
+                              {history.stopLoss}
+                            </td>
                             {/* Stop Loss Quantity */}
-                            <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>
+                            <td style={{width: '8%', textAlign: "center"}}>
                               100%
                             </td>
                             <td style=
                               {{
+                                width: '8%',
                                 height: '38px',
                                 fontSize: '0.7rem', textAlign: 'center',
                                 color: history.state === 'closedWithError' || history.state === 'closedByStopLoss' ? 'red'
@@ -352,7 +352,6 @@ export const GraphicalChartArea = () => {
                             </td>
                           </tr>
                         ))}
-
                       </tbody>
                     </table>
                   </div>
