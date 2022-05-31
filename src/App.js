@@ -54,7 +54,10 @@ import { AuthProvider } from "./store/contexts/JWTAuthContext";
 
 const options = {
   timeout: 5000,
-  position: positions.BOTTOM_CENTER,
+  position: positions.MIDDLE,
+  containerStyle: {
+    zIndex: 10000000
+  }
 };
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
