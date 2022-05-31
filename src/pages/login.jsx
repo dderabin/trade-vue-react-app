@@ -164,7 +164,7 @@ const Login = (props) => {
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div className="d-grid gap-2">
                           <button
-                            className="btn btn-success font-18"
+                            className="btn btn-success font-16"
                             style={{ height: 40 }}
                             type="submit"
                           >
@@ -197,8 +197,8 @@ const Login = (props) => {
                         </Button>
                       </Col>
                     </Row>
-                    <div className="row mt-4" style={{ margin: 0 }}>
-                      <p style={{ margin: 0 }} className="text-center font-12 mob-mt-1">
+                    <div className="row">
+                      <p className="text-center font-12 mob-mt-3">
                         Don't have an account ?{" "}
                         <button
                           onClick={() => setCurrentFormType("sign-up")}
@@ -446,7 +446,7 @@ const Login = (props) => {
                       </Col>
                     </Row>
                     <div className="row">
-                      <p className="text-center font-12 mob-mt-1 mb-0">
+                      <p className="text-center font-12 mob-mt-3">
                         Already have an account ?{" "}
                         <button
                           onClick={() => setCurrentFormType("login")}
