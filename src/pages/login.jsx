@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useAuth } from "../hooks";
 import { Button, Col, Divider, Input, Row } from "antd";
-import { MailFilled, LockFilled, EyeTwoTone, EyeInvisibleOutlined, AppleFilled, GoogleOutlined } from '@ant-design/icons';
+import { EyeTwoTone, EyeInvisibleOutlined, AppleFilled, GoogleOutlined } from '@ant-design/icons';
 import user_icon from "../assets/img/user.svg";
 import lock_icon from "../assets/img/lock.svg";
 import email_icon from "../assets/img/email.svg";

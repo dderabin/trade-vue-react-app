@@ -174,7 +174,7 @@ const appReducer = createReducer(defaultState, {
     [AppActions.sagaFailAction]: (state, action) => {
         state.loading = false
         const { error = null } = action.payload;
-        const { msg = null } = error;
+        const msg = error?.msg || null;
         state.failMessage = msg || error || "Something went wrong";
     },
     [AppActions.exchangePlatformsFetchSuccessAction]: (state, action) => {

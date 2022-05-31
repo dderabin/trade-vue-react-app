@@ -233,7 +233,6 @@ export const Sidebar = ({ collapseSidebar, onOutsideSidebarClickHandler }) => {
                                   View Signal Provider
                                 </Link>
                               </li>
-
                               <li>
                                 <Link
                                   to="/signal-provider/view-subscribers"

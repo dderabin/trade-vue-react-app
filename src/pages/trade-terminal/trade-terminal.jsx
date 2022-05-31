@@ -304,7 +304,7 @@ export const GraphicalChartArea = () => {
                             </td>
                             {/* Source */}
                             <td style={{ height: '38px', fontSize: '0.7rem' }}>
-                              {history.createdBy}
+                              {history.createdBy.userName}
                             </td>
                             {/* Order Id */}
                             <td style={{ height: '38px', fontSize: '0.7rem' }}>

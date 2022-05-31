@@ -101,10 +101,10 @@ const Portfolio = () => {
                       />
                     </td>
                     <td className="text-center">{item.signalTime.split('T')[0]}</td>
-                    <td className="text-center">{}</td>
+                    <td className="text-center">{item.createdBy.userName}</td>
                     <td className="text-center">{EXCHANGE_MAP[item.exchangePlatform]}</td>
                     <td className="text-center">{item.signalType}</td>
-                    <td className="text-center">Market</td>
+                    <td className="text-center"></td>
                     <td className="text-center">{item.symbol.from + item.symbol.to}</td>
                     <td className="text-center">{item?.entryPrice || ''}</td>
                     <td className="text-center">{item.stopLoss}</td>
