@@ -321,7 +321,9 @@ export const GraphicalChartArea = () => {
                             {/* Market Type */}
                             <td></td>
                             {/* Position */}
-                            <td></td>
+                            <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>
+                              {(history.signalType.toLowerCase() === 'long' || history.signalType.toLowerCase() === 'short') && history.signalType}
+                            </td>
                             {/* Leverage */}
                             <td style={{ height: '38px', fontSize: '0.7rem', textAlign: 'center' }}>
                               {history?.leverage || ''}

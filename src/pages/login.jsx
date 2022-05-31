@@ -227,7 +227,7 @@ const Login = (props) => {
                     <div className="row">
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div>
-                          <label className="form-label" style={{ marginTop: 10 }}>Email Address *</label>
+                          <label className="form-label login" style={{ marginTop: 10 }}>Email Address *</label>
                           <Input
                             prefix={<><img src={email_icon} alt=''/>&nbsp;</>}
                             type="email"
@@ -246,7 +246,7 @@ const Login = (props) => {
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div className="d-grid gap-2">
                           <button
-                            className="btn btn-success font-18"
+                            className="btn btn-success font-16"
                             style={{ height: 40 }}
                             type="submit"
                           >
@@ -300,9 +300,9 @@ const Login = (props) => {
                   </div>
                   <form onSubmit={registerClick}>
                     <div className="row">
-                      <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                      <div className="col-xl-12 col-lg-12 col-12 mob-mt-1">
                         <div>
-                          <label className="form-label" style={{ marginTop: 10 }} >User Name*</label>
+                          <label className="form-label login">User Name*</label>
                           <Input
                             prefix={<><img src={user_icon} alt=''/>&nbsp;</>}
                             type="text"
@@ -317,9 +317,9 @@ const Login = (props) => {
                           />
                         </div>
                       </div>
-                      <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                      <div className="col-xl-12 col-lg-12 col-12 mob-mt-1">
                         <div>
-                          <label className="form-label" style={{ marginTop: 10 }}>Email Address *</label>
+                          <label className="form-label login">Email Address *</label>
                           <Input
                             prefix={<><img src={email_icon} alt=''/>&nbsp;</>}
                             type="email"
@@ -353,9 +353,9 @@ const Login = (props) => {
                       </div>
                     </div> */}
                     <div className="row mt-3">
-                      <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                      <div className="col-xl-12 col-lg-12 col-12 mob-mt-1">
                         <div>
-                          <label className="form-label" >Password *</label>
+                          <label className="form-label login" >Password *</label>
                           <Input
                             prefix={<><img src={lock_icon} alt=''/>&nbsp;</>}
                             type="password"
@@ -374,9 +374,9 @@ const Login = (props) => {
                       </div>
                     </div>
                     <div className="row mt-3">
-                      <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
+                      <div className="col-xl-12 col-lg-12 col-12 mob-mt-1">
                         <div>
-                          <label className="form-label">
+                          <label className="form-label login">
                             Confirm Password *
                           </label>
                           <Input
@@ -407,7 +407,7 @@ const Login = (props) => {
                           <label
                             className="form-check-label"
                             htmlFor="exampleCheck1"
-                            style={{ fontSize: '0.8rem' }}
+                            style={{ fontSize: '0.6rem' }}
                           >
                             By proceeding I agree to TraderPro <button style={{ color: '#74a2b8', border: 'none', background: 'none' }}>Terms and
                               Conditions</button> and <button style={{ color: '#74a2b8', border: 'none', background: 'none' }}>Privacy Policy</button>.
@@ -419,11 +419,11 @@ const Login = (props) => {
                       <div className="col-xl-12 col-lg-12 col-12 mob-mt-3">
                         <div className="d-grid gap-2">
                           <button
-                            className="btn btn-success font-18"
+                            className="btn btn-success font-15"
                             type="submit"
                             style={{ height: 40 }}
                           >
-                            Register Now
+                            Create Account
                           </button>
                         </div>
                       </div>
