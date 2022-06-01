@@ -325,7 +325,7 @@ export const GraphicalChartArea = () => {
                             </td>
                             {/* Buy Price */}
                             <td style={{width: '8%', textAlign: "center"}}>
-                              {history.entryPrice}
+                              {history?.entryPrice || ''}
                             </td>
                             {/* Quantity */}
                             <td style={{width: '8%', textAlign: "center"}}>

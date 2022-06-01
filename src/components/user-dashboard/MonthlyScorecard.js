@@ -15,9 +15,7 @@ const MonthlyScorecard = () => {
   const [data, setData] = useState({
     series: [{
       name: 'Cash Flow',
-      data: [
-        30.33, -8.59, -24.87, 34.46, 9.42, -3.12, 24.63, 2.70, -7.75, 28.7, 20.00, 10.00
-      ]
+      data: []
     }],
     options: {
       chart: {
@@ -93,9 +91,7 @@ const MonthlyScorecard = () => {
   const [mobile_option, setMobileOption] = useState({
     series: [{
       name: 'Cash Flow',
-      data: [
-        30.33, -8.59, -24.87, 34.46, 9.42, -3.12, 24.63, 2.70, -7.75, 28.7, 20.00, 10.00
-      ]
+      data: []
     }],
     options: {
       chart: {
@@ -170,7 +166,7 @@ const MonthlyScorecard = () => {
 
   const { dataList: data_list, currentYear } = useMonthlyScorecard();
 
-  const [selected, setSelected] = useState(data_list[currentYear]);
+  const [selected, setSelected] = useState();
   const [total, setTotal] = useState(0);
   const month_name = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].reverse();
   const [visible, setVisible] = useState(false);
@@ -206,6 +202,11 @@ const MonthlyScorecard = () => {
   useEffect(()=> {
     console.log("visible state: ", visible);
   }, [visible])
+
+  useEffect(() => {
+    setSelected(data_list[currentYear])
+    // eslint-disable-next-line
+  }, [data_list])
 
   return (
     <div className='scorecard-page'>

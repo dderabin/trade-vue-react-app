@@ -40,6 +40,14 @@ const Portfolio = () => {
                   />
                 </th>
                 <th scope="col" className="text-center font">
+                  Order Id
+                  <img
+                    src={tableArrow_icon}
+                    alt=""
+                    className="img-fluid margin"
+                  />
+                </th>
+                <th scope="col" className="text-center font">
                   Exchange
                   <img
                     src={tableArrow_icon}
@@ -47,8 +55,8 @@ const Portfolio = () => {
                     className="img-fluid margin"
                   />
                 </th>
-                <th scope="col" className="text-center font">
-                  Market
+                <th scope="col" className="text-center">
+                  Trading Symbol
                   <img
                     src={tableArrow_icon}
                     alt=""
@@ -56,7 +64,7 @@ const Portfolio = () => {
                   />
                 </th>
                 <th scope="col" className="text-center font">
-                  Excution
+                  Position
                   <img
                     src={tableArrow_icon}
                     alt=""
@@ -64,7 +72,7 @@ const Portfolio = () => {
                   />
                 </th>
                 <th scope="col" className="text-center font">
-                  Ticker
+                  Leverage
                   <img
                     src={tableArrow_icon}
                     alt=""
@@ -72,7 +80,7 @@ const Portfolio = () => {
                   />
                 </th>
                 <th scope="col" className="text-center font">
-                  Open Price
+                  Buy Price
                   <img
                     src={tableArrow_icon}
                     alt=""
@@ -80,7 +88,31 @@ const Portfolio = () => {
                   />
                 </th>
                 <th scope="col" className="text-center font">
-                  Stop Loss
+                  Quantity
+                  <img
+                    src={tableArrow_icon}
+                    alt=""
+                    className="img-fluid margin"
+                  />
+                </th>
+                <th scope="col" className="text-center font">
+                  Stop Loss Price
+                  <img
+                    src={tableArrow_icon}
+                    alt=""
+                    className="img-fluid margin"
+                  />
+                </th>
+                <th scope="col" className="text-center font">
+                  Stop Loss Quantity
+                  <img
+                    src={tableArrow_icon}
+                    alt=""
+                    className="img-fluid margin"
+                  />
+                </th>
+                <th scope="col" className="text-center font">
+                  State
                   <img
                     src={tableArrow_icon}
                     alt=""
@@ -100,14 +132,42 @@ const Portfolio = () => {
                         className="img-fluid text-center cursor-pointer"
                       />
                     </td>
-                    <td className="text-center">{item.signalTime.split('T')[0]}</td>
-                    <td className="text-center">{item.createdBy.userName}</td>
-                    <td className="text-center">{EXCHANGE_MAP[item.exchangePlatform]}</td>
-                    <td className="text-center">{item.signalType}</td>
-                    <td className="text-center"></td>
-                    <td className="text-center">{item.symbol.from + item.symbol.to}</td>
-                    <td className="text-center">{item?.entryPrice || ''}</td>
-                    <td className="text-center">{item.stopLoss}</td>
+                    <td className="text-center">
+                      {item.signalTime.split('T')[0]}
+                    </td>
+                    <td className="text-center">
+                      {item.createdBy.userName}
+                    </td>
+                    <td className="text-center">
+                      {item._id}
+                    </td>
+                    <td className="text-center">
+                      {EXCHANGE_MAP[item.exchangePlatform]}
+                    </td>
+                    <td className="text-center">
+                      {item.symbol.from + item.symbol.to}
+                    </td>
+                    <td className="text-center">
+                      {(item.signalType.toLowerCase() === 'long' || item.signalType.toLowerCase() === 'short') && item.signalType}
+                    </td>
+                    <td className="text-center">
+                      {item?.leverage || ''}
+                    </td>
+                    <td className="text-center">
+                      {item?.entryPrice || ''}
+                    </td>
+                    <td className="text-center">
+                      {item.amount}
+                    </td>
+                    <td className="text-center">
+                      {item.stopLoss}
+                    </td>
+                    <td className="text-center">
+                      100%
+                    </td>
+                    <td className="text-center">
+                      {item.state}
+                    </td>
                   </tr>
                   {toogle === index + 1 && (
                     <div className="toggle">
