@@ -4273,14 +4273,6 @@ i.icon:before {
   -webkit-box-shadow: 0 2px 3px 0 rgb(34 36 38 / 15%);
   box-shadow: 0 2px 3px 0 rgb(34 36 38 / 15%);
 }
-@media only screen and (min-width: 1920px) {
-  .ui.selection.dropdown .menu {
-    max-height: 21.37142857rem;
-  }
-  .main_table.history {
-    width: 150% !important;
-  }
-}
 @media only screen and (min-width: 992px) {
   .ui.selection.dropdown .menu {
     max-height: 16.02857143rem;
@@ -4329,6 +4321,11 @@ i.icon:before {
   }
 }
 
+@media screen and (max-width: 360px) {
+  .main_table.history {
+    width: 500% !important
+  }
+}
 
 .ui.selection.dropdown .menu {
     overflow-x: hidden;

@@ -30,10 +30,10 @@ const MonthlyScorecard = () => {
           colors: {
             ranges: [{
               from: 0,
-              to: 100,
+              to: 10000000000000000000000000000000,
               color: '#75B20F'
             }, {
-              from: -100,
+              from: -150000000000000000000000000000,
               to: 0,
               color: '#E1191C'
             }],
@@ -261,7 +261,6 @@ const MonthlyScorecard = () => {
                     return(
                       <span key={i} style={{color: 'red'}}>{item.toFixed(2)}</span>
                     )
-
                 })}
                 <span>{total.toFixed(2)}</span>
                 <span style={{ width: '20px'}}></span>
