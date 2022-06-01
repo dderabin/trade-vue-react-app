@@ -63,6 +63,14 @@ const Portfolio = () => {
                     className="img-fluid margin"
                   />
                 </th>
+                <th scope="col" className="text-center">
+                  Market Type
+                  <img
+                    src={tableArrow_icon}
+                    alt=""
+                    className="img-fluid margin"
+                  />
+                </th>
                 <th scope="col" className="text-center font">
                   Position
                   <img
@@ -73,6 +81,14 @@ const Portfolio = () => {
                 </th>
                 <th scope="col" className="text-center font">
                   Leverage
+                  <img
+                    src={tableArrow_icon}
+                    alt=""
+                    className="img-fluid margin"
+                  />
+                </th>
+                <th scope="col" className="text-center">
+                  Order Type
                   <img
                     src={tableArrow_icon}
                     alt=""
@@ -119,6 +135,14 @@ const Portfolio = () => {
                     className="img-fluid margin"
                   />
                 </th>
+                <th scope="col" className="text-center font">
+                  Profit or Loss
+                  <img
+                    src={tableArrow_icon}
+                    alt=""
+                    className="img-fluid margin"
+                  />
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -148,10 +172,16 @@ const Portfolio = () => {
                       {item.symbol.from + item.symbol.to}
                     </td>
                     <td className="text-center">
+                      {item.signalType.toLowerCase() !== 'spot' ? 'Features' : 'Spot'}
+                    </td>
+                    <td className="text-center">
                       {(item.signalType.toLowerCase() === 'long' || item.signalType.toLowerCase() === 'short') && item.signalType}
                     </td>
                     <td className="text-center">
                       {item?.leverage || ''}
+                    </td>
+                    <td className="text-center">
+                      {item.hasOwnProperty('entryPrice') ? 'Limit' : 'Market'}
                     </td>
                     <td className="text-center">
                       {item?.entryPrice || ''}
@@ -167,6 +197,9 @@ const Portfolio = () => {
                     </td>
                     <td className="text-center">
                       {item.state}
+                    </td>
+                    <td className="text-center">
+                      {item.profitPercent}
                     </td>
                   </tr>
                   {toogle === index + 1 && (

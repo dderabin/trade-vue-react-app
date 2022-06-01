@@ -11,17 +11,18 @@ const useTraderHistory = () => {
     // eslint-disable-next-line
   }, [])
 
-  const historyById = useMemo(() => {
+  const {filtered: historyById, editable: editableHistory} = useMemo(() => {
     let filtered = {};
     if (historyList.length > 0) {
       filtered = historyList.reduce((previous, current) => {
         return {...previous, [current._id]: current}
       }, {})
     }
-    return filtered;
+    const editable = historyList.filter(item => item.state.toLowerCase() === 'inposition' || item.state.toLowerCase() === 'ordered')
+    return {filtered, editable};
   }, [historyList])
 
-  return { historyList, historyById }
+  return { historyList, historyById, editableHistory }
 }
 
 export default useTraderHistory

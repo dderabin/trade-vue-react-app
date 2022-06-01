@@ -252,7 +252,7 @@ export const GraphicalChartArea = () => {
                   <div className="table-responsive">
                     <table className="main_table history">
                       <thead className="rounded" style={{backgroundColor: "#F2F4F5"}}>
-                        <tr >
+                        <tr style={{fontSize: '0.7rem'}}>
                           <th scope="col" style={{width: '10%', textAlign: 'center'}}>
                             Date
                           </th>
@@ -269,10 +269,16 @@ export const GraphicalChartArea = () => {
                             Trading Symbol
                           </th>
                           <th scope="col" style={{width: '8%', textAlign: 'center'}}>
+                            Market Type
+                          </th>
+                          <th scope="col" style={{width: '8%', textAlign: 'center'}}>
                             Position
                           </th>
                           <th scope="col" style={{width: '8%', textAlign: 'center'}}>
                             Leverage
+                          </th>                          
+                          <th scope="col" style={{width: '8%', textAlign: 'center'}}>
+                            Order Type
                           </th>
                           <th scope="col" style={{width: '8%', textAlign: 'center'}}>
                             Buy Price
@@ -315,6 +321,10 @@ export const GraphicalChartArea = () => {
                             <td style={{width: '8%', textAlign: 'center'}}>
                               {history.symbol.from + history.symbol.to}
                             </td>
+                            {/* Market Type */}
+                            <td style={{width: '8%', textAlign: 'center'}}>
+                              {history.signalType.toLowerCase() !== 'spot' ? 'Features' : 'Spot'}
+                            </td>
                             {/* Position */}
                             <td style={{width: '8%', textAlign: 'center'}}>
                               {(history.signalType.toLowerCase() === 'long' || history.signalType.toLowerCase() === 'short') && history.signalType}
@@ -322,6 +332,10 @@ export const GraphicalChartArea = () => {
                             {/* Leverage */}
                             <td style={{width: '8%', textAlign: 'center'}}>
                               {history?.leverage || ''}
+                            </td>                            
+                            {/* Order Type */}
+                            <td style={{width: '8%', textAlign: 'center'}}>
+                              {history.hasOwnProperty('entryPrice') ? 'Limit' : 'Market'}
                             </td>
                             {/* Buy Price */}
                             <td style={{width: '8%', textAlign: "center"}}>
@@ -329,7 +343,7 @@ export const GraphicalChartArea = () => {
                             </td>
                             {/* Quantity */}
                             <td style={{width: '8%', textAlign: "center"}}>
-                              {history.amount}
+                              {parseFloat(history.amount).toFixed(2)}
                             </td>
                             {/* Stop Loss Price */}
                             <td style={{width: '8%', textAlign: "center"}}>
@@ -522,7 +536,7 @@ export const BuyNowUpdatePositionBar = (props) => {
 
 export const BuySellForm = (props) => {
   const dispatch = useDispatch()
-  const { historyList, historyById } = useTraderHistory()
+  const { historyList, historyById, editableHistory } = useTraderHistory()
   const [type, setType] = useState('self')
   const [signalType, setActiveBtn] = useState('spot');
   const [activeCrypto, setActiveCrypto] = useState('USDT');
@@ -759,6 +773,7 @@ export const BuySellForm = (props) => {
                   aria-selected="false"
                   onClick={props.handleUpdate}
                   style={{minWidth: 'max-content'}}
+                  disabled={editableHistory.length === 0}
                 >
                   Update Position
                 </button>
@@ -1169,7 +1184,7 @@ export const BuySellForm = (props) => {
                             onChange={e => setSignal(e.target.value !== 'none' ? historyById[e.target.value] : null)}
                           >
                             <option value="none">Select Order</option>
-                            {historyList.filter(item => item.state.toLowerCase() === 'inposition' || item.state.toLowerCase() === 'ordered').map((history, index) => {
+                            {editableHistory.map((history, index) => {
                               return (<option key={index} value={history._id}>#{history._id}</option>)
                             })}
                           </select>
