@@ -11,10 +11,17 @@ import Portfolio from '../../components/user-dashboard/Portfolio'
 import Profitability from '../../components/user-dashboard/Profitability'
 import MonthlyScorecard from '../../components/user-dashboard/MonthlyScorecard'
 import Subscription from '../../components/user-dashboard/Subscription'
+import { usePortfolioValues } from "../../hooks";
 
 export const DashboardPage = () => {
   const [activeTab, setActiveTab] = useState('Portfolio');
   const [visibleOption, setVisibleOption] = useState(false);
+  const {
+    totalTrades = 0,
+    totalInvestment = 0,
+    profit = 0,
+    portfolioValue = 0,
+  } = usePortfolioValues()  
 
   return (
     <div className="dash-page" onClick={() => {if(visibleOption === true)setVisibleOption(false)}}>
@@ -23,7 +30,7 @@ export const DashboardPage = () => {
         {/* <div className="card mb-0 d-none d-xl-block "> */}
           <div className="card-body dash-header">
             <div className="dash-item d-xl-block d-none">
-              <span className="value">2</span>
+              <span className="value">{totalTrades}</span>
               <span className="label">Total Trades</span>
             </div>
             <div className="dash-item d-xl-block d-none">
@@ -31,7 +38,7 @@ export const DashboardPage = () => {
               <span className="plus">+</span>
             </div>
             <div className="dash-item">
-              <span className="value">$1800.00</span>
+              <span className="value">${parseFloat(totalInvestment || '0').toFixed(2)}</span>
               <span className="label d-xl-block d-none">Total Investment</span>
               <span className="label d-block d-sm-none investment">Investment</span>
             </div>
@@ -41,8 +48,8 @@ export const DashboardPage = () => {
             </div>
             <div className="dash-item">
               <div style={{ display: 'flex', alignItems: 'baseline'}}>
-                <span className="value">$890</span>&nbsp;
-                <span className="sub-value">(3.0%)</span>
+                <span className="value">${profit || '0'}</span>&nbsp;
+                {/* <span className="sub-value">(3.0%)</span> */}
               </div>
               <span className="label">Profit</span>
             </div>
@@ -51,7 +58,7 @@ export const DashboardPage = () => {
               <span className="plus">=</span>
             </div>
             <div className="dash-item">
-              <span className="value"><img src={open_dir_icon} alt="open direction" style={{backgroundColor: 'white', width: '18px', height: '10px' }} />$2,690.00</span>
+              <span className="value"><img src={open_dir_icon} alt="open direction" style={{backgroundColor: 'white', width: '18px', height: '10px' }} />${parseFloat(portfolioValue || '0').toFixed(2)}</span>
               <span className="label">Portfolio Value</span>
             </div>
           </div>

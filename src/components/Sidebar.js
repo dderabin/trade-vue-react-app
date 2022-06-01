@@ -74,24 +74,6 @@ export const Sidebar = ({ collapseSidebar, onOutsideSidebarClickHandler }) => {
                               Favourites
                             </Link>
                           </li> */}
-                          <li>
-                            <Link
-                            onClick={() => closeCollapse()}
-                              to="/trade-terminal"
-                              className={`${
-                                location.pathname === "/trade-terminal"
-                                  ? "active"
-                                  : ""
-                              } `}
-                            >
-                              <img
-                                src={sb_tradeterminal}
-                                alt=""
-                                className="img-fluid menu-icon"
-                              />
-                              Trade Terminal
-                            </Link>
-                          </li>
                           <li className="sub-menu">
                             <Link
                               to="#0"
@@ -264,6 +246,24 @@ export const Sidebar = ({ collapseSidebar, onOutsideSidebarClickHandler }) => {
                                 className="img-fluid menu-icon"
                               />
                               Price Comparison
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                            onClick={() => closeCollapse()}
+                              to="/trade-terminal"
+                              className={`${
+                                location.pathname === "/trade-terminal"
+                                  ? "active"
+                                  : ""
+                              } `}
+                            >
+                              <img
+                                src={sb_tradeterminal}
+                                alt=""
+                                className="img-fluid menu-icon"
+                              />
+                              Trade Terminal
                             </Link>
                           </li>
                           <li>
