@@ -5,8 +5,10 @@ import { Input } from 'reactstrap'
 import SelectCountry from '../SelectCountry'
 import { useDispatch, useSelector } from "react-redux";
 import { AppActions } from '../../store/actions'
+import { useLocation } from "react-router-dom";
 
 const TraderProfile = (props) => {
+  const location = useLocation()
   const dispatch =  useDispatch()
   const { state } = useSelector(state => state.appState.copyTrader)
   const { userName = '', email = '' } = useSelector(state => state.appState)
@@ -345,7 +347,7 @@ const TraderProfile = (props) => {
           <div className="row mt-4">
             <div className="col-xl-12 col-lg-12 col-12">
               <button type="submit" className="btn btn-primary mob-mt-3 h45 ">
-                Join as a Copy Trader
+                {location.pathname !== '/profile' ? 'Join as a Copy Trader' : 'Update Profile'}
               </button>
             </div>
           </div>

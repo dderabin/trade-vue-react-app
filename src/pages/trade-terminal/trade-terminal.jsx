@@ -536,7 +536,7 @@ export const BuyNowUpdatePositionBar = (props) => {
 
 export const BuySellForm = (props) => {
   const dispatch = useDispatch()
-  const { historyList, historyById, editableHistory } = useTraderHistory()
+  const { historyById, editableHistory } = useTraderHistory()
   const [type, setType] = useState('self')
   const [signalType, setActiveBtn] = useState('spot');
   const [activeCrypto, setActiveCrypto] = useState('USDT');
