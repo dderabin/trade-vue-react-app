@@ -2813,7 +2813,6 @@ a {
 
 td,
 th {
-  text-align: center;
   height: 45px;
 }
 
@@ -3806,15 +3805,9 @@ table th {
 }
 .toggle {
   position: relative;
-  background:#fafafa;
-  z-index: 10;
-  
+  z-index: 10;  
   width: 260%;
 }
-.toggle p{
-  border-bottom: ridge;
-  border-right: ridge;
-} 
 
 .menu-dropdown-toggle {
   background: white;

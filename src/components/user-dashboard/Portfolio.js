@@ -5,20 +5,20 @@ import tableArrow_icon from "./../../assets/img/icons/table-arrow.svg";
 
 const Portfolio = () => {
   const { historyList } = useTraderHistory();
-  const [toogle, setToogle] = useState(0);
+  const [toggle, setToggle] = useState(0);
 
   const showToogle = (i) => {
-    if (i === toogle) {
-      setToogle(0);
+    if (i === toggle) {
+      setToggle(0);
     } else {
-      setToogle(i);
+      setToggle(i);
     }
   };
 
   return (
     <div className="card mb-0 card-light-grey">
       <div className="card-body mob-pad-0">
-        <div className="table-responsive">
+        <div className="table-responsive" style={{ whiteSpace: 'nowrap'}}>
           <table className="table table-striped">
             <thead className="bg-white">
               <tr>
@@ -151,9 +151,11 @@ const Portfolio = () => {
                   <tr>
                     <td className="small" onClick={() => showToogle(index + 1)}>
                       <img
-                        src="/img/uploads/plus.svg"
+                        src={toggle !== index + 1 ? "/img/uploads/plus.svg" : "/img/uploads/minus.png"}
                         alt=""
                         className="img-fluid text-center cursor-pointer"
+                        width={20}
+                        height={20}
                       />
                     </td>
                     <td>
@@ -187,7 +189,7 @@ const Portfolio = () => {
                       {item?.entryPrice || 'Market Price'}
                     </td>
                     <td>
-                      {item.amount}
+                      {parseFloat(item.amount).toFixed(2)}
                     </td>
                     <td>
                       {item.stopLoss}
@@ -202,16 +204,18 @@ const Portfolio = () => {
                       {item.profitPercent}
                     </td>
                   </tr>
-                  {toogle === index + 1 && (
-                    <div className="toggle">
-                      { item.targets.map((target, index) => {
-                        return (
-                          <p key={index} className={item.targets.length === index + 1 ? "mb-0" : ""}>
-                            <strong>Take Profit {index + 1}:</strong> {parseFloat(target.amount).toFixed(2)}
-                          </p>
-                        )
-                      })}
-                    </div>
+                  {toggle === index + 1 && (
+                    <tr><td colSpan={10}>
+                      <div className="toggle" style={{ width: 'fit-content'}}>
+                        { item.targets.map((target, index) => {
+                          return (
+                            <p key={index} className={item.targets.length === index + 1 ? "mb-0" : ""}>
+                              <strong>Take Profit {index + 1}:</strong> {parseFloat(target.amount).toFixed(2)}
+                            </p>
+                          )
+                        })}
+                      </div>
+                    </td></tr>
                   )}
                 </React.Fragment>)
               })}
