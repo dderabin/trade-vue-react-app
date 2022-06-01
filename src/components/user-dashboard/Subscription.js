@@ -1,100 +1,69 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Chart from 'react-apexcharts';
 import useSubscriptions from '../../hooks/useSubscriptions';
 
 import icon_up from "./../../assets/img/icons/dir_up_green.svg";
 
 const Subscription = () => {
-  const { traderSubscription, signalSubscription } = useSubscriptions();
-  const [signalData] = useState({
-    series: [{
-      name: 'series1',
-      data: [400, 340, 260, 500, 540, 480, 490, 200, 180, 250, 200, 150]
-    }],
-    options: {
-      chart: {
-        height: 350,
-        type: 'area',
-        toolbar: {
-          show: false
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      fill: {
-        colors: ['#A5B4F3']
-      },
-      stroke: {
-        width: 0,
-        curve: 'smooth'
-      },
-      xaxis: {
-        type: 'category',
-        categories: [
-          'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
-        ]
-      },
-      tooltip: {
-        enabled: false
-      }
-      // tooltip: {
-      //   x: {
-      //     format: function(val) {
-      //       return ''
-      //     },
-         
-      //   },
-      // },
-    },
-  })
+  const { traderSubscription, signalSubscription,  copyData, signalData } = useSubscriptions();
 
-  const [copyData] = useState({
-    series: [{
-      name: 'series1',
-      data: [400, 340, 260, 500, 540, 480, 490, 200, 180, 250, 200, 150]
-    }],
-    options: {
-      chart: {
-        height: 350,
-        type: 'area',
-        toolbar: {
-          show: false
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      fill: {
-        colors: ['#F5BAB7']
-      },
-      stroke: {
-        width: 0,
-        curve: 'smooth'
-      },
-      xaxis: {
-        type: 'category',
-        categories: [
-          'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
-        ]
-      },
-      tooltip: {
-        enabled: false
+  const signalOptions = {
+    chart: {
+      height: 350,
+      type: 'area',
+      toolbar: {
+        show: false
       }
-      // tooltip: {
-      //   x: {
-      //     format: 'dd/MM/yy HH:mm'
-      //   },
-      // },
     },
-  })
-
-  useEffect(() => {
-  
-    return () => {
+    dataLabels: {
+      enabled: false
+    },
+    fill: {
+      colors: ['#A5B4F3']
+    },
+    stroke: {
+      width: 0,
+      curve: 'smooth'
+    },
+    xaxis: {
+      type: 'category',
+      categories: [
+        'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
+      ]
+    },
+    tooltip: {
+      enabled: false
     }
-  }, [traderSubscription, signalSubscription])
-  
+  }
+
+  const copyOptions =  {
+    chart: {
+      height: 350,
+      type: 'area',
+      toolbar: {
+        show: false
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    fill: {
+      colors: ['#F5BAB7']
+    },
+    stroke: {
+      width: 0,
+      curve: 'smooth'
+    },
+    xaxis: {
+      type: 'category',
+      categories: [
+        'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
+      ]
+    },
+    tooltip: {
+      enabled: false
+    }
+  }  
 
   return (
     <div className='row subscriber-page'>
@@ -103,19 +72,19 @@ const Subscription = () => {
           <div className='signal-sub'>
             <div className='chart-section'>
               <span>Signal Subscribers</span>
-              <span>1561</span>
+              {/* <span>1561</span> */}
               <div className='d-xl-block d-none chat_section_graph'>
                 <Chart
-                  options={signalData.options}
-                  series={signalData.series}
+                  options={signalOptions}
+                  series={[{name: 'series1', data: signalData}]}
                   type="area"
                   height={250}
                 />
               </div>
               <div className='d-block d-sm-none'>
                 <Chart
-                  options={signalData.options}
-                  series={signalData.series}
+                  options={signalOptions}
+                  series={[{name: 'series1', data: signalData}]}
                   type="area"
                   height={200}
                 />
@@ -126,13 +95,13 @@ const Subscription = () => {
               <div className='col-md-12'>
                 <div className='info-section'>
                   <div className='sent-section'>
-                    <span>1238</span>
+                    <span>{signalSubscription.signalsCount}</span>
                     <span>Signal Sent</span>
                   </div>
                   <div className='profit-section'>
                     <div className='profit-value'>
                       <img src={icon_up} alt="icon_up" />
-                      <span>34%</span>
+                      <span>{signalSubscription.profit}%</span>
                     </div>
                     <span>Profit</span>
                   </div>
@@ -144,19 +113,19 @@ const Subscription = () => {
           <div className='copy-sub'>
             <div className='chart-section'>
               <span>Copy Trading Subscribers</span>
-              <span>678</span>
+              {/* <span>678</span> */}
               <div className='d-xl-block d-none chat_section_graph'>
                 <Chart
-                  options={copyData.options}
-                  series={copyData.series}
+                  options={copyOptions}
+                  series={[{name: 'series1', data: copyData}]}
                   type="area"
                   height={250}
                 />
               </div>
               <div className='d-block d-sm-none'>
                 <Chart
-                  options={copyData.options}
-                  series={copyData.series}
+                  options={copyOptions}
+                  series={[{name: 'series1', data: copyData}]}
                   type="area"
                   height={200}
                 />
@@ -167,13 +136,13 @@ const Subscription = () => {
               <div className='col-md-12'>
                 <div className='info-section'>
                   <div className='sent-section'>
-                    <span>1961</span>
+                    <span>{traderSubscription.signalsCount}</span>
                     <span>Copy Trades</span>
                   </div>
                   <div className='profit-section'>
                     <div className='profit-value'>
                       <img src={icon_up} alt="icon_up" />
-                      <span>15%</span>
+                      <span>{traderSubscription.profit}%</span>
                     </div>
                     <span>Profit</span>
                   </div>
