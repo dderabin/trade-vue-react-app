@@ -8,11 +8,10 @@ import {
 } from 'reactstrap'
 import icon_modal_close from "./../../assets/img/icons/modal-close.svg";
 import icon_modal_minus from "./../../assets/img/icons/modal-minus.svg";
-import axios from "../../axiosClient";
 import Axios from "axios"
 import { useDispatch } from "react-redux";
 import { AppActions } from '../../store/actions'
-import { useTraderHistory } from "../../hooks";
+import { useExchanges, useTraderHistory } from "../../hooks";
 import { EXCHANGE_MAP } from "../../store/consts";
 import OutsideClickHandler from "react-outside-click-handler";
 import icon_setting from "../../assets/img/icons/setting-mobile.svg";
@@ -28,6 +27,7 @@ export const TradeTerminalPage = () => {
 
 export const GraphicalChartArea = () => {
   const { historyList } = useTraderHistory()
+  const { exhchagesList } = useExchanges()
   const [updateState, setUpdateState] = useState({})
   const [createOpen, setCreateOpen] = useState(false)
   const [editOpen, setEditOpen] = useState(false)
@@ -76,25 +76,6 @@ export const GraphicalChartArea = () => {
     }
     console.log('cryptossssss =>', cryptos)
     setTradingSymbol(cryptos)
-  }
-
-  async function getExchanges() {
-    try {
-      const response = await axios.get('/exchanges/list')
-      let exhchagesList = response.data.map(item => {
-        return {
-          key: item,
-          text: item,
-          value: item
-        }
-      })
-      console.log('exchange Iterration =>', exhchagesList)
-      setExchanges(exhchagesList)
-      setChosenExchange(exhchagesList[0].value)
-    }
-    catch (err) {
-      console.log('err is =>', err.response)
-    }
   }
 
   async function getBinancePriceAPI() {
@@ -149,8 +130,12 @@ export const GraphicalChartArea = () => {
   // }
 
   useEffect(() => {
-    getExchanges()
-  }, [])
+    if (exhchagesList.length > 0) {
+      setExchanges(exhchagesList)
+      setChosenExchange(exhchagesList[0].value)
+    }
+  }, [exhchagesList])
+
   useEffect(() => {
     let mounted = true;
     const interval = setInterval(() => {
@@ -253,46 +238,46 @@ export const GraphicalChartArea = () => {
                     <table className="main_table history">
                       <thead className="rounded" style={{backgroundColor: "#F2F4F5"}}>
                         <tr style={{fontSize: '0.7rem'}}>
-                          <th scope="col" style={{width: '10%', textAlign: 'center'}}>
+                          <th scope="col" style={{width: '10%', paddingLeft: '10px'}}>
                             Date
                           </th>
-                          <th scope="col" style={{width: '10%', textAlign: 'center'}}>
+                          <th scope="col" style={{width: '10%', paddingLeft: '10px'}}>
                             Source
                           </th>
-                          <th scope="col" style={{width: '23%', textAlign: 'center'}}>
+                          <th scope="col" style={{width: '23%', paddingLeft: '10px'}}>
                             Order Id
                           </th>
-                          <th scope="col" style={{width: '22%', textAlign: 'center'}}>
+                          <th scope="col" style={{width: '22%', paddingLeft: '10px'}}>
                             Exchange
                           </th>
-                          <th scope="col" style={{width: '8%', textAlign: 'center'}}>
+                          <th scope="col" style={{width: '8%', paddingLeft: '10px'}}>
                             Trading Symbol
                           </th>
-                          <th scope="col" style={{width: '8%', textAlign: 'center'}}>
+                          <th scope="col" style={{width: '8%', paddingLeft: '10px'}}>
                             Market Type
                           </th>
-                          <th scope="col" style={{width: '8%', textAlign: 'center'}}>
+                          <th scope="col" style={{width: '8%', paddingLeft: '10px'}}>
                             Position
                           </th>
-                          <th scope="col" style={{width: '8%', textAlign: 'center'}}>
+                          <th scope="col" style={{width: '8%', paddingLeft: '10px'}}>
                             Leverage
                           </th>                          
-                          <th scope="col" style={{width: '8%', textAlign: 'center'}}>
+                          <th scope="col" style={{width: '8%', paddingLeft: '10px'}}>
                             Order Type
                           </th>
-                          <th scope="col" style={{width: '8%', textAlign: 'center'}}>
+                          <th scope="col" style={{width: '8%', paddingLeft: '10px'}}>
                             Buy Price
                           </th>
-                          <th scope="col" style={{width: '8%', textAlign: 'center'}}>
+                          <th scope="col" style={{width: '8%', paddingLeft: '10px'}}>
                             Quantity
                           </th>
-                          <th scope="col" style={{width: '8%', whiteSpace:'pre-wrap', textAlign: 'center'}}>
+                          <th scope="col" style={{width: '8%', whiteSpace:'pre-wrap', paddingLeft: '10px'}}>
                             Stop Loss Price
                           </th>
-                          <th scope="col" style={{width: '8%', whiteSpace:'pre-wrap', textAlign: 'center'}}>
+                          <th scope="col" style={{width: '8%', whiteSpace:'pre-wrap', paddingLeft: '10px'}}>
                             Stop Loss Quantity
                           </th>
-                          <th scope="col" style={{width: '8%', textAlign: 'center'}}>
+                          <th scope="col" style={{width: '8%', paddingLeft: '10px'}}>
                             State
                           </th>
                         </tr>
@@ -302,62 +287,62 @@ export const GraphicalChartArea = () => {
                         {historyList.map((history, index) => (
                           <tr key={index}>
                             {/* Date */}
-                            <td style={{width: '10%', textAlign: 'center'}}>
+                            <td style={{width: '10%'}}>
                               {history.signalTime.split('T')[0]}
                             </td>
                             {/* Source */}
-                            <td style={{width: '10%', textAlign: 'center'}}>
+                            <td style={{width: '10%'}}>
                               {history.createdBy.userName}
                             </td>
                             {/* Order Id */}
-                            <td style={{width: '23%', textAlign: 'center'}}>
+                            <td style={{width: '23%'}}>
                               {history._id}
                             </td>
                             {/* Exchange Platform */}
-                            <td style={{width: '22%', textAlign: 'center'}}>
+                            <td style={{width: '22%'}}>
                               {EXCHANGE_MAP[history.exchangePlatform]}
                             </td>
                             {/* Trading Symbol */}
-                            <td style={{width: '8%', textAlign: 'center'}}>
+                            <td style={{width: '8%'}}>
                               {history.symbol.from + history.symbol.to}
                             </td>
                             {/* Market Type */}
-                            <td style={{width: '8%', textAlign: 'center'}}>
-                              {history.signalType.toLowerCase() !== 'spot' ? 'Features' : 'Spot'}
+                            <td style={{width: '8%'}}>
+                              {history.signalType.toLowerCase() !== 'spot' ? 'Futures' : 'Spot'}
                             </td>
                             {/* Position */}
-                            <td style={{width: '8%', textAlign: 'center'}}>
+                            <td style={{width: '8%'}}>
                               {(history.signalType.toLowerCase() === 'long' || history.signalType.toLowerCase() === 'short') && history.signalType}
                             </td>
                             {/* Leverage */}
-                            <td style={{width: '8%', textAlign: 'center'}}>
+                            <td style={{width: '8%'}}>
                               {history?.leverage || ''}
                             </td>                            
                             {/* Order Type */}
-                            <td style={{width: '8%', textAlign: 'center'}}>
+                            <td style={{width: '8%'}}>
                               {history.hasOwnProperty('entryPrice') ? 'Limit' : 'Market'}
                             </td>
                             {/* Buy Price */}
-                            <td style={{width: '8%', textAlign: "center"}}>
-                              {history?.entryPrice || ''}
+                            <td style={{width: '8%'}}>
+                              {history?.entryPrice || 'Market Price'}
                             </td>
                             {/* Quantity */}
-                            <td style={{width: '8%', textAlign: "center"}}>
+                            <td style={{width: '8%'}}>
                               {parseFloat(history.amount).toFixed(2)}
                             </td>
                             {/* Stop Loss Price */}
-                            <td style={{width: '8%', textAlign: "center"}}>
+                            <td style={{width: '8%'}}>
                               {history.stopLoss}
                             </td>
                             {/* Stop Loss Quantity */}
-                            <td style={{width: '8%', textAlign: "center"}}>
+                            <td style={{width: '8%'}}>
                               100%
                             </td>
                             <td style=
                               {{
                                 width: '8%',
                                 height: '38px',
-                                fontSize: '0.7rem', textAlign: 'center',
+                                fontSize: '0.7rem',
                                 color: history.state === 'closedWithError' || history.state === 'closedByStopLoss' ? 'red'
                                   : history.state === 'closedByLastTarget' || history.state === 'closedByMiddleTargets' || history.state === 'inPosition' ? 'orange'
                                     : history.state === 'ordered' ? 'green' : 'black'
@@ -849,7 +834,7 @@ export const BuySellForm = (props) => {
                       </div>
                     </div>
                   </div>
-                  {/* Signal Type select ( Spot | Features ) */}
+                  {/* Signal Type select ( Spot | Futures ) */}
                   <div className="row mt-3 ">
                     <div className="btn-group terminal-button">
                       <button type="button" style={{ borderRight: 'none', width: '50%' }} onClick={() => { setActiveBtn('spot'); setPosition('Spot') }} className={`trade-type btn ${signalType === 'spot' ? 'btn-trade' : 'btn-white'}`}>Spot</button>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppActions } from '../store/actions';
 
@@ -11,7 +11,11 @@ const useExchanges = () => {
     // eslint-disable-next-line
   }, [])
 
-  return { exchangePlatforms }
+  const exhchagesList = useMemo(() => {
+    return exchangePlatforms.map(item => ({key: item, text: item, value: item}))
+  }, [exchangePlatforms])
+
+  return { exchangePlatforms, exhchagesList }
 }
 
 export default useExchanges
