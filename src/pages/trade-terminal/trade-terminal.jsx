@@ -677,10 +677,6 @@ export const BuySellForm = (props) => {
   }, [signal])
 
   useEffect(() => {
-    console.log(stopLoss)
-  }, [stopLoss])
-
-  useEffect(() => {
     setPosition('Spot')
     setLeverage('5')
     setOrder('limit')
@@ -718,7 +714,6 @@ export const BuySellForm = (props) => {
 
   useEffect(() => {
     setActiveCrypto(props.tradingSymbol.to)
-    console.log("updated props.tradingSymbol: ", props.tradingSymbol)
   }, [props.tradingSymbol])
   return (
     <div className="tab-content" id="myTabContent">

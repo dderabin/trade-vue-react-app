@@ -124,6 +124,7 @@ const Login = (props) => {
                             placeholder="Enter password"
                             value={loginForm.password}
                             onChange={(e) => handleChangeLogin(e)}
+                            autoComplete="off"
                             style={{ borderRadius: 8 }}
                             required
                             iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
@@ -409,8 +410,7 @@ const Login = (props) => {
                             htmlFor="exampleCheck1"
                             style={{ fontSize: '0.55rem' }}
                           >
-                            By proceeding I agree to TraderPro <a style={{ color: '#74a2b8', border: 'none', background: 'none' }}>Terms and
-                              Conditions, Risk Disclosure, Privacy Policy</a> and <a style={{ color: '#74a2b8', border: 'none', background: 'none' }}>Cookie Policy.</a>
+                            By proceeding I agree to TraderPro <span style={{ color: '#74a2b8', border: 'none', background: 'none' }}>Terms and Conditions, Risk Disclosure, Privacy Policy</span> and <span style={{ color: '#74a2b8', border: 'none', background: 'none' }}>Cookie Policy.</span>
                           </label>
                         </div>
                       </div>
