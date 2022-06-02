@@ -46,7 +46,7 @@ const SubscriberList = ({subscriberList}) => {
             />
             &nbsp;&nbsp;{COUNTRY_MAP[trader.userInfo.country]}
           </td>
-          <td className="cubscriber">{trader.email}</td>
+          <td className="text-center">{trader.email}</td>
           <td className="text-center" style={{color: status ? 'green' : 'red'}}>{status ? 'Active' : 'Expired'}</td>
           <td className="text-center fw-bold">{trader.subscriptionStartTime.split('T')[0]}</td>         
         </tr>
