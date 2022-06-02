@@ -58,7 +58,7 @@ const Portfolio = () => {
                   />
                 </th>
                 <th scope="col">
-                  Trading Symbol
+                  Pair
                   <img
                     src={tableArrow_icon}
                     alt=""
@@ -66,7 +66,7 @@ const Portfolio = () => {
                   />
                 </th>
                 <th scope="col">
-                  Market Type
+                  Type
                   <img
                     src={tableArrow_icon}
                     alt=""
@@ -114,7 +114,7 @@ const Portfolio = () => {
                   />
                 </th>
                 <th scope="col">
-                  Stop Loss Price
+                  SL Price
                   <img
                     src={tableArrow_icon}
                     alt=""
@@ -122,7 +122,7 @@ const Portfolio = () => {
                   />
                 </th>
                 <th scope="col">
-                  Stop Loss Quantity
+                  SL Quantity
                   <img
                     src={tableArrow_icon}
                     alt=""

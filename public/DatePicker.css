@@ -44,7 +44,7 @@
   border: 0;
   background: none;
   font: inherit;
-  box-sizing: content-box;
+  box-sizing: content-box !important;
   -moz-appearance: textfield;
 }
 .react-date-picker__inputGroup__input::-webkit-outer-spin-button,

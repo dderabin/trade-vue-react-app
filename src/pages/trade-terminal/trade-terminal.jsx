@@ -251,10 +251,10 @@ export const GraphicalChartArea = () => {
                             Exchange
                           </th>
                           <th scope="col" style={{width: '8%', paddingLeft: '10px'}}>
-                            Trading Symbol
+                            Pair
                           </th>
                           <th scope="col" style={{width: '8%', paddingLeft: '10px'}}>
-                            Market Type
+                            Type
                           </th>
                           <th scope="col" style={{width: '8%', paddingLeft: '10px'}}>
                             Position
@@ -272,10 +272,10 @@ export const GraphicalChartArea = () => {
                             Quantity
                           </th>
                           <th scope="col" style={{width: '8%', whiteSpace:'pre-wrap', paddingLeft: '10px'}}>
-                            Stop Loss Price
+                            SL Price
                           </th>
                           <th scope="col" style={{width: '8%', whiteSpace:'pre-wrap', paddingLeft: '10px'}}>
-                            Stop Loss Quantity
+                            SL Quantity
                           </th>
                           <th scope="col" style={{width: '8%', paddingLeft: '10px'}}>
                             State
