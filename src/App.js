@@ -1,29 +1,22 @@
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import "./index.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { GoogleOAuthProvider } from '@react-oauth/google';
-
 import Login from "../src/pages/login";
 import {PagesLayout} from "./components/layouts/PagesLayout";
 import React, {useState, useEffect} from "react";
 import {DefaultLayout} from "./components/layouts/DefaultLayout";
 import JoinCopyTraderPage from "./pages/copy-trading/join-copy-trader";
-
 import {ViewCopyTraderListPage} from "./pages/copy-trading/view-copy-trader-list";
 import {TradeConfigurationPage} from "./pages/copy-trading/trade-configuration";
 import PriceComparisonPage from "./pages/price-comparison";
 import {PortfolioPerformancePage} from "./pages/portfolio-performance";
 import {ExchangeAccountPage} from "./pages/exchange-account/exchange-account";
-// import {FavouritesPages} from "./pages/favourites";
 import {DashboardPage} from "./pages/dashboard";
-
 import {TradeTerminalPage} from "./pages/trade-terminal/trade-terminal";
 import {positions, Provider as AlertProvider} from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import {ProfilePage} from "./pages/profile";
 import {ChangePasswordPage} from "./pages/profile/change-password";
 import {AuthenticationPage} from "./pages/authentication";
-//
 import ActivateSignalProviderPage from "./pages/admin/signal-provider/activate-signal-provider";
 import {CreateAdminPage} from "./pages/admin/administrator/create-admin";
 import {ViewAdminPage} from "./pages/admin/administrator/view-admin";
@@ -49,8 +42,7 @@ import ViewSubscribersPage from "./pages/copy-trading/view-suscribers";
 import { Provider } from "react-redux";
 import store from './store';
 import { AuthProvider } from "./store/contexts/JWTAuthContext";
-// import { TradeReportPage } from "./pages/reports";
-// require('react-date-picker/dist/DatePicker.css');
+import "./index.css";
 
 const options = {
   timeout: 5000,

@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import useDraggableScroll from "use-draggable-scroll";
-import "./../../assets/css/price-comparison.scss";
-import "./../../assets/css/price-style.scss";
 import binanceicon from "./../../assets/img/B1.jpg";
 import ftxicon from "./../../assets/img/F1.jpg";
 import coinbaseicon from "./../../assets/img/C1.jpg";
@@ -20,6 +18,8 @@ import KrakenList from "./../../components/price-comparison/kraken";
 import Pagination from "./../../components/price-comparison/pagination";
 import { Helmet } from "react-helmet";
 import { useCoinList } from "../../hooks";
+import "./../../assets/css/price-comparison.scss";
+import "./../../assets/css/price-style.scss";
 
 const pako = require("pako");
 var wsbn = null;
@@ -773,63 +773,64 @@ const PriceComparisonPage = () => {
 
   return (
     <>
-      {console.log('loading =>', loading)}
       <Helmet>
         <title>Price Comparison · TraderPro</title>
       </Helmet>
       <section className="exchnages-bg">
         <div className="row">
           <div className="col-12">
-            <div className="dropdown mob-ml-10">
-              <div className="row" style={{ marginBottom: 20 }}>
-                <div className="col-2">
-                  <select className="pc-select-input" style={{ border: "1px solid lightgray", backgroundColor: "white", fontWeight: 'normal' }}>
-                    <option style={{ fontWeight: 'normal' }} value={"USD"}>$ USD</option>
-                  </select>
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+              <div className="dropdown mob-ml-10">
+                <div className="row" style={{ marginBottom: 20 }}>
+                  <div className="col-2">
+                    <select className="pc-select-input" style={{ border: "1px solid lightgray", backgroundColor: "white", fontWeight: 'normal' }}>
+                      <option style={{ fontWeight: 'normal' }} value={"USD"}>$ USD</option>
+                    </select>
+                  </div>
+
+                  {/* <div className="ms-2 col-2">
+                  <legend className="small-legend">Refresh:</legend>
+                  <button className="btn btn-white btn-sm" onClick={refresgWebSocket}>3s to Refresh</button>
+
+                </div> */}
                 </div>
-
-                {/* <div className="ms-2 col-2">
-                <legend className="small-legend">Refresh:</legend>
-                <button className="btn btn-white btn-sm" onClick={refresgWebSocket}>3s to Refresh</button>
-
-              </div> */}
               </div>
-            </div>
-            <div className="carouselcontrol">
-              <button
-                className="carousel-control-prev custom-prev"
-                type="button"
-                data-bs-target="#carouselCryptoList"
-                data-bs-slide="prev"
-                id="prev-btn"
-                onClick={prevEvent}
-              >
-                <span className="carousel-control-prev-icon" aria-hidden="true">
-                  <img
-                    src={arrowleft}
-                    style={{ height: "18px", paddingTop: "5px" }}
-                    alt="..."
-                  />
-                </span>
-                <span className="visually-hidden">Previous</span>
-              </button>
-              <button
-                className="carousel-control-next custom-next"
-                type="button"
-                data-bs-target="#carouselCryptoList"
-                data-bs-slide="next"
-                id="next-btn"
-                onClick={nextEvent}
-              >
-                <span className="carousel-control-next-icon" aria-hidden="true">
-                  <img
-                    src={arrowright}
-                    style={{ height: "18px", paddingTop: "5px" }}
-                    alt="..."
-                  />
-                </span>
-                <span className="visually-hidden">Next</span>
-              </button>
+              <div className="carouselcontrol" style={{display: 'flex'}}>
+                <button
+                  className="carousel-control-prev custom-prev"
+                  type="button"
+                  data-bs-target="#carouselCryptoList"
+                  data-bs-slide="prev"
+                  id="prev-btn"
+                  onClick={prevEvent}
+                >
+                  <span className="carousel-control-prev-icon" aria-hidden="true">
+                    <img
+                      src={arrowleft}
+                      style={{ height: "18px", paddingTop: "5px" }}
+                      alt="..."
+                    />
+                  </span>
+                  <span className="visually-hidden">Previous</span>
+                </button>
+                <button
+                  className="carousel-control-next custom-next"
+                  type="button"
+                  data-bs-target="#carouselCryptoList"
+                  data-bs-slide="next"
+                  id="next-btn"
+                  onClick={nextEvent}
+                >
+                  <span className="carousel-control-next-icon" aria-hidden="true">
+                    <img
+                      src={arrowright}
+                      style={{ height: "18px", paddingTop: "5px" }}
+                      alt="..."
+                    />
+                  </span>
+                  <span className="visually-hidden">Next</span>
+                </button>
+              </div>
             </div>
 
             <div className="exchnages-boxs mt-2">
