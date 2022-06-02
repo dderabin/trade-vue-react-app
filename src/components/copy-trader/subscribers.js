@@ -19,7 +19,7 @@ const SubscriberList = ({subscriberList}) => {
             >
               { avatar !== null ? (<>
                 <img
-                  src={`${AxiosInstance.defaults.baseURL}/users/avatar/${avatar}`}
+                  src={`${AxiosInstance.defaults.baseURL}/users/avatar/${avatar.slice(0, -4)}`}
                   alt=""
                   className="img-fluid table-pic"
                 />

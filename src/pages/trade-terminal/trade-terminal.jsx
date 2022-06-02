@@ -296,7 +296,7 @@ export const GraphicalChartArea = () => {
                             </td>
                             {/* Order Id */}
                             <td style={{width: '23%'}}>
-                              {history._id}
+                              #{history._id}
                             </td>
                             {/* Exchange Platform */}
                             <td style={{width: '22%'}}>

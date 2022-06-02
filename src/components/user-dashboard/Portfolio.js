@@ -165,7 +165,7 @@ const Portfolio = () => {
                       {item.createdBy.userName}
                     </td>
                     <td>
-                      {item._id}
+                      #{item._id}
                     </td>
                     <td>
                       {EXCHANGE_MAP[item.exchangePlatform]}
