@@ -3,13 +3,6 @@
   position: relative;
   /* box-sizing: content-box !important; */
 }
-.react-date-picker,
-.react-date-picker *:before,
-.react-date-picker *:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  /* box-sizing: content-box !important; */
-}
 .react-date-picker * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
