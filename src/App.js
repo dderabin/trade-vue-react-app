@@ -1,5 +1,5 @@
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Login from "../src/pages/login";
 import {PagesLayout} from "./components/layouts/PagesLayout";

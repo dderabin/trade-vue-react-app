@@ -234,7 +234,7 @@ export const GraphicalChartArea = () => {
               </div>
               <div className="trade-history">
                 <div className="card-body pt-0" style={{backgroundColor: 'white', border: 'none'}}>
-                  <div className="table-responsive">
+                  <div className="table-responsive" style={{whiteSpace: 'nowrap'}}>
                     <table className="main_table history">
                       <thead className="rounded" style={{backgroundColor: "#F2F4F5"}}>
                         <tr style={{fontSize: '0.7rem'}}>
