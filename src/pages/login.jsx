@@ -173,7 +173,7 @@ const Login = (props) => {
                         </div>
                       </div>
                     </div>
-                    <Divider plain><sapn style={{color: '#999'}}>Or</sapn></Divider>
+                    <Divider plain><span style={{color: '#999'}}>Or</span></Divider>
                     {/* <div className="row mb-1 mt-3">
                       <div className="col-xl-12 col-lg-12 col-12">
                         <p className="text-center mb-4 mob-mt-3">or</p>
@@ -255,7 +255,7 @@ const Login = (props) => {
                         </div>
                       </div>
                     </div>
-                    <Divider plain><sapn style={{color: '#999'}}>Or</sapn></Divider>
+                    <Divider plain><span style={{color: '#999'}}>Or</span></Divider>
                     <Row gutter={12} justify="space-between" align="middle">
                       <Col span={12}>
                         <Button style={{ fontSize: '0.5rem', width: '100%', backgroundColor: '#e7e7e7' }}>
@@ -428,7 +428,7 @@ const Login = (props) => {
                         </div>
                       </div>
                     </div>
-                    <Divider plain><sapn style={{color: '#999'}}>Or</sapn></Divider>
+                    <Divider plain><span style={{color: '#999'}}>Or</span></Divider>
                     <Row gutter={12} justify="space-between" align="middle">
                       <Col span={12}>
                         <Button style={{ fontSize: '0.5rem', width: '100%', backgroundColor: '#e7e7e7' }}>
