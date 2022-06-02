@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useTraderHistory } from '../../hooks';
 import { EXCHANGE_MAP } from '../../store/consts';
 import tableArrow_icon from "./../../assets/img/icons/table-arrow.svg";
+import circle_plus_icon from "./../../assets/img/uploads/plus.svg";
+import circle_minus_icon from "./../../assets/img/uploads/minus.png";
 
 const Portfolio = () => {
   const { historyList } = useTraderHistory();
@@ -151,7 +153,7 @@ const Portfolio = () => {
                   <tr>
                     <td className="small" onClick={() => showToogle(index + 1)}>
                       <img
-                        src={toggle !== index + 1 ? "/img/uploads/plus.svg" : "/img/uploads/minus.png"}
+                        src={toggle !== index + 1 ? circle_plus_icon : circle_minus_icon}
                         alt=""
                         className="img-fluid text-center cursor-pointer"
                         width={20}
