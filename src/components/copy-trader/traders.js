@@ -40,7 +40,7 @@ const TraderList = ({ traderList }) => {
           <td className="text-center">{trader.signalsCount}</td>
           <td className="text-center">
             <img src="img/uploads/profit-up.svg" alt="" className="img-fluid" />
-            <span className="text-green">{trader?.copyTrader?.profitRate || 0} </span>
+            <span className="text-center">{trader?.copyTrader?.profitRate || 0} </span>
           </td>
           <td className="text-center">
             {trader.subscribed ? (
