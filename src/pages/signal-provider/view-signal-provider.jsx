@@ -58,15 +58,7 @@ const ViewSignalProviderPage = () => {
                       />
                     </th>
                     <th scope="col" className="text-center">
-                      Signals Sent
-                      <img
-                        src={arrowicon}
-                        alt=""
-                        className="img-fluid ps-1"
-                      />
-                    </th>
-                    <th scope="col" className="text-center">
-                      Copy Trades
+                      Signals
                       <img
                         src={arrowicon}
                         alt=""

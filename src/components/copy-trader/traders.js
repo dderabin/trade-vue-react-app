@@ -36,8 +36,7 @@ const TraderList = ({ traderList }) => {
             </div>
           </td>
           <td className="text-center">{trader.subscribersCount}</td>
-          <td className="cubscriber">{trader?.copyTrader?.subscribeFee || 0}</td>
-          <td className="text-center">{trader.signalsCount}</td>
+          <td className="text-center">{trader?.copyTrader?.subscribeFee || 0}</td>
           <td className="text-center">{trader.signalsCount}</td>
           <td className="text-center">
             <img src="img/uploads/profit-up.svg" alt="" className="img-fluid" />
