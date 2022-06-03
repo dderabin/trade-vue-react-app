@@ -15,6 +15,7 @@ import icon_setting from "../../assets/img/icons/setting-mobile.svg";
 import tableArrow_icon from "../../assets/img/icons/table-arrow.svg";
 import html2canvas from "html2canvas";
 import pdfMake from "pdfmake/build/pdfmake";
+import { CSVLink } from "react-csv";
 
 export const TradeTerminalPage = () => {
   return (
@@ -25,7 +26,7 @@ export const TradeTerminalPage = () => {
 };
 
 export const GraphicalChartArea = () => {
-  const { historyList } = useTraderHistory();
+  const { historyList, csvData = [] } = useTraderHistory();
   const { exhchagesList } = useExchanges();
   const [updateState, setUpdateState] = useState({});
   const [createOpen, setCreateOpen] = useState(false);
@@ -66,6 +67,7 @@ export const GraphicalChartArea = () => {
         break;
     }
   };
+
   const printToPdf = () => {
     html2canvas(document.getElementById("print_to_pdf"), {
       onclone: (clonedDoc) => {
@@ -85,6 +87,7 @@ export const GraphicalChartArea = () => {
       pdfMake.createPdf(pdfExportSetting).download("trade_history.pdf");
     });
   };
+  
   function setCryptos(coins) {
     let tradingSymbol = coins;
     let cryptosArr = tradingSymbol.split("U");
@@ -285,21 +288,26 @@ export const GraphicalChartArea = () => {
                 {open === true && (
                   <OutsideClickHandler onOutsideClick={() => openMenu(false)}>
                     <ul className="option-content other">
-                      <li onClick={() => handleExportClick("PDF")}>
+                      {/* <li onClick={() => handleExportClick("PDF")}>
                         <a className="dropdown-item" href="#0">
                           Export to PDF
                         </a>
+                      </li> */}
+                      <li>
+                        <CSVLink 
+                          className="dropdown-item" 
+                          data={csvData} 
+                          filename={"trade-history.csv"}
+                          onClick={() => openMenu(false)}
+                        >
+                          Export to Excel
+                        </CSVLink>
                       </li>
-                      <li onClick={() => handleExportClick("Excel")}>
-                        <a className="dropdown-item" href="#0">
-                            Export to Excel
-                        </a>
-                      </li>
-                      <li onClick={() => handleExportClick("CSV")}>
+                      {/* <li onClick={() => handleExportClick("CSV")}>
                         <a className="dropdown-item" href="#0">
                           Export to CSV
                         </a>
-                      </li>
+                      </li> */}
                     </ul>
                   </OutsideClickHandler>
                 )}
@@ -429,24 +437,28 @@ export const GraphicalChartArea = () => {
                           />
                         </th>
                         <th>
-                          TP1
+                          TP1 Price
                         </th>
                         <th>
-                          TP2
+                          TP1 Quantity
                         </th>
                         <th>
-                          TP3
+                          TP2 Price
                         </th>
                         <th>
-                          TP4
+                          TP2 Quantity
                         </th>
-                        <th scope="col">
-                          Profit or Loss
-                          <img
-                            src={tableArrow_icon}
-                            alt=""
-                            className="img-fluid margin"
-                          />
+                        <th>
+                          TP3 Price
+                        </th>
+                        <th>
+                          TP3 Quantity
+                        </th>
+                        <th>
+                          TP4 Price
+                        </th>
+                        <th>
+                          TP4 Quantity
                         </th>
                       </tr>
                     </thead>
@@ -482,10 +494,13 @@ export const GraphicalChartArea = () => {
                               <td>100%</td>
                               <td>{item.state}</td>
                               <td>{item.targets[0].price}</td>
+                              <td>{item.targets[0].amount}</td>
                               <td>{item.targets[1]?.price || ''}</td>
+                              <td>{item.targets[1]?.amount || ''}</td>
                               <td>{item.targets[2]?.price || ''}</td>
+                              <td>{item.targets[2]?.amount || ''}</td>
                               <td>{item.targets[3]?.price || ''}</td>
-                              <td>{item.profitPercent}</td>
+                              <td>{item.targets[3]?.amount || ''}</td>
                             </tr>
                           </React.Fragment>
                         );
