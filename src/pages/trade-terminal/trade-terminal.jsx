@@ -13,9 +13,10 @@ import { EXCHANGE_MAP } from "../../store/consts";
 import OutsideClickHandler from "react-outside-click-handler";
 import icon_setting from "../../assets/img/icons/setting-mobile.svg";
 import tableArrow_icon from "../../assets/img/icons/table-arrow.svg";
-import html2canvas from "html2canvas";
-import pdfMake from "pdfmake/build/pdfmake";
+// import html2canvas from "html2canvas";
+// import pdfMake from "pdfmake/build/pdfmake";
 import { CSVLink } from "react-csv";
+import jsPDF from "jspdf";
 
 export const TradeTerminalPage = () => {
   return (
@@ -26,7 +27,7 @@ export const TradeTerminalPage = () => {
 };
 
 export const GraphicalChartArea = () => {
-  const { historyList, csvData = [] } = useTraderHistory();
+  const { historyList, csvData = [], headers } = useTraderHistory();
   const { exhchagesList } = useExchanges();
   const [updateState, setUpdateState] = useState({});
   const [createOpen, setCreateOpen] = useState(false);
@@ -53,40 +54,57 @@ export const GraphicalChartArea = () => {
     console.log(chosenExchange);
   };
 
-  const handleExportClick = (type) => {
+  const handleExportPDFClick = () => {
     openMenu(false);
-    switch (type) {
-      case "PDF":
-        printToPdf()
-        break;
-      case "Excel":
-        break;
-      case "CSV":
-        break;
-      default:
-        break;
-    }
+    exportPDF();
   };
 
-  const printToPdf = () => {
-    html2canvas(document.getElementById("print_to_pdf"), {
-      onclone: (clonedDoc) => {
-        clonedDoc.getElementById('export-table').style.overflowX = 'unset !impotant';
-      }
-    }).then(canvas => {
-      var data = canvas.toDataURL();
-      var pdfExportSetting = {
-        pageOrientation: 'landscape',
-        content: [
-          {
-            image: data,
-            width: 500
-          }
-        ]
-      };
-      pdfMake.createPdf(pdfExportSetting).download("trade_history.pdf");
-    });
-  };
+  // const printToPdf = () => {
+    // html2canvas(document.getElementById("print_to_pdf"), {
+    //   onclone: (clonedDoc) => {
+    //     clonedDoc.getElementById('export-table').style.overflowX = 'unset !impotant';
+    //   }
+    // }).then(canvas => {
+    //   var data = canvas.toDataURL();
+    //   var pdfExportSetting = {
+    //     pageOrientation: 'landscape',
+    //     content: [
+    //       {
+    //         image: data,
+    //         width: 500
+    //       }
+    //     ]
+    //   };
+    //   pdfMake.createPdf(pdfExportSetting).download("trade_history.pdf");
+    // });    
+  // };
+
+  const exportPDF = () => {
+    const unit = "pt";
+    const size = "A3"; // Use A1, A2, A3 or A4
+    const orientation = "landscape"; // portrait or landscape
+
+    const marginLeft = 40;
+    // var jsPDF = require('jspdf');
+    require('jspdf-autotable');
+    const doc = new jsPDF(orientation, unit, size);
+
+    doc.setFontSize(15);
+
+    const title = "Trade History";
+    let data = [...csvData];
+    data.shift();
+
+    let content = {
+      startY: 50,
+      head: headers,
+      body: data
+    };
+
+    doc.text(title, marginLeft, 40);
+    doc.autoTable(content);
+    doc.save("trade-history.pdf")
+  }
   
   function setCryptos(coins) {
     let tradingSymbol = coins;
@@ -288,11 +306,11 @@ export const GraphicalChartArea = () => {
                 {open === true && (
                   <OutsideClickHandler onOutsideClick={() => openMenu(false)}>
                     <ul className="option-content other">
-                      {/* <li onClick={() => handleExportClick("PDF")}>
+                      <li onClick={() => handleExportPDFClick()}>
                         <a className="dropdown-item" href="#0">
                           Export to PDF
                         </a>
-                      </li> */}
+                      </li>
                       <li>
                         <CSVLink 
                           className="dropdown-item" 
@@ -300,14 +318,9 @@ export const GraphicalChartArea = () => {
                           filename={"trade-history.csv"}
                           onClick={() => openMenu(false)}
                         >
-                          Export to Excel
+                          Export to CSV
                         </CSVLink>
                       </li>
-                      {/* <li onClick={() => handleExportClick("CSV")}>
-                        <a className="dropdown-item" href="#0">
-                          Export to CSV
-                        </a>
-                      </li> */}
                     </ul>
                   </OutsideClickHandler>
                 )}

@@ -6,6 +6,7 @@ import { EXCHANGE_MAP } from '../store/consts';
 const useTraderHistory = () => {
   const dispatch = useDispatch();
   const { historyList } = useSelector(state => state.appState);
+  const headers = [["Date", "Source", "Order Id", "Exchange", "Pair", "Type", "Position", "Leverage", "Order Type", "Buy Price", "Quantity", "SL Price", "SL Quantity", "State", "TP1 Price", "TP1 Quantity", "TP2 Price", "TP2 Quantity", "TP3 Price", "TP3 Quantity", "TP4 Price", "TP4 Quantity"]];
 
   useEffect(() => {
     dispatch(AppActions.signalHistoryFetchAction())
@@ -64,10 +65,11 @@ const useTraderHistory = () => {
       item.push(targets[3]?.amount || '')
       item.push(profitPercent)
       return [...prev, item]
-    }, [["Date", "Source", "Order Id", "Exchange", "Pair", "Type", "Position", "Leverage", "Order Type", "Buy Price", "Quantity", "SL Price", "SL Quantity", "State", "TP1 Price", "TP1 Quantity", "TP2 Price", "TP2 Quantity", "TP3 Price", "TP3 Quantity", "TP4 Price", "TP4 Quantity"]])
+    }, headers)
+    // eslint-disable-next-line
   }, [historyList])
 
-  return { historyList, historyById, editableHistory, csvData }
+  return { historyList, historyById, editableHistory, csvData, headers }
 }
 
 export default useTraderHistory
