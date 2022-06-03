@@ -1,3 +1,4 @@
+import "font-awesome/css/font-awesome.css";
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { RealTimeChartWidget } from "react-tradingview-widgets";
@@ -12,7 +13,8 @@ import { EXCHANGE_MAP } from "../../store/consts";
 import OutsideClickHandler from "react-outside-click-handler";
 import icon_setting from "../../assets/img/icons/setting-mobile.svg";
 import tableArrow_icon from "../../assets/img/icons/table-arrow.svg";
-import "font-awesome/css/font-awesome.css";
+import html2canvas from "html2canvas";
+import pdfMake from "pdfmake/build/pdfmake";
 
 export const TradeTerminalPage = () => {
   return (
@@ -49,10 +51,12 @@ export const GraphicalChartArea = () => {
     setChosenExchange(data);
     console.log(chosenExchange);
   };
+
   const handleExportClick = (type) => {
     openMenu(false);
     switch (type) {
       case "PDF":
+        printToPdf()
         break;
       case "Excel":
         break;
@@ -61,6 +65,25 @@ export const GraphicalChartArea = () => {
       default:
         break;
     }
+  };
+  const printToPdf = () => {
+    html2canvas(document.getElementById("print_to_pdf"), {
+      onclone: (clonedDoc) => {
+        clonedDoc.getElementById('export-table').style.overflowX = 'unset !impotant';
+      }
+    }).then(canvas => {
+      var data = canvas.toDataURL();
+      var pdfExportSetting = {
+        pageOrientation: 'landscape',
+        content: [
+          {
+            image: data,
+            width: 500
+          }
+        ]
+      };
+      pdfMake.createPdf(pdfExportSetting).download("trade_history.pdf");
+    });
   };
   function setCryptos(coins) {
     let tradingSymbol = coins;
@@ -269,7 +292,7 @@ export const GraphicalChartArea = () => {
                       </li>
                       <li onClick={() => handleExportClick("Excel")}>
                         <a className="dropdown-item" href="#0">
-                          Export to Excel
+                            Export to Excel
                         </a>
                       </li>
                       <li onClick={() => handleExportClick("CSV")}>
@@ -284,7 +307,9 @@ export const GraphicalChartArea = () => {
             </div>
             <div className="card mb-0 card-light-grey">
               <div className="card-body mob-pad-0">
+              <span id="print_to_pdf">
                 <div
+                  id="export-table"
                   className="table-responsive"
                   style={{ whiteSpace: "nowrap" }}
                 >
@@ -468,6 +493,7 @@ export const GraphicalChartArea = () => {
                     </tbody>
                   </table>
                 </div>
+              </span>
               </div>
             </div>
           </div>
