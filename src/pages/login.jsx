@@ -10,7 +10,7 @@ import lock_icon from "../assets/img/lock.svg";
 import email_icon from "../assets/img/email.svg";
 
 const Login = (props) => {
-  const { login, register } = useAuth();
+  const { login, register, googleLogin } = useAuth();
   const [currentFormType, setCurrentFormType] = useState("login");
   const [loginForm, setLoginForm] = useState({
     email: "", password: "", remember: false
@@ -20,24 +20,6 @@ const Login = (props) => {
   })
 
   const [resetEmail, setResetEmail] = useState('')
-
-  // const clientId = "278315676653-p894mp7jnnavs0oim2si23nfc2966v5a.apps.googleusercontent.com"
-
-  // const googleLogin = useGoogleLogin({
-  //   onSuccess: async tokenResponse => {
-  //     try{
-  //       console.log('tokenResponse =>', tokenResponse)
-  //       const response = await AxiosInstance.post('/user/google-sign-in', {
-  //         credential: tokenResponse.access_token
-  //       })
-  //       console.log('response in googleLogin =>', response.data)
-  //     }
-  //     catch(err){
-  //       console.log('error in googleLogin =>', err)
-  //     }
-  //   }
-  // })
-
 
   const loginClick = (event) => {
     const { email, password } = loginForm
@@ -183,7 +165,7 @@ const Login = (props) => {
                     <Row gutter={12} justify="space-between" align="middle">
                       <Col span={12}>
                         <Button style={{ fontSize: '0.5rem', width: '100%', backgroundColor: '#e7e7e7' }}
-                        //  onClick={() => googleLogin()}
+                         onClick={() => googleLogin()}
                         >
                           <div style={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                             <GoogleOutlined style={{ fontSize: '0.9rem', paddingRight: 3, color: 'red' }} /> Continue with Google

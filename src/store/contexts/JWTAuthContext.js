@@ -6,6 +6,7 @@ import localStorageHelper from '../localstorageHelper';
 import { useDispatch, useSelector } from 'react-redux';
 import { defaultState } from '../reducers/auth';
 import { AppActions } from '../actions';
+import { useGoogleLogin } from '@react-oauth/google';
 import * as Api from '../api';
 
 const isValidToken = (accessToken) => {
@@ -33,6 +34,7 @@ const AuthContext = createContext({
     ...defaultState,
     method: 'JWT',
     login: () => Promise.resolve(),
+    googleLogin: () => Promise.resolve(),
     logout: () => { },
     register: () => Promise.resolve(),
 })
@@ -57,6 +59,25 @@ export const AuthProvider = ({ children }) => {
             dispatch(AppActions.messageConsumedAction())
         }
     }
+
+    const googleLogin = useGoogleLogin({
+        onSuccess: async tokenResponse => {
+          try{
+            const response = await Api.GOOGLE_LOGIN({credential: tokenResponse.access_token})
+            const { token, refreshToken } = response.data
+
+            setSession(token, refreshToken)
+
+            dispatch(AppActions.sagaSuccessAction({msg: 'Logged in successfully'}))
+            dispatch(AppActions.messageConsumedAction())
+            dispatch(AppActions.userProfileFetchAction())
+          }
+          catch(e){
+            dispatch(AppActions.sagaFailAction(e))
+            dispatch(AppActions.messageConsumedAction())
+          }
+        }
+    })
 
     const register = async (email, password) => {
         try {
@@ -111,6 +132,7 @@ export const AuthProvider = ({ children }) => {
                 ...authState,
                 method: 'JWT',
                 login,
+                googleLogin,
                 logout,
                 register,
             }}

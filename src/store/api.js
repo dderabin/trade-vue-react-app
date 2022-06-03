@@ -18,6 +18,11 @@ export const LOGIN_USER = (data = {}) => {
     return AxiosInstance.post(`/user/login`, data);
 }
 
+export const GOOGLE_LOGIN = (data) => {
+    // raw json data
+    return AxiosInstance.post(`/user/google-sign-in`, data);
+}
+
 export const GET_PROFILE = () => {
     return AxiosInstance.get(`/user/profile`);
 }
