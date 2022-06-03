@@ -3390,8 +3390,7 @@ textarea {
 
 // tradeterminal (tt)
 .tt-wrapper {
-  display: grid;
-  grid-template-areas: "graphs";
+  display: flex;
   position: relative;
   width: 100%;
   height: 100%;
@@ -3478,8 +3477,8 @@ textarea {
     height: 100%;
     display: flex;
     flex-direction: column;
-    max-width: 100%;
-    width: 100%;
+    flex-grow: 1;
+    width: 65%;
     margin-left: 7px;
     margin-right: 7px;
     .tt-coin-info {
@@ -3609,6 +3608,7 @@ textarea {
     transition: all 300ms linear;
     color: black;
     position: relative;
+    margin-left: 0.5rem;
     @media (max-width: 570px) {
       right: 0;
     }
