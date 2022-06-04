@@ -2844,9 +2844,11 @@ footer .copyright p:last-child {
 }
 .exchnages-bg .exchnages-boxs ul.coin-lists {
   display: block;
-  /* margin: 70px 0 0 0; */
   padding: 0 ;
   list-style: none;
+  width: 180px;
+  min-width: 180px;
+  max-width: 180px;
 }
 
 .exchnages-bg .button {

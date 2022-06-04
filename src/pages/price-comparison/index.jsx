@@ -835,7 +835,7 @@ const PriceComparisonPage = () => {
 
             <div className="exchnages-boxs mt-2">
               <ul id="coinList" className="coin-lists">
-                <li className="border-0" style={{ height: "76px" }}>
+                <li className="border-0" style={{ height: "70px", minHeight: '70px', maxHeight: '70px' }}>
                   <div className="d-flex not-shown">
                     <div className="my-auto"></div>
                     <div>

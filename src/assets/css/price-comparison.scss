@@ -163,11 +163,13 @@
 .title {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  padding: 20px 0;
+  padding-right: 6px;
   min-height: 70px;
   font-weight: 600;
+  max-height: 70px;
+  height: 70px;
 }
 .title .img {
   margin-right: 0.251rem;
@@ -195,8 +197,7 @@ list-wrapper::-webkit-scrollbar {
 .items li {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  padding: 10px;
+  justify-content: flex-end;
   align-items: center;
   border-top: solid 1px #dadada;
   min-height: 63px;
@@ -246,10 +247,6 @@ list-wrapper::-webkit-scrollbar {
   .items li span {
     font-size: 10px;
   }
-  .title {
-    justify-content: flex-end;
-    padding-right: 2rem;
-  }
 }
 /* only for "portrait mode" */
 @media (min-width: 360px) and (max-width: 413px) {
@@ -263,12 +260,6 @@ list-wrapper::-webkit-scrollbar {
   }
   .coin-lists {
     width: 50vw;
-  }
-  .items li {
-    flex-wrap: nowrap;
-    flex-direction: column;
-    align-items: flex-end;
-    padding-right: 7px;
   }
 }
 /* only portrait mode ends */
